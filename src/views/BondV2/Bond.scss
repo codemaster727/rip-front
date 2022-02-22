@@ -1,11 +1,16 @@
 #bond-view {
+  & > div:nth-child(3){
+    background-color: black !important;
+  }
+  .MuiBackdrop-root {
+    background-color: lightgreen;
+  }
   .bond-data {
     margin: 10px 0 0 0;
   }
-
   .bond-price-data-row {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     text-align: center;
     margin: 23px;
     h4 {
@@ -81,8 +86,4 @@
 
 .web3modal-modal-lightbox {
   z-index: 70 !important;
-}
-
-.bond_discount_positive {
-  color: green;
 }

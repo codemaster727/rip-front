@@ -7,7 +7,7 @@ import { Token, TokenStack } from "@olympusdao/component-library";
 import React from "react";
 
 import { ReactComponent as ArrowUp } from "../../assets/icons/arrow-up.svg";
-import { segmentUA } from "../../helpers/userAnalyticHelpers";
+import { trackGAEvent, trackSegmentEvent } from "../../helpers/analytics";
 
 const useStyles = makeStyles(theme => ({
   infoBox: {
@@ -31,15 +31,18 @@ const useStyles = makeStyles(theme => ({
   infoHeader: {
     [theme.breakpoints.down("md")]: {
       width: "40%",
+      padding: "12px 0px",
     },
     [theme.breakpoints.up("md")]: {
       width: "100%",
+      paddingBottom: "1.5rem",
     },
   },
   infoBody: {
     [theme.breakpoints.down("md")]: {
       width: "60%",
-      paddingTop: "24px",
+      paddingTop: "12px",
+      paddingInline: "6px",
     },
     [theme.breakpoints.up("md")]: {
       width: "100%",
@@ -61,30 +64,47 @@ const ZapInfo: React.FC<ZapInfoProps> = ({ tokens, address }) => {
       address,
       type: "Learn more OlyZaps",
     };
-    segmentUA(uaData);
+    trackSegmentEvent(uaData);
+    trackGAEvent({
+      category: "OlyZaps",
+      action: uaData.type,
+    });
   };
+
   return (
     <Paper className="ohm-card" id="olyzaps-info">
-      <Grid container direction="row" spacing={4}>
-        <Grid item sm={12} md={4} classes={{ root: classes.infoBox, item: classes.infoBoxItem }}>
+      <Typography variant="h5" style={{ color: "black" }} align="center">
+        <Trans>Zap</Trans>
+      </Typography>
+      <Grid container direction="row" spacing={3} style={{ marginTop: "20px" }}>
+        <Grid
+          item
+          sm={12}
+          // col-offset={3}
+          md={3}
+          // lg={4}
+          classes={{ root: classes.infoBox, item: classes.infoBoxItem }}
+          style={{ backgroundColor: "black", marginLeft: "1rem", borderRadius: "15px" }}
+        >
           <Box
-            alignItems="center"
+            alignItems="left"
             display="flex"
             flexDirection="column"
+            justifyContent="left"
             className={`${classes.infoHeader} oly-info-header-box`}
           >
             <Box>
               <TokenStack tokens={["DAI", "wETH"]} style={{ marginBottom: "16px" }} />
             </Box>
-            <Typography color="textSecondary" align="center">
+            <Typography variant="h4" style={{ color: "white" }} align="left">
               <Trans>You Give</Trans>
             </Typography>
           </Box>
           <Box className={classes.infoBody}>
-            <Typography variant="body1" className="oly-info-body-header">
+            <Typography variant="body1" style={{ color: "white" }} className="oly-info-body-header">
               <Trans>Zap is a swap</Trans>
             </Typography>
-            <Typography align="left" variant="body2" className="oly-info-body">
+            <Typography align="left" style={{ color: "white" }} variant="body2" className="oly-info-body">
               <Trans>
                 A zap swap is a series of smart contracts that deploys one asset to another protocol to handle a trusted
                 transaction.
@@ -92,49 +112,65 @@ const ZapInfo: React.FC<ZapInfoProps> = ({ tokens, address }) => {
             </Typography>
           </Box>
         </Grid>
-        <Grid item sm={12} md={4} classes={{ root: classes.infoBox, item: classes.infoBoxItem }}>
+        <Grid item md={1}></Grid>
+        <Grid
+          item
+          sm={12}
+          md={3}
+          classes={{ root: classes.infoBox, item: classes.infoBoxItem }}
+          style={{ backgroundColor: "black", marginLeft: "1rem", marginRight: "1rem", borderRadius: "15px" }}
+        >
           <Box
-            alignItems="center"
+            alignItems="left"
             display="flex"
             flexDirection="column"
+            justifyContent="center"
             className={`${classes.infoHeader} oly-info-header-box`}
           >
             {/* @ts-ignore - (keith) add style prop & types to Token Component */}
             <Token name="zap" style={{ marginBottom: "16px" }} />
-            <Typography color="textSecondary" align="center">
+            <Typography variant="h4" style={{ color: "white" }} align="left">
               <Trans>All-in-one zap contracts</Trans>
             </Typography>
           </Box>
           <Box className={classes.infoBody}>
-            <Typography variant="body1" className="oly-info-body-header">
+            <Typography variant="body1" style={{ color: "white" }} className="oly-info-body-header">
               <Trans>All-in-one easy staking</Trans>
             </Typography>
-            <Typography align="left" variant="body2" className="oly-info-body">
+            <Typography align="left" style={{ color: "white" }} variant="body2" className="oly-info-body">
               <Trans>OlyZap reduces complexity, saves you time and keeps you here on Olympus.</Trans>
             </Typography>
           </Box>
         </Grid>
-        <Grid item sm={12} md={4} classes={{ root: classes.infoBox, item: classes.infoBoxItem }}>
+        <Grid item md={1}></Grid>
+        <Grid
+          item
+          sm={12}
+          md={3}
+          classes={{ root: classes.infoBox, item: classes.infoBoxItem }}
+          style={{ backgroundColor: "black", borderRadius: "15px" }}
+        >
           <Box
-            alignItems="center"
+            alignItems="left"
             display="flex"
             flexDirection="column"
+            justifyContent="center"
             className={`${classes.infoHeader} oly-info-header-box`}
           >
             {/* @ts-ignore - (keith) add style prop & types to Token Component */}
-            <Token name="sOHM" style={{ marginBottom: "16px" }} />
-            <Typography color="textSecondary" align="center">
-              <Trans>You Get sOHM</Trans>{" "}
+            <TokenStack tokens={["sOHM", "wsOHM"]} style={{ marginBottom: "16px" }} />
+            <Typography color="textSecondary" align="left" style={{ color: "white" }} variant="h4">
+              <Trans>You Choose</Trans>
             </Typography>
           </Box>
           <Box className={classes.infoBody}>
-            <Typography variant="body1" className="oly-info-body-header">
+            <Typography variant="body1" className="oly-info-body-header" style={{ color: "white" }}>
               <Trans>Staking</Trans>
             </Typography>
-            <Typography align="left" variant="body2" className="oly-info-body">
+            <Typography align="left" variant="body2" className="oly-info-body" style={{ color: "white" }}>
               <Trans>
                 Staking is the primary value accrual strategy of Olympus. When you stake, you lock OHM and receive an
-                equal amount of sOHM.
+                equal value of sOHM or gOHM.
               </Trans>
             </Typography>
           </Box>
