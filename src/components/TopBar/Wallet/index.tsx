@@ -1,7 +1,8 @@
 import { t } from "@lingui/macro";
-import { Button, SvgIcon, SwipeableDrawer, Typography, useTheme, withStyles } from "@material-ui/core";
+// import { Button, SvgIcon, SwipeableDrawer, Typography, useTheme, withStyles } from "@material-ui/core";
+import { SvgIcon, SwipeableDrawer, useTheme, withStyles } from "@material-ui/core";
 import { useState } from "react";
-import { ReactComponent as WalletIcon } from "src/assets/icons/wallet.svg";
+import { ReactComponent as WalletIcon } from "src/assets/icons/ripwallet.svg";
 import { useWeb3Context } from "src/hooks/web3Context";
 
 import InitialWalletView from "./InitialWalletView";
@@ -11,11 +12,19 @@ const WalletButton = ({ openWallet }: { openWallet: () => void }) => {
   const onClick = connected ? openWallet : connect;
   const label = connected ? t`Wallet` : t`Connect Wallet`;
   const theme = useTheme();
+  // return (
+  //   <Button id="ohm-menu-button" variant="contained" color="secondary" onClick={onClick}>
+  //     <SvgIcon component={WalletIcon} style={{ marginRight: theme.spacing(1) }} />
+  //     <Typography>{label}</Typography>
+  //   </Button>
+  // );
   return (
-    <Button id="ohm-menu-button" variant="contained" color="secondary" onClick={onClick}>
-      <SvgIcon component={WalletIcon} style={{ marginRight: theme.spacing(1) }} />
-      <Typography>{label}</Typography>
-    </Button>
+    <SvgIcon
+      component={WalletIcon}
+      style={{ marginRight: theme.spacing(1), cursor: "pointer", width: "45px", height: "41px" }}
+      onClick={onClick}
+      viewBox="0 0 45 45"
+    />
   );
 };
 

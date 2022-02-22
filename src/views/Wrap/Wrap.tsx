@@ -1,10 +1,10 @@
 import "../Stake/Stake.scss";
 
 import { t } from "@lingui/macro";
-import { Box, Button, Divider, FormControl, Grid, Link, MenuItem, Select, Typography, Zoom } from "@material-ui/core";
+import { Box, Button, Divider, FormControl, Grid, MenuItem, Select, Typography, Zoom } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
-import { DataRow, Icon, InputWrapper, Metric, MetricCollection, Paper } from "@olympusdao/component-library";
-import { useCallback, useMemo, useState } from "react";
+import { DataRow, InputWrapper, Paper } from "@olympusdao/component-library";
+import { FC, useCallback, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import ConnectButton from "src/components/ConnectButton/ConnectButton";
 import { useAppSelector } from "src/hooks";
@@ -17,7 +17,7 @@ import { switchNetwork } from "../../helpers/NetworkHelper";
 import { changeApproval, changeWrapV2 } from "../../slices/WrapThunk";
 import WrapCrossChain from "./WrapCrossChain";
 
-const Wrap: React.FC = () => {
+const Wrap: FC = () => {
   const dispatch = useDispatch();
   const { provider, address, connect, networkId } = useWeb3Context();
 
@@ -165,25 +165,89 @@ const Wrap: React.FC = () => {
       <div id="stake-view" className="wrapper">
         <Zoom in={true} onEntered={() => setZoomed(true)}>
           <Paper
-            headerText={t`Wrap / Unwrap`}
-            topRight={
-              <Link
-                className="migrate-sohm-button"
-                style={{ textDecoration: "none" }}
-                href={
-                  assetTo === "wsOHM"
-                    ? "https://docs.olympusdao.finance/main/contracts/tokens#wsohm"
-                    : "https://docs.olympusdao.finance/main/contracts/tokens#gohm"
-                }
-                aria-label="wsohm-wut"
-                target="_blank"
-              >
-                <Typography>gOHM</Typography> <Icon style={{ marginLeft: "5px" }} name="arrow-up" />
-              </Link>
-            }
+          // topRight={
+          //   <Link
+          //     className="migrate-sohm-button"
+          //     style={{ textDecoration: "none" }}
+          //     href={
+          //       assetTo === "wsOHM"
+          //         ? "https://docs.olympusdao.finance/main/contracts/tokens#wsohm"
+          //         : "https://docs.olympusdao.finance/main/contracts/tokens#gohm"
+          //     }
+          //     aria-label="wsohm-wut"
+          //     target="_blank"
+          //   >
+          //     <Typography>gr.rip</Typography> <Icon style={{ marginRight: "5px" }} name="arrow-up" />
+          //   </Link>
+          // }
           >
-            <Grid item style={{ padding: "0 0 2rem 0" }}>
-              <MetricCollection>
+            <Typography align="center" variant="h4" style={{ fontWeight: "bold", marginTop: "20px" }}>
+              {t`Wrap / Unwrap`}
+            </Typography>
+            <Grid container direction="row" spacing={3} style={{ marginTop: "20px", padding: "0 0 2rem 0" }}>
+              <Grid item md={6}>
+                <Box
+                  alignItems="right"
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="right"
+                  // className={`${classes.infoHeader} oly-info-header-box`}
+                >
+                  <Typography
+                    align="right"
+                    variant="h5"
+                    style={{ fontWeight: "bold", color: "black" }}
+                  >{`sr.rip ${t`Price`}`}</Typography>
+                  <Typography
+                    align="right"
+                    variant="h5"
+                    style={{ fontWeight: "bold", color: "black" }}
+                  >{t`Current Index`}</Typography>
+                  <Typography
+                    align="right"
+                    variant="h5"
+                    style={{ fontWeight: "bold", color: "black" }}
+                  >{`gr.rip ${t`Price`}`}</Typography>
+                </Box>
+              </Grid>
+              <Grid item md={6}>
+                <Box
+                  alignItems="left"
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="left"
+                  // className={`${classes.infoHeader} oly-info-header-box`}
+                >
+                  {sOhmPrice ? (
+                    <Typography align="left" variant="h5" style={{ color: "black" }}>
+                      {formatCurrency(sOhmPrice, 2)}
+                    </Typography>
+                  ) : (
+                    <Typography align="left" variant="h6" style={{ color: "black" }}>
+                      Loading...
+                    </Typography>
+                  )}
+                  {gOhmPrice ? (
+                    <Typography align="left" variant="h5" style={{ color: "black" }}>
+                      {trim(currentIndex, 1)}
+                    </Typography>
+                  ) : (
+                    <Typography align="left" variant="h6" style={{ color: "black" }}>
+                      Loading...
+                    </Typography>
+                  )}
+                  {gOhmPrice ? (
+                    <Typography align="left" variant="h5" style={{ color: "black" }}>
+                      {formatCurrency(gOhmPrice, 2)}
+                    </Typography>
+                  ) : (
+                    <Typography align="left" variant="h6" style={{ color: "black" }}>
+                      Loading...
+                    </Typography>
+                  )}
+                </Box>
+              </Grid>
+              {/* <MetricCollection>
                 <Metric
                   label={`sOHM ${t`Price`}`}
                   metric={formatCurrency(sOhmPrice, 2)}
@@ -200,7 +264,7 @@ const Wrap: React.FC = () => {
                   isLoading={gOhmPrice ? false : true}
                   tooltip={`gOHM = sOHM * index\n\nThe price of gOHM is equal to the price of sOHM multiplied by the current index`}
                 />
-              </MetricCollection>
+              </MetricCollection> */}
             </Grid>
             <div className="staking-area">
               {!address ? (
@@ -208,7 +272,6 @@ const Wrap: React.FC = () => {
                   <div className="wallet-menu" id="wallet-menu">
                     <ConnectButton />
                   </div>
-                  <Typography variant="h6">Connect your wallet</Typography>
                 </div>
               ) : (
                 <>

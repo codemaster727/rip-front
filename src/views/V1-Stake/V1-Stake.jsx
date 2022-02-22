@@ -20,7 +20,7 @@ import {
 import { ExpandMore } from "@material-ui/icons";
 import { Skeleton } from "@material-ui/lab";
 import { Tab, TabPanel, Tabs } from "@olympusdao/component-library";
-import { DataRow, Metric, MetricCollection, Paper } from "@olympusdao/component-library";
+import { DataRow, Paper } from "@olympusdao/component-library";
 import { ethers } from "ethers";
 import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -187,7 +187,78 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
     <div id="v1-stake-view">
       <Zoom in={true} onEntered={() => setZoomed(true)}>
         <Paper headerText={`${t`Single Stake`} (3, 3)`} subHeader={<RebaseTimer />}>
-          <Grid container direction="column" spacing={2}>
+          <Typography align="center" variant="h4" style={{ fontWeight: "bold", marginTop: "20px" }}>
+            {t`Single Stake (3, 3)`}
+          </Typography>
+          <Typography align="center" variant="h6" style={{ fontWeight: "bold", margin: "auto" }}>
+            {<RebaseTimer />}
+          </Typography>
+          <Grid container direction="column" spacing={2} style={{ marginTop: "20px" }}>
+            <Grid container direction="row" spacing={3} style={{ marginTop: "20px", padding: "0 0 2rem 0" }}>
+              <Grid item md={6}>
+                <Box
+                  alignItems="right"
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="right"
+                  // className={`${classes.infoHeader} oly-info-header-box`}
+                >
+                  <Typography
+                    align="right"
+                    variant="h5"
+                    style={{ fontWeight: "bold", color: "black" }}
+                  >{t`APY`}</Typography>
+                  <Typography
+                    align="right"
+                    variant="h5"
+                    style={{ fontWeight: "bold", color: "black" }}
+                  >{t`Total Value Deposited`}</Typography>
+                  <Typography
+                    align="right"
+                    variant="h5"
+                    style={{ fontWeight: "bold", color: "black" }}
+                  >{t`Current Index`}</Typography>
+                </Box>
+              </Grid>
+              <Grid item md={6}>
+                <Box
+                  alignItems="left"
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="left"
+                  // className={`${classes.infoHeader} oly-info-header-box`}
+                >
+                  {stakingAPY ? (
+                    <Typography align="left" variant="h5" style={{ color: "black" }}>
+                      {`${formattedTrimmedStakingAPY}%`}
+                    </Typography>
+                  ) : (
+                    <Typography align="left" variant="h5" style={{ color: "black" }}>
+                      Loading...
+                    </Typography>
+                  )}
+                  {stakingTVL ? (
+                    <Typography align="left" variant="h5" style={{ color: "black" }}>
+                      {formattedStakingTVL}
+                    </Typography>
+                  ) : (
+                    <Typography align="left" variant="h5" style={{ color: "black" }}>
+                      Loading...
+                    </Typography>
+                  )}
+                  {currentIndex ? (
+                    <Typography align="left" variant="h5" style={{ color: "black" }}>
+                      {`${formattedCurrentIndex} sr.rip`}
+                    </Typography>
+                  ) : (
+                    <Typography align="left" variant="h5" style={{ color: "black" }}>
+                      Loading...
+                    </Typography>
+                  )}
+                </Box>
+              </Grid>
+            </Grid>
+            {/* <Grid container direction="column" spacing={2}>
             <Grid item>
               <MetricCollection>
                 <Metric
@@ -209,7 +280,7 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
                   isLoading={currentIndex ? false : true}
                 />
               </MetricCollection>
-            </Grid>
+            </Grid> */}
 
             <div className="staking-area">
               {!address ? (

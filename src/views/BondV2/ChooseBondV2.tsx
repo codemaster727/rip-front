@@ -1,20 +1,9 @@
 import "./ChooseBond.scss";
 
-import { t, Trans } from "@lingui/macro";
-import {
-  Box,
-  Grid,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-  Zoom,
-} from "@material-ui/core";
+import { t } from "@lingui/macro";
+import { Box, Grid, Typography, Zoom } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { Metric, MetricCollection, Paper } from "@olympusdao/component-library";
+import { Paper } from "@olympusdao/component-library";
 import isEmpty from "lodash/isEmpty";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -74,14 +63,46 @@ function ChooseBondV2() {
     }
     return withInterestDue;
   });
-
+  // console.log(bondsV2);
   return (
     <div id="choose-bond-view">
       {(!isEmpty(accountNotes) || !isEmpty(v1AccountBonds)) && <ClaimBonds activeNotes={accountNotes} />}
 
       <Zoom in={true}>
-        <Paper headerText={`${t`Bond`} (4,4)`}>
-          <MetricCollection>
+        <Paper>
+          <Typography align="center" variant="h4" style={{ fontWeight: "bold" }}>{`${t`Bond`} (4,4)`}</Typography>
+          <Grid container direction="row" spacing={3} style={{ marginTop: "20px" }}>
+            <Grid item md={6}>
+              <Box
+                alignItems="right"
+                display="flex"
+                flexDirection="column"
+                justifyContent="right"
+                // className={`${classes.infoHeader} oly-info-header-box`}
+              >
+                <Typography align="right" variant="h5" style={{ fontWeight: "bold" }}>{t`treasury balance`}</Typography>
+                <Typography align="right" variant="h5" style={{ fontWeight: "bold" }}>{t`r.rip price`}</Typography>
+              </Box>
+            </Grid>
+            <Grid item md={6}>
+              <Box
+                alignItems="left"
+                display="flex"
+                flexDirection="column"
+                justifyContent="left"
+                // className={`${classes.infoHeader} oly-info-header-box`}
+              >
+                <Typography align="left" variant="h5">
+                  {!!treasuryBalance ? formattedTreasuryBalance : "loading..."}
+                  {/* {formattedTreasuryBalance} */}
+                </Typography>
+                <Typography align="left" variant="h5">
+                  {marketPrice ? formatCurrency(Number(marketPrice), 2) : "loading..."}
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
+          {/* <MetricCollection>
             <Metric
               label={t`Treasury Balance`}
               metric={formattedTreasuryBalance}
@@ -92,7 +113,7 @@ function ChooseBondV2() {
               metric={formatCurrency(Number(marketPrice), 2)}
               isLoading={marketPrice ? false : true}
             />
-          </MetricCollection>
+          </MetricCollection> */}
 
           {bondsV2.length == 0 && !isBondsLoading && (
             <Box display="flex" justifyContent="center" marginY="24px">
@@ -101,8 +122,8 @@ function ChooseBondV2() {
           )}
 
           {!isSmallScreen && bondsV2.length != 0 && (
-            <Grid container item>
-              <TableContainer>
+            <Grid container item direction="row" spacing={3}>
+              {/* <TableContainer>
                 <Table aria-label="Available bonds">
                   <TableHead>
                     <TableRow>
@@ -113,7 +134,7 @@ function ChooseBondV2() {
                         <Trans>Price</Trans>
                       </TableCell>
                       <TableCell align="left">
-                        <Trans>ROI</Trans>
+                        <Trans>Discount</Trans>
                       </TableCell>
                       <TableCell align="left">
                         <Trans>Duration</Trans>
@@ -121,13 +142,14 @@ function ChooseBondV2() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {bondsV2.map(bond => {
-                      if (bond.displayName !== "unknown")
-                        return <BondTableData networkId={networkId} key={bond.index} bond={bond} />;
-                    })}
+                    
                   </TableBody>
                 </Table>
-              </TableContainer>
+              </TableContainer> */}
+              {bondsV2.map(bond => {
+                if (bond.displayName !== "unknown")
+                  return <BondTableData networkId={networkId} key={bond.index} bond={bond} />;
+              })}
             </Grid>
           )}
           <Box mt={2} className="help-text">

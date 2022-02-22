@@ -1,7 +1,7 @@
 import { t, Trans } from "@lingui/macro";
-import { Box, FormControl, Slide, Typography } from "@material-ui/core";
+import { Box, FormControl, Grid, Slide, Typography } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
-import { DataRow, InfoTooltip, Input, PrimaryButton } from "@olympusdao/component-library";
+import { Input, PrimaryButton } from "@olympusdao/component-library";
 import { ethers } from "ethers";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -12,7 +12,7 @@ import { isPendingTxn, txnButtonText } from "src/slices/PendingTxnsSlice";
 import { AppDispatch } from "src/store";
 
 import ConnectButton from "../../components/ConnectButton/ConnectButton";
-import { shorten, trim } from "../../helpers";
+import { trim } from "../../helpers";
 import { error } from "../../slices/MessagesSlice";
 import { DisplayBondDiscount } from "./BondV2";
 
@@ -187,53 +187,116 @@ function BondPurchase({
 
       <Slide direction="left" in={true} mountOnEnter unmountOnExit {...{ timeout: 533 }}>
         <Box className="bond-data">
-          <DataRow
+          <Grid container direction="row" spacing={3}>
+            <Grid item md={6}>
+              <Box
+                alignItems="right"
+                display="flex"
+                flexDirection="column"
+                justifyContent="right"
+                // className={`${classes.infoHeader} oly-info-header-box`}
+              >
+                <Typography align="right" variant="h6" style={{ color: "white" }}>{t`Your Balance`}</Typography>
+                <Typography align="right" variant="h6" style={{ color: "white" }}>{t`You Will Get`}</Typography>
+                <Typography align="right" variant="h6" style={{ color: "white" }}>{t`Max You Can Buy`}</Typography>
+                <Typography align="right" variant="h6" style={{ color: "white" }}>{t`Discount`}</Typography>
+                <Typography align="right" variant="h6" style={{ color: "white" }}>{t`Duration`}</Typography>
+              </Box>
+            </Grid>
+            <Grid item md={6}>
+              <Box
+                alignItems="left"
+                display="flex"
+                flexDirection="column"
+                justifyContent="left"
+                // className={`${classes.infoHeader} oly-info-header-box`}
+              >
+                {isBondLoading ? (
+                  <>
+                    <Typography align="left" variant="h6" style={{ color: "white" }}>
+                      Loading...
+                    </Typography>
+                    <Typography align="left" variant="h6" style={{ color: "white" }}>
+                      Loading...
+                    </Typography>
+                    <Typography align="left" variant="h6" style={{ color: "white" }}>
+                      Loading...
+                    </Typography>
+                    <Typography align="left" variant="h6" style={{ color: "white" }}>
+                      Loading...
+                    </Typography>
+                    <Typography align="left" variant="h6" style={{ color: "white" }}>
+                      Loading...
+                    </Typography>
+                  </>
+                ) : (
+                  <>
+                    <Typography align="left" variant="h6" style={{ color: "white" }}>
+                      {`${trim(balanceNumber, 4)} ${bond.displayName}`}
+                    </Typography>
+                    <Typography align="left" variant="h6" style={{ color: "white" }}>
+                      {`${trim(Number(quantity) / bond.priceToken, 4) || "0"} ` +
+                        `sOHM (≈${trim(+quantity / bond.priceToken / +currentIndex, 4) || "0"} gr.rip)`}
+                    </Typography>
+                    <Typography align="left" variant="h6" style={{ color: "white" }}>
+                      {`${trim(+bond.maxPayoutOrCapacityInBase, 4) || "0"} sr.rip (≈${
+                        trim(+bond.maxPayoutOrCapacityInQuote, 4) || "0"
+                      } ${bond.displayName})`}
+                    </Typography>
+                    <Typography align="left" variant="h6" style={{ color: "white" }}>
+                      {<DisplayBondDiscount key={bond.displayName} bond={bond} />}
+                    </Typography>
+                    <Typography align="left" variant="h6" style={{ color: "white" }}>
+                      {bond.duration}
+                    </Typography>
+                  </>
+                )}
+              </Box>
+            </Grid>
+          </Grid>
+          {/* <DataRow
             title={t`Your Balance`}
             balance={`${trim(balanceNumber, 4)} ${bond.displayName}`}
             isLoading={isBondLoading}
           />
-
-          <Box display="flex" flexDirection="row" justifyContent="space-between">
-            <Box display="flex" flexDirection="row">
-              <Typography>
-                <Trans>You Will Get</Trans>
-              </Typography>
-              <InfoTooltip message="Actual sOHM amount you receive will be higher at the end of the term due to rebase accrual."></InfoTooltip>
-            </Box>
-            <Typography id="bond-value-id" className="price-data">
-              {isBondLoading ? (
-                <Skeleton width="100px" />
-              ) : (
-                `${trim(Number(quantity) / bond.priceToken, 4) || "0"} ` +
-                `sOHM (≈${trim(+quantity / bond.priceToken / +currentIndex, 4) || "0"} gOHM)`
-              )}
-            </Typography>
-          </Box>
           <DataRow
+            title={t`You Will Get`}
+            balance={
+              `${trim(Number(quantity) / bond.priceToken, 4) || "0"} ` +
+              `sOHM (≈${trim(+quantity / bond.priceToken / +currentIndex, 4) || "0"} gOHM)`
+            }
+            tooltip={t`The total amount of payout asset you will recieve from this bond purhcase. (sOHM amount will be higher due to rebasing)`}
+            isLoading={isBondLoading}
+          /> */}
+          {/* <DataRow
             title={t`Max You Can Buy`}
             balance={`${trim(+bond.maxPayoutOrCapacityInBase, 4) || "0"} sOHM (≈${
               trim(+bond.maxPayoutOrCapacityInQuote, 4) || "0"
             } ${bond.displayName})`}
             isLoading={isBondLoading}
+            tooltip={t`The maximum quantity of payout token we are able to offer via bonds at this moment in time.`}
           />
-          <Box display="flex" flexDirection="row" justifyContent="space-between">
-            <Typography>
-              <Trans>ROI</Trans>
-            </Typography>
-            <Typography>
-              {isBondLoading ? <Skeleton width="100px" /> : <DisplayBondDiscount key={bond.displayName} bond={bond} />}
-            </Typography>
-          </Box>
+          <DataRow
+            title={t`Discount`}
+            balance={<DisplayBondDiscount key={bond.displayName} bond={bond} />}
+            tooltip={t`Negative discount is bad (you pay more than the market value). The bond discount is the percentage difference between OHM's market value and the bond's price.`}
+            isLoading={isBondLoading}
+          />
 
-          <DataRow title={t`Duration`} balance={bond.duration} isLoading={isBondLoading} />
-          {recipientAddress !== address && (
+          <DataRow
+            title={t`Duration`}
+            balance={bond.duration}
+            isLoading={isBondLoading}
+            tooltip={t`The duration of the Bond whereby the bond can be claimed in it’s entirety.  Bonds are no longer vested linearly and are locked for entire duration.`}
+          /> */}
+          {/* {recipientAddress !== address && (
             <DataRow title={t`Recipient`} balance={shorten(recipientAddress)} isLoading={isBondLoading} />
-          )}
+          )} */}
         </Box>
       </Slide>
       <div className="help-text">
         <em>
-          <Typography variant="body2">
+          <Typography variant="body2" style={{ color: "white", marginTop: "40px" }}>
             Important: New bonds are auto-staked (accrue rebase rewards) and no longer vest linearly. Simply claim as
             sOHM or gOHM at the end of the term.
           </Typography>

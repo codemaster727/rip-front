@@ -72,7 +72,7 @@ const BondV2 = ({ index }: { index: number }) => {
     <Box display="flex" flexDirection="row">
       <TokenStack tokens={bond.bondIconSvg} />
       <Box display="flex" flexDirection="column" ml={1} justifyContent="center" alignItems="center">
-        <Typography variant="h5">{`${bond.displayName}`}</Typography>
+        <Typography variant="h5" style={{ color: "#11ffbd" }}>{`${bond.displayName}`}</Typography>
       </Box>
     </Box>
   );
@@ -89,18 +89,21 @@ const BondV2 = ({ index }: { index: number }) => {
           topRight={advSettings}
         >
           <>
-            <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              style={{ color: "white" }}
+            >
               <Typography>{bond.fixedTerm ? t`Fixed Term` : t`Fixed Expiration`}</Typography>
               <Typography style={{ marginTop: "3px" }}>
                 {bond.fixedTerm ? `${bond.duration}` : `${bond.expiration}`}
               </Typography>
             </Box>
             <Box display="flex" flexDirection="row" className="bond-price-data-row">
-              <div className="bond-price-data">
-                <Typography variant="h5" color="textSecondary">
-                  <Trans>Bond Price</Trans>
-                </Typography>
-                <Typography variant="h3" className="price" color="primary">
+              <div className="bond-price-data" style={{ textAlign: "right", marginRight: "20px" }}>
+                <Typography variant="h3" className="price" style={{ color: "#11ffbd" }}>
                   <>
                     {bond.soldOut ? (
                       t`--`
@@ -111,13 +114,16 @@ const BondV2 = ({ index }: { index: number }) => {
                     )}
                   </>
                 </Typography>
-              </div>
-              <div className="bond-price-data">
-                <Typography variant="h5" color="textSecondary">
-                  <Trans>Market Price</Trans>
+                <Typography variant="h6" style={{ color: "white" }}>
+                  <Trans>Bond Price</Trans>
                 </Typography>
-                <Typography variant="h3" color="primary" className="price">
+              </div>
+              <div className="bond-price-data" style={{ textAlign: "left", marginLeft: "20px" }}>
+                <Typography variant="h3" color="primary" className="price" style={{ color: "#11ffbd" }}>
                   {isBondLoading ? <Skeleton /> : formatCurrency(bond.marketPrice, 2)}
+                </Typography>
+                <Typography variant="h6" style={{ color: "white" }}>
+                  <Trans>Market Price</Trans>
                 </Typography>
               </div>
             </Box>
@@ -153,9 +159,7 @@ export const DisplayBondDiscount = ({ bond }: { bond: IBondV2 }): ReactElement =
   }
   return (
     <Fragment>
-      <span style={bond.discount > 0.003 ? { color: "#3ba56c" } : {}}>
-        {bond.discount && trim(bond.discount * 100, 2)}%
-      </span>
+      <span style={bond.discount < 0 ? { color: "red" } : {}}>{bond.discount && trim(bond.discount * 100, 2)}%</span>
     </Fragment>
   );
 };

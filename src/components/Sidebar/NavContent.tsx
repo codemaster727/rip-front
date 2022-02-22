@@ -3,9 +3,9 @@ import "./Sidebar.scss";
 
 import { t, Trans } from "@lingui/macro";
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
+  // Accordion,
+  // AccordionDetails,
+  // AccordionSummary,
   Box,
   Divider,
   Link,
@@ -13,24 +13,31 @@ import {
   SvgIcon,
   Typography,
 } from "@material-ui/core";
-import { ExpandMore } from "@material-ui/icons";
+// import { ExpandMore } from "@material-ui/icons";
 import { NavItem } from "@olympusdao/component-library";
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 import { NetworkId } from "src/constants";
-import { EnvHelper } from "src/helpers/Environment";
+// import { EnvHelper } from "src/helpers/Environment";
 import { useAppSelector } from "src/hooks";
 import { useWeb3Context } from "src/hooks/web3Context";
 import { Bond } from "src/lib/Bond";
 import { IBondDetails } from "src/slices/BondSlice";
 import { getAllBonds, getUserNotes } from "src/slices/BondSliceV2";
-import { DisplayBondDiscount } from "src/views/BondV2/BondV2";
+// import { DisplayBondDiscount } from "src/views/BondV2/BondV2";
 
-import { ReactComponent as OlympusIcon } from "../../assets/icons/olympus-nav-header.svg";
-import useBonds from "../../hooks/Bonds";
+import { ReactComponent as OlympusIcon } from "../../assets/icons/RipIcon.svg";
+// import { ReactComponent as SpeedOmeterIcon } from "../../assets/icons/speedometer.svg";
+import SpeedOmeterIcon from "../../assets/icons/speedometer.svg";
+import GearIcon from "../../assets/icons/gear.svg";
+import StakeIcon from "../../assets/icons/stake.svg";
+import ConflictIcon from "../../assets/icons/conflict.svg";
+import BlanketIcon from "../../assets/icons/blanket.svg";
+import BridgeIcon from "../../assets/icons/bridge.svg";
+import useBonds from "../../hooks/useBonds";
 import WalletAddressEns from "../TopBar/Wallet/WalletAddressEns";
-import externalUrls from "./externalUrls";
+// import externalUrls from "./externalUrls";
 import Social from "./Social";
 
 type NavContentProps = {
@@ -83,8 +90,8 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
               <SvgIcon
                 color="primary"
                 component={OlympusIcon}
-                viewBox="0 0 151 100"
-                style={{ minWidth: "151px", minHeight: "98px", width: "151px" }}
+                viewBox="0 0 350 100"
+                style={{ minWidth: "280px", minHeight: "98px", width: "280px" }}
               />
             </Link>
             <WalletAddressEns />
@@ -94,9 +101,57 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
             <div className="dapp-nav" id="navbarNav">
               {networkId === NetworkId.MAINNET || networkId === NetworkId.TESTNET_RINKEBY ? (
                 <>
-                  <NavItem to="/dashboard" icon={"dashboard"} label={t`Dashboard`} />
-                  <NavItem to="/bonds" icon="bond" label={t`Bond`} />
-                  <div className="dapp-menu-data discounts">
+                  <div
+                    style={{ backgroundColor: "black", marginLeft: "20px", marginRight: "20px", borderRadius: "20px" }}
+                  >
+                    {/* <NavItem to="/dashboard" icon={"dashboard"} label={t`Dashboard`} style={{ color: "white" }} /> */}
+                    <NavLink to="/dashboard" style={{ color: "white", textDecoration: "none" }}>
+                      <Box display="flex" justifyContent="space-between">
+                        <img src={SpeedOmeterIcon} width="45px" height="45px" style={{ marginLeft: "20px" }} />
+                        <Typography
+                          variant="h5"
+                          align="right"
+                          style={{ margin: "auto", marginRight: "20px" }}
+                          className="cta-text"
+                        >
+                          dashboard
+                        </Typography>
+                      </Box>
+                    </NavLink>
+                  </div>
+                  <div
+                    style={{
+                      backgroundColor: "black",
+                      marginLeft: "20px",
+                      marginRight: "20px",
+                      marginTop: "20px",
+                      borderRadius: "20px",
+                    }}
+                  >
+                    {/* <Link href="/dashboard" style={{ color: "white" }}>
+                      <Box display="flex" justifyContent="space-between" >
+                        <img src={SpeedOmeterIcon} width="45px" height="45px" style={{marginLeft: "20px"}} />
+                        <Typography variant="h5" align="right" style={{margin: 'auto'}} className="cta-text">
+                          dashboard
+                        </Typography>
+                      </Box>
+                    </Link> */}
+                    <NavLink to="/bonds" style={{ color: "white", textDecoration: "none" }}>
+                      <Box display="flex" justifyContent="space-between">
+                        <img src={GearIcon} width="45px" height="45px" style={{ marginLeft: "20px" }} />
+                        <Typography
+                          variant="h5"
+                          align="right"
+                          style={{ margin: "auto", marginRight: "20px" }}
+                          className="cta-text"
+                        >
+                          Bond
+                        </Typography>
+                      </Box>
+                    </NavLink>
+                    {/* <NavItem to="/bonds" icon="bond" label={t`Bond`} style={{ color: "white" }} /> */}
+                  </div>
+                  {/* <div className="dapp-menu-data discounts">
                     <div className="bond-discounts">
                       <Accordion className="discounts-accordion" square defaultExpanded={true}>
                         <AccordionSummary
@@ -105,7 +160,7 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                           }
                         >
                           <Typography variant="body2">
-                            <Trans>Highest ROI</Trans>
+                            <Trans>Highest Discount</Trans>
                           </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
@@ -130,29 +185,127 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                         </AccordionDetails>
                       </Accordion>
                     </div>
+                  </div> */}
+                  <div
+                    style={{
+                      backgroundColor: "black",
+                      marginLeft: "20px",
+                      marginRight: "20px",
+                      marginTop: "20px",
+                      borderRadius: "20px",
+                    }}
+                  >
+                    <NavLink to="/stake" style={{ color: "white", textDecoration: "none" }}>
+                      <Box display="flex" justifyContent="space-between">
+                        <img src={StakeIcon} width="45px" height="45px" style={{ marginLeft: "20px" }} />
+                        <Typography
+                          variant="h5"
+                          align="right"
+                          style={{ margin: "auto", marginRight: "20px" }}
+                          className="cta-text"
+                        >
+                          Stake
+                        </Typography>
+                      </Box>
+                    </NavLink>
+                    {/* <NavItem to="/stake" icon="stake" label={t`Stake`} style={{ color: "white" }} /> */}
                   </div>
-                  <NavItem to="/stake" icon="stake" label={t`Stake`} />
-
+                  <br />
+                  <br />
+                  <br />
                   {/* NOTE (appleseed-olyzaps): OlyZaps disabled until v2 contracts */}
-                  {/*<NavItem to="/zap" icon="zap" label={t`Zap`} /> */}
-
-                  {EnvHelper.isGiveEnabled(location.search) && (
+                  <div
+                    style={{
+                      backgroundColor: "black",
+                      marginLeft: "20px",
+                      marginRight: "20px",
+                      marginTop: "20px",
+                      borderRadius: "20px",
+                    }}
+                  >
+                    <NavLink to="/zap" style={{ color: "white", textDecoration: "none" }}>
+                      <Box display="flex" justifyContent="space-between">
+                        <img src={ConflictIcon} width="45px" height="45px" style={{ marginLeft: "20px" }} />
+                        <Typography
+                          variant="h5"
+                          align="right"
+                          style={{ margin: "auto", marginRight: "20px" }}
+                          className="cta-text"
+                        >
+                          Zap
+                        </Typography>
+                      </Box>
+                    </NavLink>
+                    {/* <NavItem to="/zap" icon="zap" label={t`Zap`} style={{ color: "white" }} /> */}
+                  </div>
+                  {/* {EnvHelper.isGiveEnabled(location.search) && (
                     <NavItem to="/give" icon="give" label={t`Give`} chip={t`New`} />
-                  )}
-                  <NavItem to="/wrap" icon="wrap" label={t`Wrap`} />
-                  <NavItem
-                    href={"https://synapseprotocol.com/?inputCurrency=gOHM&outputCurrency=gOHM&outputChain=43114"}
-                    icon="bridge"
-                    label={t`Bridge`}
-                  />
-                  <Box className="menu-divider">
+                  )} */}
+                  <div
+                    style={{
+                      backgroundColor: "black",
+                      marginLeft: "20px",
+                      marginRight: "20px",
+                      marginTop: "20px",
+                      borderRadius: "20px",
+                    }}
+                  >
+                    <NavLink to="/wrap" style={{ color: "white", textDecoration: "none" }}>
+                      <Box display="flex" justifyContent="space-between">
+                        <img src={BlanketIcon} width="45px" height="45px" style={{ marginLeft: "20px" }} />
+                        <Typography
+                          variant="h5"
+                          align="right"
+                          style={{ margin: "auto", marginRight: "20px" }}
+                          className="cta-text"
+                        >
+                          Wrap
+                        </Typography>
+                      </Box>
+                    </NavLink>
+                    {/* <NavItem to="/wrap" icon="wrap" label={t`Wrap`} style={{ color: "white" }} /> */}
+                  </div>
+                  <div
+                    style={{
+                      backgroundColor: "black",
+                      marginLeft: "20px",
+                      marginRight: "20px",
+                      marginTop: "20px",
+                      borderRadius: "20px",
+                    }}
+                  >
+                    <Link
+                      href="https://synapseprotocol.com/?inputCurrency=gOHM&outputCurrency=gOHM&outputChain=43114"
+                      target="_blank"
+                      style={{ color: "white", textDecoration: "none" }}
+                    >
+                      <Box display="flex" justifyContent="space-between">
+                        <img src={BridgeIcon} width="45px" height="45px" style={{ marginLeft: "20px" }} />
+                        <Typography
+                          variant="h5"
+                          align="right"
+                          style={{ margin: "auto", marginRight: "20px" }}
+                          className="cta-text"
+                        >
+                          Bridge
+                        </Typography>
+                      </Box>
+                    </Link>
+                    {/* <NavItem
+                      href={"https://synapseprotocol.com/?inputCurrency=gOHM&outputCurrency=gOHM&outputChain=43114"}
+                      icon="bridge"
+                      label={t`Bridge`}
+                      style={{ color: "white" }}
+                    /> */}
+                  </div>
+                  {/* <Box className="menu-divider">
                     <Divider />
-                  </Box>
-                  <NavItem href="https://pro.olympusdao.finance/" icon="olympus" label={t`Olympus Pro`} />
+                  </Box> */}
+                  {/* <NavItem href="https://pro.olympusdao.finance/" icon="olympus" label={t`Olympus Pro`} /> */}
                   {/* <NavItem to="/33-together" icon="33-together" label={t`3,3 Together`} /> */}
-                  <Box className="menu-divider">
+                  {/* <Box className="menu-divider">
                     <Divider />
-                  </Box>
+                  </Box> */}
                 </>
               ) : (
                 <>
@@ -165,14 +318,14 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                 </>
               )}
               {}
-              {Object.keys(externalUrls).map((link: any, i: number) => (
+              {/* {Object.keys(externalUrls).map((link: any, i: number) => (
                 <NavItem
                   key={i}
                   href={`${externalUrls[link].url}`}
                   icon={externalUrls[link].icon as any}
                   label={externalUrls[link].title as any}
                 />
-              ))}
+              ))} */}
             </div>
           </div>
         </div>

@@ -7,8 +7,8 @@ import { Skeleton } from "@material-ui/lab";
 import {
   DataRow,
   InputWrapper,
-  Metric,
-  MetricCollection,
+  // Metric,
+  // MetricCollection,
   Paper,
   PrimaryButton,
   Tab,
@@ -312,30 +312,99 @@ const Stake: React.FC = () => {
   return (
     <div id="stake-view">
       <Zoom in={true} onEntered={() => setZoomed(true)}>
-        <Paper headerText={t`Single Stake (3, 3)`} subHeader={<RebaseTimer />}>
-          <Grid container direction="column" spacing={2}>
-            <Grid item>
-              <MetricCollection>
-                <Metric
-                  className="stake-apy"
-                  label={t`APY`}
-                  metric={`${formattedTrimmedStakingAPY}%`}
-                  isLoading={stakingAPY ? false : true}
-                />
-                <Metric
-                  className="stake-tvl"
-                  label={t`Total Value Deposited`}
-                  metric={formattedStakingTVL}
-                  isLoading={stakingTVL ? false : true}
-                />
-                <Metric
-                  className="stake-index"
-                  label={t`Current Index`}
-                  metric={`${formattedCurrentIndex} sOHM`}
-                  isLoading={currentIndex ? false : true}
-                />
-              </MetricCollection>
+        <Paper>
+          <Typography align="center" variant="h4" style={{ fontWeight: "bold", marginTop: "20px" }}>
+            {t`Single Stake (3, 3)`}
+          </Typography>
+          <Typography align="center" variant="h6" style={{ fontWeight: "bold", margin: "auto" }}>
+            {<RebaseTimer />}
+          </Typography>
+          <Grid container direction="column" spacing={2} style={{ marginTop: "20px" }}>
+            <Grid container direction="row" spacing={3} style={{ marginTop: "20px", padding: "0 0 2rem 0" }}>
+              <Grid item md={6}>
+                <Box
+                  alignItems="right"
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="right"
+                  // className={`${classes.infoHeader} oly-info-header-box`}
+                >
+                  <Typography
+                    align="right"
+                    variant="h5"
+                    style={{ fontWeight: "bold", color: "black" }}
+                  >{t`APY`}</Typography>
+                  <Typography
+                    align="right"
+                    variant="h5"
+                    style={{ fontWeight: "bold", color: "black" }}
+                  >{t`Total Value Deposited`}</Typography>
+                  <Typography
+                    align="right"
+                    variant="h5"
+                    style={{ fontWeight: "bold", color: "black" }}
+                  >{t`Current Index`}</Typography>
+                </Box>
+              </Grid>
+              <Grid item md={6}>
+                <Box
+                  alignItems="left"
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="left"
+                  // className={`${classes.infoHeader} oly-info-header-box`}
+                >
+                  {stakingAPY ? (
+                    <Typography align="left" variant="h5" style={{ color: "black" }}>
+                      {`${formattedTrimmedStakingAPY}%`}
+                    </Typography>
+                  ) : (
+                    <Typography align="left" variant="h5" style={{ color: "black" }}>
+                      Loading...
+                    </Typography>
+                  )}
+                  {stakingTVL ? (
+                    <Typography align="left" variant="h5" style={{ color: "black" }}>
+                      {formattedStakingTVL}
+                    </Typography>
+                  ) : (
+                    <Typography align="left" variant="h5" style={{ color: "black" }}>
+                      Loading...
+                    </Typography>
+                  )}
+                  {currentIndex ? (
+                    <Typography align="left" variant="h5" style={{ color: "black" }}>
+                      {`${formattedCurrentIndex} sr.rip`}
+                    </Typography>
+                  ) : (
+                    <Typography align="left" variant="h5" style={{ color: "black" }}>
+                      Loading...
+                    </Typography>
+                  )}
+                </Box>
+              </Grid>
             </Grid>
+            {/* <MetricCollection>
+              <Metric
+                className="stake-apy"
+                label={t`APY`}
+                metric={`${formattedTrimmedStakingAPY}%`}
+                isLoading={stakingAPY ? false : true}
+              />
+              <Metric
+                className="stake-tvl"
+                label={t`Total Value Deposited`}
+                metric={formattedStakingTVL}
+                isLoading={stakingTVL ? false : true}
+              />
+              <Metric
+                className="stake-index"
+                label={t`Current Index`}
+                metric={`${formattedCurrentIndex} sOHM`}
+                isLoading={currentIndex ? false : true}
+              />
+            </MetricCollection> */}
+            {/* </Grid> */}
             <div className="staking-area">
               {!address ? (
                 <div className="stake-wallet-notification">
