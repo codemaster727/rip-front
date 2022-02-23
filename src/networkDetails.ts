@@ -1,5 +1,6 @@
 import arbitrum from "./assets/arbitrum.png";
 import avalanche from "./assets/tokens/AVAX.svg";
+import binance from "./assets/tokens/BNB.svg";
 import polygon from "./assets/tokens/matic.svg";
 import ethereum from "./assets/tokens/wETH.svg";
 import { EnvHelper } from "./helpers/Environment";
@@ -8,6 +9,9 @@ import { NodeHelper } from "./helpers/NodeHelper";
 export enum NetworkId {
   MAINNET = 1,
   TESTNET_RINKEBY = 4,
+
+  BSC = 56,
+  BSC_TEST = 97,
 
   ARBITRUM = 42161,
   ARBITRUM_TESTNET = 421611,
@@ -210,7 +214,13 @@ interface INetwork {
 
 // These networks will be available for users to select. Other networks may be functional
 // (e.g. testnets, or mainnets being prepared for launch) but need to be selected directly via the wallet.
-export const USER_SELECTABLE_NETWORKS = [NetworkId.MAINNET, NetworkId.ARBITRUM, NetworkId.AVALANCHE];
+export const USER_SELECTABLE_NETWORKS = [
+  NetworkId.MAINNET,
+  NetworkId.BSC,
+  NetworkId.BSC_TEST,
+  // NetworkId.ARBITRUM,
+  // NetworkId.AVALANCHE
+];
 
 // Set this to the chain number of the most recently added network in order to enable the 'Now supporting X network'
 // message in the UI. Set to -1 if we don't want to display the message at the current time.
@@ -244,6 +254,34 @@ export const NETWORKS: { [key: number]: INetwork } = {
     image: ethereum,
     imageAltText: "Ethereum Logo",
     uri: () => NodeHelper.getMainnetURI(NetworkId.TESTNET_RINKEBY),
+  },
+  [NetworkId.BSC]: {
+    chainName: "Binance",
+    chainId: 56,
+    nativeCurrency: {
+      name: "Binance",
+      symbol: "BNB",
+      decimals: 18,
+    },
+    rpcUrls: ["https://speedy-nodes-nyc.moralis.io/9f1fe98d210bc4fca911bee2/bsc/mainnet/archive"],
+    blockExplorerUrls: ["https://bscscan.com/"],
+    image: binance,
+    imageAltText: "Binance Logo",
+    uri: () => NodeHelper.getMainnetURI(NetworkId.BSC),
+  },
+  [NetworkId.BSC_TEST]: {
+    chainName: "Binance Test",
+    chainId: 97,
+    nativeCurrency: {
+      name: "Binance",
+      symbol: "BNB",
+      decimals: 18,
+    },
+    rpcUrls: ["https://data-seed-prebsc-1-s1.binance.org"],
+    blockExplorerUrls: ["https://testnet.bscscan.com/"],
+    image: binance,
+    imageAltText: "Binance Logo",
+    uri: () => NodeHelper.getMainnetURI(NetworkId.BSC_TEST),
   },
   [NetworkId.ARBITRUM]: {
     chainName: "Arbitrum",
@@ -367,44 +405,64 @@ export const VIEWS_FOR_NETWORK: { [key: number]: IViewsForNetwork } = {
     network: true,
     bondsV2: true,
   },
-  [NetworkId.ARBITRUM]: {
+  [NetworkId.BSC]: {
     dashboard: true,
-    stake: false,
+    stake: true,
     wrap: true,
-    zap: false,
-    threeTogether: false,
-    bonds: false,
+    zap: true,
+    threeTogether: true,
+    bonds: true,
     network: true,
-    bondsV2: false,
+    bondsV2: true,
   },
-  [NetworkId.ARBITRUM_TESTNET]: {
+  [NetworkId.BSC_TEST]: {
     dashboard: true,
-    stake: false,
+    stake: true,
     wrap: true,
-    zap: false,
-    threeTogether: false,
-    bonds: false,
+    zap: true,
+    threeTogether: true,
+    bonds: true,
     network: true,
-    bondsV2: false,
+    bondsV2: true,
   },
-  [NetworkId.AVALANCHE]: {
-    dashboard: true,
-    stake: false,
-    wrap: true,
-    zap: false,
-    threeTogether: false,
-    bonds: false,
-    network: true,
-    bondsV2: false,
-  },
-  [NetworkId.AVALANCHE_TESTNET]: {
-    dashboard: true,
-    stake: false,
-    wrap: true,
-    zap: false,
-    threeTogether: false,
-    bonds: false,
-    network: true,
-    bondsV2: false,
-  },
+  // [NetworkId.ARBITRUM]: {
+  //   dashboard: true,
+  //   stake: false,
+  //   wrap: true,
+  //   zap: false,
+  //   threeTogether: false,
+  //   bonds: false,
+  //   network: true,
+  //   bondsV2: false,
+  // },
+  // [NetworkId.ARBITRUM_TESTNET]: {
+  //   dashboard: true,
+  //   stake: false,
+  //   wrap: true,
+  //   zap: false,
+  //   threeTogether: false,
+  //   bonds: false,
+  //   network: true,
+  //   bondsV2: false,
+  // },
+  // [NetworkId.AVALANCHE]: {
+  //   dashboard: true,
+  //   stake: false,
+  //   wrap: true,
+  //   zap: false,
+  //   threeTogether: false,
+  //   bonds: false,
+  //   network: true,
+  //   bondsV2: false,
+  // },
+  // [NetworkId.AVALANCHE_TESTNET]: {
+  //   dashboard: true,
+  //   stake: false,
+  //   wrap: true,
+  //   zap: false,
+  //   threeTogether: false,
+  //   bonds: false,
+  //   network: true,
+  //   bondsV2: false,
+  // },
 };
