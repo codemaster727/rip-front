@@ -195,7 +195,7 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
           </Typography>
           <Grid container direction="column" spacing={2} style={{ marginTop: "20px" }}>
             <Grid container direction="row" spacing={3} style={{ marginTop: "20px", padding: "0 0 2rem 0" }}>
-              <Grid item md={6}>
+              <Grid item md={6} sm={6} xs={6}>
                 <Box
                   alignItems="right"
                   display="flex"
@@ -220,7 +220,7 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
                   >{t`Current Index`}</Typography>
                 </Box>
               </Grid>
-              <Grid item md={6}>
+              <Grid item md={6} sm={6} xs={6}>
                 <Box
                   alignItems="left"
                   display="flex"

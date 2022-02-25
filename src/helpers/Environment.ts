@@ -169,6 +169,22 @@ export class EnvHelper {
           URI_LIST = EnvHelper.env.REACT_APP_ARBITRUM_SELF_HOSTED_NODE.split(new RegExp(EnvHelper.whitespaceRegex));
         }
         break;
+      case NetworkId.BSC:
+        if (
+          EnvHelper.env.REACT_APP_BSC_SELF_HOSTED_NODE &&
+          EnvHelper.isNotEmpty(EnvHelper.env.REACT_APP_BSC_SELF_HOSTED_NODE)
+        ) {
+          URI_LIST = EnvHelper.env.REACT_APP_BSC_SELF_HOSTED_NODE.split(new RegExp(EnvHelper.whitespaceRegex));
+        }
+        break;
+      case NetworkId.BSC_TEST:
+        if (
+          EnvHelper.env.REACT_APP_BSC_TEST_SELF_HOSTED_NODE &&
+          EnvHelper.isNotEmpty(EnvHelper.env.REACT_APP_BSC_TEST_SELF_HOSTED_NODE)
+        ) {
+          URI_LIST = EnvHelper.env.REACT_APP_BSC_TEST_SELF_HOSTED_NODE.split(new RegExp(EnvHelper.whitespaceRegex));
+        }
+        break;
       case NetworkId.AVALANCHE:
         if (
           EnvHelper.env.REACT_APP_AVALANCHE_SELF_HOSTED_NODE &&

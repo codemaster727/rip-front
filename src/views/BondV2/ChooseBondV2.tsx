@@ -71,8 +71,8 @@ function ChooseBondV2() {
       <Zoom in={true}>
         <Paper>
           <Typography align="center" variant="h4" style={{ fontWeight: "bold" }}>{`${t`Bond`} (4,4)`}</Typography>
-          <Grid container direction="row" spacing={3} style={{ marginTop: "20px" }}>
-            <Grid item md={6}>
+          <Grid container direction="row" spacing={3} style={{ marginTop: "30px" }}>
+            <Grid item md={6} sm={6} xs={6}>
               <Box
                 alignItems="right"
                 display="flex"
@@ -84,7 +84,7 @@ function ChooseBondV2() {
                 <Typography align="right" variant="h5" style={{ fontWeight: "bold" }}>{t`r.rip price`}</Typography>
               </Box>
             </Grid>
-            <Grid item md={6}>
+            <Grid item md={6} sm={6} xs={6}>
               <Box
                 alignItems="left"
                 display="flex"

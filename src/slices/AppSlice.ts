@@ -48,9 +48,9 @@ export const loadAppDetails = createAsyncThunk(
       }
     `;
 
-    if (networkID !== NetworkId.MAINNET) {
+    if (networkID !== NetworkId.BSC) {
       provider = NodeHelper.getMainnetStaticProvider();
-      networkID = NetworkId.MAINNET;
+      networkID = NetworkId.BSC;
     }
     const graphData = await apollo<{ protocolMetrics: IProtocolMetrics[] }>(protocolMetricsQuery);
 

@@ -185,7 +185,7 @@ const Wrap: FC = () => {
               {t`Wrap / Unwrap`}
             </Typography>
             <Grid container direction="row" spacing={3} style={{ marginTop: "20px", padding: "0 0 2rem 0" }}>
-              <Grid item md={6}>
+              <Grid item md={6} sm={6} xs={6}>
                 <Box
                   alignItems="right"
                   display="flex"
@@ -210,7 +210,7 @@ const Wrap: FC = () => {
                   >{`gr.rip ${t`Price`}`}</Typography>
                 </Box>
               </Grid>
-              <Grid item md={6}>
+              <Grid item md={6} sm={6} xs={6}>
                 <Box
                   alignItems="left"
                   display="flex"

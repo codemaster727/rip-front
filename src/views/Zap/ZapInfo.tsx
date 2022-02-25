@@ -3,6 +3,7 @@ import "./Zap.scss";
 import { Trans } from "@lingui/macro";
 import { Box, Button, Grid, Paper, SvgIcon, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { Token, TokenStack } from "@olympusdao/component-library";
 import React from "react";
 
@@ -57,6 +58,7 @@ type ZapInfoProps = {
 };
 
 const ZapInfo: React.FC<ZapInfoProps> = ({ tokens, address }) => {
+  const isSmallScreen = useMediaQuery("(max-width: 960px)");
   const classes = useStyles();
 
   const trackClick = (address: string) => {
@@ -84,7 +86,15 @@ const ZapInfo: React.FC<ZapInfoProps> = ({ tokens, address }) => {
           md={3}
           // lg={4}
           classes={{ root: classes.infoBox, item: classes.infoBoxItem }}
-          style={{ backgroundColor: "black", marginLeft: "1rem", borderRadius: "15px" }}
+          style={
+            !isSmallScreen
+              ? {
+                  backgroundColor: "black",
+                  marginLeft: "1rem",
+                  borderRadius: "15px",
+                }
+              : { backgroundColor: "black", marginLeft: "0rem", borderRadius: "15px" }
+          }
         >
           <Box
             alignItems="left"
@@ -118,7 +128,16 @@ const ZapInfo: React.FC<ZapInfoProps> = ({ tokens, address }) => {
           sm={12}
           md={3}
           classes={{ root: classes.infoBox, item: classes.infoBoxItem }}
-          style={{ backgroundColor: "black", marginLeft: "1rem", marginRight: "1rem", borderRadius: "15px" }}
+          style={
+            !isSmallScreen
+              ? {
+                  backgroundColor: "black",
+                  marginLeft: "1rem",
+                  marginRight: "1rem",
+                  borderRadius: "15px",
+                }
+              : { backgroundColor: "black", marginLeft: "0rem", borderRadius: "15px" }
+          }
         >
           <Box
             alignItems="left"

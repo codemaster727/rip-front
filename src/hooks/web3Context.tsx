@@ -66,6 +66,8 @@ const initModal = new Web3Modal({
         rpc: {
           1: NETWORKS[1].uri(),
           4: NETWORKS[4].uri(),
+          56: NETWORKS[56].uri(),
+          97: NETWORKS[97].uri(),
           42161: NETWORKS[42161].uri(),
           421611: NETWORKS[421611].uri(),
           43113: NETWORKS[43113].uri(),

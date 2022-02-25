@@ -99,7 +99,7 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
 
           <div className="dapp-menu-links">
             <div className="dapp-nav" id="navbarNav">
-              {networkId === NetworkId.MAINNET || networkId === NetworkId.TESTNET_RINKEBY || networkId === NetworkId.BSC || networkId === NetworkId.BSC_TEST ? (
+              {networkId === NetworkId.MAINNET || networkId === NetworkId.TESTNET_RINKEBY ? (
                 <>
                   <div
                     style={{ backgroundColor: "black", marginLeft: "20px", marginRight: "20px", borderRadius: "20px" }}
