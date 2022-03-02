@@ -62,6 +62,7 @@ export const useStakingContract = () => {
 };
 
 export const useOhmDaiReserveContract = () => {
+  console.log(11111);
   const address = ohm_dai.getAddressForReserve(NetworkId.MAINNET);
   assert(address, "Contract should exist for NetworkId.MAINNET");
 

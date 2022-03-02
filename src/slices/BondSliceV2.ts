@@ -105,9 +105,9 @@ export interface IUserNote {
 }
 
 function checkNetwork(networkID: NetworkId) {
-  if (networkID !== 1 && networkID !== 4) {
+  if (networkID !== 97 && networkID !== 4) {
     //ENABLE FOR MAINNET LAUNCH
-    throw Error(`Network=${networkID} is not supported for V2 bonds`);
+    // throw Error(`Network=${networkID} is not supported for V2 bonds`);
   }
 }
 
@@ -115,6 +115,7 @@ export const changeApproval = createAsyncThunk(
   "bondsV2/changeApproval",
   async ({ bond, provider, networkID, address }: IBondV2AysncThunk, { dispatch, getState }) => {
     checkNetwork(networkID);
+    console.log("here", networkID);
     const signer = provider.getSigner();
     const bondState: IBondV2 = (getState() as RootState).bondingV2.bonds[bond.index];
     const tokenContractAddress: string = bondState.quoteToken;
@@ -186,6 +187,7 @@ export const getSingleBond = createAsyncThunk(
   async ({ provider, networkID, bondIndex }: IBondV2IndexAsyncThunk, { dispatch }): Promise<IBondV2> => {
     checkNetwork(networkID);
     const depositoryContract = BondDepository__factory.connect(addresses[networkID].BOND_DEPOSITORY, provider);
+    console.log("depositoryContract", depositoryContract);
     const bondCore = await depositoryContract.markets(bondIndex);
     const bondMetadata = await depositoryContract.metadata(bondIndex);
     const bondTerms = await depositoryContract.terms(bondIndex);
@@ -304,13 +306,16 @@ export const getAllBonds = createAsyncThunk(
   async ({ provider, networkID, address }: IBaseAddressAsyncThunk, { dispatch }) => {
     checkNetwork(networkID);
     const depositoryContract = BondDepository__factory.connect(addresses[networkID].BOND_DEPOSITORY, provider);
+    console.log(networkID);
+    console.log(depositoryContract);
     const liveBondIndexes = await depositoryContract.liveMarkets();
     // `markets()` returns quote/price data
     const liveBondPromises = liveBondIndexes.map(async index => await depositoryContract.markets(index));
     const liveBondMetadataPromises = liveBondIndexes.map(async index => await depositoryContract.metadata(index));
     const liveBondTermsPromises = liveBondIndexes.map(async index => await depositoryContract.terms(index));
     const liveBonds: IBondV2[] = [];
-
+    console.log(liveBondIndexes);
+    console.log(liveBonds);
     for (let i = 0; i < liveBondIndexes.length; i++) {
       const bondIndex = +liveBondIndexes[i];
       try {
@@ -328,6 +333,8 @@ export const getAllBonds = createAsyncThunk(
         console.log(e);
       }
     }
+    console.log(liveBondIndexes);
+    console.log(liveBonds);
     return liveBonds;
   },
 );
@@ -336,9 +343,11 @@ export const getUserNotes = createAsyncThunk(
   "bondsV2/notes",
   async ({ provider, networkID, address }: IBaseAddressAsyncThunk, { dispatch, getState }): Promise<IUserNote[]> => {
     checkNetwork(networkID);
+    console.log(address);
     const currentTime = Date.now() / 1000;
     const depositoryContract = BondDepository__factory.connect(addresses[networkID].BOND_DEPOSITORY, provider);
     const userNoteIndexes = await depositoryContract.indexesFor(address);
+    console.log(userNoteIndexes);
     const userNotePromises = userNoteIndexes.map(async index => await depositoryContract.notes(address, index));
     const userNotes: {
       payout: ethers.BigNumber;
@@ -530,7 +539,7 @@ const bondingSliceV2 = createSlice({
       .addCase(getUserNotes.rejected, (state, { error }) => {
         state.notes = [];
         state.notesLoading = false;
-        console.error(`Error when getting user notes: ${error.message}`);
+        // console.error(`Error when getting user notes: ${error.message}`);
       });
   },
 });

@@ -491,7 +491,7 @@ function Chart({
               variant="h6"
               color="textSecondary"
               className="card-title-text"
-              style={{ fontWeight: 400, overflow: "hidden" }}
+              style={{ fontWeight: 400, overflow: "hidden", color: "white" }}
             >
               {headerText}
             </Typography>
@@ -501,9 +501,9 @@ function Chart({
 
           <SvgIcon
             component={Fullscreen}
-            color="primary"
+            color="action"
             onClick={handleOpen}
-            style={{ fontSize: "1rem", cursor: "pointer" }}
+            style={{ fontSize: "1rem", cursor: "pointer", color: "white" }}
           />
           <ExpandedChart
             open={open}
@@ -519,11 +519,11 @@ function Chart({
           <Skeleton variant="text" width={100} />
         ) : (
           <Box display="flex">
-            <Typography variant="h4" style={{ fontWeight: 600, marginRight: 5 }}>
+            <Typography variant="h4" style={{ fontWeight: 600, marginRight: 5, color: "white" }}>
               {headerSubText}
             </Typography>
-            <Typography variant="h4" color="textSecondary" style={{ fontWeight: 400 }}>
-              {type !== "multi" && t`Today`}
+            <Typography variant="h4" color="textSecondary" style={{ fontWeight: 400, color: "white" }}>
+              {type !== "multi" && t`today`}
             </Typography>
           </Box>
         )}

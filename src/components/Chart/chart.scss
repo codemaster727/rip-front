@@ -7,6 +7,9 @@
     width: auto;
     text-overflow: ellipsis;
   }
+  & > div > div > div > svg {
+    color: white;
+  }
 }
 .ohm-chart {
   padding: 0px 8px;

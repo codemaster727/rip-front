@@ -4,7 +4,7 @@ import { BigNumber, BigNumberish, ethers } from "ethers";
 import { EnvHelper } from "src/helpers/Environment";
 import { NodeHelper } from "src/helpers/NodeHelper";
 import { RootState } from "src/store";
-import { FiatDAOContract, FuseProxy, IERC20, IERC20__factory, SOhmv2, WsOHM } from "src/typechain";
+import { FiatDAOContract, FuseProxy, IERC20, IERC20__factory, SOhmv2 } from "src/typechain";
 import { GOHM__factory } from "src/typechain/factories/GOHM__factory";
 
 import { abi as fiatDAO } from "../abi/FiatDAOContract.json";
@@ -14,7 +14,7 @@ import { abi as MockSohm } from "../abi/MockSohm.json";
 import { abi as OlympusGiving } from "../abi/OlympusGiving.json";
 import { abi as OlympusMockGiving } from "../abi/OlympusMockGiving.json";
 import { abi as sOHMv2 } from "../abi/sOhmv2.json";
-import { abi as wsOHM } from "../abi/wsOHM.json";
+// import { abi as wsOHM } from "../abi/wsOHM.json";
 import { addresses, NetworkId } from "../constants";
 import { handleContractError, setAll } from "../helpers";
 import { getMockRedemptionBalancesAsync, getRedemptionBalancesAsync } from "../helpers/GiveRedemptionBalanceHelper";
@@ -143,8 +143,9 @@ export const getBalances = createAsyncThunk(
       handleContractError(e);
     }
     try {
-      const wsohmContract = new ethers.Contract(addresses[networkID].WSOHM_ADDRESS as string, wsOHM, provider) as WsOHM;
-      wsohmBalance = await wsohmContract.balanceOf(address);
+      // const wsohmContract = new ethers.Contract(addresses[networkID].WSOHM_ADDRESS as string, wsOHM, provider) as WsOHM;
+      // wsohmBalance = await wsohmContract.balanceOf(address);
+      wsohmBalance = new BigNumber(0, "ETH");
     } catch (e) {
       handleContractError(e);
     }
@@ -182,12 +183,13 @@ export const getBalances = createAsyncThunk(
     }
 
     try {
-      const poolTokenContract = new ethers.Contract(
-        addresses[networkID].PT_TOKEN_ADDRESS as string,
-        ierc20Abi,
-        provider,
-      ) as IERC20;
-      poolBalance = await poolTokenContract.balanceOf(address);
+      // const poolTokenContract = new ethers.Contract(
+      //   addresses[networkID].PT_TOKEN_ADDRESS as string,
+      //   ierc20Abi,
+      //   provider,
+      // ) as IERC20;
+      // poolBalance = await poolTokenContract.balanceOf(address);
+      poolBalance = new BigNumber("0", "ETH");
     } catch (e) {
       handleContractError(e);
     }
@@ -287,7 +289,6 @@ export const getDonationBalances = createAsyncThunk(
         OlympusGiving,
         provider,
       );
-
       try {
         // NOTE: The BigNumber here is from ethers, and is a different implementation of BigNumber used in the rest of the frontend. For that reason, we convert to string in the interim.
         const allDeposits: [string[], BigNumber[]] = await givingContract.getAllDeposits(address);
@@ -551,6 +552,7 @@ export const calculateUserBondDetails = createAsyncThunk(
     // Calculate bond details.
     const bondContract = bond.getContractForBond(networkID, provider);
     const reserveContract = bond.getContractForReserve(networkID, provider);
+    console.log("reserveContract", reserveContract);
     const bondDetails = await bondContract.bondInfo(address);
     const interestDue: BigNumberish = Number(bondDetails.payout.toString()) / Math.pow(10, 9);
     const bondMaturationBlock = +bondDetails.vesting + +bondDetails.lastBlock;

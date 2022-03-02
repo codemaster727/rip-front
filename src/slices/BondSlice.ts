@@ -21,6 +21,7 @@ import { clearPendingTxn, fetchPendingTxns } from "./PendingTxnsSlice";
 export const changeApproval = createAsyncThunk(
   "bonding/changeApproval",
   async ({ address, bond, provider, networkID }: IApproveBondAsyncThunk, { dispatch }) => {
+    return;
     if (!provider) {
       dispatch(error("Please connect your wallet!"));
       return;

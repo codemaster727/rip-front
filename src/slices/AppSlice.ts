@@ -48,10 +48,12 @@ export const loadAppDetails = createAsyncThunk(
       }
     `;
 
-    if (networkID !== NetworkId.BSC) {
+    if (networkID !== NetworkId.MAINNET) {
+      console.log("network is wrong, not bsctest!", networkID);
       provider = NodeHelper.getMainnetStaticProvider();
-      networkID = NetworkId.BSC;
+      networkID = NetworkId.MAINNET;
     }
+    console.log(networkID);
     const graphData = await apollo<{ protocolMetrics: IProtocolMetrics[] }>(protocolMetricsQuery);
 
     if (!graphData || graphData == null) {
@@ -92,15 +94,17 @@ export const loadAppDetails = createAsyncThunk(
       } as IAppData;
     }
     const currentBlock = await provider.getBlockNumber();
-
     const stakingContract = OlympusStakingv2__factory.connect(addresses[networkID].STAKING_V2, provider);
     const stakingContractV1 = OlympusStaking__factory.connect(addresses[networkID].STAKING_ADDRESS, provider);
-
     const sohmMainContract = new ethers.Contract(addresses[networkID].SOHM_V2 as string, sOHMv2, provider) as SOhmv2;
-
     // Calculating staking
     const epoch = await stakingContract.epoch();
+    console.log(epoch);
+    console.log("here1", networkID);
+    console.log(stakingContract);
+    console.log(await stakingContract.secondsToNextEpoch());
     const secondsToEpoch = Number(await stakingContract.secondsToNextEpoch());
+    console.log(secondsToEpoch);
     const stakingReward = epoch.distribute;
     const circ = await sohmMainContract.circulatingSupply();
     const stakingRebase = Number(stakingReward.toString()) / Number(circ.toString());

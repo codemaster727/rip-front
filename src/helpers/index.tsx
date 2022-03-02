@@ -8,13 +8,13 @@ import { IBondV2 } from "src/slices/BondSliceV2";
 import { IBaseAsyncThunk } from "src/slices/interfaces";
 import { GOHM__factory } from "src/typechain/factories/GOHM__factory";
 
-import { abi as PairContractABI } from "../abi/PairContract.json";
+// import { abi as PairContractABI } from "../abi/PairContract.json";
 import { abi as RedeemHelperABI } from "../abi/RedeemHelper.json";
 import { ReactComponent as OhmImg } from "../assets/tokens/token_OHM.svg";
 import { ReactComponent as SOhmImg } from "../assets/tokens/token_sOHM.svg";
 import { addresses, BLOCK_RATE_SECONDS, EPOCH_INTERVAL, NetworkId } from "../constants";
-import { PairContract, RedeemHelper } from "../typechain";
-import { ohm_dai, ohm_daiOld, ohm_weth } from "./AllBonds";
+import { RedeemHelper } from "../typechain";
+// import { ohm_dai, ohm_daiOld, ohm_weth } from "./AllBonds";
 import { EnvHelper } from "./Environment";
 import { NodeHelper } from "./NodeHelper";
 
@@ -23,36 +23,40 @@ import { NodeHelper } from "./NodeHelper";
  * @returns Number like 333.33
  */
 export async function getMarketPrice() {
+  return 0;
   const mainnetProvider = NodeHelper.getMainnetStaticProvider();
   // v2 price
-  const ohm_dai_address = ohm_dai.getAddressForReserve(NetworkId.MAINNET);
-  const pairContract = new ethers.Contract(ohm_dai_address || "", PairContractABI, mainnetProvider) as PairContract;
-  const reserves = await pairContract.getReserves();
+  // const ohm_dai_address = ohm_dai.getAddressForReserve(NetworkId.MAINNET);
+  // const pairContract = new ethers.Contract(ohm_dai_address || "", PairContractABI, mainnetProvider) as PairContract;
+  // const reserves = await pairContract.getReserves();
 
-  return Number(reserves[1].toString()) / Number(reserves[0].toString()) / 10 ** 9;
+  // return Number(reserves[1].toString()) / Number(reserves[0].toString()) / 10 ** 9;
 }
 
 export async function getMarketPriceFromWeth() {
+  return 0;
   const mainnetProvider = NodeHelper.getMainnetStaticProvider();
   // v2 price
-  const ohm_weth_address = ohm_weth.getAddressForReserve(NetworkId.MAINNET);
-  const wethBondContract = ohm_weth.getContractForBond(NetworkId.MAINNET, mainnetProvider);
-  const pairContract = new ethers.Contract(ohm_weth_address || "", PairContractABI, mainnetProvider) as PairContract;
-  const reserves = await pairContract.getReserves();
+  // const ohm_weth_address = ohm_weth.getAddressForReserve(NetworkId.MAINNET);
+  // const wethBondContract = ohm_weth.getContractForBond(NetworkId.MAINNET, mainnetProvider);
+  // const pairContract = new ethers.Contract(ohm_weth_address || "", PairContractABI, mainnetProvider) as PairContract;
+  // const reserves = await pairContract.getReserves();
 
-  // since we're using OHM/WETH... also need to multiply by weth price;
-  const wethPriceBN: BigNumber = await wethBondContract.assetPrice();
-  const wethPrice = Number(wethPriceBN.toString()) / Math.pow(10, 8);
-  return (Number(reserves[1].toString()) / Number(reserves[0].toString()) / 10 ** 9) * wethPrice;
+  // // since we're using OHM/WETH... also need to multiply by weth price;
+
+  // const wethPriceBN: BigNumber = await wethBondContract.assetPrice();
+  // const wethPrice = Number(wethPriceBN.toString()) / Math.pow(10, 8);
+  // return (Number(reserves[1].toString()) / Number(reserves[0].toString()) / 10 ** 9) * wethPrice;
 }
 
 export async function getV1MarketPrice() {
+  return 0;
   const mainnetProvider = NodeHelper.getMainnetStaticProvider();
   // v1 price
-  const ohm_dai_address = ohm_daiOld.getAddressForReserve(NetworkId.MAINNET);
-  const pairContract = new ethers.Contract(ohm_dai_address || "", PairContractABI, mainnetProvider) as PairContract;
-  const reserves = await pairContract.getReserves();
-  return Number(reserves[1].toString()) / Number(reserves[0].toString()) / 10 ** 9;
+  // const ohm_dai_address = ohm_daiOld.getAddressForReserve(NetworkId.MAINNET);
+  // const pairContract = new ethers.Contract(ohm_dai_address || "", PairContractABI, mainnetProvider) as PairContract;
+  // const reserves = await pairContract.getReserves();
+  // return Number(reserves[1].toString()) / Number(reserves[0].toString()) / 10 ** 9;
 }
 
 /**

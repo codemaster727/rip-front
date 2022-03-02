@@ -14,6 +14,7 @@ export const initNetworkFunc = async ({ provider }: IGetCurrentNetwork) => {
     let uri: string;
     let supported = true;
     const id: number = await provider.getNetwork().then(network => network.chainId);
+    console.log("netid", id);
     switch (id) {
       case 1:
         networkName = "Ethereum";
