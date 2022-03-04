@@ -252,22 +252,22 @@ export class EnvHelper {
   }
 
   /**
-   * Indicates whether mockSohm is enabled.
+   * Indicates whether mockSrip is enabled.
    * This is needed for easily manually testing rebases
    * for Give on testnet
    *
    * The feature is enabled when:
-   * - REACT_APP_MOCK_SOHM_ENABLED is true
-   * - mock_sohm parameter is present
+   * - REACT_APP_MOCK_SRIP_ENABLED is true
+   * - mock_srip parameter is present
    *
    * @param url
    * @returns
    */
-  static isMockSohmEnabled(url: string): boolean {
-    const mockSohmEnabled = EnvHelper.env.REACT_APP_MOCK_SOHM_ENABLED;
-    const mockSohmEnabledParameter = url && url.includes("mock_sohm");
+  static isMockSripEnabled(url: string): boolean {
+    const mockSripEnabled = EnvHelper.env.REACT_APP_MOCK_SRIP_ENABLED;
+    const mockSripEnabledParameter = url && url.includes("mock_srip");
 
-    if (mockSohmEnabled || mockSohmEnabledParameter) return true;
+    if (mockSripEnabled || mockSripEnabledParameter) return true;
 
     return false;
   }

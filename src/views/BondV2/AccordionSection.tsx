@@ -20,13 +20,13 @@ import { ClaimBondCardData, ClaimBondTableData } from "./ClaimRow";
 const AccordionSection = ({
   bonds,
   title,
-  gOHM,
+  gRIP,
   vested,
   isSmallScreen,
 }: {
   bonds: IUserNote[];
   title: string;
-  gOHM: boolean;
+  gRIP: boolean;
   vested: boolean;
   isSmallScreen: boolean;
 }) => (
@@ -36,7 +36,7 @@ const AccordionSection = ({
     </AccordionSummary>
 
     {isSmallScreen ? (
-      bonds.map((bond, i) => <ClaimBondCardData key={i} userNote={bond} gOHM={gOHM} />)
+      bonds.map((bond, i) => <ClaimBondCardData key={i} userNote={bond} gRIP={gRIP} />)
     ) : (
       <AccordionDetails>
         <Table aria-label={title}>
@@ -53,7 +53,7 @@ const AccordionSection = ({
           </TableHead>
           <TableBody>
             {bonds.map((bond, i) => (
-              <ClaimBondTableData key={i} userNote={bond} gOHM={gOHM} />
+              <ClaimBondTableData key={i} userNote={bond} gRIP={gRIP} />
             ))}
           </TableBody>
         </Table>

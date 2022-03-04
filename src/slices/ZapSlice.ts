@@ -99,8 +99,8 @@ export const getZapTokenBalances = createAsyncThunk(
     if (address) {
       try {
         const result = await ZapHelper.getZapTokens(address);
-        if (result.balances["ohm"]) {
-          result.balances["ohm"].hide = true;
+        if (result.balances["rip"]) {
+          result.balances["rip"].hide = true;
         }
 
         for (const key in result.balances) {
@@ -123,7 +123,7 @@ export const getZapTokenBalances = createAsyncThunk(
 export const executeZap = createAsyncThunk(
   "zap/executeZap",
   async (
-    { provider, address, sellAmount, slippage, tokenAddress, networkID, minimumAmount, gOHM }: IZapAsyncThunk,
+    { provider, address, sellAmount, slippage, tokenAddress, networkID, minimumAmount, gRIP }: IZapAsyncThunk,
     { dispatch },
   ) => {
     if (!zapNetworkAvailable(networkID, dispatch)) return;
@@ -142,8 +142,8 @@ export const executeZap = createAsyncThunk(
         tx = await zapContract.ZapStake(
           tokenAddress,
           sellAmount,
-          gOHM ? addresses[networkID].GOHM_ADDRESS : addresses[networkID].SOHM_V2,
-          ethers.utils.parseUnits(minimumAmount, gOHM ? 18 : 9),
+          gRIP ? addresses[networkID].GRIP_ADDRESS : addresses[networkID].SRIP_V2,
+          ethers.utils.parseUnits(minimumAmount, gRIP ? 18 : 9),
           rawTransactionData.to,
           rawTransactionData.data,
           address,
@@ -153,8 +153,8 @@ export const executeZap = createAsyncThunk(
         tx = await zapContract.ZapStake(
           tokenAddress,
           sellAmount,
-          gOHM ? addresses[networkID].GOHM_ADDRESS : addresses[networkID].SOHM_V2,
-          ethers.utils.parseUnits(minimumAmount, gOHM ? 18 : 9),
+          gRIP ? addresses[networkID].GRIP_ADDRESS : addresses[networkID].SRIP_V2,
+          ethers.utils.parseUnits(minimumAmount, gRIP ? 18 : 9),
           rawTransactionData.to,
           rawTransactionData.data,
           address,

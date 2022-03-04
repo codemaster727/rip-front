@@ -528,7 +528,7 @@ function Chart({
           </Box>
         )}
       </div>
-      <Box width="100%" minHeight={260} minWidth={310} className="ohm-chart">
+      <Box width="100%" minHeight={260} minWidth={310} className="rip-chart">
         {loading || (data && data.length > 0) ? (
           <ResponsiveContainer minHeight={260} width="100%">
             {renderChart(type, false)}

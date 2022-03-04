@@ -3,7 +3,7 @@
 exports[`<ZapCta/> should render component 1`] = `
 <div>
   <div
-    class="MuiPaper-root ohm-card MuiPaper-elevation0 MuiPaper-rounded"
+    class="MuiPaper-root rip-card MuiPaper-elevation0 MuiPaper-rounded"
     id="olyzaps-cta"
   >
     <div
@@ -92,7 +92,7 @@ exports[`<ZapCta/> should render component 1`] = `
           >
             Zap with more assets and stake 
             <strong>
-              OHM
+              RIP
             </strong>
           </p>
           <p
@@ -121,7 +121,7 @@ exports[`<ZapCta/> should render component 1`] = `
               <p
                 class="MuiTypography-root MuiTypography-body1"
               >
-                Swap into sOHM
+                Swap into sRIP
               </p>
             </span>
           </div>

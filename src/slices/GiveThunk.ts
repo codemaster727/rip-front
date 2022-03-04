@@ -3,9 +3,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ethers } from "ethers";
 
 import { abi as ierc20Abi } from "../abi/IERC20.json";
-import { abi as MockSohm } from "../abi/MockSohm.json";
-import { abi as OlympusGiving } from "../abi/OlympusGiving.json";
-import { abi as OlympusMockGiving } from "../abi/OlympusMockGiving.json";
+import { abi as MockSrip } from "../abi/MockSrip.json";
+import { abi as RIPProtocolGiving } from "../abi/RIPProtocolGiving.json";
+import { abi as RIPProtocolMockGiving } from "../abi/RIPProtocolMockGiving.json";
 import { addresses, NetworkId } from "../constants";
 import { trackGAEvent, trackSegmentEvent } from "../helpers/analytics";
 import { fetchAccountSuccess, getBalances, getDonationBalances, getMockDonationBalances } from "./AccountSlice";
@@ -61,10 +61,10 @@ export const changeApproval = createAsyncThunk(
     }
 
     const signer = provider.getSigner();
-    const sohmContract = new ethers.Contract(addresses[networkID].SOHM_V2 as string, ierc20Abi, signer);
+    const sripContract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, ierc20Abi, signer);
     let approveTx;
     try {
-      approveTx = await sohmContract.approve(
+      approveTx = await sripContract.approve(
         addresses[networkID].GIVING_ADDRESS,
         ethers.utils.parseUnits("1000000000", "gwei").toString(),
       );
@@ -81,12 +81,12 @@ export const changeApproval = createAsyncThunk(
       }
     }
 
-    const giveAllowance = await sohmContract.allowance(address, addresses[networkID].GIVING_ADDRESS);
+    const giveAllowance = await sripContract.allowance(address, addresses[networkID].GIVING_ADDRESS);
 
     return dispatch(
       fetchAccountSuccess({
         giving: {
-          sohmGive: +giveAllowance,
+          sripGive: +giveAllowance,
         },
       }),
     );
@@ -102,16 +102,16 @@ export const changeMockApproval = createAsyncThunk(
     }
 
     /*
-      On testnet it's been best for testing Give to use a pseudo-sOHM contract
+      On testnet it's been best for testing Give to use a pseudo-sRIP contract
       that gives us more control to rebase manually when needed. However, this 
       makes it not as perfectly translatable to mainnet without changing any parameters
       this is the best way to avoid manually switching out code every deployment
     */
     const signer = provider.getSigner();
-    const sohmContract = new ethers.Contract(addresses[networkID].MOCK_SOHM as string, MockSohm, signer);
+    const sripContract = new ethers.Contract(addresses[networkID].MOCK_SRIP as string, MockSrip, signer);
     let approveTx;
     try {
-      approveTx = await sohmContract.approve(
+      approveTx = await sripContract.approve(
         addresses[networkID].MOCK_GIVING_ADDRESS,
         ethers.utils.parseUnits("1000000000", "gwei").toString(),
       );
@@ -129,15 +129,15 @@ export const changeMockApproval = createAsyncThunk(
     }
 
     /*
-      The pseudo-sOHM contract used on testnet does not have a functional allowance
+      The pseudo-sRIP contract used on testnet does not have a functional allowance
       mapping. Instead approval calls write allowaces to a mapping title _allowedValue
     */
-    const giveAllowance = await sohmContract._allowedValue(address, addresses[networkID].MOCK_GIVING_ADDRESS);
+    const giveAllowance = await sripContract._allowedValue(address, addresses[networkID].MOCK_GIVING_ADDRESS);
 
     return dispatch(
       fetchAccountSuccess({
         mockGiving: {
-          sohmGive: +giveAllowance,
+          sripGive: +giveAllowance,
         },
       }),
     );
@@ -153,7 +153,7 @@ export const changeGive = createAsyncThunk(
     }
 
     const signer = provider.getSigner();
-    const giving = new ethers.Contract(addresses[networkID].GIVING_ADDRESS as string, OlympusGiving, signer);
+    const giving = new ethers.Contract(addresses[networkID].GIVING_ADDRESS as string, RIPProtocolGiving, signer);
     let giveTx;
 
     const uaData: IUAData = {
@@ -203,7 +203,7 @@ export const changeGive = createAsyncThunk(
       if (giveTx) {
         trackSegmentEvent(uaData);
         trackGAEvent({
-          category: "Olympus Give",
+          category: "RIPProtocol Give",
           action: uaData.type ?? "unknown",
           label: uaData.txHash ?? "unknown",
           dimension1: uaData.txHash ?? "unknown",
@@ -228,7 +228,11 @@ export const changeMockGive = createAsyncThunk(
     }
 
     const signer = provider.getSigner();
-    const giving = new ethers.Contract(addresses[networkID].MOCK_GIVING_ADDRESS as string, OlympusMockGiving, signer);
+    const giving = new ethers.Contract(
+      addresses[networkID].MOCK_GIVING_ADDRESS as string,
+      RIPProtocolMockGiving,
+      signer,
+    );
     let giveTx;
 
     const uaData: IUAData = {
@@ -278,7 +282,7 @@ export const changeMockGive = createAsyncThunk(
       if (giveTx) {
         trackSegmentEvent(uaData);
         trackGAEvent({
-          category: "Olympus Give",
+          category: "RIPProtocol Give",
           action: uaData.type,
           label: uaData.recipient,
           metric1: parseFloat(uaData.value),
@@ -292,8 +296,8 @@ export const changeMockGive = createAsyncThunk(
 );
 
 /*
-  Put in place for anyone testing Give on testnet to easily get our mockSohm tokens
-  through a button in the ohmmenu component. Does not appear on mainnet.
+  Put in place for anyone testing Give on testnet to easily get our mockSrip tokens
+  through a button in the ripmenu component. Does not appear on mainnet.
 */
 export const getTestTokens = createAsyncThunk(
   "give/getTokens",
@@ -304,11 +308,11 @@ export const getTestTokens = createAsyncThunk(
     }
 
     const signer = provider.getSigner();
-    const mockSohmContract = new ethers.Contract(addresses[networkID].MOCK_SOHM as string, MockSohm, signer);
+    const mockSripContract = new ethers.Contract(addresses[networkID].MOCK_SRIP as string, MockSrip, signer);
     const pendingTxnType = "drip";
     let getTx;
     try {
-      getTx = await mockSohmContract.drip();
+      getTx = await mockSripContract.drip();
       dispatch(fetchPendingTxns({ txnHash: getTx.hash, text: "Drip", type: pendingTxnType }));
       await getTx.wait();
     } catch (e: unknown) {

@@ -1,11 +1,11 @@
 #dashboardchartmodal {
-    & > div:nth-child(3){
-        background-color: black;
-    }
-    & > div:nth-child(3) > div > div > div > div > div > div:nth-child(2) > h6 > div > svg {
-        color: white;
-    }
-    & > div:nth-child(3) > div > div > div > div:nth-child(2) > button > span > svg {
-        color: white;
-    }
+  & > div:nth-child(3) {
+    background-color: black;
+  }
+  & > div:nth-child(3) > div > div > div > div > div > div:nth-child(2) > h6 > div > svg {
+    color: white;
+  }
+  & > div:nth-child(3) > div > div > div > div:nth-child(2) > button > span > svg {
+    color: white;
+  }
 }

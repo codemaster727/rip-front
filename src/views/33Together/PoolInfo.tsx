@@ -9,7 +9,7 @@ interface PoolInfoProps {
   graphLoading: boolean;
   isAccountLoading: boolean;
   poolBalance?: string;
-  sohmBalance?: string;
+  sripBalance?: string;
   yourTotalAwards?: string;
   yourOdds?: string | number;
   winners: string | number;
@@ -62,7 +62,7 @@ export const PoolInfo = (props: PoolInfoProps) => {
               />
               <DataRow
                 title={t`Your wallet balance`}
-                balance={`${props.sohmBalance} sOHM`}
+                balance={`${props.sripBalance} sRIP`}
                 isLoading={props.isAccountLoading || props.graphLoading}
               />
             </Box>
@@ -78,16 +78,16 @@ export const PoolInfo = (props: PoolInfoProps) => {
           />
           <DataRow
             title={t`Total Deposits`}
-            balance={`${props.totalDeposits.toLocaleString()} sOHM`}
+            balance={`${props.totalDeposits.toLocaleString()} sRIP`}
             isLoading={props.graphLoading}
           />
           <DataRow
             title={t`Total Sponsorship`}
-            balance={`${props.totalSponsorship.toLocaleString()} sOHM`}
+            balance={`${props.totalSponsorship.toLocaleString()} sRIP`}
             isLoading={props.graphLoading}
           />
-          <DataRow title={t`Yield Source`} balance="sOHM" />
-          <DataRow title={t`Pool owner`} balance="OlympusDAO" />
+          <DataRow title={t`Yield Source`} balance="sRIP" />
+          <DataRow title={t`Pool owner`} balance="RIPProtocolDAO" />
           <Divider color="secondary" />
           <DataRow title={t`Early Exit Fee`} balance={`${creditLimitPercentage}%`} isLoading={poolLoadedCount === 1} />
           <DataRow
@@ -105,11 +105,11 @@ export const PoolInfo = (props: PoolInfoProps) => {
         </Box>
         <Box display="flex" flexDirection="row" justifyContent="center">
           <SecondaryButton href={poolTogetherUILinks(networkId)[0]}>
-            <Trans>sOHM Prize Pool</Trans>
+            <Trans>sRIP Prize Pool</Trans>
           </SecondaryButton>
           <div className="marginedBtn">
             <SecondaryButton href={poolTogetherUILinks(networkId)[1]}>
-              <Trans>sOHM Pool Details</Trans>
+              <Trans>sRIP Pool Details</Trans>
             </SecondaryButton>
           </div>
         </Box>

@@ -2,8 +2,8 @@
   "abi": [
     {
       "inputs": [
-        { "internalType": "address", "name": "_wsOHM", "type": "address" },
-        { "internalType": "address", "name": "_gOHM", "type": "address" }
+        { "internalType": "address", "name": "_wsRIP", "type": "address" },
+        { "internalType": "address", "name": "_gRIP", "type": "address" }
       ],
       "stateMutability": "nonpayable",
       "type": "constructor"

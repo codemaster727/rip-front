@@ -35,7 +35,7 @@ const ZapStakeHeader: React.FC<ZapStakeHeaderProps> = ({ images }) => {
             <Box alignItems="center" display="flex" flexDirection="column">
               <TokenStack tokens={["sOHM", "zap"]} />
               <Typography color="textSecondary">
-                <Trans>Swap for sOHM</Trans>
+                <Trans>Swap for sRIP</Trans>
               </Typography>
             </Box>
           </Grid>
@@ -45,7 +45,7 @@ const ZapStakeHeader: React.FC<ZapStakeHeaderProps> = ({ images }) => {
               <Box alignItems="center" display="flex" flexDirection="column" marginX={1}>
                 <Token name="zap" style={{ marginBottom: "16px" }} />
                 <Typography color="textSecondary">
-                  <Trans>Swap for OHM</Trans>
+                  <Trans>Swap for RIP</Trans>
                 </Typography>
               </Box>
             </Grid>

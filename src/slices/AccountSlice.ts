@@ -4,17 +4,17 @@ import { BigNumber, BigNumberish, ethers } from "ethers";
 import { EnvHelper } from "src/helpers/Environment";
 import { NodeHelper } from "src/helpers/NodeHelper";
 import { RootState } from "src/store";
-import { FiatDAOContract, FuseProxy, IERC20, IERC20__factory, SOhmv2 } from "src/typechain";
-import { GOHM__factory } from "src/typechain/factories/GOHM__factory";
+import { FiatDAOContract, FuseProxy, IERC20, IERC20__factory, SRipv2 } from "src/typechain";
+import { GRIP__factory } from "src/typechain/factories/GRIP__factory";
 
 import { abi as fiatDAO } from "../abi/FiatDAOContract.json";
 import { abi as fuseProxy } from "../abi/FuseProxy.json";
 import { abi as ierc20Abi } from "../abi/IERC20.json";
-import { abi as MockSohm } from "../abi/MockSohm.json";
-import { abi as OlympusGiving } from "../abi/OlympusGiving.json";
-import { abi as OlympusMockGiving } from "../abi/OlympusMockGiving.json";
-import { abi as sOHMv2 } from "../abi/sOhmv2.json";
-// import { abi as wsOHM } from "../abi/wsOHM.json";
+import { abi as MockSrip } from "../abi/MockSrip.json";
+import { abi as RIPProtocolGiving } from "../abi/RIPProtocolGiving.json";
+import { abi as RIPProtocolMockGiving } from "../abi/RIPProtocolMockGiving.json";
+import { abi as sRIPv2 } from "../abi/sRipv2.json";
+// import { abi as wsRIP } from "../abi/wsRIP.json";
 import { addresses, NetworkId } from "../constants";
 import { handleContractError, setAll } from "../helpers";
 import { getMockRedemptionBalancesAsync, getRedemptionBalancesAsync } from "../helpers/GiveRedemptionBalanceHelper";
@@ -22,28 +22,28 @@ import { IBaseAddressAsyncThunk, ICalcUserBondDetailsAsyncThunk } from "./interf
 
 interface IUserBalances {
   balances: {
-    gohm: string;
-    gOhmAsSohmBal: string;
-    gOhmOnArbitrum: string;
-    gOhmOnArbAsSohm: string;
-    gOhmOnAvax: string;
-    gOhmOnAvaxAsSohm: string;
-    gOhmOnPolygon: string;
-    gOhmOnPolygonAsSohm: string;
-    gOhmOnFantom: string;
-    gOhmOnFantomAsSohm: string;
-    gOhmOnTokemak: string;
-    gOhmOnTokemakAsSohm: string;
-    ohm: string;
-    ohmV1: string;
-    sohm: string;
-    sohmV1: string;
-    fsohm: string;
-    fgohm: string;
-    fgOHMAsfsOHM: string;
-    wsohm: string;
-    fiatDaowsohm: string;
-    mockSohm: string;
+    grip: string;
+    gRipAsSripBal: string;
+    gRipOnArbitrum: string;
+    gRipOnArbAsSrip: string;
+    gRipOnAvax: string;
+    gRipOnAvaxAsSrip: string;
+    gRipOnPolygon: string;
+    gRipOnPolygonAsSrip: string;
+    gRipOnFantom: string;
+    gRipOnFantomAsSrip: string;
+    gRipOnTokemak: string;
+    gRipOnTokemakAsSrip: string;
+    rip: string;
+    ripV1: string;
+    srip: string;
+    sripV1: string;
+    fsrip: string;
+    fgrip: string;
+    fgRIPAsfsRIP: string;
+    wsrip: string;
+    fiatDaowsrip: string;
+    mockSrip: string;
     pool: string;
   };
 }
@@ -70,114 +70,114 @@ interface IUserRecipientInfo {
 export const getBalances = createAsyncThunk(
   "account/getBalances",
   async ({ address, networkID, provider }: IBaseAddressAsyncThunk): Promise<IUserBalances> => {
-    let gOhmBalance = BigNumber.from("0");
-    let gOhmBalAsSohmBal = BigNumber.from("0");
-    let gOhmOnArbitrum = BigNumber.from("0");
-    let gOhmOnArbAsSohm = BigNumber.from("0");
-    let gOhmOnAvax = BigNumber.from("0");
-    let gOhmOnAvaxAsSohm = BigNumber.from("0");
-    let gOhmOnPolygon = BigNumber.from("0");
-    let gOhmOnPolygonAsSohm = BigNumber.from("0");
-    let gOhmOnFantom = BigNumber.from("0");
-    let gOhmOnFantomAsSohm = BigNumber.from("0");
-    let gOhmOnTokemak = BigNumber.from("0");
-    let gOhmOnTokemakAsSohm = BigNumber.from("0");
-    let ohmBalance = BigNumber.from("0");
-    let sohmBalance = BigNumber.from("0");
-    let mockSohmBalance = BigNumber.from("0");
-    let ohmV2Balance = BigNumber.from("0");
-    let sohmV2Balance = BigNumber.from("0");
-    let wsohmBalance = BigNumber.from("0");
+    let gRipBalance = BigNumber.from("0");
+    let gRipBalAsSripBal = BigNumber.from("0");
+    let gRipOnArbitrum = BigNumber.from("0");
+    let gRipOnArbAsSrip = BigNumber.from("0");
+    let gRipOnAvax = BigNumber.from("0");
+    let gRipOnAvaxAsSrip = BigNumber.from("0");
+    let gRipOnPolygon = BigNumber.from("0");
+    let gRipOnPolygonAsSrip = BigNumber.from("0");
+    let gRipOnFantom = BigNumber.from("0");
+    let gRipOnFantomAsSrip = BigNumber.from("0");
+    let gRipOnTokemak = BigNumber.from("0");
+    let gRipOnTokemakAsSrip = BigNumber.from("0");
+    let ripBalance = BigNumber.from("0");
+    let sripBalance = BigNumber.from("0");
+    let mockSripBalance = BigNumber.from("0");
+    let ripV2Balance = BigNumber.from("0");
+    let sripV2Balance = BigNumber.from("0");
+    let wsripBalance = BigNumber.from("0");
     let poolBalance = BigNumber.from("0");
-    let fsohmBalance = BigNumber.from(0);
-    let fgohmBalance = BigNumber.from(0);
-    let fgOHMAsfsOHMBalance = BigNumber.from(0);
-    let fiatDaowsohmBalance = BigNumber.from("0");
+    let fsripBalance = BigNumber.from(0);
+    let fgripBalance = BigNumber.from(0);
+    let fgRIPAsfsRIPBalance = BigNumber.from(0);
+    let fiatDaowsripBalance = BigNumber.from("0");
 
-    const gOhmContract = GOHM__factory.connect(addresses[networkID].GOHM_ADDRESS, provider);
+    const gRipContract = GRIP__factory.connect(addresses[networkID].GRIP_ADDRESS, provider);
     try {
-      gOhmBalance = await gOhmContract.balanceOf(address);
-      gOhmBalAsSohmBal = await gOhmContract.balanceFrom(gOhmBalance.toString());
+      gRipBalance = await gRipContract.balanceOf(address);
+      gRipBalAsSripBal = await gRipContract.balanceFrom(gRipBalance.toString());
     } catch (e) {
       handleContractError(e);
     }
     try {
       const arbProvider = NodeHelper.getAnynetStaticProvider(NetworkId.ARBITRUM);
-      const gOhmArbContract = GOHM__factory.connect(addresses[NetworkId.ARBITRUM].GOHM_ADDRESS, arbProvider);
-      gOhmOnArbitrum = await gOhmArbContract.balanceOf(address);
-      gOhmOnArbAsSohm = await gOhmContract.balanceFrom(gOhmOnArbitrum.toString());
+      const gRipArbContract = GRIP__factory.connect(addresses[NetworkId.ARBITRUM].GRIP_ADDRESS, arbProvider);
+      gRipOnArbitrum = await gRipArbContract.balanceOf(address);
+      gRipOnArbAsSrip = await gRipContract.balanceFrom(gRipOnArbitrum.toString());
     } catch (e) {
       handleContractError(e);
     }
     try {
       const avaxProvider = NodeHelper.getAnynetStaticProvider(NetworkId.AVALANCHE);
-      const gOhmAvaxContract = GOHM__factory.connect(addresses[NetworkId.AVALANCHE].GOHM_ADDRESS, avaxProvider);
-      gOhmOnAvax = await gOhmAvaxContract.balanceOf(address);
-      gOhmOnAvaxAsSohm = await gOhmContract.balanceFrom(gOhmOnAvax.toString());
+      const gRipAvaxContract = GRIP__factory.connect(addresses[NetworkId.AVALANCHE].GRIP_ADDRESS, avaxProvider);
+      gRipOnAvax = await gRipAvaxContract.balanceOf(address);
+      gRipOnAvaxAsSrip = await gRipContract.balanceFrom(gRipOnAvax.toString());
     } catch (e) {
       handleContractError(e);
     }
     try {
       const polygonProvider = NodeHelper.getAnynetStaticProvider(NetworkId.POLYGON);
-      const gOhmPolygonContract = GOHM__factory.connect(addresses[NetworkId.POLYGON].GOHM_ADDRESS, polygonProvider);
-      gOhmOnPolygon = await gOhmPolygonContract.balanceOf(address);
-      gOhmOnPolygonAsSohm = await gOhmContract.balanceFrom(gOhmOnPolygon.toString());
+      const gRipPolygonContract = GRIP__factory.connect(addresses[NetworkId.POLYGON].GRIP_ADDRESS, polygonProvider);
+      gRipOnPolygon = await gRipPolygonContract.balanceOf(address);
+      gRipOnPolygonAsSrip = await gRipContract.balanceFrom(gRipOnPolygon.toString());
     } catch (e) {
       handleContractError(e);
     }
     try {
       const fantomProvider = NodeHelper.getAnynetStaticProvider(NetworkId.FANTOM);
-      const gOhmFantomContract = GOHM__factory.connect(addresses[NetworkId.FANTOM].GOHM_ADDRESS, fantomProvider);
-      gOhmOnFantom = await gOhmFantomContract.balanceOf(address);
-      gOhmOnFantomAsSohm = await gOhmContract.balanceFrom(gOhmOnFantom.toString());
+      const gRipFantomContract = GRIP__factory.connect(addresses[NetworkId.FANTOM].GRIP_ADDRESS, fantomProvider);
+      gRipOnFantom = await gRipFantomContract.balanceOf(address);
+      gRipOnFantomAsSrip = await gRipContract.balanceFrom(gRipOnFantom.toString());
     } catch (e) {
       handleContractError(e);
     }
 
     try {
       const tokemakProvider = NodeHelper.getAnynetStaticProvider(NetworkId.MAINNET);
-      const gOhmTokemakContract = GOHM__factory.connect(addresses[NetworkId.MAINNET].TOKEMAK_GOHM, tokemakProvider);
-      gOhmOnTokemak = await gOhmTokemakContract.balanceOf(address);
-      gOhmOnTokemakAsSohm = await gOhmContract.balanceFrom(gOhmOnTokemak.toString());
+      const gRipTokemakContract = GRIP__factory.connect(addresses[NetworkId.MAINNET].TOKEMAK_GRIP, tokemakProvider);
+      gRipOnTokemak = await gRipTokemakContract.balanceOf(address);
+      gRipOnTokemakAsSrip = await gRipContract.balanceFrom(gRipOnTokemak.toString());
     } catch (e) {
       handleContractError(e);
     }
     try {
-      // const wsohmContract = new ethers.Contract(addresses[networkID].WSOHM_ADDRESS as string, wsOHM, provider) as WsOHM;
-      // wsohmBalance = await wsohmContract.balanceOf(address);
-      wsohmBalance = new BigNumber(0, "ETH");
+      // const wsripContract = new ethers.Contract(addresses[networkID].WSRIP_ADDRESS as string, wsRIP, provider) as WsRIP;
+      // wsripBalance = await wsripContract.balanceOf(address);
+      wsripBalance = new BigNumber(0, "ETH");
     } catch (e) {
       handleContractError(e);
     }
     try {
-      const ohmContract = new ethers.Contract(
-        addresses[networkID].OHM_ADDRESS as string,
+      const ripContract = new ethers.Contract(
+        addresses[networkID].RIP_ADDRESS as string,
         ierc20Abi,
         provider,
       ) as IERC20;
-      ohmBalance = await ohmContract.balanceOf(address);
+      ripBalance = await ripContract.balanceOf(address);
     } catch (e) {
       handleContractError(e);
     }
     try {
-      const sohmContract = new ethers.Contract(
-        addresses[networkID].SOHM_ADDRESS as string,
+      const sripContract = new ethers.Contract(
+        addresses[networkID].SRIP_ADDRESS as string,
         ierc20Abi,
         provider,
       ) as IERC20;
-      sohmBalance = await sohmContract.balanceOf(address);
+      sripBalance = await sripContract.balanceOf(address);
     } catch (e) {
       handleContractError(e);
     }
     try {
-      const ohmV2Contract = new ethers.Contract(addresses[networkID].OHM_V2 as string, ierc20Abi, provider) as IERC20;
-      ohmV2Balance = await ohmV2Contract.balanceOf(address);
+      const ripV2Contract = new ethers.Contract(addresses[networkID].RIP_V2 as string, ierc20Abi, provider) as IERC20;
+      ripV2Balance = await ripV2Contract.balanceOf(address);
     } catch (e) {
       handleContractError(e);
     }
     try {
-      const sohmV2Contract = new ethers.Contract(addresses[networkID].SOHM_V2 as string, ierc20Abi, provider) as IERC20;
-      sohmV2Balance = await sohmV2Contract.balanceOf(address);
+      const sripV2Contract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, ierc20Abi, provider) as IERC20;
+      sripV2Balance = await sripV2Contract.balanceOf(address);
     } catch (e) {
       handleContractError(e);
     }
@@ -194,79 +194,79 @@ export const getBalances = createAsyncThunk(
       handleContractError(e);
     }
     try {
-      for (const fuseAddressKey of ["FUSE_6_SOHM", "FUSE_18_SOHM", "FUSE_36_SOHM"]) {
+      for (const fuseAddressKey of ["FUSE_6_SRIP", "FUSE_18_SRIP", "FUSE_36_SRIP"]) {
         if (addresses[networkID][fuseAddressKey]) {
-          const fsohmContract = new ethers.Contract(
+          const fsripContract = new ethers.Contract(
             addresses[networkID][fuseAddressKey] as string,
             fuseProxy,
             provider.getSigner(),
           ) as FuseProxy;
-          const balanceOfUnderlying = await fsohmContract.callStatic.balanceOfUnderlying(address);
-          const underlying = await fsohmContract.callStatic.underlying();
-          if (underlying == addresses[networkID].GOHM_ADDRESS) {
-            fgohmBalance = balanceOfUnderlying.add(fgohmBalance);
-          } else fsohmBalance = balanceOfUnderlying.add(fsohmBalance);
+          const balanceOfUnderlying = await fsripContract.callStatic.balanceOfUnderlying(address);
+          const underlying = await fsripContract.callStatic.underlying();
+          if (underlying == addresses[networkID].GRIP_ADDRESS) {
+            fgripBalance = balanceOfUnderlying.add(fgripBalance);
+          } else fsripBalance = balanceOfUnderlying.add(fsripBalance);
         }
       }
-      const gOhmContract = GOHM__factory.connect(addresses[networkID].GOHM_ADDRESS, provider);
-      if (fgohmBalance.gt(0)) {
-        fgOHMAsfsOHMBalance = await gOhmContract.balanceFrom(fgohmBalance.toString());
+      const gRipContract = GRIP__factory.connect(addresses[networkID].GRIP_ADDRESS, provider);
+      if (fgripBalance.gt(0)) {
+        fgRIPAsfsRIPBalance = await gRipContract.balanceFrom(fgripBalance.toString());
       }
     } catch (e) {
       handleContractError(e);
     }
     try {
-      if (addresses[networkID].FIATDAO_WSOHM_ADDRESS) {
+      if (addresses[networkID].FIATDAO_WSRIP_ADDRESS) {
         const fiatDaoContract = new ethers.Contract(
-          addresses[networkID].FIATDAO_WSOHM_ADDRESS as string,
+          addresses[networkID].FIATDAO_WSRIP_ADDRESS as string,
           fiatDAO,
           provider,
         ) as FiatDAOContract;
-        fiatDaowsohmBalance = await fiatDaoContract.balanceOf(address, addresses[networkID].WSOHM_ADDRESS as string);
+        fiatDaowsripBalance = await fiatDaoContract.balanceOf(address, addresses[networkID].WSRIP_ADDRESS as string);
       }
     } catch (e) {
       handleContractError(e);
     }
     /*
-      Needed a sOHM contract on testnet that could easily
+      Needed a sRIP contract on testnet that could easily
       be manually rebased to test redeem features
     */
-    if (addresses[networkID] && addresses[networkID].MOCK_SOHM) {
-      const mockSohmContract = new ethers.Contract(
-        addresses[networkID].MOCK_SOHM as string,
-        MockSohm,
+    if (addresses[networkID] && addresses[networkID].MOCK_SRIP) {
+      const mockSripContract = new ethers.Contract(
+        addresses[networkID].MOCK_SRIP as string,
+        MockSrip,
         provider,
       ) as IERC20;
-      mockSohmBalance = await mockSohmContract.balanceOf(address);
+      mockSripBalance = await mockSripContract.balanceOf(address);
     } else {
-      console.debug("Unable to find MOCK_SOHM contract on chain ID " + networkID);
+      console.debug("Unable to find MOCK_SRIP contract on chain ID " + networkID);
     }
 
     return {
       balances: {
-        gohm: ethers.utils.formatEther(gOhmBalance),
-        gOhmAsSohmBal: ethers.utils.formatUnits(gOhmBalAsSohmBal, "gwei"),
-        gOhmOnArbitrum: ethers.utils.formatEther(gOhmOnArbitrum),
-        gOhmOnArbAsSohm: ethers.utils.formatUnits(gOhmOnArbAsSohm, "gwei"),
-        gOhmOnAvax: ethers.utils.formatEther(gOhmOnAvax),
-        gOhmOnAvaxAsSohm: ethers.utils.formatUnits(gOhmOnAvaxAsSohm, "gwei"),
-        gOhmOnPolygon: ethers.utils.formatEther(gOhmOnPolygon),
-        gOhmOnPolygonAsSohm: ethers.utils.formatUnits(gOhmOnPolygonAsSohm, "gwei"),
-        gOhmOnFantom: ethers.utils.formatEther(gOhmOnFantom),
-        gOhmOnFantomAsSohm: ethers.utils.formatUnits(gOhmOnFantomAsSohm, "gwei"),
-        gOhmOnTokemak: ethers.utils.formatEther(gOhmOnTokemak),
-        gOhmOnTokemakAsSohm: ethers.utils.formatUnits(gOhmOnTokemakAsSohm, "gwei"),
-        ohmV1: ethers.utils.formatUnits(ohmBalance, "gwei"),
-        sohmV1: ethers.utils.formatUnits(sohmBalance, "gwei"),
-        fsohm: ethers.utils.formatUnits(fsohmBalance, "gwei"),
-        fgohm: ethers.utils.formatEther(fgohmBalance),
-        fgOHMAsfsOHM: ethers.utils.formatUnits(fgOHMAsfsOHMBalance, "gwei"),
-        wsohm: ethers.utils.formatEther(wsohmBalance),
-        fiatDaowsohm: ethers.utils.formatEther(fiatDaowsohmBalance),
+        grip: ethers.utils.formatEther(gRipBalance),
+        gRipAsSripBal: ethers.utils.formatUnits(gRipBalAsSripBal, "gwei"),
+        gRipOnArbitrum: ethers.utils.formatEther(gRipOnArbitrum),
+        gRipOnArbAsSrip: ethers.utils.formatUnits(gRipOnArbAsSrip, "gwei"),
+        gRipOnAvax: ethers.utils.formatEther(gRipOnAvax),
+        gRipOnAvaxAsSrip: ethers.utils.formatUnits(gRipOnAvaxAsSrip, "gwei"),
+        gRipOnPolygon: ethers.utils.formatEther(gRipOnPolygon),
+        gRipOnPolygonAsSrip: ethers.utils.formatUnits(gRipOnPolygonAsSrip, "gwei"),
+        gRipOnFantom: ethers.utils.formatEther(gRipOnFantom),
+        gRipOnFantomAsSrip: ethers.utils.formatUnits(gRipOnFantomAsSrip, "gwei"),
+        gRipOnTokemak: ethers.utils.formatEther(gRipOnTokemak),
+        gRipOnTokemakAsSrip: ethers.utils.formatUnits(gRipOnTokemakAsSrip, "gwei"),
+        ripV1: ethers.utils.formatUnits(ripBalance, "gwei"),
+        sripV1: ethers.utils.formatUnits(sripBalance, "gwei"),
+        fsrip: ethers.utils.formatUnits(fsripBalance, "gwei"),
+        fgrip: ethers.utils.formatEther(fgripBalance),
+        fgRIPAsfsRIP: ethers.utils.formatUnits(fgRIPAsfsRIPBalance, "gwei"),
+        wsrip: ethers.utils.formatEther(wsripBalance),
+        fiatDaowsrip: ethers.utils.formatEther(fiatDaowsripBalance),
         pool: ethers.utils.formatUnits(poolBalance, "gwei"),
-        ohm: ethers.utils.formatUnits(ohmV2Balance, "gwei"),
-        sohm: ethers.utils.formatUnits(sohmV2Balance, "gwei"),
-        mockSohm: ethers.utils.formatUnits(mockSohmBalance, "gwei"),
+        rip: ethers.utils.formatUnits(ripV2Balance, "gwei"),
+        srip: ethers.utils.formatUnits(sripV2Balance, "gwei"),
+        mockSrip: ethers.utils.formatUnits(mockSripBalance, "gwei"),
       },
     };
   },
@@ -282,11 +282,11 @@ export const getDonationBalances = createAsyncThunk(
     const donationInfo: IUserDonationInfo = {};
 
     if (addresses[networkID] && addresses[networkID].GIVING_ADDRESS) {
-      const sohmContract = new ethers.Contract(addresses[networkID].SOHM_V2 as string, ierc20Abi, provider);
-      giveAllowance = await sohmContract.allowance(address, addresses[networkID].GIVING_ADDRESS);
+      const sripContract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, ierc20Abi, provider);
+      giveAllowance = await sripContract.allowance(address, addresses[networkID].GIVING_ADDRESS);
       const givingContract = new ethers.Contract(
         addresses[networkID].GIVING_ADDRESS as string,
-        OlympusGiving,
+        RIPProtocolGiving,
         provider,
       );
       try {
@@ -310,7 +310,7 @@ export const getDonationBalances = createAsyncThunk(
 
     return {
       giving: {
-        sohmGive: +giveAllowance,
+        sripGive: +giveAllowance,
         donationInfo: donationInfo,
         loading: false,
       },
@@ -322,7 +322,7 @@ export const getDonationBalances = createAsyncThunk(
  * Provides the details of deposits/donations provided by a specific wallet.
  *
  * This differs from the standard `getDonationBalances` function because it uses a alternative
- * sOHM contract that allows for manual rebases, which is helpful during testing of the 'Give' functionality.
+ * sRIP contract that allows for manual rebases, which is helpful during testing of the 'Give' functionality.
  */
 export const getMockDonationBalances = createAsyncThunk(
   "account/getMockDonationBalances",
@@ -330,12 +330,12 @@ export const getMockDonationBalances = createAsyncThunk(
     let giveAllowance = 0;
     const donationInfo: IUserDonationInfo = {};
 
-    if (addresses[networkID] && addresses[networkID].MOCK_SOHM) {
-      const mockSohmContract = new ethers.Contract(addresses[networkID].MOCK_SOHM as string, MockSohm, provider);
-      giveAllowance = await mockSohmContract._allowedValue(address, addresses[networkID].MOCK_GIVING_ADDRESS);
+    if (addresses[networkID] && addresses[networkID].MOCK_SRIP) {
+      const mockSripContract = new ethers.Contract(addresses[networkID].MOCK_SRIP as string, MockSrip, provider);
+      giveAllowance = await mockSripContract._allowedValue(address, addresses[networkID].MOCK_GIVING_ADDRESS);
       const givingContract = new ethers.Contract(
         addresses[networkID].MOCK_GIVING_ADDRESS as string,
-        OlympusMockGiving,
+        RIPProtocolMockGiving,
         provider,
       );
 
@@ -355,12 +355,12 @@ export const getMockDonationBalances = createAsyncThunk(
         console.log(e);
       }
     } else {
-      console.debug("Unable to find MOCK_SOHM contract on chain ID " + networkID);
+      console.debug("Unable to find MOCK_SRIP contract on chain ID " + networkID);
     }
 
     return {
       mockGiving: {
-        sohmGive: +giveAllowance,
+        sripGive: +giveAllowance,
         donationInfo: donationInfo,
         loading: false,
       },
@@ -386,56 +386,56 @@ export const getMockRedemptionBalances = createAsyncThunk(
 
 interface IUserAccountDetails {
   staking: {
-    ohmStake: number;
-    ohmUnstake: number;
+    ripStake: number;
+    ripUnstake: number;
   };
   wrapping: {
-    sohmWrap: number;
-    wsohmUnwrap: number;
-    gOhmUnwrap: number;
-    wsOhmMigrate: number;
+    sripWrap: number;
+    wsripUnwrap: number;
+    gRipUnwrap: number;
+    wsRipMigrate: number;
   };
 }
 
 export const getMigrationAllowances = createAsyncThunk(
   "account/getMigrationAllowances",
   async ({ networkID, provider, address }: IBaseAddressAsyncThunk) => {
-    let ohmAllowance = BigNumber.from(0);
-    let sOhmAllowance = BigNumber.from(0);
-    let wsOhmAllowance = BigNumber.from(0);
-    let gOhmAllowance = BigNumber.from(0);
+    let ripAllowance = BigNumber.from(0);
+    let sRipAllowance = BigNumber.from(0);
+    let wsRipAllowance = BigNumber.from(0);
+    let gRipAllowance = BigNumber.from(0);
 
-    if (addresses[networkID].OHM_ADDRESS) {
+    if (addresses[networkID].RIP_ADDRESS) {
       try {
-        const ohmContract = IERC20__factory.connect(addresses[networkID].OHM_ADDRESS, provider);
-        ohmAllowance = await ohmContract.allowance(address, addresses[networkID].MIGRATOR_ADDRESS);
+        const ripContract = IERC20__factory.connect(addresses[networkID].RIP_ADDRESS, provider);
+        ripAllowance = await ripContract.allowance(address, addresses[networkID].MIGRATOR_ADDRESS);
       } catch (e) {
         handleContractError(e);
       }
     }
 
-    if (addresses[networkID].SOHM_ADDRESS) {
+    if (addresses[networkID].SRIP_ADDRESS) {
       try {
-        const sOhmContract = IERC20__factory.connect(addresses[networkID].SOHM_ADDRESS, provider);
-        sOhmAllowance = await sOhmContract.allowance(address, addresses[networkID].MIGRATOR_ADDRESS);
+        const sRipContract = IERC20__factory.connect(addresses[networkID].SRIP_ADDRESS, provider);
+        sRipAllowance = await sRipContract.allowance(address, addresses[networkID].MIGRATOR_ADDRESS);
       } catch (e) {
         handleContractError(e);
       }
     }
 
-    if (addresses[networkID].WSOHM_ADDRESS) {
+    if (addresses[networkID].WSRIP_ADDRESS) {
       try {
-        const wsOhmContract = IERC20__factory.connect(addresses[networkID].WSOHM_ADDRESS, provider);
-        wsOhmAllowance = await wsOhmContract.allowance(address, addresses[networkID].MIGRATOR_ADDRESS);
+        const wsRipContract = IERC20__factory.connect(addresses[networkID].WSRIP_ADDRESS, provider);
+        wsRipAllowance = await wsRipContract.allowance(address, addresses[networkID].MIGRATOR_ADDRESS);
       } catch (e) {
         handleContractError(e);
       }
     }
 
-    if (addresses[networkID].GOHM_ADDRESS) {
+    if (addresses[networkID].GRIP_ADDRESS) {
       try {
-        const gOhmContract = IERC20__factory.connect(addresses[networkID].GOHM_ADDRESS, provider);
-        gOhmAllowance = await gOhmContract.allowance(address, addresses[networkID].MIGRATOR_ADDRESS);
+        const gRipContract = IERC20__factory.connect(addresses[networkID].GRIP_ADDRESS, provider);
+        gRipAllowance = await gRipContract.allowance(address, addresses[networkID].MIGRATOR_ADDRESS);
       } catch (e) {
         handleContractError(e);
       }
@@ -443,10 +443,10 @@ export const getMigrationAllowances = createAsyncThunk(
 
     return {
       migration: {
-        ohm: +ohmAllowance,
-        sohm: +sOhmAllowance,
-        wsohm: +wsOhmAllowance,
-        gohm: +gOhmAllowance,
+        rip: +ripAllowance,
+        srip: +sRipAllowance,
+        wsrip: +wsRipAllowance,
+        grip: +gRipAllowance,
       },
       isMigrationComplete: false,
     };
@@ -461,35 +461,35 @@ export const loadAccountDetails = createAsyncThunk(
     let unstakeAllowanceV2 = BigNumber.from("0");
     let unstakeAllowance = BigNumber.from("0");
     let wrapAllowance = BigNumber.from("0");
-    let gOhmUnwrapAllowance = BigNumber.from("0");
+    let gRipUnwrapAllowance = BigNumber.from("0");
     let poolAllowance = BigNumber.from("0");
-    const ohmToGohmAllowance = BigNumber.from("0");
-    let wsOhmMigrateAllowance = BigNumber.from("0");
+    const ripToGripAllowance = BigNumber.from("0");
+    let wsRipMigrateAllowance = BigNumber.from("0");
 
     try {
-      const gOhmContract = GOHM__factory.connect(addresses[networkID].GOHM_ADDRESS, provider);
-      gOhmUnwrapAllowance = await gOhmContract.allowance(address, addresses[networkID].STAKING_V2);
+      const gRipContract = GRIP__factory.connect(addresses[networkID].GRIP_ADDRESS, provider);
+      gRipUnwrapAllowance = await gRipContract.allowance(address, addresses[networkID].STAKING_V2);
 
-      const wsOhmContract = IERC20__factory.connect(addresses[networkID].WSOHM_ADDRESS, provider);
-      wsOhmMigrateAllowance = await wsOhmContract.balanceOf(address);
+      const wsRipContract = IERC20__factory.connect(addresses[networkID].WSRIP_ADDRESS, provider);
+      wsRipMigrateAllowance = await wsRipContract.balanceOf(address);
 
-      const ohmContract = new ethers.Contract(
-        addresses[networkID].OHM_ADDRESS as string,
+      const ripContract = new ethers.Contract(
+        addresses[networkID].RIP_ADDRESS as string,
         ierc20Abi,
         provider,
       ) as IERC20;
-      stakeAllowance = await ohmContract.allowance(address, addresses[networkID].STAKING_HELPER_ADDRESS);
+      stakeAllowance = await ripContract.allowance(address, addresses[networkID].STAKING_HELPER_ADDRESS);
 
-      const sohmContract = new ethers.Contract(addresses[networkID].SOHM_V2 as string, sOHMv2, provider) as SOhmv2;
-      unstakeAllowance = await sohmContract.allowance(address, addresses[networkID].STAKING_ADDRESS);
-      poolAllowance = await sohmContract.allowance(address, addresses[networkID].PT_PRIZE_POOL_ADDRESS);
-      wrapAllowance = await sohmContract.allowance(address, addresses[networkID].STAKING_V2);
+      const sripContract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, sRIPv2, provider) as SRipv2;
+      unstakeAllowance = await sripContract.allowance(address, addresses[networkID].STAKING_ADDRESS);
+      poolAllowance = await sripContract.allowance(address, addresses[networkID].PT_PRIZE_POOL_ADDRESS);
+      wrapAllowance = await sripContract.allowance(address, addresses[networkID].STAKING_V2);
 
-      const sohmV2Contract = IERC20__factory.connect(addresses[networkID].SOHM_V2, provider);
-      unstakeAllowanceV2 = await sohmV2Contract.allowance(address, addresses[networkID].STAKING_V2);
+      const sripV2Contract = IERC20__factory.connect(addresses[networkID].SRIP_V2, provider);
+      unstakeAllowanceV2 = await sripV2Contract.allowance(address, addresses[networkID].STAKING_V2);
 
-      const ohmV2Contract = IERC20__factory.connect(addresses[networkID].OHM_V2, provider);
-      stakeAllowanceV2 = await ohmV2Contract.allowance(address, addresses[networkID].STAKING_V2);
+      const ripV2Contract = IERC20__factory.connect(addresses[networkID].RIP_V2, provider);
+      stakeAllowanceV2 = await ripV2Contract.allowance(address, addresses[networkID].STAKING_V2);
     } catch (e) {
       handleContractError(e);
     }
@@ -505,16 +505,16 @@ export const loadAccountDetails = createAsyncThunk(
 
     return {
       staking: {
-        ohmStakeV1: +stakeAllowance,
-        ohmUnstakeV1: +unstakeAllowance,
-        ohmStake: +stakeAllowanceV2,
-        ohmUnstake: +unstakeAllowanceV2,
-        ohmtoGohm: +ohmToGohmAllowance,
+        ripStakeV1: +stakeAllowance,
+        ripUnstakeV1: +unstakeAllowance,
+        ripStake: +stakeAllowanceV2,
+        ripUnstake: +unstakeAllowanceV2,
+        riptoGrip: +ripToGripAllowance,
       },
       wrapping: {
-        sohmWrap: Number(ethers.utils.formatUnits(wrapAllowance, "gwei")),
-        gOhmUnwrap: Number(ethers.utils.formatUnits(gOhmUnwrapAllowance, "ether")),
-        wsOhmMigrate: Number(ethers.utils.formatUnits(wsOhmMigrateAllowance, "ether")),
+        sripWrap: Number(ethers.utils.formatUnits(wrapAllowance, "gwei")),
+        gRipUnwrap: Number(ethers.utils.formatUnits(gRipUnwrapAllowance, "ether")),
+        wsRipMigrate: Number(ethers.utils.formatUnits(wsRipMigrateAllowance, "ether")),
       },
     };
   },
@@ -579,53 +579,53 @@ export const calculateUserBondDetails = createAsyncThunk(
 );
 
 export interface IAccountSlice extends IUserAccountDetails, IUserBalances {
-  giving: { sohmGive: number; donationInfo: IUserDonationInfo; loading: boolean };
-  mockGiving: { sohmGive: number; donationInfo: IUserDonationInfo; loading: boolean };
-  redeeming: { sohmRedeemable: string; recipientInfo: IUserRecipientInfo };
-  mockRedeeming: { sohmRedeemable: string; recipientInfo: IUserRecipientInfo };
+  giving: { sripGive: number; donationInfo: IUserDonationInfo; loading: boolean };
+  mockGiving: { sripGive: number; donationInfo: IUserDonationInfo; loading: boolean };
+  redeeming: { sripRedeemable: string; recipientInfo: IUserRecipientInfo };
+  mockRedeeming: { sripRedeemable: string; recipientInfo: IUserRecipientInfo };
   bonds: { [key: string]: IUserBondDetails };
   balances: {
-    gohm: string;
-    gOhmAsSohmBal: string;
-    gOhmOnArbitrum: string;
-    gOhmOnArbAsSohm: string;
-    gOhmOnAvax: string;
-    gOhmOnAvaxAsSohm: string;
-    gOhmOnPolygon: string;
-    gOhmOnPolygonAsSohm: string;
-    gOhmOnFantom: string;
-    gOhmOnFantomAsSohm: string;
-    gOhmOnTokemak: string;
-    gOhmOnTokemakAsSohm: string;
-    ohmV1: string;
-    ohm: string;
-    sohm: string;
-    sohmV1: string;
+    grip: string;
+    gRipAsSripBal: string;
+    gRipOnArbitrum: string;
+    gRipOnArbAsSrip: string;
+    gRipOnAvax: string;
+    gRipOnAvaxAsSrip: string;
+    gRipOnPolygon: string;
+    gRipOnPolygonAsSrip: string;
+    gRipOnFantom: string;
+    gRipOnFantomAsSrip: string;
+    gRipOnTokemak: string;
+    gRipOnTokemakAsSrip: string;
+    ripV1: string;
+    rip: string;
+    srip: string;
+    sripV1: string;
     dai: string;
-    oldsohm: string;
-    fsohm: string;
-    fgohm: string;
-    fgOHMAsfsOHM: string;
-    wsohm: string;
-    fiatDaowsohm: string;
+    oldsrip: string;
+    fsrip: string;
+    fgrip: string;
+    fgRIPAsfsRIP: string;
+    wsrip: string;
+    fiatDaowsrip: string;
     pool: string;
-    mockSohm: string;
+    mockSrip: string;
   };
   loading: boolean;
   staking: {
-    ohmStakeV1: number;
-    ohmUnstakeV1: number;
-    ohmStake: number;
-    ohmUnstake: number;
+    ripStakeV1: number;
+    ripUnstakeV1: number;
+    ripStake: number;
+    ripUnstake: number;
   };
   migration: {
-    ohm: number;
-    sohm: number;
-    wsohm: number;
-    gohm: number;
+    rip: number;
+    srip: number;
+    wsrip: number;
+    grip: number;
   };
   pooling: {
-    sohmPool: number;
+    sripPool: number;
   };
   isMigrationComplete: boolean;
 }
@@ -634,36 +634,36 @@ const initialState: IAccountSlice = {
   loading: false,
   bonds: {},
   balances: {
-    gohm: "",
-    gOhmAsSohmBal: "",
-    gOhmOnArbitrum: "",
-    gOhmOnArbAsSohm: "",
-    gOhmOnAvax: "",
-    gOhmOnAvaxAsSohm: "",
-    gOhmOnPolygon: "",
-    gOhmOnPolygonAsSohm: "",
-    gOhmOnFantom: "",
-    gOhmOnFantomAsSohm: "",
-    gOhmOnTokemak: "",
-    gOhmOnTokemakAsSohm: "",
-    ohmV1: "",
-    ohm: "",
-    sohm: "",
-    sohmV1: "",
+    grip: "",
+    gRipAsSripBal: "",
+    gRipOnArbitrum: "",
+    gRipOnArbAsSrip: "",
+    gRipOnAvax: "",
+    gRipOnAvaxAsSrip: "",
+    gRipOnPolygon: "",
+    gRipOnPolygonAsSrip: "",
+    gRipOnFantom: "",
+    gRipOnFantomAsSrip: "",
+    gRipOnTokemak: "",
+    gRipOnTokemakAsSrip: "",
+    ripV1: "",
+    rip: "",
+    srip: "",
+    sripV1: "",
     dai: "",
-    oldsohm: "",
-    fsohm: "",
-    fgohm: "",
-    fgOHMAsfsOHM: "",
-    wsohm: "",
-    fiatDaowsohm: "",
+    oldsrip: "",
+    fsrip: "",
+    fgrip: "",
+    fgRIPAsfsRIP: "",
+    wsrip: "",
+    fiatDaowsrip: "",
     pool: "",
-    mockSohm: "",
+    mockSrip: "",
   },
-  giving: { sohmGive: 0, donationInfo: {}, loading: true },
-  mockGiving: { sohmGive: 0, donationInfo: {}, loading: true },
+  giving: { sripGive: 0, donationInfo: {}, loading: true },
+  mockGiving: { sripGive: 0, donationInfo: {}, loading: true },
   redeeming: {
-    sohmRedeemable: "",
+    sripRedeemable: "",
     recipientInfo: {
       totalDebt: "",
       carry: "",
@@ -672,7 +672,7 @@ const initialState: IAccountSlice = {
     },
   },
   mockRedeeming: {
-    sohmRedeemable: "",
+    sripRedeemable: "",
     recipientInfo: {
       totalDebt: "",
       carry: "",
@@ -680,10 +680,10 @@ const initialState: IAccountSlice = {
       indexAtLastChange: "",
     },
   },
-  staking: { ohmStakeV1: 0, ohmUnstakeV1: 0, ohmStake: 0, ohmUnstake: 0 },
-  wrapping: { sohmWrap: 0, wsohmUnwrap: 0, gOhmUnwrap: 0, wsOhmMigrate: 0 },
-  pooling: { sohmPool: 0 },
-  migration: { ohm: 0, sohm: 0, wsohm: 0, gohm: 0 },
+  staking: { ripStakeV1: 0, ripUnstakeV1: 0, ripStake: 0, ripUnstake: 0 },
+  wrapping: { sripWrap: 0, wsripUnwrap: 0, gRipUnwrap: 0, wsRipMigrate: 0 },
+  pooling: { sripPool: 0 },
+  migration: { rip: 0, srip: 0, wsrip: 0, grip: 0 },
   isMigrationComplete: false,
 };
 

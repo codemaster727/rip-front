@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ethers } from "ethers";
-import { IERC20, OlympusStakingv2__factory } from "src/typechain";
+import { IERC20, RIPProtocolStakingv2__factory } from "src/typechain";
 
 import { abi as ierc20ABI } from "../abi/IERC20.json";
 import { addresses } from "../constants";
@@ -27,28 +27,28 @@ export const changeApproval = createAsyncThunk(
     }
 
     const signer = provider.getSigner();
-    const sohmContract = new ethers.Contract(addresses[networkID].SOHM_V2 as string, ierc20ABI, signer) as IERC20;
-    const gohmContract = new ethers.Contract(addresses[networkID].GOHM_ADDRESS as string, ierc20ABI, signer) as IERC20;
+    const sripContract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, ierc20ABI, signer) as IERC20;
+    const gripContract = new ethers.Contract(addresses[networkID].GRIP_ADDRESS as string, ierc20ABI, signer) as IERC20;
     let approveTx;
-    let wrapAllowance = await sohmContract.allowance(address, addresses[networkID].STAKING_V2);
-    let unwrapAllowance = await gohmContract.allowance(address, addresses[networkID].STAKING_V2);
+    let wrapAllowance = await sripContract.allowance(address, addresses[networkID].STAKING_V2);
+    let unwrapAllowance = await gripContract.allowance(address, addresses[networkID].STAKING_V2);
 
     try {
-      if (token === "sohm") {
+      if (token === "srip") {
         // won't run if wrapAllowance > 0
-        approveTx = await sohmContract.approve(
+        approveTx = await sripContract.approve(
           addresses[networkID].STAKING_V2,
           ethers.utils.parseUnits("1000000000", "gwei"),
         );
-      } else if (token === "gohm") {
-        approveTx = await gohmContract.approve(
+      } else if (token === "grip") {
+        approveTx = await gripContract.approve(
           addresses[networkID].STAKING_V2,
           ethers.utils.parseUnits("1000000000", "ether"),
         );
       }
 
-      const text = "Approve " + (token === "sohm" ? "Wrapping" : "Unwrapping");
-      const pendingTxnType = token === "sohm" ? "approve_wrapping" : "approve_unwrapping";
+      const text = "Approve " + (token === "srip" ? "Wrapping" : "Unwrapping");
+      const pendingTxnType = token === "srip" ? "approve_wrapping" : "approve_unwrapping";
       if (approveTx) {
         dispatch(fetchPendingTxns({ txnHash: approveTx.hash, text, type: pendingTxnType }));
         await approveTx.wait();
@@ -64,14 +64,14 @@ export const changeApproval = createAsyncThunk(
     }
 
     // go get fresh allowances
-    wrapAllowance = await sohmContract.allowance(address, addresses[networkID].STAKING_V2);
-    unwrapAllowance = await gohmContract.allowance(address, addresses[networkID].STAKING_V2);
+    wrapAllowance = await sripContract.allowance(address, addresses[networkID].STAKING_V2);
+    unwrapAllowance = await gripContract.allowance(address, addresses[networkID].STAKING_V2);
 
     return dispatch(
       fetchAccountSuccess({
         wrapping: {
-          sohmWrap: Number(ethers.utils.formatUnits(wrapAllowance, "gwei")),
-          gOhmUnwrap: Number(ethers.utils.formatUnits(unwrapAllowance, "ether")),
+          sripWrap: Number(ethers.utils.formatUnits(wrapAllowance, "gwei")),
+          gRipUnwrap: Number(ethers.utils.formatUnits(unwrapAllowance, "ether")),
         },
       }),
     );
@@ -88,7 +88,7 @@ export const changeWrapV2 = createAsyncThunk(
 
     const signer = provider.getSigner();
 
-    const stakingContract = OlympusStakingv2__factory.connect(addresses[networkID].STAKING_V2, signer);
+    const stakingContract = RIPProtocolStakingv2__factory.connect(addresses[networkID].STAKING_V2, signer);
 
     let wrapTx;
     const uaData: IUAData = {

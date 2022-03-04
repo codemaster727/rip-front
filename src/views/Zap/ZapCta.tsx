@@ -30,7 +30,7 @@ const ZapCta: React.FC = () => {
   const classes = useStyles();
   return (
     <>
-      <Paper className="ohm-card" id="olyzaps-cta">
+      <Paper className="rip-card" id="olyzaps-cta">
         <Grid container className="cta-box">
           <Grid item xs={5} sm={3} className="icons-box">
             <TokenStack tokens={["DAI", "wETH"]} />
@@ -39,7 +39,7 @@ const ZapCta: React.FC = () => {
             <Box alignItems="center" display="flex" flexDirection="column">
               <Typography color="textPrimary" align="center" className="cta-header">
                 <Trans>
-                  Zap with more assets and stake <strong>OHM</strong>
+                  Zap with more assets and stake <strong>RIP</strong>
                 </Trans>
               </Typography>
               <Typography
@@ -56,7 +56,7 @@ const ZapCta: React.FC = () => {
             <Link component={NavLink} to="/zap">
               <Button component="div" variant="outlined" color="secondary" className="learn-more-button">
                 <Typography variant="body1">
-                  <Trans>Swap into sOHM</Trans>
+                  <Trans>Swap into sRIP</Trans>
                 </Typography>
               </Button>
             </Link>

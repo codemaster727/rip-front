@@ -167,7 +167,7 @@ export const Token = ({
   const isLoading = useAppSelector(s => s.account.loading || s.app.loadingMarketPrice || s.app.loading);
   const balanceValue = parseFloat(totalBalance) * price;
 
-  // cleanedDecimals provides up to 7 sigFigs on an 18 decimal token (gOHM) & 5 sigFigs on 9 decimal Token
+  // cleanedDecimals provides up to 7 sigFigs on an 18 decimal token (gRIP) & 5 sigFigs on 9 decimal Token
   const sigFigs = decimals === 18 ? 7 : 5;
 
   return (
@@ -213,7 +213,7 @@ export const Token = ({
                   />
                 ),
             )}
-          <Box className="ohm-pairs" style={{ width: "100%" }}>
+          <Box className="rip-pairs" style={{ width: "100%" }}>
             <Button variant="contained" color="secondary" fullWidth onClick={onAddTokenToWallet}>
               <Typography>{t`Add to Wallet`}</Typography>
             </Button>
@@ -268,78 +268,78 @@ export const useWallet = (
   const networkId = providerInitialized ? chainId : NetworkId.MAINNET;
 
   const connectedChainBalances = useAppSelector(s => s.account.balances);
-  const ohmPrice = useAppSelector(s => s.app.marketPrice);
+  const ripPrice = useAppSelector(s => s.app.marketPrice);
   const currentIndex = useAppSelector(s => s.app.currentIndex);
 
-  const { gohm, wsohm, isLoading } = useCrossChainBalances(userAddress);
+  const { grip, wsrip, isLoading } = useCrossChainBalances(userAddress);
 
   const tokens = {
-    ohmV1: {
-      symbol: "OHM V1",
-      address: addresses[networkId].OHM_ADDRESS,
-      balance: connectedChainBalances.ohmV1,
-      price: ohmPrice || 0,
+    ripV1: {
+      symbol: "RIP V1",
+      address: addresses[networkId].RIP_ADDRESS,
+      balance: connectedChainBalances.ripV1,
+      price: ripPrice || 0,
       icon: "OHM",
       decimals: 9,
     },
-    sohmV1: {
-      symbol: "sOHM V1",
-      address: addresses[networkId].SOHM_ADDRESS,
-      balance: connectedChainBalances.sohmV1,
-      price: ohmPrice || 0,
-      icon: "sOHM",
+    sripV1: {
+      symbol: "sRIP V1",
+      address: addresses[networkId].SRIP_ADDRESS,
+      balance: connectedChainBalances.sripV1,
+      price: ripPrice || 0,
+      icon: "sRIP",
       decimals: 9,
     },
-    ohm: {
-      symbol: "OHM",
-      address: addresses[networkId].OHM_V2,
-      balance: connectedChainBalances.ohm,
-      price: ohmPrice || 0,
-      icon: "OHM",
+    rip: {
+      symbol: "RIP",
+      address: addresses[networkId].RIP_V2,
+      balance: connectedChainBalances.rip,
+      price: ripPrice || 0,
+      icon: "RIP",
       decimals: 9,
     },
-    sohm: {
-      symbol: "sOHM",
-      address: addresses[networkId].SOHM_V2,
-      balance: connectedChainBalances.sohm,
-      price: ohmPrice || 0,
+    srip: {
+      symbol: "sRIP",
+      address: addresses[networkId].SRIP_V2,
+      balance: connectedChainBalances.srip,
+      price: ripPrice || 0,
       vaultBalances: {
-        "Fuse Olympus Pool Party": connectedChainBalances.fsohm,
+        "Fuse RIPProtocol Pool Party": connectedChainBalances.fsrip,
       },
-      icon: "sOHM",
+      icon: "sRIP",
       decimals: 9,
     },
-    wsohm: {
-      symbol: "wsOHM",
-      address: addresses[networkId].WSOHM_ADDRESS,
-      balance: connectedChainBalances.wsohm,
-      price: (ohmPrice || 0) * Number(currentIndex || 0),
-      crossChainBalances: { balances: wsohm, isLoading },
-      icon: "wsOHM",
+    wsrip: {
+      symbol: "wsRIP",
+      address: addresses[networkId].WSRIP_ADDRESS,
+      balance: connectedChainBalances.wsrip,
+      price: (ripPrice || 0) * Number(currentIndex || 0),
+      crossChainBalances: { balances: wsrip, isLoading },
+      icon: "wsRIP",
       decimals: 18,
     },
     pool: {
       symbol: "33T",
       address: addresses[networkId].PT_TOKEN_ADDRESS,
       balance: connectedChainBalances.pool,
-      price: ohmPrice || 0,
+      price: ripPrice || 0,
       icon: "33T",
       decimals: 9,
     },
-    gohm: {
-      symbol: "gOHM",
-      address: addresses[networkId].GOHM_ADDRESS,
-      balance: connectedChainBalances.gohm,
-      price: (ohmPrice || 0) * Number(currentIndex || 0),
-      crossChainBalances: { balances: gohm, isLoading },
+    grip: {
+      symbol: "gRIP",
+      address: addresses[networkId].GRIP_ADDRESS,
+      balance: connectedChainBalances.grip,
+      price: (ripPrice || 0) * Number(currentIndex || 0),
+      crossChainBalances: { balances: grip, isLoading },
       vaultBalances: {
-        "gOHM on Tokemak": connectedChainBalances.gOhmOnTokemak,
-        "Fuse Olympus Pool Party": connectedChainBalances.fgohm,
+        "gRIP on Tokemak": connectedChainBalances.gRipOnTokemak,
+        "Fuse RIPProtocol Pool Party": connectedChainBalances.grip,
       },
-      icon: "wsOHM",
+      icon: "wsRIP",
       decimals: 18,
     },
-  } as Record<string, Omit<IToken, "totalBalance">>;
+  } as unknown as Record<string, Omit<IToken, "totalBalance">>;
 
   return Object.entries(tokens).reduce((wallet, [key, token]) => {
     const crossChainBalances = sumObjValues(token.crossChainBalances?.balances);
@@ -369,9 +369,9 @@ export const Tokens = () => {
   const isLoading = useAppSelector(s => s.account.loading || s.app.loadingMarketPrice || s.app.loading);
   const [expanded, setExpanded] = useState<string | null>(null);
 
-  const v1Tokens = [tokens.ohmV1, tokens.sohmV1];
-  const alwaysShowTokens = [tokens.ohm, tokens.sohm, tokens.gohm];
-  const onlyShowWhenBalanceTokens = [tokens.wsohm, tokens.pool];
+  const v1Tokens = [tokens.ripV1, tokens.sripV1];
+  const alwaysShowTokens = [tokens.rip, tokens.srip, tokens.grip];
+  const onlyShowWhenBalanceTokens = [tokens.wsrip, tokens.pool];
 
   const tokenProps = (token: IToken) => ({
     ...token,

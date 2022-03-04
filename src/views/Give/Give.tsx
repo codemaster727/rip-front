@@ -18,13 +18,13 @@ function Give() {
       <div className="give-view">
         {!address ? (
           <Zoom in={true}>
-            <Paper className={`ohm-card secondary ${isSmallScreen && "mobile"}`}>
+            <Paper className={`rip-card secondary ${isSmallScreen && "mobile"}`}>
               <div className="stake-wallet-notification">
                 <div className="wallet-menu" id="wallet-menu">
                   <ConnectButton />
                 </div>
                 <Typography variant="h6">
-                  <Trans>Connect your wallet to give or redeem OHM</Trans>
+                  <Trans>Connect your wallet to give or redeem RIP</Trans>
                 </Typography>
               </div>
             </Paper>

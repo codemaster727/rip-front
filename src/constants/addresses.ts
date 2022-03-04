@@ -7,7 +7,7 @@ export const STAKING_ADDRESSES = {
   [NetworkId.MAINNET]: "0x3c4dd4fc4bf141F31D0e52c52E097BdAb3b93DFd",
 };
 
-export const GOHM_ADDRESSES = {
+export const GRIP_ADDRESSES = {
   [NetworkId.TESTNET_RINKEBY]: "0xcF2D6893A1CB459fD6B48dC9C41c6110B968611E",
   [NetworkId.MAINNET]: "0x587a678b124B828d9b3f97fcE3f62C7564154C7A",
   [NetworkId.ARBITRUM]: "0x8D9bA570D6cb60C7e3e0F31343Efe75AB8E65FB1",
@@ -16,7 +16,7 @@ export const GOHM_ADDRESSES = {
   [NetworkId.FANTOM]: "0x91fa20244fb509e8289ca630e5db3e9166233fdc",
 };
 
-export const WSOHM_ADDRESSES = {
+export const WSRIP_ADDRESSES = {
   [NetworkId.TESTNET_RINKEBY]: "0xe73384f11Bb748Aa0Bc20f7b02958DF573e6E2ad",
   // [NetworkId.MAINNET]: "0xca76543cf381ebbb277be79574059e32108e3e65",
   [NetworkId.MAINNET]: "",
@@ -24,19 +24,19 @@ export const WSOHM_ADDRESSES = {
   [NetworkId.AVALANCHE]: "0x8cd309e14575203535ef120b5b0ab4dded0c2073",
 };
 
-export const OHM_ADDRESSES = {
+export const RIP_ADDRESSES = {
   [NetworkId.MAINNET]: "0x94eE88A2A25117364445e4aC850AF1aAd24B8a7c",
 };
 
-export const V1_OHM_ADDRESSES = {
+export const V1_RIP_ADDRESSES = {
   [NetworkId.MAINNET]: "0x94eE88A2A25117364445e4aC850AF1aAd24B8a7c",
 };
 
-export const SOHM_ADDRESSES = {
+export const SRIP_ADDRESSES = {
   [NetworkId.MAINNET]: "0x919ea896019428809A6e135326005CB40a2ad806",
 };
 
-export const V1_SOHM_ADDRESSES = {
+export const V1_SRIP_ADDRESSES = {
   [NetworkId.MAINNET]: "0x919ea896019428809A6e135326005CB40a2ad806",
 };
 

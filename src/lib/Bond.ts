@@ -32,7 +32,7 @@ export interface BondOpts {
   bondContractABI: ethers.ContractInterface; // ABI for contract
   networkAddrs: NetworkAddresses; // Mapping of network --> Addresses
   bondToken: string; // Unused, but native token to buy the bond.
-  payoutToken: string; // Token the user will receive - currently OHM on ethereum, wsOHM on ARBITRUM
+  payoutToken: string; // Token the user will receive - currently RIP on ethereum, wsRIP on ARBITRUM
   v2Bond: boolean; // if v2Bond use v2BondingCalculator
 }
 

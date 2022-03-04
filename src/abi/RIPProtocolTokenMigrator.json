@@ -4,12 +4,12 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_oldOHM",
+          "name": "_oldRIP",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "_oldsOHM",
+          "name": "_oldsRIP",
           "type": "address"
         },
         {
@@ -24,7 +24,7 @@
         },
         {
           "internalType": "address",
-          "name": "_oldwsOHM",
+          "name": "_oldwsRIP",
           "type": "address"
         },
         {
@@ -174,10 +174,10 @@
     },
     {
       "inputs": [],
-      "name": "gOHM",
+      "name": "gRIP",
       "outputs": [
         {
-          "internalType": "contract IgOHM",
+          "internalType": "contract IgRIP",
           "name": "",
           "type": "address"
         }
@@ -235,12 +235,12 @@
         },
         {
           "internalType": "address",
-          "name": "_newOHM",
+          "name": "_newRIP",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "_newsOHM",
+          "name": "_newsRIP",
           "type": "address"
         },
         {
@@ -302,7 +302,7 @@
     },
     {
       "inputs": [],
-      "name": "newOHM",
+      "name": "newRIP",
       "outputs": [
         {
           "internalType": "contract IERC20",
@@ -341,7 +341,7 @@
     },
     {
       "inputs": [],
-      "name": "ohmMigrated",
+      "name": "ripMigrated",
       "outputs": [
         {
           "internalType": "bool",
@@ -354,7 +354,7 @@
     },
     {
       "inputs": [],
-      "name": "oldOHM",
+      "name": "oldRIP",
       "outputs": [
         {
           "internalType": "contract IERC20",
@@ -406,10 +406,10 @@
     },
     {
       "inputs": [],
-      "name": "oldsOHM",
+      "name": "oldsRIP",
       "outputs": [
         {
-          "internalType": "contract IsOHM",
+          "internalType": "contract IsRIP",
           "name": "",
           "type": "address"
         }
@@ -419,10 +419,10 @@
     },
     {
       "inputs": [],
-      "name": "oldwsOHM",
+      "name": "oldwsRIP",
       "outputs": [
         {
-          "internalType": "contract IwsOHM",
+          "internalType": "contract IwsRIP",
           "name": "",
           "type": "address"
         }
@@ -447,11 +447,11 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_gOHM",
+          "name": "_gRIP",
           "type": "address"
         }
       ],
-      "name": "setgOHM",
+      "name": "setgRIP",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"

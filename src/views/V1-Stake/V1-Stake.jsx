@@ -32,13 +32,13 @@ import { useWeb3Context } from "src/hooks/web3Context";
 import { isPendingTxn, txnButtonText } from "src/slices/PendingTxnsSlice";
 
 import RebaseTimer from "../../components/RebaseTimer/RebaseTimer";
-import { getOhmTokenImage, getTokenImage, trim } from "../../helpers";
+import { getRipTokenImage, getTokenImage, trim } from "../../helpers";
 import { error } from "../../slices/MessagesSlice";
 import { changeApproval, changeStake } from "../../slices/StakeThunk";
 import ExternalStakePool from "../Stake/ExternalStakePool";
 
-const sOhmImg = getTokenImage("sohm");
-const ohmImg = getOhmTokenImage(16, 16);
+const sRipImg = getTokenImage("srip");
+const ripImg = getRipTokenImage(16, 16);
 
 function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds }) {
   const dispatch = useDispatch();
@@ -56,23 +56,23 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
   const fiveDayRate = useSelector(state => {
     return state.app.fiveDayRate;
   });
-  const ohmBalance = useSelector(state => {
-    return state.account.balances && state.account.balances.ohmV1;
+  const ripBalance = useSelector(state => {
+    return state.account.balances && state.account.balances.ripV1;
   });
-  const sohmBalance = useSelector(state => {
-    return state.account.balances && state.account.balances.sohmV1;
+  const sripBalance = useSelector(state => {
+    return state.account.balances && state.account.balances.sripV1;
   });
-  const fsohmBalance = useSelector(state => {
-    return state.account.balances && state.account.balances.fsohm;
+  const fsripBalance = useSelector(state => {
+    return state.account.balances && state.account.balances.fsrip;
   });
-  const wsohmBalance = useSelector(state => {
-    return state.account.balances && state.account.balances.wsohm;
+  const wsripBalance = useSelector(state => {
+    return state.account.balances && state.account.balances.wsrip;
   });
   const stakeAllowance = useSelector(state => {
-    return state.account.staking && state.account.staking.ohmStakeV1;
+    return state.account.staking && state.account.staking.ripStakeV1;
   });
   const unstakeAllowance = useSelector(state => {
-    return state.account.staking && state.account.staking.ohmUnstakeV1;
+    return state.account.staking && state.account.staking.ripUnstakeV1;
   });
   const stakingRebase = useSelector(state => {
     return state.app.stakingRebase;
@@ -88,29 +88,29 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
     return state.pendingTransactions;
   });
 
-  const fiatDaowsohmBalance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.fiatDaowsohm;
+  const fiatDaowsripBalance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.fiatDaowsrip;
   });
 
-  const gOhmBalance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.gohm;
+  const gRipBalance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.grip;
   });
-  const sohmV2Balance = useSelector(state => {
-    return state.account.balances && state.account.balances.sohm;
+  const sripV2Balance = useSelector(state => {
+    return state.account.balances && state.account.balances.srip;
   });
 
-  const calculateWrappedAsSohm = balance => {
+  const calculateWrappedAsSrip = balance => {
     return Number(balance) * Number(currentIndex);
   };
-  const fiatDaoAsSohm = calculateWrappedAsSohm(fiatDaowsohmBalance);
-  const gOhmAsSohm = calculateWrappedAsSohm(gOhmBalance);
-  const wsohmAsSohm = calculateWrappedAsSohm(wsohmBalance);
+  const fiatDaoAsSrip = calculateWrappedAsSrip(fiatDaowsripBalance);
+  const gRipAsSrip = calculateWrappedAsSrip(gRipBalance);
+  const wsripAsSrip = calculateWrappedAsSrip(wsripBalance);
 
   const setMax = () => {
     if (view === 0) {
-      setQuantity(ohmBalance);
+      setQuantity(ripBalance);
     } else {
-      setQuantity(sohmBalance);
+      setQuantity(sripBalance);
     }
   };
 
@@ -127,12 +127,12 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
 
     // 1st catch if quantity > balance
     let gweiValue = ethers.utils.parseUnits(quantity, "gwei");
-    if (action === "stake" && gweiValue.gt(ethers.utils.parseUnits(ohmBalance, "gwei"))) {
-      return dispatch(error("You cannot stake more than your OHM balance."));
+    if (action === "stake" && gweiValue.gt(ethers.utils.parseUnits(ripBalance, "gwei"))) {
+      return dispatch(error("You cannot stake more than your RIP balance."));
     }
 
-    if (action === "unstake" && gweiValue.gt(ethers.utils.parseUnits(sohmBalance, "gwei"))) {
-      return dispatch(error("You cannot unstake more than your sOHM balance."));
+    if (action === "unstake" && gweiValue.gt(ethers.utils.parseUnits(sripBalance, "gwei"))) {
+      return dispatch(error("You cannot unstake more than your sRIP balance."));
     }
 
     await dispatch(
@@ -142,8 +142,8 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
 
   const hasAllowance = useCallback(
     token => {
-      if (token === "ohm") return stakeAllowance > 0;
-      if (token === "sohm") return unstakeAllowance > 0;
+      if (token === "rip") return stakeAllowance > 0;
+      if (token === "srip") return unstakeAllowance > 0;
       return 0;
     },
     [stakeAllowance, unstakeAllowance],
@@ -156,7 +156,7 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
   };
 
   const trimmedBalance = Number(
-    [sohmBalance, gOhmAsSohm, sohmV2Balance, wsohmAsSohm, fiatDaoAsSohm, fsohmBalance]
+    [sripBalance, gRipAsSrip, sripV2Balance, wsripAsSrip, fiatDaoAsSrip, fsripBalance]
       .filter(Boolean)
       .map(balance => Number(balance))
       .reduce((a, b) => a + b, 0)
@@ -276,7 +276,7 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
                 <Metric
                   className="stake-index"
                   label={`${t`Current Index`} (v1)`}
-                  metric={`${formattedCurrentIndex} OHM`}
+                  metric={`${formattedCurrentIndex} RIP`}
                   isLoading={currentIndex ? false : true}
                 />
               </MetricCollection>
@@ -289,7 +289,7 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
                     <ConnectButton />
                   </div>
                   <Typography variant="h6">
-                    <Trans>Connect your wallet to stake OHM</Trans>
+                    <Trans>Connect your wallet to stake RIP</Trans>
                   </Typography>
                 </div>
               ) : (
@@ -314,10 +314,10 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
                         {view === 0 ? (
                           <>
                             {hasActiveV1Bonds
-                              ? t`Once your current bonds have been claimed, you can migrate your assets to stake more OHM`
+                              ? t`Once your current bonds have been claimed, you can migrate your assets to stake more RIP`
                               : !oldAssetsDetected
                               ? t`All your assets are migrated`
-                              : t`You must complete the migration of your assets to stake additional OHM`}
+                              : t`You must complete the migration of your assets to stake additional RIP`}
                           </>
                         ) : (
                           <br />
@@ -327,13 +327,13 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
 
                     <Box className="stake-action-row v1-row " display="flex" alignItems="center">
                       {address && !isAllowanceDataLoading ? (
-                        !hasAllowance("sohm") && view === 1 ? (
+                        !hasAllowance("srip") && view === 1 ? (
                           <Box mt={"10px"}>
                             <Typography variant="body1" className="stake-note" color="textSecondary">
                               <>
-                                <Trans>First time unstaking</Trans> <b>sOHM</b>?
+                                <Trans>First time unstaking</Trans> <b>sRIP</b>?
                                 <br />
-                                <Trans>Please approve Olympus Dao to use your</Trans> <b>sOHM </b>
+                                <Trans>Please approve RIPProtocol Dao to use your</Trans> <b>sRIP </b>
                                 <Trans> for unstaking</Trans>.
                               </>
                             </Typography>
@@ -341,7 +341,7 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
                         ) : (
                           <>
                             {view === 1 && (
-                              <FormControl className="ohm-input" variant="outlined" color="primary">
+                              <FormControl className="rip-input" variant="outlined" color="primary">
                                 <InputLabel htmlFor="amount-input"></InputLabel>
                                 <OutlinedInput
                                   id="amount-input"
@@ -408,7 +408,7 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
                       <TabPanel value={view} index={1}>
                         {isAllowanceDataLoading ? (
                           <Skeleton />
-                        ) : address && hasAllowance("sohm") ? (
+                        ) : address && hasAllowance("srip") ? (
                           <Button
                             className="stake-button"
                             variant="contained"
@@ -418,7 +418,7 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
                               onChangeStake("unstake");
                             }}
                           >
-                            {txnButtonText(pendingTransactions, "unstaking", t`Unstake OHM`)}
+                            {txnButtonText(pendingTransactions, "unstaking", t`Unstake RIP`)}
                           </Button>
                         ) : (
                           <Button
@@ -427,7 +427,7 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
                             color="primary"
                             disabled={isPendingTxn(pendingTransactions, "approve_unstaking")}
                             onClick={() => {
-                              onSeekApproval("sohm");
+                              onSeekApproval("srip");
                             }}
                           >
                             {txnButtonText(pendingTransactions, "approve_unstaking", t`Approve`)}
@@ -440,7 +440,7 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
                     <DataRow
                       title={`${t`Unstaked Balance`} (v1)`}
                       id="user-balance"
-                      balance={`${trim(Number(ohmBalance), 4)} OHM`}
+                      balance={`${trim(Number(ripBalance), 4)} RIP`}
                       isLoading={isAppLoading}
                     />
                     <Accordion className="stake-accordion" square>
@@ -448,50 +448,50 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
                         <DataRow
                           title={t`Total Staked Balance`}
                           id="user-staked-balance"
-                          balance={`${trimmedBalance} sOHM`}
+                          balance={`${trimmedBalance} sRIP`}
                           isLoading={isAppLoading}
                         />
                       </AccordionSummary>
                       <AccordionDetails>
                         <DataRow
-                          title={`${t`sOHM Balance`} (v1)`}
-                          balance={`${trim(Number(sohmBalance), 4)} sOHM`}
+                          title={`${t`sRIP Balance`} (v1)`}
+                          balance={`${trim(Number(sripBalance), 4)} sRIP`}
                           indented
                           isLoading={isAppLoading}
                         />
-                        {Number(fsohmBalance) > 0.00009 && (
+                        {Number(fsripBalance) > 0.00009 && (
                           <DataRow
-                            title={`${t`gOHM Balance in Fuse`}`}
-                            balance={`${trim(Number(fsohmBalance), 4)} gOHM`}
+                            title={`${t`gRIP Balance in Fuse`}`}
+                            balance={`${trim(Number(fsripBalance), 4)} gRIP`}
                             indented
                             isLoading={isAppLoading}
                           />
                         )}
-                        {Number(wsohmBalance) > 0.0 && (
+                        {Number(wsripBalance) > 0.0 && (
                           <DataRow
-                            title={`${t`wsOHM Balance`} (v1)`}
-                            balance={`${trim(Number(wsohmBalance), 4)} wsOHM`}
+                            title={`${t`wsRIP Balance`} (v1)`}
+                            balance={`${trim(Number(wsripBalance), 4)} wsRIP`}
                             isLoading={isAppLoading}
                             indented
                           />
                         )}
-                        {Number(fiatDaowsohmBalance) > 0.00009 && (
+                        {Number(fiatDaowsripBalance) > 0.00009 && (
                           <DataRow
-                            title={`${t`wsOHM Balance in FiatDAO`} (v1)`}
-                            balance={`${trim(Number(fiatDaowsohmBalance), 4)} wsOHM`}
+                            title={`${t`wsRIP Balance in FiatDAO`} (v1)`}
+                            balance={`${trim(Number(fiatDaowsripBalance), 4)} wsRIP`}
                             isLoading={isAppLoading}
                             indented
                           />
                         )}
                         <DataRow
-                          title={`${t`sOHM Balance`} (v2)`}
-                          balance={`${trim(Number(sohmV2Balance), 4)} sOHM`}
+                          title={`${t`sRIP Balance`} (v2)`}
+                          balance={`${trim(Number(sripV2Balance), 4)} sRIP`}
                           indented
                           isLoading={isAppLoading}
                         />
                         <DataRow
-                          title={`${t`gOHM Balance`} (v2)`}
-                          balance={`${trim(Number(gOhmBalance), 4)} gOHM`}
+                          title={`${t`gRIP Balance`} (v2)`}
+                          balance={`${trim(Number(gRipBalance), 4)} gRIP`}
                           indented
                           isLoading={isAppLoading}
                         />
@@ -500,7 +500,7 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
                     <Divider color="secondary" />
                     <DataRow
                       title={t`Next Reward Amount`}
-                      balance={`${nextRewardValue} sOHM`}
+                      balance={`${nextRewardValue} sRIP`}
                       isLoading={isAppLoading}
                     />
                     <DataRow

@@ -22,26 +22,26 @@ const Wrap: FC = () => {
   const { provider, address, connect, networkId } = useWeb3Context();
 
   const [, setZoomed] = useState<boolean>(false);
-  const [assetFrom, setAssetFrom] = useState<string>("sOHM");
-  const [assetTo, setAssetTo] = useState<string>("gOHM");
+  const [assetFrom, setAssetFrom] = useState<string>("sRIP");
+  const [assetTo, setAssetTo] = useState<string>("gRIP");
   const [quantity, setQuantity] = useState<string>("");
 
   const chooseCurrentAction = () => {
-    if (assetFrom === "sOHM") return "Wrap from";
-    if (assetTo === "sOHM") return "Unwrap from";
+    if (assetFrom === "sRIP") return "Wrap from";
+    if (assetTo === "sRIP") return "Unwrap from";
     return "Transform";
   };
   const currentAction = chooseCurrentAction();
 
   const isAppLoading = useAppSelector(state => state.app.loading);
   const currentIndex = useAppSelector(state => Number(state.app.currentIndex));
-  const sOhmPrice = useAppSelector(state => Number(state.app.marketPrice));
+  const sRipPrice = useAppSelector(state => Number(state.app.marketPrice));
 
-  const gOhmPrice = useAppSelector(state => state.app.marketPrice! * Number(state.app.currentIndex));
-  const sohmBalance = useAppSelector(state => state.account.balances && state.account.balances.sohm);
-  const gohmBalance = useAppSelector(state => state.account.balances && state.account.balances.gohm);
-  const unwrapGohmAllowance = useAppSelector(state => state.account.wrapping && state.account.wrapping.gOhmUnwrap);
-  const wrapSohmAllowance = useAppSelector(state => state.account.wrapping && state.account.wrapping.sohmWrap);
+  const gRipPrice = useAppSelector(state => state.app.marketPrice! * Number(state.app.currentIndex));
+  const sripBalance = useAppSelector(state => state.account.balances && state.account.balances.srip);
+  const gripBalance = useAppSelector(state => state.account.balances && state.account.balances.grip);
+  const unwrapGripAllowance = useAppSelector(state => state.account.wrapping && state.account.wrapping.gRipUnwrap);
+  const wrapSripAllowance = useAppSelector(state => state.account.wrapping && state.account.wrapping.sripWrap);
   const pendingTransactions = useAppSelector(state => state.pendingTransactions);
 
   const avax = NETWORKS[43114];
@@ -50,11 +50,11 @@ const Wrap: FC = () => {
   const isAvax = useMemo(() => networkId != 1 && networkId != 4 && networkId != -1, [networkId]);
 
   const wrapButtonText =
-    assetTo === "gOHM" ? (assetFrom === "wsOHM" ? "Migrate" : "Wrap") + " to gOHM" : `${currentAction} ${assetFrom}`;
+    assetTo === "gRIP" ? (assetFrom === "wsRIP" ? "Migrate" : "Wrap") + " to gRIP" : `${currentAction} ${assetFrom}`;
 
   const setMax = () => {
-    if (assetFrom === "sOHM") setQuantity(sohmBalance);
-    if (assetFrom === "gOHM") setQuantity(gohmBalance);
+    if (assetFrom === "sRIP") setQuantity(sripBalance);
+    if (assetFrom === "gRIP") setQuantity(gripBalance);
   };
 
   const handleSwitchChain = (id: number) => {
@@ -64,11 +64,11 @@ const Wrap: FC = () => {
   };
 
   const hasCorrectAllowance = useCallback(() => {
-    if (assetFrom === "sOHM" && assetTo === "gOHM") return wrapSohmAllowance > Number(sohmBalance);
-    if (assetFrom === "gOHM" && assetTo === "sOHM") return unwrapGohmAllowance > Number(gohmBalance);
+    if (assetFrom === "sRIP" && assetTo === "gRIP") return wrapSripAllowance > Number(sripBalance);
+    if (assetFrom === "gRIP" && assetTo === "sRIP") return unwrapGripAllowance > Number(gripBalance);
 
     return 0;
-  }, [unwrapGohmAllowance, wrapSohmAllowance, assetTo, assetFrom, sohmBalance, gohmBalance]);
+  }, [unwrapGripAllowance, wrapSripAllowance, assetTo, assetFrom, sripBalance, gripBalance]);
 
   // @ts-ignore
   const isAllowanceDataLoading = currentAction === "Unwrap";
@@ -85,41 +85,41 @@ const Wrap: FC = () => {
     dispatch(changeApproval({ address, token: token.toLowerCase(), provider, networkID: networkId }));
   };
 
-  const unwrapGohm = () => {
+  const unwrapGrip = () => {
     dispatch(changeWrapV2({ action: "unwrap", value: quantity, provider, address, networkID: networkId }));
   };
 
-  const wrapSohm = () => {
+  const wrapSrip = () => {
     dispatch(changeWrapV2({ action: "wrap", value: quantity, provider, address, networkID: networkId }));
   };
 
   const approveCorrectToken = () => {
-    if (assetFrom === "sOHM" && assetTo === "gOHM") approveWrap("sOHM");
-    if (assetFrom === "gOHM" && assetTo === "sOHM") approveWrap("gOHM");
+    if (assetFrom === "sRIP" && assetTo === "gRIP") approveWrap("sRIP");
+    if (assetFrom === "gRIP" && assetTo === "sRIP") approveWrap("gRIP");
   };
 
   const chooseCorrectWrappingFunction = () => {
-    if (assetFrom === "sOHM" && assetTo === "gOHM") wrapSohm();
-    if (assetFrom === "gOHM" && assetTo === "sOHM") unwrapGohm();
+    if (assetFrom === "sRIP" && assetTo === "gRIP") wrapSrip();
+    if (assetFrom === "gRIP" && assetTo === "sRIP") unwrapGrip();
   };
 
   const chooseInputArea = () => {
     if (!address || isAllowanceDataLoading) return <Skeleton width="150px" />;
     if (assetFrom === assetTo) return "";
-    if (!hasCorrectAllowance() && assetTo === "gOHM")
+    if (!hasCorrectAllowance() && assetTo === "gRIP")
       return (
         <div className="no-input-visible">
-          First time wrapping to <b>gOHM</b>?
+          First time wrapping to <b>gRIP</b>?
           <br />
-          Please approve Olympus to use your <b>{assetFrom}</b> for this transaction.
+          Please approve RIPProtocol to use your <b>{assetFrom}</b> for this transaction.
         </div>
       );
-    else if (!hasCorrectAllowance() && assetTo === "sOHM")
+    else if (!hasCorrectAllowance() && assetTo === "sRIP")
       return (
         <div className="no-input-visible">
           First time unwrapping <b>{assetFrom}</b>?
           <br />
-          Please approve Olympus to use your <b>{assetFrom}</b> for unwrapping.
+          Please approve RIPProtocol to use your <b>{assetFrom}</b> for unwrapping.
         </div>
       );
 
@@ -167,14 +167,14 @@ const Wrap: FC = () => {
           <Paper
           // topRight={
           //   <Link
-          //     className="migrate-sohm-button"
+          //     className="migrate-srip-button"
           //     style={{ textDecoration: "none" }}
           //     href={
-          //       assetTo === "wsOHM"
-          //         ? "https://docs.olympusdao.finance/main/contracts/tokens#wsohm"
-          //         : "https://docs.olympusdao.finance/main/contracts/tokens#gohm"
+          //       assetTo === "wsRIP"
+          //         ? "https://docs.olympusdao.finance/main/contracts/tokens#wsrip"
+          //         : "https://docs.olympusdao.finance/main/contracts/tokens#grip"
           //     }
-          //     aria-label="wsohm-wut"
+          //     aria-label="wsrip-wut"
           //     target="_blank"
           //   >
           //     <Typography>gr.rip</Typography> <Icon style={{ marginRight: "5px" }} name="arrow-up" />
@@ -218,16 +218,16 @@ const Wrap: FC = () => {
                   justifyContent="left"
                   // className={`${classes.infoHeader} oly-info-header-box`}
                 >
-                  {sOhmPrice ? (
+                  {sRipPrice ? (
                     <Typography align="left" variant="h5" style={{ color: "black" }}>
-                      {formatCurrency(sOhmPrice, 2)}
+                      {formatCurrency(sRipPrice, 2)}
                     </Typography>
                   ) : (
                     <Typography align="left" variant="h6" style={{ color: "black" }}>
                       Loading...
                     </Typography>
                   )}
-                  {gOhmPrice ? (
+                  {gRipPrice ? (
                     <Typography align="left" variant="h5" style={{ color: "black" }}>
                       {trim(currentIndex, 1)}
                     </Typography>
@@ -236,9 +236,9 @@ const Wrap: FC = () => {
                       Loading...
                     </Typography>
                   )}
-                  {gOhmPrice ? (
+                  {gRipPrice ? (
                     <Typography align="left" variant="h5" style={{ color: "black" }}>
-                      {formatCurrency(gOhmPrice, 2)}
+                      {formatCurrency(gRipPrice, 2)}
                     </Typography>
                   ) : (
                     <Typography align="left" variant="h6" style={{ color: "black" }}>
@@ -249,9 +249,9 @@ const Wrap: FC = () => {
               </Grid>
               {/* <MetricCollection>
                 <Metric
-                  label={`sOHM ${t`Price`}`}
-                  metric={formatCurrency(sOhmPrice, 2)}
-                  isLoading={sOhmPrice ? false : true}
+                  label={`sRIP ${t`Price`}`}
+                  metric={formatCurrency(sRipPrice, 2)}
+                  isLoading={sRipPrice ? false : true}
                 />
                 <Metric
                   label={t`Current Index`}
@@ -259,10 +259,10 @@ const Wrap: FC = () => {
                   isLoading={currentIndex ? false : true}
                 />
                 <Metric
-                  label={`gOHM ${t`Price`}`}
-                  metric={formatCurrency(gOhmPrice, 2)}
-                  isLoading={gOhmPrice ? false : true}
-                  tooltip={`gOHM = sOHM * index\n\nThe price of gOHM is equal to the price of sOHM multiplied by the current index`}
+                  label={`gRIP ${t`Price`}`}
+                  metric={formatCurrency(gRipPrice, 2)}
+                  isLoading={gRipPrice ? false : true}
+                  tooltip={`gRIP = sRIP * index\n\nThe price of gRIP is equal to the price of sRIP multiplied by the current index`}
                 />
               </MetricCollection> */}
             </Grid>
@@ -300,8 +300,8 @@ const Wrap: FC = () => {
                             onChange={changeAsset}
                             disableUnderline
                           >
-                            <MenuItem value={"sOHM"}>sOHM</MenuItem>
-                            <MenuItem value={"gOHM"}>gOHM</MenuItem>
+                            <MenuItem value={"sRIP"}>sRIP</MenuItem>
+                            <MenuItem value={"gRIP"}>gRIP</MenuItem>
                           </Select>
                         </FormControl>
 
@@ -325,8 +325,8 @@ const Wrap: FC = () => {
                             onChange={changeAsset}
                             disableUnderline
                           >
-                            <MenuItem value={"gOHM"}>gOHM</MenuItem>
-                            <MenuItem value={"sOHM"}>sOHM</MenuItem>
+                            <MenuItem value={"gRIP"}>gRIP</MenuItem>
+                            <MenuItem value={"sRIP"}>sRIP</MenuItem>
                           </Select>
                         </FormControl>
                       </>
@@ -341,19 +341,19 @@ const Wrap: FC = () => {
                   <div className={`stake-user-data`}>
                     <>
                       <DataRow
-                        title={t`sOHM Balance`}
-                        balance={`${trim(+sohmBalance, 4)} sOHM`}
+                        title={t`sRIP Balance`}
+                        balance={`${trim(+sripBalance, 4)} sRIP`}
                         isLoading={isAppLoading}
                       />
                       <DataRow
-                        title={t`gOHM Balance`}
-                        balance={`${trim(+gohmBalance, 4)} gOHM`}
+                        title={t`gRIP Balance`}
+                        balance={`${trim(+gripBalance, 4)} gRIP`}
                         isLoading={isAppLoading}
                       />
                       <Divider />
                       <Box width="100%" p={1} sx={{ textAlign: "center" }}>
                         <Typography variant="body1" style={{ margin: "15px 0 10px 0" }}>
-                          Got wsOHM on Avalanche or Arbitrum? Click below to switch networks and migrate to gOHM (no
+                          Got wsRIP on Avalanche or Arbitrum? Click below to switch networks and migrate to gRIP (no
                           bridge required!)
                         </Typography>
                         <Button onClick={handleSwitchChain(43114)} variant="outlined" style={{ margin: "0.3rem" }}>

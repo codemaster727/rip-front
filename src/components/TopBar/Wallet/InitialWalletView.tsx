@@ -121,7 +121,7 @@ const WalletTotalValue = () => {
   const tokens = useWallet(userAddress, networkId, providerInitialized);
   const isLoading = useAppSelector(s => s.account.loading || s.app.loadingMarketPrice || s.app.loading);
   const marketPrice = useAppSelector(s => s.app.marketPrice || 0);
-  const [currency, setCurrency] = useState<"USD" | "OHM">("USD");
+  const [currency, setCurrency] = useState<"USD" | "RIP">("USD");
 
   const walletTotalValueUSD = Object.values(tokens).reduce(
     (totalValue, token) => totalValue + parseFloat(token.totalBalance) * token.price,
@@ -129,10 +129,10 @@ const WalletTotalValue = () => {
   );
   const walletValue = {
     USD: walletTotalValueUSD,
-    OHM: walletTotalValueUSD / marketPrice,
+    RIP: walletTotalValueUSD / marketPrice,
   };
   return (
-    <Box onClick={() => setCurrency(currency === "USD" ? "OHM" : "USD")}>
+    <Box onClick={() => setCurrency(currency === "USD" ? "RIP" : "USD")}>
       <Typography style={{ lineHeight: 1.1, fontWeight: 600, fontSize: "0.975rem" }} color="textSecondary">
         MY WALLET
       </Typography>
@@ -179,7 +179,7 @@ function InitialWalletView({ onClose }: { onClose: () => void }) {
           <ExternalLink
             color={currentTheme === "dark" ? "primary" : undefined}
             href={`https://app.sushi.com/swap?inputCurrency=${dai.getAddressForReserve(networkId)}&outputCurrency=${
-              addresses[networkId].OHM_V2
+              addresses[networkId].RIP_V2
             }`}
           >
             <Typography>Get on Sushiswap</Typography>
@@ -188,7 +188,7 @@ function InitialWalletView({ onClose }: { onClose: () => void }) {
             color={currentTheme === "dark" ? "primary" : undefined}
             href={`https://app.uniswap.org/#/swap?inputCurrency=${frax.getAddressForReserve(
               networkId,
-            )}&outputCurrency=${addresses[networkId].OHM_V2}`}
+            )}&outputCurrency=${addresses[networkId].RIP_V2}`}
           >
             <Typography>Get on Uniswap</Typography>
           </ExternalLink>
@@ -199,13 +199,13 @@ function InitialWalletView({ onClose }: { onClose: () => void }) {
             Icon1="wsOHM"
           />
           <Box sx={{ display: "flex", flexDirection: "column" }} style={{ gap: theme.spacing(1.5) }}>
-            <ExternalLink href={`https://dune.xyz/fluidsonic/Olympus-DAO`}>
+            <ExternalLink href={`https://dune.xyz/fluidsonic/RIPProtocol-DAO`}>
               <Typography>Fluidsonic's dashboard</Typography>
             </ExternalLink>
-            <ExternalLink href={`https://dune.xyz/0xrusowsky/Olympus-Wallet-History`}>
+            <ExternalLink href={`https://dune.xyz/0xrusowsky/RIPProtocol-Wallet-History`}>
               <Typography>Rusowsky's dashboard</Typography>
             </ExternalLink>
-            <ExternalLink href={`https://dune.xyz/shadow/Olympus-(OHM)`}>
+            <ExternalLink href={`https://dune.xyz/shadow/RIPProtocol-(RIP)`}>
               <Typography>Shadow's dashboard</Typography>
             </ExternalLink>
           </Box>

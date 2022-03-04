@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-artifact-1",
-  "contractName": "OHMPreSale",
-  "sourceName": "contracts/sale/olympus/presale/OHMPresale.sol",
+  "contractName": "RIPPreSale",
+  "sourceName": "contracts/sale/olympus/presale/RIPPresale.sol",
   "abi": [
     {
       "inputs": [
@@ -48,7 +48,7 @@
     },
     {
       "inputs": [],
-      "name": "aOHM",
+      "name": "aRIP",
       "outputs": [
         {
           "internalType": "address",
@@ -126,7 +126,7 @@
         },
         {
           "internalType": "address",
-          "name": "_aOHM",
+          "name": "_aRIP",
           "type": "address"
         },
         {
@@ -172,7 +172,7 @@
           "type": "uint256"
         }
       ],
-      "name": "purchaseaOHM",
+      "name": "purchaseaRIP",
       "outputs": [
         {
           "internalType": "bool",
@@ -220,11 +220,11 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_sendaOHMTo",
+          "name": "_sendaRIPTo",
           "type": "address"
         }
       ],
-      "name": "sendRemainingaOHM",
+      "name": "sendRemainingaRIP",
       "outputs": [
         {
           "internalType": "bool",

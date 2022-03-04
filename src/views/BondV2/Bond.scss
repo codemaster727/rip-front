@@ -21,7 +21,7 @@
     }
   }
 
-  .ohm-input {
+  .rip-input {
     min-width: 50%;
     max-width: 408px;
     margin: 5px;
@@ -55,7 +55,7 @@
 }
 
 .mobile #bond-view {
-  .ohm-card {
+  .rip-card {
     .card-content {
       justify-content: space-evenly !important;
       .bond-toggle-row {
@@ -67,7 +67,7 @@
         justify-content: center;
         align-items: center;
         align-content: center;
-        .input-group.ohm-input-group {
+        .input-group.rip-input-group {
           margin: 10px !important;
           width: 75%;
           height: 50px;

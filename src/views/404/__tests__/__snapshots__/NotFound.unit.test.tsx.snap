@@ -13,9 +13,9 @@ exports[`<NotFound/> should render component 1`] = `
         target="_blank"
       >
         <img
-          alt="OlympusDAO"
+          alt="RIPProtocolDAO"
           class="branding-header-icon"
-          src="Olympus Logo.svg"
+          src="RIPProtocol Logo.svg"
         />
       </a>
       <h4>

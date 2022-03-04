@@ -16,31 +16,31 @@ export function ConfirmDialog({ quantity, currentIndex, view, onConfirm }: Confi
     setChecked(value);
     onConfirm(value);
   };
-  const gohmQuantity = useMemo(
+  const gripQuantity = useMemo(
     () => (quantity && currentIndex ? Number((Number(quantity) / Number(currentIndex)).toFixed(4)) : ""),
     [quantity, currentIndex],
   );
-  const ohmQuantity = useMemo(() => (quantity ? Number(Number(quantity).toFixed(4)) : ""), [quantity]);
+  const ripQuantity = useMemo(() => (quantity ? Number(Number(quantity).toFixed(4)) : ""), [quantity]);
 
   return (
-    <Paper className="ohm-card confirm-dialog">
+    <Paper className="rip-card confirm-dialog">
       <Box className="dialog-container" display="flex" alignItems="center" justifyContent="space-between">
         {/* <Typography variant="body2"> */}
         <Grid component="label" container alignItems="center" spacing={1} wrap="nowrap">
-          <Grid item>sOHM</Grid>
+          <Grid item>sRIP</Grid>
           <Grid item>
             <Switch
               checked={checked}
               onChange={handleCheck}
               color="primary"
-              className="stake-to-ohm-checkbox"
-              inputProps={{ "aria-label": "stake to gohm" }}
+              className="stake-to-rip-checkbox"
+              inputProps={{ "aria-label": "stake to grip" }}
             />
           </Grid>
           <Grid item>
-            gOHM
+            gRIP
             <InfoTooltip
-              message={`Toggle to switch between ${view === 0 ? "staking to" : "unstaking from"} sOHM or gOHM`}
+              message={`Toggle to switch between ${view === 0 ? "staking to" : "unstaking from"} sRIP or gRIP`}
               children={undefined}
             />
           </Grid>
@@ -49,8 +49,8 @@ export function ConfirmDialog({ quantity, currentIndex, view, onConfirm }: Confi
         {checked && Number(quantity) ? (
           <Typography variant="body2">
             {view === 0
-              ? `Stake ${ohmQuantity} OHM → ${gohmQuantity} gOHM`
-              : `Unstake ${gohmQuantity} gOHM → ${ohmQuantity} OHM`}
+              ? `Stake ${ripQuantity} RIP → ${gripQuantity} gRIP`
+              : `Unstake ${gripQuantity} gRIP → ${ripQuantity} RIP`}
           </Typography>
         ) : null}
       </Box>

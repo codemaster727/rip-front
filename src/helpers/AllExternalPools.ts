@@ -7,8 +7,8 @@ import { PairContract } from "src/typechain";
 
 import { NodeHelper } from "./NodeHelper";
 
-export const tj_gohm_wavax = new ExternalPool({
-  poolName: "gOHM-AVAX",
+export const tj_grip_wavax = new ExternalPool({
+  poolName: "gRIP-AVAX",
   icons: ["wsOHM", "AVAX"],
   stakeOn: "Trader Joe",
   pairGecko: "avalanche-2",
@@ -18,8 +18,8 @@ export const tj_gohm_wavax = new ExternalPool({
   networkID: NetworkId.AVALANCHE,
 });
 
-export const pango_gohm_wavax = new ExternalPool({
-  poolName: "gOHM-AVAX",
+export const pango_grip_wavax = new ExternalPool({
+  poolName: "gRIP-AVAX",
   icons: ["wsOHM", "AVAX"],
   stakeOn: "Pangolin",
   pairGecko: "avalanche-2",
@@ -29,8 +29,8 @@ export const pango_gohm_wavax = new ExternalPool({
   networkID: NetworkId.AVALANCHE,
 });
 
-export const sushi_arb_gohm_weth = new ExternalPool({
-  poolName: "gOHM-wETH",
+export const sushi_arb_grip_weth = new ExternalPool({
+  poolName: "gRIP-wETH",
   icons: ["wsOHM", "wETH"],
   stakeOn: "Sushi (Arbitrum)",
   pairGecko: "ethereum",
@@ -40,8 +40,8 @@ export const sushi_arb_gohm_weth = new ExternalPool({
   networkID: NetworkId.ARBITRUM,
 });
 
-export const sushi_poly_gohm_weth = new ExternalPool({
-  poolName: "gOHM-wETH",
+export const sushi_poly_grip_weth = new ExternalPool({
+  poolName: "gRIP-wETH",
   icons: ["wsOHM", "wETH"],
   stakeOn: "Sushi (Polygon)",
   pairGecko: "ethereum",
@@ -51,8 +51,8 @@ export const sushi_poly_gohm_weth = new ExternalPool({
   networkID: NetworkId.POLYGON,
 });
 
-export const spirit_gohm_ftm = new ExternalPool({
-  poolName: "gOHM-FTM",
+export const spirit_grip_ftm = new ExternalPool({
+  poolName: "gRIP-FTM",
   icons: ["wsOHM", "FANTOM"],
   stakeOn: "Spirit (Fantom)",
   pairGecko: "fantom",
@@ -62,14 +62,14 @@ export const spirit_gohm_ftm = new ExternalPool({
   networkID: NetworkId.FANTOM,
 });
 
-// export const allPools = [tj_gohm_wavax, pango_gohm_wavax, sushi_arb_gohm_weth, sushi_poly_gohm_weth];
-export const allPools = [tj_gohm_wavax, sushi_arb_gohm_weth, sushi_poly_gohm_weth, spirit_gohm_ftm];
+// export const allPools = [tj_grip_wavax, pango_grip_wavax, sushi_arb_grip_weth, sushi_poly_grip_weth];
+export const allPools = [tj_grip_wavax, sushi_arb_grip_weth, sushi_poly_grip_weth, spirit_grip_ftm];
 
 /**
  * iterate through a given wallet address for all ExternalPools
  * @param address
  */
-export const fetchPoolData = async (address: string, gOhmPrice: number) => {
+export const fetchPoolData = async (address: string, gRipPrice: number) => {
   try {
     // iterate the pools
     const results = allPools.map(async pool => {
@@ -86,11 +86,11 @@ export const fetchPoolData = async (address: string, gOhmPrice: number) => {
       let reserve1Price = 0;
       const token0 = await poolContract.token0();
       const token2Price: number = await getTokenPrice(pool.pairGecko);
-      if (token0.toLowerCase() === addresses[pool.networkID].GOHM_ADDRESS.toLowerCase()) {
-        reserve0Price = gOhmPrice;
+      if (token0.toLowerCase() === addresses[pool.networkID].GRIP_ADDRESS.toLowerCase()) {
+        reserve0Price = gRipPrice;
         reserve1Price = token2Price;
       } else {
-        reserve1Price = gOhmPrice;
+        reserve1Price = gRipPrice;
         reserve0Price = token2Price;
       }
       const totalLpAsUSD =

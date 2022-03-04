@@ -4,9 +4,9 @@ import { NetworkId } from "src/constants";
 import {
   AddressMap,
   MIGRATOR_ADDRESSES,
-  V1_OHM_ADDRESSES,
-  V1_SOHM_ADDRESSES,
-  WSOHM_ADDRESSES,
+  V1_RIP_ADDRESSES,
+  V1_SRIP_ADDRESSES,
+  WSRIP_ADDRESSES,
 } from "src/constants/addresses";
 import { queryAssertion } from "src/helpers";
 
@@ -39,6 +39,6 @@ export const useContractAllowance = (tokenMap: AddressMap, contractMap: AddressM
   );
 };
 
-export const useWsohmMigrationAllowance = () => useContractAllowance(WSOHM_ADDRESSES, MIGRATOR_ADDRESSES);
-export const useV1OhmMigrationAllowance = () => useContractAllowance(V1_OHM_ADDRESSES, MIGRATOR_ADDRESSES);
-export const useV1SohmMigrationAllowance = () => useContractAllowance(V1_SOHM_ADDRESSES, MIGRATOR_ADDRESSES);
+export const useWsripMigrationAllowance = () => useContractAllowance(WSRIP_ADDRESSES, MIGRATOR_ADDRESSES);
+export const useV1RipMigrationAllowance = () => useContractAllowance(V1_RIP_ADDRESSES, MIGRATOR_ADDRESSES);
+export const useV1SripMigrationAllowance = () => useContractAllowance(V1_SRIP_ADDRESSES, MIGRATOR_ADDRESSES);

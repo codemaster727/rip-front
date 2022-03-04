@@ -2,7 +2,7 @@
   "abi": [
     {
       "inputs": [
-        { "internalType": "address", "name": "_OHM", "type": "address" },
+        { "internalType": "address", "name": "_RIP", "type": "address" },
         { "internalType": "address", "name": "_principal", "type": "address" },
         { "internalType": "address", "name": "_treasury", "type": "address" },
         { "internalType": "address", "name": "_DAO", "type": "address" }
@@ -78,7 +78,7 @@
     },
     {
       "inputs": [],
-      "name": "OHM",
+      "name": "RIP",
       "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
       "stateMutability": "view",
       "type": "function"

@@ -129,8 +129,13 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
     if (isIframe()) {
       rawProvider = new IFrameEthereumProvider();
     } else {
-      rawProvider = await web3Modal.connect();
+      try {
+        rawProvider = await web3Modal.connect();
+      } catch (error) {
+        console.log(error);
+      }
     }
+    if (!rawProvider) return;
 
     // new _initListeners implementation matches Web3Modal Docs
     // ... see here: https://github.com/Web3Modal/web3modal/blob/2ff929d0e99df5edf6bb9e88cff338ba6d8a3991/example/src/App.tsx#L185

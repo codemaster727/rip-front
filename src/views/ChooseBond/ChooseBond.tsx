@@ -107,7 +107,7 @@ function ChooseBond() {
               isLoading={!!treasuryBalance ? false : true}
             />
             <Metric
-              label={t`OHM Price`}
+              label={t`RIP Price`}
               metric={formatCurrency(Number(marketPrice), 2)}
               isLoading={marketPrice ? false : true}
             />
@@ -151,7 +151,7 @@ function ChooseBond() {
       </Zoom>
 
       {isSmallScreen && (
-        <Box className="ohm-card-container">
+        <Box className="rip-card-container">
           <Grid container item spacing={2}>
             {bonds.map(bond => {
               // NOTE (appleseed): temporary for ONHOLD MIGRATION

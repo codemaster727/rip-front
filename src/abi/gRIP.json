@@ -9,7 +9,7 @@
         },
         {
           "internalType": "address",
-          "name": "_sOHM",
+          "name": "_sRIP",
           "type": "address"
         }
       ],
@@ -439,7 +439,7 @@
         },
         {
           "internalType": "address",
-          "name": "_sOHM",
+          "name": "_sRIP",
           "type": "address"
         }
       ],
@@ -513,10 +513,10 @@
     },
     {
       "inputs": [],
-      "name": "sOHM",
+      "name": "sRIP",
       "outputs": [
         {
-          "internalType": "contract IsOHM",
+          "internalType": "contract IsRIP",
           "name": "",
           "type": "address"
         }

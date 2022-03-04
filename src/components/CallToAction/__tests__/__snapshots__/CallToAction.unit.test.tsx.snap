@@ -3,7 +3,7 @@
 exports[`<CallToAction/> should render component 1`] = `
 <div>
   <div
-    class="MuiBox-root MuiBox-root-1 call-to-action ohm-card"
+    class="MuiBox-root MuiBox-root-1 call-to-action rip-card"
   >
     <h5
       class="MuiTypography-root MuiTypography-h5"

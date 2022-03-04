@@ -63,7 +63,7 @@ export interface IBaseAddressAsyncThunk extends IBaseAsyncThunk {
 }
 
 export interface IMigrateAsyncThunk extends IBaseAddressAsyncThunk {
-  readonly gOHM: boolean;
+  readonly gRIP: boolean;
 }
 
 export interface IMigrateSingleAsyncThunk extends IMigrateAsyncThunk {
@@ -72,7 +72,7 @@ export interface IMigrateSingleAsyncThunk extends IMigrateAsyncThunk {
 }
 
 export interface IBaseBondV2ClaimAsyncThunk extends IBaseAddressAsyncThunk {
-  readonly gOHM: boolean;
+  readonly gRIP: boolean;
 }
 
 export interface IBaseBondV2SingleClaimAsyncThunk extends IBaseBondV2ClaimAsyncThunk {
@@ -80,7 +80,7 @@ export interface IBaseBondV2SingleClaimAsyncThunk extends IBaseBondV2ClaimAsyncT
 }
 
 export interface IBaseBondV2ClaimSinglesyncThunk extends IBaseBondV2ClaimAsyncThunk {
-  readonly gOHM: boolean;
+  readonly gRIP: boolean;
   readonly bondIndex: number;
 }
 
@@ -95,7 +95,7 @@ export interface IZapAsyncThunk extends IBaseAddressAsyncThunk {
   readonly sellAmount: BigNumber;
   readonly slippage: string;
   readonly minimumAmount: string;
-  readonly gOHM: boolean;
+  readonly gRIP: boolean;
 }
 
 // Account Slice

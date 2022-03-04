@@ -5,11 +5,11 @@
   flex-direction: column;
   overflow: hidden;
 
-  .ohm-card-container {
+  .rip-card-container {
     width: 100%;
   }
 
-  .ohm-card .bond-hero h4 {
+  .rip-card .bond-hero h4 {
     font-weight: 600 !important;
 
     .MuiSkeleton-root {
@@ -39,7 +39,7 @@
 
   .bond-data-card {
     margin: auto;
-    .ohm-pairs {
+    .rip-pairs {
       display: flex;
       margin-right: 15px;
     }

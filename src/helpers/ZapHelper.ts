@@ -73,7 +73,7 @@ export class ZapHelper {
   };
 
   /**
-   * contract address for sOHM zap pool
+   * contract address for sRIP zap pool
    * @param networkID number
    * @returns string
    */

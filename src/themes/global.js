@@ -115,7 +115,7 @@ const commonSettings = {
     MuiPaper: {
       root: {
         backdropFilter: "blur(33px)",
-        "&.ohm-card": {
+        "&.rip-card": {
           padding: "20px 30px 30px 30px",
           borderRadius: "10px",
           maxWidth: "833px",
@@ -123,12 +123,12 @@ const commonSettings = {
           marginBottom: "1.8rem",
           overflow: "hidden",
         },
-        "&.ohm-menu": {
+        "&.rip-menu": {
           padding: "22px 0px",
           borderRadius: "10px",
           margin: "0px",
         },
-        "&.ohm-chart-card": {
+        "&.rip-chart-card": {
           padding: "20px 0px",
           whiteSpace: "nowrap",
           maxWidth: "700px",

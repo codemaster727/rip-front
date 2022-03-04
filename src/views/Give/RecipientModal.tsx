@@ -30,7 +30,7 @@ import {
 import { getTokenImage } from "../../helpers";
 import { IAccountSlice } from "../../slices/AccountSlice";
 import { IPendingTxn, isPendingTxn, txnButtonText } from "../../slices/PendingTxnsSlice";
-const sOhmImg = getTokenImage("sohm");
+const sRipImg = getTokenImage("srip");
 import { t, Trans } from "@lingui/macro";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { InfoTooltip, PrimaryButton } from "@olympusdao/component-library";
@@ -113,22 +113,22 @@ export function RecipientModal({
   };
 
   /**
-   * Returns the user's sOHM balance
+   * Returns the user's sRIP balance
    *
    * Copied from Stake.jsx
    *
    * TODO consider extracting this into a helper file
    */
-  const sohmBalance: string = useSelector((state: State) => {
-    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSohmEnabled(location.search)
-      ? state.account.balances && state.account.balances.mockSohm
-      : state.account.balances && state.account.balances.sohm;
+  const sripBalance: string = useSelector((state: State) => {
+    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
+      ? state.account.balances && state.account.balances.mockSrip
+      : state.account.balances && state.account.balances.srip;
   });
 
   const giveAllowance: number = useSelector((state: State) => {
-    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSohmEnabled(location.search)
-      ? state.account.mockGiving && state.account.mockGiving.sohmGive
-      : state.account.giving && state.account.giving.sohmGive;
+    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
+      ? state.account.mockGiving && state.account.mockGiving.sripGive
+      : state.account.giving && state.account.giving.sripGive;
   });
 
   const isAccountLoading: boolean = useSelector((state: State) => {
@@ -136,7 +136,7 @@ export function RecipientModal({
   });
 
   const isGiveLoading: boolean = useSelector((state: State) => {
-    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSohmEnabled(location.search)
+    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
       ? state.account.mockGiving.loading
       : state.account.giving.loading;
   });
@@ -146,10 +146,10 @@ export function RecipientModal({
   });
 
   const onSeekApproval = async () => {
-    if (networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSohmEnabled(location.search)) {
-      await dispatch(changeMockApproval({ address, token: "sohm", provider, networkID: networkId }));
+    if (networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)) {
+      await dispatch(changeMockApproval({ address, token: "srip", provider, networkID: networkId }));
     } else {
-      await dispatch(changeApproval({ address, token: "sohm", provider, networkID: networkId }));
+      await dispatch(changeApproval({ address, token: "srip", provider, networkID: networkId }));
     }
   };
 
@@ -157,8 +157,8 @@ export function RecipientModal({
     return giveAllowance > 0;
   }, [giveAllowance]);
 
-  const getSOhmBalance = (): BigNumber => {
-    return new BigNumber(sohmBalance);
+  const getSRipBalance = (): BigNumber => {
+    return new BigNumber(sripBalance);
   };
 
   /**
@@ -169,7 +169,7 @@ export function RecipientModal({
    * @returns BigNumber
    */
   const getMaximumDepositAmount = (): BigNumber => {
-    return new BigNumber(sohmBalance).plus(currentDepositAmount ? currentDepositAmount : 0);
+    return new BigNumber(sripBalance).plus(currentDepositAmount ? currentDepositAmount : 0);
   };
 
   const handleSetDepositAmount = (value: string) => {
@@ -179,7 +179,7 @@ export function RecipientModal({
 
   const checkIsDepositAmountValid = (value: string) => {
     const valueNumber = new BigNumber(value);
-    const sOhmBalanceNumber = getSOhmBalance();
+    const sRipBalanceNumber = getSRipBalance();
 
     if (!value || value == "" || valueNumber.isEqualTo(0)) {
       setIsDepositAmountValid(false);
@@ -193,14 +193,14 @@ export function RecipientModal({
       return;
     }
 
-    if (sOhmBalanceNumber.isEqualTo(0)) {
+    if (sRipBalanceNumber.isEqualTo(0)) {
       setIsDepositAmountValid(false);
-      setIsDepositAmountValidError(t`You must have a balance of sOHM (staked OHM) to continue`);
+      setIsDepositAmountValidError(t`You must have a balance of sRIP (staked RIP) to continue`);
     }
 
     if (valueNumber.isGreaterThan(getMaximumDepositAmount())) {
       setIsDepositAmountValid(false);
-      setIsDepositAmountValidError(t`Value cannot be more than your sOHM balance of ` + getMaximumDepositAmount());
+      setIsDepositAmountValidError(t`Value cannot be more than your sRIP balance of ` + getMaximumDepositAmount());
       return;
     }
 
@@ -293,14 +293,14 @@ export function RecipientModal({
   /**
    * Indicates the amount retained in the user's wallet after a deposit to the vault.
    *
-   * If a yield direction is being created, it returns the current sOHM balance minus the entered deposit.
-   * If a yield direction is being edited, it returns the current sOHM balance minus the difference in the entered deposit.
+   * If a yield direction is being created, it returns the current sRIP balance minus the entered deposit.
+   * If a yield direction is being edited, it returns the current sRIP balance minus the difference in the entered deposit.
    *
    * @returns BigNumber instance
    */
   const getRetainedAmountDiff = (): BigNumber => {
     const tempDepositAmount: BigNumber = !isCreateMode() ? getDepositAmountDiff() : getDepositAmount();
-    return new BigNumber(sohmBalance).minus(tempDepositAmount);
+    return new BigNumber(sripBalance).minus(tempDepositAmount);
   };
 
   const getDepositAmountDiff = (): BigNumber => {
@@ -391,7 +391,7 @@ export function RecipientModal({
           <Typography variant="body1">
             <Trans>Recipient</Trans>
           </Typography>
-          {/* The main reason for having this tooltip is because it keeps spacing consistent with the sOHM Allocation above */}
+          {/* The main reason for having this tooltip is because it keeps spacing consistent with the sRIP Allocation above */}
           <InfoTooltip
             message={t`The specified wallet address will receive the rebase yield from the amount that you deposit.`}
             children={null}
@@ -437,10 +437,10 @@ export function RecipientModal({
   // TODO re-arrange the below output to be around the state: approval, custom recipient, project recipient, editing
 
   return (
-    /* modal-container displays a background behind the ohm-card container, which means that if modal-container receives a click, we can close the modal */
+    /* modal-container displays a background behind the rip-card container, which means that if modal-container receives a click, we can close the modal */
     <Modal className="modal-container" open={isModalOpen} onClose={cancelFunc} onClick={cancelFunc} hideBackdrop={true}>
       <Paper
-        className={`ohm-card ohm-modal ${isSmallScreen && "smaller"}`}
+        className={`rip-card rip-modal ${isSmallScreen && "smaller"}`}
         onClick={handleModalInsideClick}
         style={{
           top: hasAllowance() && isSmallScreen ? "0%" : "50%",
@@ -470,9 +470,9 @@ export function RecipientModal({
           <Box className="help-text">
             <Typography variant="body1" className="stream-note" color="textSecondary">
               <Trans>
-                First time donating <b>sOHM</b>?
+                First time donating <b>sRIP</b>?
                 <br />
-                Please approve Olympus DAO to use your <b>sOHM</b> for donating.
+                Please approve RIPProtocol DAO to use your <b>sRIP</b> for donating.
               </Trans>
             </Typography>
           </Box>
@@ -485,7 +485,7 @@ export function RecipientModal({
                 </strong>
               </Typography>
               <div className="details-row">
-                <div className="sohm-allocation-col">
+                <div className="srip-allocation-col">
                   <Typography variant="body1">
                     <Trans>Your Wallet Address</Trans>
                   </Typography>
@@ -519,7 +519,7 @@ export function RecipientModal({
                 </Typography>
                 <Typography variant="h6">
                   <strong>
-                    <Trans>{depositAmount} sOHM</Trans>
+                    <Trans>{depositAmount} sRIP</Trans>
                   </strong>
                 </Typography>
               </div>
@@ -529,10 +529,10 @@ export function RecipientModal({
           <>
             <div className="give-modal-alloc-tip">
               <Typography variant="body1">
-                <Trans>sOHM Allocation</Trans>
+                <Trans>sRIP Allocation</Trans>
               </Typography>
               <InfoTooltip
-                message={t`Your sOHM will be tansferred into the vault when you submit. You will need to approve the transaction and pay for gas fees.`}
+                message={t`Your sRIP will be tansferred into the vault when you submit. You will need to approve the transaction and pay for gas fees.`}
                 children={null}
               />
             </div>
@@ -549,7 +549,7 @@ export function RecipientModal({
                 labelWidth={0}
                 startAdornment={
                   <InputAdornment position="start">
-                    <div className="logo-holder">{sOhmImg}</div>
+                    <div className="logo-holder">{sRipImg}</div>
                   </InputAdornment>
                 }
                 endAdornment={
@@ -566,7 +566,7 @@ export function RecipientModal({
                   <Trans>Your Staked Balance (depositable)</Trans>
                 </Typography>
                 <Typography variant="body2" align="right">
-                  <Trans>{getSOhmBalance().toFixed(4)} sOHM</Trans>
+                  <Trans>{getSRipBalance().toFixed(4)} sRIP</Trans>
                 </Typography>
               </div>
             </FormControl>
@@ -595,14 +595,14 @@ export function RecipientModal({
               </PrimaryButton>
             </Box>
           ) : address && (hasAllowance() || isGiveLoading) && !isAmountSet ? (
-            <FormControl className="ohm-modal-submit">
+            <FormControl className="rip-modal-submit">
               <Button variant="contained" color="primary" disabled={!canSubmit()} onClick={handleContinue}>
                 <Trans>Continue</Trans>
               </Button>
             </FormControl>
           ) : isAmountSet ? (
             <>
-              <FormControl className="ohm-modal-submit">
+              <FormControl className="rip-modal-submit">
                 <Button
                   variant="contained"
                   color="primary"
@@ -612,14 +612,14 @@ export function RecipientModal({
                   {txnButtonText(pendingTransactions, PENDING_TXN_GIVE, t`Go Back`)}
                 </Button>
               </FormControl>
-              <FormControl className="ohm-modal-submit">
+              <FormControl className="rip-modal-submit">
                 <Button variant="contained" color="primary" disabled={!canSubmit()} onClick={handleSubmit}>
-                  {txnButtonText(pendingTransactions, PENDING_TXN_GIVE, t`Confirm sOHM`)}
+                  {txnButtonText(pendingTransactions, PENDING_TXN_GIVE, t`Confirm sRIP`)}
                 </Button>
               </FormControl>
             </>
           ) : (
-            <FormControl className="ohm-modal-submit">
+            <FormControl className="rip-modal-submit">
               <Button
                 variant="contained"
                 color="primary"
@@ -631,14 +631,14 @@ export function RecipientModal({
             </FormControl>
           )
         ) : !isAmountSet ? (
-          <FormControl className="ohm-modal-submit">
+          <FormControl className="rip-modal-submit">
             <Button variant="contained" color="primary" disabled={!canSubmit()} onClick={handleContinue}>
               <Trans>Continue</Trans>
             </Button>
           </FormControl>
         ) : (
           <>
-            <FormControl className="ohm-modal-submit">
+            <FormControl className="rip-modal-submit">
               <Button
                 variant="contained"
                 color="primary"
@@ -648,7 +648,7 @@ export function RecipientModal({
                 {txnButtonText(pendingTransactions, PENDING_TXN_EDIT_GIVE, t`Go Back`)}
               </Button>
             </FormControl>
-            <FormControl className="ohm-modal-submit">
+            <FormControl className="rip-modal-submit">
               <Button variant="contained" color="primary" disabled={!canSubmit()} onClick={handleSubmit}>
                 {txnButtonText(pendingTransactions, PENDING_TXN_EDIT_GIVE, t`Edit Give Amount`)}
               </Button>

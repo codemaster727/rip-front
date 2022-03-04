@@ -8,13 +8,13 @@ import { memo } from "react";
 
 import {
   MarketValueGraph,
-  OHMStakedGraph,
   ProtocolOwnedLiquidityGraph,
+  RIPStakedGraph,
   RiskFreeValueGraph,
   RunwayAvailableGraph,
   TotalValueDepositedGraph,
 } from "./components/Graph/Graph";
-import { BackingPerOHM, CircSupply, CurrentIndex, GOHMPrice, MarketCap, OHMPrice } from "./components/Metric/Metric";
+import { BackingPerRIP, CircSupply, CurrentIndex, GRIPPrice, MarketCap, RIPPrice } from "./components/Metric/Metric";
 const TreasuryDashboard = memo(() => {
   const isSmallScreen = useMediaQuery("(max-width: 650px)");
   const isVerySmallScreen = useMediaQuery("(max-width: 379px)");
@@ -28,57 +28,57 @@ const TreasuryDashboard = memo(() => {
         }}
       >
         {/* <Box className="hero-metrics">
-          <Paper className="ohm-card">
+          <Paper className="rip-card">
             <MetricCollection>
               <MarketCap />
-              <OHMPrice />
-              <GOHMPrice />
+              <RIPPrice />
+              <GRIPPrice />
               <CircSupply />
-              <BackingPerOHM />
+              <BackingPerRIP />
               <CurrentIndex />
             </MetricCollection>
           </Paper>
         </Box> */}
-        <Paper className="ohm-card">
+        <Paper className="rip-card">
           <Zoom in={true}>
             <Grid container className="data-grid" style={{ marginTop: "50px" }}>
               <Grid item lg={2} md={2} sm={12} xs={12} justify="flex-end">
                 <MarketCap />
-                <OHMPrice />
-                <GOHMPrice />
+                <RIPPrice />
+                <GRIPPrice />
                 <CircSupply />
-                <BackingPerOHM />
+                <BackingPerRIP />
                 <CurrentIndex />
               </Grid>
               <Grid item lg={10} md={10} sm={12} xs={12}>
                 <Grid container spacing={2} className="data-grid">
                   <Grid item lg={6} md={6} sm={12} xs={12}>
-                    <Paper className="ohm-card ohm-chart-card" style={{ background: "black" }}>
+                    <Paper className="rip-card rip-chart-card" style={{ background: "black" }}>
                       <TotalValueDepositedGraph />
                     </Paper>
                   </Grid>
 
                   <Grid item lg={6} md={6} sm={12} xs={12}>
-                    <Paper className="ohm-card ohm-chart-card" style={{ background: "black" }}>
+                    <Paper className="rip-card rip-chart-card" style={{ background: "black" }}>
                       <MarketValueGraph />
                     </Paper>
                   </Grid>
 
                   <Grid item lg={6} md={6} sm={12} xs={12}>
-                    <Paper className="ohm-card ohm-chart-card" style={{ background: "black" }}>
+                    <Paper className="rip-card rip-chart-card" style={{ background: "black" }}>
                       <RiskFreeValueGraph />
                     </Paper>
                   </Grid>
 
                   <Grid item lg={6} md={6} sm={12} xs={12}>
-                    <Paper className="ohm-card ohm-chart-card" style={{ background: "black" }}>
+                    <Paper className="rip-card rip-chart-card" style={{ background: "black" }}>
                       <ProtocolOwnedLiquidityGraph />
                     </Paper>
                   </Grid>
 
                   {/*  Temporarily removed until correct data is in the graph */}
                   {/* <Grid item lg={6} md={12} sm={12} xs={12}>
-                    <Paper className="ohm-card">
+                    <Paper className="rip-card">
                       <Chart
                         type="bar"
                         data={data}
@@ -102,13 +102,13 @@ const TreasuryDashboard = memo(() => {
                   </Grid> */}
 
                   <Grid item lg={6} md={6} sm={12} xs={12}>
-                    <Paper className="ohm-card ohm-chart-card" style={{ background: "black" }}>
-                      <OHMStakedGraph />
+                    <Paper className="rip-card rip-chart-card" style={{ background: "black" }}>
+                      <RIPStakedGraph />
                     </Paper>
                   </Grid>
 
                   <Grid item lg={6} md={6} sm={12} xs={12}>
-                    <Paper className="ohm-card ohm-chart-card" style={{ background: "black" }}>
+                    <Paper className="rip-card rip-chart-card" style={{ background: "black" }}>
                       <RunwayAvailableGraph />
                     </Paper>
                   </Grid>

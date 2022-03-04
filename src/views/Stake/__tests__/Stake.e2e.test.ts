@@ -71,8 +71,8 @@ describe.skip("Staking", () => {
     await clickElement(page, "#stake-button");
     await metamask.confirmTransaction();
 
-    // Staked balance should be written as 0.1 sOHM
-    expect(await getSelectorTextContent(page, "#user-staked-balance")).toEqual("0.1 sOHM");
+    // Staked balance should be written as 0.1 sRIP
+    expect(await getSelectorTextContent(page, "#user-staked-balance")).toEqual("0.1 sRIP");
     expect(await waitSelectorExists(page, "#unstake-button")).toBeTruthy();
     expect(await selectorExists(page, "#stake-button")).toBeFalsy();
   });
@@ -92,7 +92,7 @@ describe.skip("Staking", () => {
     await clickElement(page, "#unstake-button");
     await metamask.confirmTransaction();
 
-    // Staked balance should be written as 0.0 sOHM
-    expect(await getSelectorTextContent(page, "#user-staked-balance")).toEqual("0 sOHM");
+    // Staked balance should be written as 0.0 sRIP
+    expect(await getSelectorTextContent(page, "#user-staked-balance")).toEqual("0 sRIP");
   });
 });

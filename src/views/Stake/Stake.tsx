@@ -25,10 +25,10 @@ import { useWeb3Context } from "src/hooks/web3Context";
 import { isPendingTxn, txnButtonText } from "src/slices/PendingTxnsSlice";
 
 import RebaseTimer from "../../components/RebaseTimer/RebaseTimer";
-import { getGohmBalFromSohm, trim } from "../../helpers";
+import { getGripBalFromSrip, trim } from "../../helpers";
 import { error } from "../../slices/MessagesSlice";
 import { changeApproval, changeStake } from "../../slices/StakeThunk";
-import { changeApproval as changeGohmApproval } from "../../slices/WrapThunk";
+import { changeApproval as changeGripApproval } from "../../slices/WrapThunk";
 import { ConfirmDialog } from "./ConfirmDialog";
 import ExternalStakePool from "./ExternalStakePool";
 
@@ -50,87 +50,87 @@ const Stake: React.FC = () => {
   const fiveDayRate = useAppSelector(state => {
     return state.app.fiveDayRate;
   });
-  const ohmBalance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.ohm;
+  const ripBalance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.rip;
   });
-  const sohmBalance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.sohm;
+  const sripBalance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.srip;
   });
-  const sohmV1Balance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.sohmV1;
+  const sripV1Balance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.sripV1;
   });
-  const fsohmBalance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.fsohm;
+  const fsripBalance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.fsrip;
   });
-  const fgohmBalance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.fgohm;
+  const fgripBalance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.grip;
   });
-  const fgOHMAsfsOHMBalance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.fgOHMAsfsOHM;
+  const fgRIPAsfsRIPBalance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.fgRIPAsfsRIP;
   });
-  const wsohmBalance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.wsohm;
+  const wsripBalance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.wsrip;
   });
-  const fiatDaowsohmBalance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.fiatDaowsohm;
+  const fiatDaowsripBalance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.fiatDaowsrip;
   });
-  const calculateWrappedAsSohm = (balance: string) => {
+  const calculateWrappedAsSrip = (balance: string) => {
     return Number(balance) * Number(currentIndex);
   };
-  const fiatDaoAsSohm = calculateWrappedAsSohm(fiatDaowsohmBalance);
-  const gOhmBalance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.gohm;
+  const fiatDaoAsSrip = calculateWrappedAsSrip(fiatDaowsripBalance);
+  const gRipBalance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.grip;
   });
-  const gOhmAsSohm = useAppSelector(state => {
-    return state.account.balances && state.account.balances.gOhmAsSohmBal;
-  });
-
-  const gOhmOnArbitrum = useAppSelector(state => {
-    return state.account.balances && state.account.balances.gOhmOnArbitrum;
-  });
-  const gOhmOnArbAsSohm = useAppSelector(state => {
-    return state.account.balances && state.account.balances.gOhmOnArbAsSohm;
+  const gRipAsSrip = useAppSelector(state => {
+    return state.account.balances && state.account.balances.gRipAsSripBal;
   });
 
-  const gOhmOnAvax = useAppSelector(state => {
-    return state.account.balances && state.account.balances.gOhmOnAvax;
+  const gRipOnArbitrum = useAppSelector(state => {
+    return state.account.balances && state.account.balances.gRipOnArbitrum;
   });
-  const gOhmOnAvaxAsSohm = useAppSelector(state => {
-    return state.account.balances && state.account.balances.gOhmOnAvaxAsSohm;
-  });
-
-  const gOhmOnPolygon = useAppSelector(state => {
-    return state.account.balances && state.account.balances.gOhmOnPolygon;
-  });
-  const gOhmOnPolygonAsSohm = useAppSelector(state => {
-    return state.account.balances && state.account.balances.gOhmOnPolygonAsSohm;
+  const gRipOnArbAsSrip = useAppSelector(state => {
+    return state.account.balances && state.account.balances.gRipOnArbAsSrip;
   });
 
-  const gOhmOnFantom = useAppSelector(state => {
-    return state.account.balances && state.account.balances.gOhmOnFantom;
+  const gRipOnAvax = useAppSelector(state => {
+    return state.account.balances && state.account.balances.gRipOnAvax;
   });
-  const gOhmOnFantomAsSohm = useAppSelector(state => {
-    return state.account.balances && state.account.balances.gOhmOnFantomAsSohm;
-  });
-
-  const gOhmOnTokemak = useAppSelector(state => {
-    return state.account.balances && state.account.balances.gOhmOnTokemak;
-  });
-  const gOhmOnTokemakAsSohm = useAppSelector(state => {
-    return state.account.balances && state.account.balances.gOhmOnTokemakAsSohm;
+  const gRipOnAvaxAsSrip = useAppSelector(state => {
+    return state.account.balances && state.account.balances.gRipOnAvaxAsSrip;
   });
 
-  const wsohmAsSohm = calculateWrappedAsSohm(wsohmBalance);
+  const gRipOnPolygon = useAppSelector(state => {
+    return state.account.balances && state.account.balances.gRipOnPolygon;
+  });
+  const gRipOnPolygonAsSrip = useAppSelector(state => {
+    return state.account.balances && state.account.balances.gRipOnPolygonAsSrip;
+  });
+
+  const gRipOnFantom = useAppSelector(state => {
+    return state.account.balances && state.account.balances.gRipOnFantom;
+  });
+  const gRipOnFantomAsSrip = useAppSelector(state => {
+    return state.account.balances && state.account.balances.gRipOnFantomAsSrip;
+  });
+
+  const gRipOnTokemak = useAppSelector(state => {
+    return state.account.balances && state.account.balances.gRipOnTokemak;
+  });
+  const gRipOnTokemakAsSrip = useAppSelector(state => {
+    return state.account.balances && state.account.balances.gRipOnTokemakAsSrip;
+  });
+
+  const wsripAsSrip = calculateWrappedAsSrip(wsripBalance);
 
   const stakeAllowance = useAppSelector(state => {
-    return (state.account.staking && state.account.staking.ohmStake) || 0;
+    return (state.account.staking && state.account.staking.ripStake) || 0;
   });
   const unstakeAllowance = useAppSelector(state => {
-    return (state.account.staking && state.account.staking.ohmUnstake) || 0;
+    return (state.account.staking && state.account.staking.ripUnstake) || 0;
   });
 
   const directUnstakeAllowance = useAppSelector(state => {
-    return (state.account.wrapping && state.account.wrapping.gOhmUnwrap) || 0;
+    return (state.account.wrapping && state.account.wrapping.gRipUnwrap) || 0;
   });
 
   const stakingRebase = useAppSelector(state => {
@@ -149,17 +149,17 @@ const Stake: React.FC = () => {
 
   const setMax = () => {
     if (view === 0) {
-      setQuantity(ohmBalance);
+      setQuantity(ripBalance);
     } else if (!confirmation) {
-      setQuantity(sohmBalance);
+      setQuantity(sripBalance);
     } else if (confirmation) {
-      setQuantity(gOhmAsSohm.toString());
+      setQuantity(gRipAsSrip.toString());
     }
   };
 
   const onSeekApproval = async (token: string) => {
-    if (token === "gohm") {
-      await dispatch(changeGohmApproval({ address, token: token.toLowerCase(), provider, networkID: networkId }));
+    if (token === "grip") {
+      await dispatch(changeGripApproval({ address, token: token.toLowerCase(), provider, networkID: networkId }));
     } else {
       await dispatch(changeApproval({ address, token, provider, networkID: networkId, version2: true }));
     }
@@ -174,26 +174,26 @@ const Stake: React.FC = () => {
 
     // 1st catch if quantity > balance
     const gweiValue = ethers.utils.parseUnits(quantity.toString(), "gwei");
-    if (action === "stake" && gweiValue.gt(ethers.utils.parseUnits(ohmBalance, "gwei"))) {
-      return dispatch(error(t`You cannot stake more than your OHM balance.`));
+    if (action === "stake" && gweiValue.gt(ethers.utils.parseUnits(ripBalance, "gwei"))) {
+      return dispatch(error(t`You cannot stake more than your RIP balance.`));
     }
 
-    if (confirmation === false && action === "unstake" && gweiValue.gt(ethers.utils.parseUnits(sohmBalance, "gwei"))) {
+    if (confirmation === false && action === "unstake" && gweiValue.gt(ethers.utils.parseUnits(sripBalance, "gwei"))) {
       return dispatch(
         error(
-          t`You do not have enough sOHM to complete this transaction.  To unstake from gOHM, please toggle the sohm-gohm switch.`,
+          t`You do not have enough sRIP to complete this transaction.  To unstake from gRIP, please toggle the srip-grip switch.`,
         ),
       );
     }
 
     /**
-     * converts sOHM quantity to gOHM quantity when box is checked for gOHM staking
-     * @returns sOHM as gOHM quantity
+     * converts sRIP quantity to gRIP quantity when box is checked for gRIP staking
+     * @returns sRIP as gRIP quantity
      */
     // const formQuant = checked && currentIndex && view === 1 ? quantity / Number(currentIndex) : quantity;
     const formQuant = async () => {
       if (confirmation && currentIndex && view === 1) {
-        return await getGohmBalFromSohm({ provider, networkID: networkId, sOHMbalance: quantity });
+        return await getGripBalFromSrip({ provider, networkID: networkId, sRIPbalance: quantity });
       } else {
         return quantity;
       }
@@ -214,9 +214,9 @@ const Stake: React.FC = () => {
 
   const hasAllowance = useCallback(
     token => {
-      if (token === "ohm") return stakeAllowance > 0;
-      if (token === "sohm") return unstakeAllowance > 0;
-      if (token === "gohm") return directUnstakeAllowance > 0;
+      if (token === "rip") return stakeAllowance > 0;
+      if (token === "srip") return unstakeAllowance > 0;
+      if (token === "grip") return directUnstakeAllowance > 0;
       return 0;
     },
     [stakeAllowance, unstakeAllowance, directUnstakeAllowance],
@@ -229,23 +229,30 @@ const Stake: React.FC = () => {
   };
 
   const handleChangeQuantity = useCallback<ChangeEventHandler<HTMLInputElement>>(e => {
-    if (Number(e.target.value) >= 0) setQuantity(e.target.value);
+    if (Number(e.target.value) >= 0) {
+      const decimals = e.target.value.split(".")[1];
+      if (decimals && decimals.length > 7)
+        setQuantity(e.target.value.slice(0, e.target.value.length - (decimals.length - 7)));
+      else {
+        setQuantity(e.target.value);
+      }
+    }
   }, []);
 
   const trimmedBalance = Number(
     [
-      sohmBalance,
-      gOhmAsSohm,
-      gOhmOnArbAsSohm,
-      gOhmOnAvaxAsSohm,
-      gOhmOnPolygonAsSohm,
-      gOhmOnFantomAsSohm,
-      gOhmOnTokemakAsSohm,
-      sohmV1Balance,
-      wsohmAsSohm,
-      fiatDaoAsSohm,
-      fsohmBalance,
-      fgOHMAsfsOHMBalance,
+      sripBalance,
+      gRipAsSrip,
+      gRipOnArbAsSrip,
+      gRipOnAvaxAsSrip,
+      gRipOnPolygonAsSrip,
+      gRipOnFantomAsSrip,
+      gRipOnTokemakAsSrip,
+      sripV1Balance,
+      wsripAsSrip,
+      fiatDaoAsSrip,
+      fsripBalance,
+      fgRIPAsfsRIPBalance,
     ]
       .filter(Boolean)
       .map(balance => Number(balance))
@@ -273,11 +280,11 @@ const Stake: React.FC = () => {
   //set defaults. if unstake tab selected else use staking tab as default
   if (view === 1) {
     stakeDisabled = isPendingTxn(pendingTransactions, "approve_unstaking");
-    stakeOnClick = () => onSeekApproval(confirmation ? "gohm" : "sohm");
+    stakeOnClick = () => onSeekApproval(confirmation ? "grip" : "srip");
     stakeButtonText = txnButtonText(pendingTransactions, "approve_unstaking", t`Approve`);
   } else {
     stakeDisabled = isPendingTxn(pendingTransactions, "approve_staking");
-    stakeOnClick = () => onSeekApproval("ohm");
+    stakeOnClick = () => onSeekApproval("rip");
     stakeButtonText = txnButtonText(pendingTransactions, "approve_staking", t`Approve`);
   }
 
@@ -285,25 +292,25 @@ const Stake: React.FC = () => {
   if (!isAllowanceDataLoading) {
     //If Staking Tab
     if (view === 0) {
-      if (address && hasAllowance("ohm")) {
+      if (address && hasAllowance("rip")) {
         stakeDisabled = isPendingTxn(pendingTransactions, "staking");
         stakeOnClick = () => onChangeStake("stake");
         stakeButtonText = txnButtonText(
           pendingTransactions,
           "staking",
-          `${t`Stake to`} ${confirmation ? " gOHM" : " sOHM"}`,
+          `${t`Stake to`} ${confirmation ? " gRIP" : " sRIP"}`,
         );
       }
     }
     //If Unstaking Tab
     if (view === 1) {
-      if ((address && hasAllowance("sohm") && !confirmation) || (hasAllowance("gohm") && confirmation)) {
+      if ((address && hasAllowance("srip") && !confirmation) || (hasAllowance("grip") && confirmation)) {
         stakeDisabled = isPendingTxn(pendingTransactions, "unstaking");
         stakeOnClick = () => onChangeStake("unstake");
         stakeButtonText = txnButtonText(
           pendingTransactions,
           "unstaking",
-          `${t`Unstake from`} ${confirmation ? " gOHM" : " sOHM"}`,
+          `${t`Unstake from`} ${confirmation ? " gRIP" : " sRIP"}`,
         );
       }
     }
@@ -400,7 +407,7 @@ const Stake: React.FC = () => {
               <Metric
                 className="stake-index"
                 label={t`Current Index`}
-                metric={`${formattedCurrentIndex} sOHM`}
+                metric={`${formattedCurrentIndex} sRIP`}
                 isLoading={currentIndex ? false : true}
               />
             </MetricCollection> */}
@@ -412,7 +419,7 @@ const Stake: React.FC = () => {
                     <ConnectButton />
                   </div>
                   <Typography variant="h6">
-                    <Trans>Connect your wallet to stake OHM</Trans>
+                    <Trans>Connect your wallet to stake RIP</Trans>
                   </Typography>
                 </div>
               ) : (
@@ -441,26 +448,26 @@ const Stake: React.FC = () => {
                     </Tabs>
                     <Grid container className="stake-action-row">
                       {address && !isAllowanceDataLoading ? (
-                        (!hasAllowance("ohm") && view === 0) ||
-                        (!hasAllowance("sohm") && view === 1 && !confirmation) ||
-                        (!hasAllowance("gohm") && view === 1 && confirmation) ? (
+                        (!hasAllowance("rip") && view === 0) ||
+                        (!hasAllowance("srip") && view === 1 && !confirmation) ||
+                        (!hasAllowance("grip") && view === 1 && confirmation) ? (
                           <>
                             <Grid item xs={12} sm={8} className="stake-grid-item">
                               <Box mt={"10px"}>
                                 <Typography variant="body1" className="stake-note" color="textSecondary">
                                   {view === 0 ? (
                                     <>
-                                      <Trans>First time staking</Trans> <b>OHM</b>?
+                                      <Trans>First time staking</Trans> <b>RIP</b>?
                                       <br />
-                                      <Trans>Please approve Olympus Dao to use your</Trans> <b>OHM</b>{" "}
+                                      <Trans>Please approve RIPProtocol Dao to use your</Trans> <b>RIP</b>{" "}
                                       <Trans>for staking</Trans>.
                                     </>
                                   ) : (
                                     <>
-                                      <Trans>First time unstaking</Trans> <b>{confirmation ? "gOHM" : "sOHM"}</b>?
+                                      <Trans>First time unstaking</Trans> <b>{confirmation ? "gRIP" : "sRIP"}</b>?
                                       <br />
-                                      <Trans>Please approve Olympus Dao to use your</Trans>{" "}
-                                      <b>{confirmation ? "gOHM" : "sOHM"}</b> <Trans>for unstaking</Trans>.
+                                      <Trans>Please approve RIPProtocol Dao to use your</Trans>{" "}
+                                      <b>{confirmation ? "gRIP" : "sRIP"}</b> <Trans>for unstaking</Trans>.
                                     </>
                                   )}
                                 </Typography>
@@ -509,7 +516,7 @@ const Stake: React.FC = () => {
                     <DataRow
                       title={t`Unstaked Balance`}
                       id="user-balance"
-                      balance={`${trim(Number(ohmBalance), 4)} OHM`}
+                      balance={`${trim(Number(ripBalance), 4)} RIP`}
                       isLoading={isAppLoading}
                     />
                     <Accordion className="stake-accordion" square defaultExpanded>
@@ -517,99 +524,99 @@ const Stake: React.FC = () => {
                         <DataRow
                           title={t`Total Staked Balance`}
                           id="user-staked-balance"
-                          balance={`${trimmedBalance} sOHM`}
+                          balance={`${trimmedBalance} sRIP`}
                           isLoading={isAppLoading}
                         />
                       </AccordionSummary>
                       <AccordionDetails>
                         <DataRow
-                          title={t`sOHM Balance`}
-                          balance={`${trim(Number(sohmBalance), 4)} sOHM`}
+                          title={t`sRIP Balance`}
+                          balance={`${trim(Number(sripBalance), 4)} sRIP`}
                           indented
                           isLoading={isAppLoading}
                         />
                         <DataRow
-                          title={`${t`gOHM Balance`}`}
-                          balance={`${trim(Number(gOhmBalance), 4)} gOHM`}
+                          title={`${t`gRIP Balance`}`}
+                          balance={`${trim(Number(gRipBalance), 4)} gRIP`}
                           indented
                           isLoading={isAppLoading}
                         />
-                        {Number(gOhmOnArbitrum) > 0.00009 && (
+                        {Number(gRipOnArbitrum) > 0.00009 && (
                           <DataRow
-                            title={`${t`gOHM (Arbitrum)`}`}
-                            balance={`${trim(Number(gOhmOnArbitrum), 4)} gOHM`}
+                            title={`${t`gRIP (Arbitrum)`}`}
+                            balance={`${trim(Number(gRipOnArbitrum), 4)} gRIP`}
                             indented
                             {...{ isAppLoading }}
                           />
                         )}
-                        {Number(gOhmOnAvax) > 0.00009 && (
+                        {Number(gRipOnAvax) > 0.00009 && (
                           <DataRow
-                            title={`${t`gOHM (Avalanche)`}`}
-                            balance={`${trim(Number(gOhmOnAvax), 4)} gOHM`}
+                            title={`${t`gRIP (Avalanche)`}`}
+                            balance={`${trim(Number(gRipOnAvax), 4)} gRIP`}
                             indented
                             {...{ isAppLoading }}
                           />
                         )}
-                        {Number(gOhmOnPolygon) > 0.00009 && (
+                        {Number(gRipOnPolygon) > 0.00009 && (
                           <DataRow
-                            title={`${t`gOHM (Polygon)`}`}
-                            balance={`${trim(Number(gOhmOnPolygon), 4)} gOHM`}
+                            title={`${t`gRIP (Polygon)`}`}
+                            balance={`${trim(Number(gRipOnPolygon), 4)} gRIP`}
                             indented
                             {...{ isAppLoading }}
                           />
                         )}
-                        {Number(gOhmOnFantom) > 0.00009 && (
+                        {Number(gRipOnFantom) > 0.00009 && (
                           <DataRow
-                            title={`${t`gOHM (Fantom)`}`}
-                            balance={`${trim(Number(gOhmOnFantom), 4)} gOHM`}
+                            title={`${t`gRIP (Fantom)`}`}
+                            balance={`${trim(Number(gRipOnFantom), 4)} gRIP`}
                             indented
                             {...{ isAppLoading }}
                           />
                         )}
-                        {Number(gOhmOnTokemak) > 0.00009 && (
+                        {Number(gRipOnTokemak) > 0.00009 && (
                           <DataRow
-                            title={`${t`gOHM (Tokemak)`}`}
-                            balance={`${trim(Number(gOhmOnTokemak), 4)} gOHM`}
+                            title={`${t`gRIP (Tokemak)`}`}
+                            balance={`${trim(Number(gRipOnTokemak), 4)} gRIP`}
                             indented
                             isLoading={isAppLoading}
                           />
                         )}
-                        {Number(fgohmBalance) > 0.00009 && (
+                        {Number(fgripBalance) > 0.00009 && (
                           <DataRow
-                            title={`${t`gOHM Balance in Fuse`}`}
-                            balance={`${trim(Number(fgohmBalance), 4)} gOHM`}
+                            title={`${t`gRIP Balance in Fuse`}`}
+                            balance={`${trim(Number(fgripBalance), 4)} gRIP`}
                             indented
                             isLoading={isAppLoading}
                           />
                         )}
-                        {Number(sohmV1Balance) > 0.00009 && (
+                        {Number(sripV1Balance) > 0.00009 && (
                           <DataRow
-                            title={`${t`sOHM Balance`} (v1)`}
-                            balance={`${trim(Number(sohmV1Balance), 4)} sOHM (v1)`}
+                            title={`${t`sRIP Balance`} (v1)`}
+                            balance={`${trim(Number(sripV1Balance), 4)} sRIP (v1)`}
                             indented
                             isLoading={isAppLoading}
                           />
                         )}
-                        {Number(wsohmBalance) > 0.00009 && (
+                        {Number(wsripBalance) > 0.00009 && (
                           <DataRow
-                            title={`${t`wsOHM Balance`} (v1)`}
-                            balance={`${trim(Number(wsohmBalance), 4)} wsOHM (v1)`}
+                            title={`${t`wsRIP Balance`} (v1)`}
+                            balance={`${trim(Number(wsripBalance), 4)} wsRIP (v1)`}
                             isLoading={isAppLoading}
                             indented
                           />
                         )}
-                        {Number(fiatDaowsohmBalance) > 0.00009 && (
+                        {Number(fiatDaowsripBalance) > 0.00009 && (
                           <DataRow
-                            title={t`wsOHM Balance in FiatDAO (v1)`}
-                            balance={`${trim(Number(fiatDaowsohmBalance), 4)} wsOHM (v1)`}
+                            title={t`wsRIP Balance in FiatDAO (v1)`}
+                            balance={`${trim(Number(fiatDaowsripBalance), 4)} wsRIP (v1)`}
                             isLoading={isAppLoading}
                             indented
                           />
                         )}
-                        {Number(fsohmBalance) > 0.00009 && (
+                        {Number(fsripBalance) > 0.00009 && (
                           <DataRow
-                            title={t`sOHM Balance in Fuse (v1)`}
-                            balance={`${trim(Number(fsohmBalance), 4)} sOHM (v1)`}
+                            title={t`sRIP Balance in Fuse (v1)`}
+                            balance={`${trim(Number(fsripBalance), 4)} sRIP (v1)`}
                             indented
                             isLoading={isAppLoading}
                           />
@@ -619,7 +626,7 @@ const Stake: React.FC = () => {
                     <Divider color="secondary" />
                     <DataRow
                       title={t`Next Reward Amount`}
-                      balance={`${nextRewardValue} sOHM`}
+                      balance={`${nextRewardValue} sRIP`}
                       isLoading={isAppLoading}
                     />
                     <DataRow

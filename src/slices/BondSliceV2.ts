@@ -227,8 +227,8 @@ async function processBond(
   const bondPriceBigNumber = await depositoryContract.marketPrice(index);
   const bondPrice = +bondPriceBigNumber / Math.pow(10, BASE_TOKEN_DECIMALS);
   const bondPriceUSD = quoteTokenPrice * +bondPrice;
-  const ohmPrice = (await dispatch(findOrLoadMarketPrice({ provider, networkID })).unwrap())?.marketPrice;
-  const bondDiscount = (ohmPrice - bondPriceUSD) / ohmPrice;
+  const ripPrice = (await dispatch(findOrLoadMarketPrice({ provider, networkID })).unwrap())?.marketPrice;
+  const bondDiscount = (ripPrice - bondPriceUSD) / ripPrice;
 
   let capacityInBaseToken: string, capacityInQuoteToken: string;
   if (bond.capacityInQuote) {
@@ -288,7 +288,7 @@ async function processBond(
     duration,
     isLP: v2BondDetail.isLP,
     lpUrl: v2BondDetail.isLP ? v2BondDetail.lpUrl[networkID] : "",
-    marketPrice: ohmPrice,
+    marketPrice: ripPrice,
     quoteToken: bond.quoteToken.toLowerCase(),
     maxPayoutInQuoteToken,
     maxPayoutInBaseToken,
@@ -391,7 +391,7 @@ export const getUserNotes = createAsyncThunk(
       }
       const note: IUserNote = {
         ...rawNote,
-        payout: +rawNote.payout / Math.pow(10, 18), //Always in gOHM
+        payout: +rawNote.payout / Math.pow(10, 18), //Always in gRIP
         fullyMatured: seconds == 0,
         claimed: rawNote.matured == rawNote.redeemed,
         originalDurationSeconds: originalDurationSeconds,
@@ -411,13 +411,13 @@ export const getUserNotes = createAsyncThunk(
 
 export const claimAllNotes = createAsyncThunk(
   "bondsV2/claimAll",
-  async ({ provider, networkID, address, gOHM }: IBaseBondV2ClaimAsyncThunk, { dispatch, getState }) => {
+  async ({ provider, networkID, address, gRIP }: IBaseBondV2ClaimAsyncThunk, { dispatch, getState }) => {
     const signer = provider.getSigner();
     const depositoryContract = BondDepository__factory.connect(addresses[networkID].BOND_DEPOSITORY, signer);
 
     let claimTx: ethers.ContractTransaction | undefined;
     try {
-      claimTx = await depositoryContract.redeemAll(address, gOHM);
+      claimTx = await depositoryContract.redeemAll(address, gRIP);
       const text = `Claim All Bonds`;
       const pendingTxnType = `redeem_all_notes`;
       if (claimTx) {
@@ -440,13 +440,13 @@ export const claimAllNotes = createAsyncThunk(
 
 export const claimSingleNote = createAsyncThunk(
   "bondsV2/claimSingle",
-  async ({ provider, networkID, address, indexes, gOHM }: IBaseBondV2SingleClaimAsyncThunk, { dispatch, getState }) => {
+  async ({ provider, networkID, address, indexes, gRIP }: IBaseBondV2SingleClaimAsyncThunk, { dispatch, getState }) => {
     const signer = provider.getSigner();
     const depositoryContract = BondDepository__factory.connect(addresses[networkID].BOND_DEPOSITORY, signer);
 
     let claimTx: ethers.ContractTransaction | undefined;
     try {
-      claimTx = await depositoryContract.redeem(address, indexes, gOHM);
+      claimTx = await depositoryContract.redeem(address, indexes, gRIP);
       const text = `Redeem Note Index=${indexes}`;
       if (claimTx) {
         for (let i = 0; i < indexes.length; i++) {

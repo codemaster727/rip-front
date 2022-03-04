@@ -138,8 +138,8 @@
     },
     {
       "inputs": [],
-      "name": "gOHM",
-      "outputs": [{ "internalType": "contract IgOHM", "name": "", "type": "address" }],
+      "name": "gRIP",
+      "outputs": [{ "internalType": "contract IgRIP", "name": "", "type": "address" }],
       "stateMutability": "view",
       "type": "function"
     },
@@ -239,8 +239,8 @@
       "type": "function"
     },
     {
-      "inputs": [{ "internalType": "address", "name": "_gOHM", "type": "address" }],
-      "name": "setgOHM",
+      "inputs": [{ "internalType": "address", "name": "_gRIP", "type": "address" }],
+      "name": "setgRIP",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"

@@ -32,16 +32,16 @@ exports[`<Wrap/> should render component 1`] = `
               class="top-right"
             >
               <a
-                aria-label="wsohm-wut"
-                class="MuiTypography-root MuiLink-root MuiLink-underlineNone migrate-sohm-button MuiTypography-colorPrimary"
-                href="https://docs.olympusdao.finance/main/contracts/tokens#gohm"
+                aria-label="wsrip-wut"
+                class="MuiTypography-root MuiLink-root MuiLink-underlineNone migrate-srip-button MuiTypography-colorPrimary"
+                href="https://docs.olympusdao.finance/main/contracts/tokens#grip"
                 style="text-decoration: none;"
                 target="_blank"
               >
                 <p
                   class="MuiTypography-root MuiTypography-body1"
                 >
-                  gOHM
+                  gRIP
                 </p>
                  
                 <svg
@@ -84,7 +84,7 @@ exports[`<Wrap/> should render component 1`] = `
                       <h5
                         class="MuiTypography-root MuiTypography-h5 MuiTypography-colorTextSecondary"
                       >
-                        sOHM Price
+                        sRIP Price
                       </h5>
                       <h4
                         class="MuiTypography-root MuiTypography-h4"
@@ -136,7 +136,7 @@ exports[`<Wrap/> should render component 1`] = `
                       <h5
                         class="MuiTypography-root MuiTypography-h5 MuiTypography-colorTextSecondary"
                       >
-                        gOHM Price
+                        gRIP Price
                         <div
                           class="MuiBox-root MuiBox-root-11"
                           style="font-size: 16px;"

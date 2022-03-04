@@ -170,7 +170,7 @@ exports[`<Stake/> should render component 1`] = `
                 <h6
                   class="MuiTypography-root MuiTypography-h6"
                 >
-                  Connect your wallet to stake OHM
+                  Connect your wallet to stake RIP
                 </h6>
               </div>
             </div>
@@ -312,7 +312,7 @@ exports[`<Stake/> should render component 1`] = `
                   class="MuiTypography-root MuiTypography-body1"
                   style="line-height: 1.4; margin-left: 10px;"
                 >
-                  gOHM-AVAX
+                  gRIP-AVAX
                 </p>
               </div>
               <p
@@ -470,7 +470,7 @@ exports[`<Stake/> should render component 1`] = `
                   class="MuiTypography-root MuiTypography-body1"
                   style="line-height: 1.4; margin-left: 10px;"
                 >
-                  gOHM-wETH
+                  gRIP-wETH
                 </p>
               </div>
               <p
@@ -628,7 +628,7 @@ exports[`<Stake/> should render component 1`] = `
                   class="MuiTypography-root MuiTypography-body1"
                   style="line-height: 1.4; margin-left: 10px;"
                 >
-                  gOHM-wETH
+                  gRIP-wETH
                 </p>
               </div>
               <p
@@ -788,7 +788,7 @@ exports[`<Stake/> should render component 1`] = `
                   class="MuiTypography-root MuiTypography-body1"
                   style="line-height: 1.4; margin-left: 10px;"
                 >
-                  gOHM-FTM
+                  gRIP-FTM
                 </p>
               </div>
               <p

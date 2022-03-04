@@ -44,7 +44,7 @@ export default function YieldRecipients() {
   // TODO fix typing of state.app.loading
   const isAppLoading = useSelector((state: any) => state.app.loading);
   const donationInfo = useSelector((state: State) => {
-    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSohmEnabled(location.search)
+    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
       ? state.account.mockGiving && state.account.mockGiving.donationInfo
       : state.account.giving && state.account.giving.donationInfo;
   });
@@ -66,7 +66,7 @@ export default function YieldRecipients() {
     if (depositAmountDiff.isEqualTo(new BigNumber(0))) return;
 
     // If reducing the amount of deposit, withdraw
-    if (networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSohmEnabled(location.search)) {
+    if (networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)) {
       await dispatch(
         changeMockGive({
           action: ACTION_GIVE_EDIT,
@@ -109,7 +109,7 @@ export default function YieldRecipients() {
 
   const handleWithdrawModalSubmit: WithdrawSubmitCallback = async (walletAddress, depositAmount) => {
     // Issue withdrawal from smart contract
-    if (networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSohmEnabled(location.search)) {
+    if (networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)) {
       await dispatch(
         changeMockGive({
           action: ACTION_GIVE_WITHDRAW,
@@ -188,7 +188,7 @@ export default function YieldRecipients() {
           </Typography>
           <Typography variant="h6">
             <Trans>Deposit</Trans>
-            <InfoTooltip message={t`The amount of sOHM deposited`} children={null} />
+            <InfoTooltip message={t`The amount of sRIP deposited`} children={null} />
           </Typography>
         </Grid>
         {isLoading ? (

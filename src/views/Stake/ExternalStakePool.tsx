@@ -6,17 +6,17 @@ import { Paper, SecondaryButton, TokenStack } from "@olympusdao/component-librar
 // import { DataRow, Paper, SecondaryButton, TokenStack } from "@olympusdao/component-library";
 import { useQuery } from "react-query";
 import allPools, { fetchPoolData } from "src/helpers/AllExternalPools";
-import { useGohmPrice } from "src/hooks/usePrices";
+import { useGripPrice } from "src/hooks/usePrices";
 import { useWeb3Context } from "src/hooks/web3Context";
 import { ExternalPoolwBalance } from "src/lib/ExternalPool";
 
 export const useExternalPools = (address: string) => {
-  const { data: gOhmPrice } = useGohmPrice();
-  const { isLoading, data } = useQuery(["externalPools", address], () => fetchPoolData(address, Number(gOhmPrice)), {
+  const { data: gRipPrice } = useGripPrice();
+  const { isLoading, data } = useQuery(["externalPools", address], () => fetchPoolData(address, Number(gRipPrice)), {
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
     placeholderData: allPools,
-    enabled: !!gOhmPrice,
+    enabled: !!gRipPrice,
   });
   return { isLoading, pools: data };
 };
@@ -89,7 +89,6 @@ const StakePool = ({ pool, isLoading }: { pool: ExternalPoolwBalance; isLoading:
   const theme = useTheme();
   const styles = useStyles();
   const { connected } = useWeb3Context();
-
   return (
     <Grid md={3} sm={3}>
       <div style={{ background: "black", margin: "10px", borderRadius: "10px" }}>
@@ -165,7 +164,7 @@ export default function ExternalStakePool() {
       {isSmallScreen ? (
         <>
           {allStakePools?.pools?.map(pool => (
-            <MobileStakePool pool={pool} isLoading={allStakePools?.isLoading} />
+            <MobileStakePool key={pool.address} pool={pool} isLoading={allStakePools?.isLoading} />
           ))}
         </>
       ) : (
@@ -184,7 +183,7 @@ export default function ExternalStakePool() {
           <Box sx={{ display: "flex", flexDirection: "column" }} style={{ gap: theme.spacing(4), padding: "16px 0px" }}>
             <Grid container direction="row" spacing={3}>
               {allStakePools?.pools?.map(pool => (
-                <StakePool pool={pool} isLoading={allStakePools?.isLoading} />
+                <StakePool key={pool.address} pool={pool} isLoading={allStakePools?.isLoading} />
               ))}
             </Grid>
           </Box>

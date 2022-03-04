@@ -190,9 +190,9 @@ function App() {
     if (networkId && (networkId === NetworkId.MAINNET || networkId === NetworkId.TESTNET_RINKEBY)) {
       return (
         state.account.balances &&
-        (Number(state.account.balances.sohmV1) ||
-        Number(state.account.balances.ohmV1) ||
-        Number(state.account.balances.wsohm)
+        (Number(state.account.balances.sripV1) ||
+        Number(state.account.balances.ripV1) ||
+        Number(state.account.balances.wsrip)
           ? true
           : false)
       );
@@ -205,9 +205,9 @@ function App() {
     if (!state.app.currentIndex || !state.app.marketPrice) {
       return true;
     }
-    const wrappedBalance = Number(state.account.balances.wsohm) * Number(state.app.currentIndex!);
+    const wrappedBalance = Number(state.account.balances.wsrip) * Number(state.app.currentIndex!);
     const allAssetsBalance =
-      Number(state.account.balances.sohmV1) + Number(state.account.balances.ohmV1) + wrappedBalance;
+      Number(state.account.balances.sripV1) + Number(state.account.balances.ripV1) + wrappedBalance;
     return state.app.marketPrice * allAssetsBalance >= 10;
   });
 
@@ -215,13 +215,13 @@ function App() {
     if (!state.app.currentIndex || !state.app.marketPrice) {
       return true;
     }
-    const wrappedBalance = Number(state.account.balances.wsohm) * Number(state.app.currentIndex!);
-    const ohmBalance = Number(state.account.balances.ohmV1);
-    const sOhmbalance = Number(state.account.balances.sohmV1);
-    if (ohmBalance > 0 && ohmBalance * state.app.marketPrice < 10) {
+    const wrappedBalance = Number(state.account.balances.wsrip) * Number(state.app.currentIndex!);
+    const ripBalance = Number(state.account.balances.ripV1);
+    const sRipbalance = Number(state.account.balances.sripV1);
+    if (ripBalance > 0 && ripBalance * state.app.marketPrice < 10) {
       return true;
     }
-    if (sOhmbalance > 0 && sOhmbalance * state.app.marketPrice < 10) {
+    if (sRipbalance > 0 && sRipbalance * state.app.marketPrice < 10) {
       return true;
     }
     if (wrappedBalance > 0 && wrappedBalance * state.app.marketPrice < 10) {
@@ -233,7 +233,7 @@ function App() {
   const newAssetsDetected = useAppSelector(state => {
     return (
       state.account.balances &&
-      (Number(state.account.balances.gohm) || Number(state.account.balances.sohm) || Number(state.account.balances.ohm)
+      (Number(state.account.balances.grip) || Number(state.account.balances.srip) || Number(state.account.balances.rip)
         ? true
         : false)
     );
@@ -377,7 +377,7 @@ function App() {
               <Redirect from="/tyche" to="/give" />
               <Redirect from="/olygive" to="/give" />
               <Redirect from="/olympusdaogive" to="/give" />
-              <Redirect from="/ohmgive" to="/give" />
+              <Redirect from="/ripgive" to="/give" />
 
               <Route path="/give/projects">
                 {projects.map(project => {
