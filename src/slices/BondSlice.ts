@@ -21,6 +21,7 @@ import { clearPendingTxn, fetchPendingTxns } from "./PendingTxnsSlice";
 export const changeApproval = createAsyncThunk(
   "bonding/changeApproval",
   async ({ address, bond, provider, networkID }: IApproveBondAsyncThunk, { dispatch }) => {
+    return;
     if (!provider) {
       dispatch(error("Please connect your wallet!"));
       return;
@@ -177,7 +178,7 @@ export const calcBondDetails = createAsyncThunk(
       const errorString =
         "You're trying to bond more than the maximum payout available! The maximum bond payout is " +
         (Number(maxBondPrice.toString()) / Math.pow(10, 9)).toFixed(2).toString() +
-        " OHM.";
+        " RIP.";
       dispatch(error(errorString));
     }
 

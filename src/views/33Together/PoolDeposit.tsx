@@ -27,8 +27,8 @@ export const PoolDeposit = (props: PoolDepositProps) => {
   const [isDepositing, setDepositing] = useState(false);
   const isMobileScreen = useMediaQuery("(max-width: 513px)");
 
-  const sohmBalance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.sohmV1;
+  const sripBalance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.sripV1;
   });
 
   const poolBalance = useAppSelector(state => {
@@ -36,7 +36,7 @@ export const PoolDeposit = (props: PoolDepositProps) => {
   });
 
   const poolAllowance = useAppSelector(state => {
-    return state.account.pooling && state.account.pooling.sohmPool;
+    return state.account.pooling && state.account.pooling.sripPool;
   });
 
   const pendingTransactions = useAppSelector(state => {
@@ -78,7 +78,7 @@ export const PoolDeposit = (props: PoolDepositProps) => {
   }, [poolAllowance]);
 
   const setMax = () => {
-    const value = parseFloat(sohmBalance);
+    const value = parseFloat(sripBalance);
     setQuantity(value);
     const userBalanceAfterDeposit = poolBalance + value;
 
@@ -105,7 +105,7 @@ export const PoolDeposit = (props: PoolDepositProps) => {
 
   useEffect(() => {
     props.setInfoTooltipMessage([
-      t`Deposit sOHM to win! Once deposited, you will receive a corresponding amount of 33T and be entered to win until your sOHM is withdrawn.`,
+      t`Deposit sRIP to win! Once deposited, you will receive a corresponding amount of 33T and be entered to win until your sRIP is withdrawn.`,
     ]);
   }, []);
 
@@ -130,12 +130,12 @@ export const PoolDeposit = (props: PoolDepositProps) => {
   let inputWrapperButtonText: string;
   if (address && hasAllowance()) {
     inputWrapperDisabled = isPendingTxn(pendingTransactions, "pool_deposit");
-    inputWrapperButtonText = txnButtonText(pendingTransactions, "pool_deposit", t`Deposit sOHM`);
+    inputWrapperButtonText = txnButtonText(pendingTransactions, "pool_deposit", t`Deposit sRIP`);
     inputWrapperOnClick = () => onDeposit("deposit");
   } else {
     inputWrapperDisabled = isPendingTxn(pendingTransactions, "approve_pool_together");
     inputWrapperButtonText = txnButtonText(pendingTransactions, "approve_pool_together", t`Approve`);
-    inputWrapperOnClick = () => onSeekApproval("sohm");
+    inputWrapperOnClick = () => onSeekApproval("srip");
   }
   return (
     <Box display="flex" justifyContent="center" className="pool-deposit-ui">
@@ -161,17 +161,17 @@ export const PoolDeposit = (props: PoolDepositProps) => {
             <Box padding={1}>
               <Typography variant="body2" style={{ color: "#33BB33" }}>
                 <Trans>
-                  Depositing {quantity} sOHM will increase odds of winning to 1 in {newOdds}
+                  Depositing {quantity} sRIP will increase odds of winning to 1 in {newOdds}
                 </Trans>
                 &nbsp;
               </Typography>
             </Box>
           )}
-          {/* NOTE (Appleseed): added this bc I kept losing track of which accounts I had sOHM in during testing */}
+          {/* NOTE (Appleseed): added this bc I kept losing track of which accounts I had sRIP in during testing */}
           <div className={`stake-user-data`}>
             <DataRow
               title={t`Your Staked Balance (Depositable)`}
-              balance={`${new Intl.NumberFormat("en-US").format(parseFloat(sohmBalance))} sOHM`}
+              balance={`${new Intl.NumberFormat("en-US").format(parseFloat(sripBalance))} sRIP`}
               isLoading={isAppLoading}
             />
           </div>

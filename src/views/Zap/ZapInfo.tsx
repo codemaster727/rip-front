@@ -3,6 +3,7 @@ import "./Zap.scss";
 import { Trans } from "@lingui/macro";
 import { Box, Button, Grid, Paper, SvgIcon, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { Token, TokenStack } from "@olympusdao/component-library";
 import React from "react";
 
@@ -57,6 +58,7 @@ type ZapInfoProps = {
 };
 
 const ZapInfo: React.FC<ZapInfoProps> = ({ tokens, address }) => {
+  const isSmallScreen = useMediaQuery("(max-width: 960px)");
   const classes = useStyles();
 
   const trackClick = (address: string) => {
@@ -72,7 +74,7 @@ const ZapInfo: React.FC<ZapInfoProps> = ({ tokens, address }) => {
   };
 
   return (
-    <Paper className="ohm-card" id="olyzaps-info">
+    <Paper className="rip-card" id="olyzaps-info">
       <Typography variant="h5" style={{ color: "black" }} align="center">
         <Trans>Zap</Trans>
       </Typography>
@@ -84,7 +86,15 @@ const ZapInfo: React.FC<ZapInfoProps> = ({ tokens, address }) => {
           md={3}
           // lg={4}
           classes={{ root: classes.infoBox, item: classes.infoBoxItem }}
-          style={{ backgroundColor: "black", marginLeft: "1rem", borderRadius: "15px" }}
+          style={
+            !isSmallScreen
+              ? {
+                  backgroundColor: "black",
+                  marginLeft: "1rem",
+                  borderRadius: "15px",
+                }
+              : { backgroundColor: "black", marginLeft: "0rem", borderRadius: "15px" }
+          }
         >
           <Box
             alignItems="left"
@@ -118,7 +128,16 @@ const ZapInfo: React.FC<ZapInfoProps> = ({ tokens, address }) => {
           sm={12}
           md={3}
           classes={{ root: classes.infoBox, item: classes.infoBoxItem }}
-          style={{ backgroundColor: "black", marginLeft: "1rem", marginRight: "1rem", borderRadius: "15px" }}
+          style={
+            !isSmallScreen
+              ? {
+                  backgroundColor: "black",
+                  marginLeft: "1rem",
+                  marginRight: "1rem",
+                  borderRadius: "15px",
+                }
+              : { backgroundColor: "black", marginLeft: "0rem", borderRadius: "15px" }
+          }
         >
           <Box
             alignItems="left"
@@ -138,7 +157,7 @@ const ZapInfo: React.FC<ZapInfoProps> = ({ tokens, address }) => {
               <Trans>All-in-one easy staking</Trans>
             </Typography>
             <Typography align="left" style={{ color: "white" }} variant="body2" className="oly-info-body">
-              <Trans>OlyZap reduces complexity, saves you time and keeps you here on Olympus.</Trans>
+              <Trans>OlyZap reduces complexity, saves you time and keeps you here on RIPProtocol.</Trans>
             </Typography>
           </Box>
         </Grid>
@@ -169,8 +188,8 @@ const ZapInfo: React.FC<ZapInfoProps> = ({ tokens, address }) => {
             </Typography>
             <Typography align="left" variant="body2" className="oly-info-body" style={{ color: "white" }}>
               <Trans>
-                Staking is the primary value accrual strategy of Olympus. When you stake, you lock OHM and receive an
-                equal value of sOHM or gOHM.
+                Staking is the primary value accrual strategy of RIPProtocol. When you stake, you lock RIP and receive
+                an equal value of sRIP or gRIP.
               </Trans>
             </Typography>
           </Box>

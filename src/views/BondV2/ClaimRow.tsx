@@ -11,7 +11,7 @@ import { isPendingTxn, txnButtonText } from "src/slices/PendingTxnsSlice";
 
 import { trim } from "../../helpers";
 
-export function ClaimBondTableData({ userNote, gOHM }: { userNote: IUserNote; gOHM: boolean }) {
+export function ClaimBondTableData({ userNote, gRIP }: { userNote: IUserNote; gRIP: boolean }) {
   const dispatch = useDispatch();
   const { address, provider, networkId } = useWeb3Context();
   const currentIndex = useAppSelector(state => state.app.currentIndex);
@@ -28,7 +28,7 @@ export function ClaimBondTableData({ userNote, gOHM }: { userNote: IUserNote; gO
   const vestingPeriod = () => note.timeLeft;
 
   async function onRedeem(index: number) {
-    await dispatch(claimSingleNote({ provider, networkID: networkId, address, indexes: [index], gOHM }));
+    await dispatch(claimSingleNote({ provider, networkID: networkId, address, indexes: [index], gRIP }));
   }
 
   return (
@@ -49,7 +49,7 @@ export function ClaimBondTableData({ userNote, gOHM }: { userNote: IUserNote; gO
       {/* Payout */}
       <TableCell align="center">
         {note.payout && currentIndex ? (
-          trim(note.payout * (gOHM ? 1 : Number(currentIndex)), 4) + (gOHM ? " gOHM" : " sOHM")
+          trim(note.payout * (gRIP ? 1 : Number(currentIndex)), 4) + (gRIP ? " gRIP" : " sRIP")
         ) : (
           <Skeleton width={100} />
         )}
@@ -75,7 +75,7 @@ export function ClaimBondTableData({ userNote, gOHM }: { userNote: IUserNote; gO
   );
 }
 
-export function ClaimBondCardData({ userNote, gOHM }: { userNote: IUserNote; gOHM: boolean }) {
+export function ClaimBondCardData({ userNote, gRIP }: { userNote: IUserNote; gRIP: boolean }) {
   const dispatch = useDispatch();
   const { address, provider, networkId } = useWeb3Context();
   const currentIndex = useAppSelector(state => state.app.currentIndex);
@@ -90,7 +90,7 @@ export function ClaimBondCardData({ userNote, gOHM }: { userNote: IUserNote; gOH
   const vestingPeriod = () => note.timeLeft;
 
   async function onRedeem(index: number) {
-    await dispatch(claimSingleNote({ provider, networkID: networkId, address, indexes: [index], gOHM }));
+    await dispatch(claimSingleNote({ provider, networkID: networkId, address, indexes: [index], gRIP }));
   }
 
   return (
@@ -106,7 +106,7 @@ export function ClaimBondCardData({ userNote, gOHM }: { userNote: IUserNote; gOH
         <Typography>Claimable</Typography>
         <Typography>
           {note.payout && currentIndex ? (
-            trim(note.payout * (gOHM ? 1 : Number(currentIndex)), 4) + (gOHM ? " gOHM" : " sOHM")
+            trim(note.payout * (gRIP ? 1 : Number(currentIndex)), 4) + (gRIP ? " gRIP" : " sRIP")
           ) : (
             <Skeleton width={100} />
           )}

@@ -2,21 +2,21 @@ import { t, Trans } from "@lingui/macro";
 import { Box, Button, Grid, Paper, SvgIcon, Typography } from "@material-ui/core";
 
 import { ReactComponent as ArrowUp } from "../../assets/icons/arrow-up.svg";
-import { DepositSohm, LockInVault, ReceivesYield } from "../../components/EducationCard";
+import { DepositSrip, LockInVault, ReceivesYield } from "../../components/EducationCard";
 
 export function GiveInfo() {
   return (
     <>
-      <Paper className={"ohm-card secondary"}>
+      <Paper className={"rip-card secondary"}>
         <Grid container className="give-info">
           <Grid item xs={12} sm={4} className="give-info-deposit-box">
-            <DepositSohm message={t`Deposit sOHM from wallet`} />
+            <DepositSrip message={t`Deposit sRIP from wallet`} />
           </Grid>
           <Grid item xs={12} sm={4} className="give-info-vault-box">
-            <LockInVault message={t`Lock sOHM in vault`} />
+            <LockInVault message={t`Lock sRIP in vault`} />
           </Grid>
           <Grid item xs={12} sm={4} className="give-info-yield-box">
-            <ReceivesYield message={t`Recipient earns sOHM rebases`} />
+            <ReceivesYield message={t`Recipient earns sRIP rebases`} />
           </Grid>
         </Grid>
         <Box className="button-box">

@@ -67,9 +67,9 @@ export function RedeemYieldModal({
   };
 
   return (
-    /* modal-container displays a background behind the ohm-card container, which means that if modal-container receives a click, we can close the modal */
+    /* modal-container displays a background behind the rip-card container, which means that if modal-container receives a click, we can close the modal */
     <Modal className="modal-container" open={isModalOpen} onClose={cancelFunc} onClick={cancelFunc} hideBackdrop={true}>
-      <Paper className={`ohm-card ohm-modal ${isSmallScreen && "smaller"}`} onClick={handleModalInsideClick}>
+      <Paper className={`rip-card rip-modal ${isSmallScreen && "smaller"}`} onClick={handleModalInsideClick}>
         <div className="yield-header">
           <Link onClick={() => cancelFunc()}>
             <SvgIcon color="primary" component={XIcon} />
@@ -86,9 +86,9 @@ export function RedeemYieldModal({
           <RedeemGraphic quantity={redeemableBalance.toFixed(2)} />
         </div>
         <Typography variant="body1" align="center">
-          <Trans>Any sOHM directed towards you will continue to rebase and earn additional yield on your behalf.</Trans>
+          <Trans>Any sRIP directed towards you will continue to rebase and earn additional yield on your behalf.</Trans>
         </Typography>
-        <FormControl className="ohm-modal-submit">
+        <FormControl className="rip-modal-submit">
           <Button variant="contained" color="primary" disabled={!canSubmit()} onClick={() => handleSubmit()}>
             {txnButtonText(pendingTransactions, "redeeming", t`Redeem`)}
           </Button>

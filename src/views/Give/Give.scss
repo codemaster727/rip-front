@@ -6,7 +6,7 @@
   overflow: hidden;
   margin-top: 10px;
 
-  .ohm-card {
+  .rip-card {
     overflow-y: scrollable;
     .cell-align-end {
       display: flex;
@@ -420,7 +420,7 @@
   }
 }
 
-.ohm-modal {
+.rip-modal {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -464,7 +464,7 @@
     }
   }
 
-  .ohm-modal-submit {
+  .rip-modal-submit {
     display: flex;
     align-items: center;
     width: 60%;
@@ -480,7 +480,7 @@
   }
 }
 
-.ohm-modal.smaller {
+.rip-modal.smaller {
   top: 0%;
   transform: translate(-50.048%, 0%);
 }
@@ -496,7 +496,7 @@
     justify-content: space-between;
     align-items: center;
 
-    .sohm-allocation-col {
+    .srip-allocation-col {
       width: 30%;
     }
 
@@ -807,11 +807,11 @@
     backdrop-filter: blur(33px) !important;
     -webkit-backdrop-filter: blur(33px) !important;
     overflow-y: scroll;
-    .ohm-card {
+    .rip-card {
       opacity: 1 !important;
       height: auto;
     }
-    .ohm-modal {
+    .rip-modal {
       max-width: 688px;
       opacity: 0.9;
     }
@@ -823,12 +823,12 @@
   .modal-container {
     background: rgba(100, 100, 100, 0.95);
     overflow-y: scroll;
-    .ohm-card {
+    .rip-card {
       height: auto;
     }
   }
 
-  .ohm-modal {
+  .rip-modal {
     max-width: 688px;
     opacity: 0.9;
   }

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSelector, createSlice } from "@reduxjs/toolkit";
 import { BigNumber, ethers } from "ethers";
 import { RootState } from "src/store";
-import { AwardAbi2, PrizePoolAbi, PrizePoolAbi2, SOHM } from "src/typechain";
+import { AwardAbi2, PrizePoolAbi, PrizePoolAbi2, SRIP } from "src/typechain";
 
 import { abi as AwardPool } from "../abi/33-together/AwardAbi2.json";
 import { abi as PrizePool } from "../abi/33-together/PrizePoolAbi2.json";
@@ -80,10 +80,10 @@ export const changeApproval = createAsyncThunk(
     }
 
     const signer = provider.getSigner();
-    const sohmContract = new ethers.Contract(addresses[networkID].SOHM_ADDRESS, ierc20Abi, signer) as SOHM;
+    const sripContract = new ethers.Contract(addresses[networkID].SRIP_ADDRESS, ierc20Abi, signer) as SRIP;
 
     let approveTx;
-    let depositAllowance = await sohmContract.allowance(address, addresses[networkID].PT_PRIZE_POOL_ADDRESS);
+    let depositAllowance = await sripContract.allowance(address, addresses[networkID].PT_PRIZE_POOL_ADDRESS);
 
     // return early if approval already exists
     if (depositAllowance.gt(BigNumber.from("0"))) {
@@ -91,15 +91,15 @@ export const changeApproval = createAsyncThunk(
       return dispatch(
         fetchAccountSuccess({
           pooling: {
-            sohmPool: +depositAllowance,
+            sripPool: +depositAllowance,
           },
         }),
       );
     }
 
     try {
-      if (token === "sohm") {
-        approveTx = await sohmContract.approve(
+      if (token === "srip") {
+        approveTx = await sripContract.approve(
           addresses[networkID].PT_PRIZE_POOL_ADDRESS,
           ethers.utils.parseUnits("1000000000", "gwei").toString(),
         );
@@ -119,12 +119,12 @@ export const changeApproval = createAsyncThunk(
     }
 
     // go get fresh allowance
-    depositAllowance = await sohmContract.allowance(address, addresses[networkID].PT_PRIZE_POOL_ADDRESS);
+    depositAllowance = await sripContract.allowance(address, addresses[networkID].PT_PRIZE_POOL_ADDRESS);
 
     return dispatch(
       fetchAccountSuccess({
         pooling: {
-          sohmPool: +depositAllowance,
+          sripPool: +depositAllowance,
         },
       }),
     );

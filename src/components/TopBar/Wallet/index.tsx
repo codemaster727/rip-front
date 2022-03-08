@@ -13,7 +13,7 @@ const WalletButton = ({ openWallet }: { openWallet: () => void }) => {
   const label = connected ? t`Wallet` : t`Connect Wallet`;
   const theme = useTheme();
   // return (
-  //   <Button id="ohm-menu-button" variant="contained" color="secondary" onClick={onClick}>
+  //   <Button id="rip-menu-button" variant="contained" color="secondary" onClick={onClick}>
   //     <SvgIcon component={WalletIcon} style={{ marginRight: theme.spacing(1) }} />
   //     <Typography>{label}</Typography>
   //   </Button>

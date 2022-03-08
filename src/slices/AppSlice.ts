@@ -3,24 +3,24 @@ import { ethers } from "ethers";
 import { NodeHelper } from "src/helpers/NodeHelper";
 import { RootState } from "src/store";
 
-import { abi as sOHMv2 } from "../abi/sOhmv2.json";
+import { abi as sRIPv2 } from "../abi/sRipv2.json";
 import { addresses, NetworkId } from "../constants";
 import { getMarketPrice, getTokenPrice, setAll } from "../helpers";
 import apollo from "../lib/apolloClient";
-import { OlympusStaking__factory, OlympusStakingv2__factory, SOhmv2 } from "../typechain";
+import { RIPProtocolStakingv2__factory, SRipv2 } from "../typechain";
 import { IBaseAsyncThunk } from "./interfaces";
 
 interface IProtocolMetrics {
   readonly timestamp: string;
-  readonly ohmCirculatingSupply: string;
-  readonly sOhmCirculatingSupply: string;
+  readonly ripCirculatingSupply: string;
+  readonly sRipCirculatingSupply: string;
   readonly totalSupply: string;
-  readonly ohmPrice: string;
+  readonly ripPrice: string;
   readonly marketCap: string;
   readonly totalValueLocked: string;
   readonly treasuryMarketValue: string;
   readonly nextEpochRebase: string;
-  readonly nextDistributedOhm: string;
+  readonly nextDistributedRip: string;
 }
 
 export const loadAppDetails = createAsyncThunk(
@@ -49,6 +49,7 @@ export const loadAppDetails = createAsyncThunk(
     `;
 
     if (networkID !== NetworkId.MAINNET) {
+      console.log("network is wrong, not bsctest!", networkID);
       provider = NodeHelper.getMainnetStaticProvider();
       networkID = NetworkId.MAINNET;
     }
@@ -61,7 +62,7 @@ export const loadAppDetails = createAsyncThunk(
 
     const stakingTVL = parseFloat(graphData.data.protocolMetrics[0].totalValueLocked);
     // NOTE (appleseed): marketPrice from Graph was delayed, so get CoinGecko price
-    // const marketPrice = parseFloat(graphData.data.protocolMetrics[0].ohmPrice);
+    // const marketPrice = parseFloat(graphData.data.protocolMetrics[0].ripPrice);
     let marketPrice;
     try {
       const originalPromiseResult = await dispatch(
@@ -75,7 +76,7 @@ export const loadAppDetails = createAsyncThunk(
     }
 
     const marketCap = parseFloat(graphData.data.protocolMetrics[0].marketCap);
-    const circSupply = parseFloat(graphData.data.protocolMetrics[0].ohmCirculatingSupply);
+    const circSupply = parseFloat(graphData.data.protocolMetrics[0].ripCirculatingSupply);
     const totalSupply = parseFloat(graphData.data.protocolMetrics[0].totalSupply);
     const treasuryMarketValue = parseFloat(graphData.data.protocolMetrics[0].treasuryMarketValue);
     // const currentBlock = parseFloat(graphData.data._meta.block.number);
@@ -92,27 +93,37 @@ export const loadAppDetails = createAsyncThunk(
       } as IAppData;
     }
     const currentBlock = await provider.getBlockNumber();
-
-    const stakingContract = OlympusStakingv2__factory.connect(addresses[networkID].STAKING_V2, provider);
-    const stakingContractV1 = OlympusStaking__factory.connect(addresses[networkID].STAKING_ADDRESS, provider);
-
-    const sohmMainContract = new ethers.Contract(addresses[networkID].SOHM_V2 as string, sOHMv2, provider) as SOhmv2;
-
+    console.log("here1", networkID);
+    const stakingContract = RIPProtocolStakingv2__factory.connect(addresses[networkID].STAKING_V2, provider);
+    // const stakingContractV1 = RIPProtocolStaking__factory.connect(addresses[networkID].STAKING_ADDRESS, provider);
+    const sripMainContract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, sRIPv2, provider) as SRipv2;
     // Calculating staking
     const epoch = await stakingContract.epoch();
-    const secondsToEpoch = Number(await stakingContract.secondsToNextEpoch());
+    console.log(epoch);
+    console.log(stakingContract);
+    // console.log(await stakingContract.secondsToNextEpoch());
+    let secondsToEpoch;
+    try {
+      secondsToEpoch = await stakingContract.secondsToNextEpoch();
+    } catch (error) {
+      secondsToEpoch = 0;
+      console.log(error);
+    }
+    console.log(secondsToEpoch);
     const stakingReward = epoch.distribute;
-    const circ = await sohmMainContract.circulatingSupply();
-    const stakingRebase = Number(stakingReward.toString()) / Number(circ.toString());
+    const circ = await sripMainContract.circulatingSupply();
+    const stakingRebase = Number(circ.toString()).valueOf()
+      ? Number(stakingReward.toString()) / Number(circ.toString())
+      : Number("0");
     const fiveDayRate = Math.pow(1 + stakingRebase, 5 * 3) - 1;
     const stakingAPY = Math.pow(1 + stakingRebase, 365 * 3) - 1;
-
     // Current index
     const currentIndex = await stakingContract.index();
-    const currentIndexV1 = await stakingContractV1.index();
+    // const currentIndexV1 = await stakingContractV1.index();
+
     return {
       currentIndex: ethers.utils.formatUnits(currentIndex, "gwei"),
-      currentIndexV1: ethers.utils.formatUnits(currentIndexV1, "gwei"),
+      // currentIndexV1: ethers.utils.formatUnits(currentIndexV1, "gwei"),
       currentBlock,
       fiveDayRate,
       stakingAPY,
@@ -168,8 +179,8 @@ export const findOrLoadMarketPrice = createAsyncThunk(
 );
 
 /**
- * - fetches the OHM price from CoinGecko (via getTokenPrice)
- * - falls back to fetch marketPrice from ohm-dai contract
+ * - fetches the RIP price from CoinGecko (via getTokenPrice)
+ * - falls back to fetch marketPrice from rip-dai contract
  * - updates the App.slice when it runs
  */
 const loadMarketPrice = createAsyncThunk("app/loadMarketPrice", async ({ networkID, provider }: IBaseAsyncThunk) => {

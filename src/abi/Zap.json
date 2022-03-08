@@ -4,9 +4,9 @@
       "inputs": [
         { "internalType": "address", "name": "_depo", "type": "address" },
         { "internalType": "address", "name": "_staking", "type": "address" },
-        { "internalType": "address", "name": "_OHM", "type": "address" },
-        { "internalType": "address", "name": "_sOHM", "type": "address" },
-        { "internalType": "address", "name": "_gOHM", "type": "address" }
+        { "internalType": "address", "name": "_RIP", "type": "address" },
+        { "internalType": "address", "name": "_sRIP", "type": "address" },
+        { "internalType": "address", "name": "_gRIP", "type": "address" }
       ],
       "stateMutability": "nonpayable",
       "type": "constructor"
@@ -44,7 +44,7 @@
     },
     {
       "inputs": [],
-      "name": "OHM",
+      "name": "RIP",
       "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
       "stateMutability": "view",
       "type": "function"
@@ -61,7 +61,7 @@
         { "internalType": "uint256", "name": "bondId", "type": "uint256" }
       ],
       "name": "ZapBond",
-      "outputs": [{ "internalType": "uint256", "name": "OHMRec", "type": "uint256" }],
+      "outputs": [{ "internalType": "uint256", "name": "RIPRec", "type": "uint256" }],
       "stateMutability": "payable",
       "type": "function"
     },
@@ -76,7 +76,7 @@
         { "internalType": "address", "name": "referral", "type": "address" }
       ],
       "name": "ZapStake",
-      "outputs": [{ "internalType": "uint256", "name": "OHMRec", "type": "uint256" }],
+      "outputs": [{ "internalType": "uint256", "name": "RIPRec", "type": "uint256" }],
       "stateMutability": "payable",
       "type": "function"
     },
@@ -127,7 +127,7 @@
     },
     {
       "inputs": [],
-      "name": "gOHM",
+      "name": "gRIP",
       "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
       "stateMutability": "view",
       "type": "function"
@@ -149,7 +149,7 @@
     { "inputs": [], "name": "renounceOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
     {
       "inputs": [],
-      "name": "sOHM",
+      "name": "sRIP",
       "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
       "stateMutability": "view",
       "type": "function"

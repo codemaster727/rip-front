@@ -49,7 +49,7 @@ exports[`<Zap/> should render component 1`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root ohm-card MuiPaper-elevation0 MuiPaper-rounded"
+      class="MuiPaper-root rip-card MuiPaper-elevation0 MuiPaper-rounded"
       id="olyzaps-info"
       style="webkit-transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
     >
@@ -198,7 +198,7 @@ exports[`<Zap/> should render component 1`] = `
             <p
               class="MuiTypography-root oly-info-body MuiTypography-body2 MuiTypography-alignLeft"
             >
-              OlyZap reduces complexity, saves you time and keeps you here on Olympus.
+              OlyZap reduces complexity, saves you time and keeps you here on RIPProtocol.
             </p>
           </div>
         </div>
@@ -321,7 +321,7 @@ exports[`<Zap/> should render component 1`] = `
             <p
               class="MuiTypography-root oly-info-body MuiTypography-body2 MuiTypography-alignLeft"
             >
-              Staking is the primary value accrual strategy of Olympus. When you stake, you lock OHM and receive an equal value of sOHM or gOHM.
+              Staking is the primary value accrual strategy of RIPProtocol. When you stake, you lock RIP and receive an equal value of sRIP or gRIP.
             </p>
           </div>
         </div>

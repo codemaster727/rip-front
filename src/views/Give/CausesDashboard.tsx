@@ -44,13 +44,13 @@ export default function CausesDashboard() {
   const seed = useUIDSeed();
 
   const donationInfo = useSelector((state: State) => {
-    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSohmEnabled(location.search)
+    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
       ? state.account.mockGiving && state.account.mockGiving.donationInfo
       : state.account.giving && state.account.giving.donationInfo;
   });
 
   const totalDebt = useSelector((state: State) => {
-    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSohmEnabled(location.search)
+    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
       ? state.account.mockRedeeming && state.account.mockRedeeming.recipientInfo.totalDebt
       : state.account.redeeming && state.account.redeeming.recipientInfo.totalDebt;
   });
@@ -75,7 +75,7 @@ export default function CausesDashboard() {
     }
 
     // If reducing the amount of deposit, withdraw
-    if (networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSohmEnabled(location.search)) {
+    if (networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)) {
       await dispatch(
         changeMockGive({
           action: ACTION_GIVE,
@@ -132,7 +132,7 @@ export default function CausesDashboard() {
           ${isSmallScreen && "smaller"}`}
         >
           <Zoom in={true}>
-            <Box className={`ohm-card secondary causes-container`}>
+            <Box className={`rip-card secondary causes-container`}>
               {!isSupportedChain(networkId) ? (
                 <Typography variant="h6">
                   Note: You are currently using an unsupported network. Please switch to Ethereum to experience the full

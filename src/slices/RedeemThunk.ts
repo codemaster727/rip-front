@@ -2,7 +2,7 @@ import { t } from "@lingui/macro";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ethers } from "ethers";
 
-import { abi as OlympusGiving } from "../abi/OlympusGiving.json";
+import { abi as RIPProtocolGiving } from "../abi/RIPProtocolGiving.json";
 import { addresses } from "../constants";
 import { trackGAEvent, trackSegmentEvent } from "../helpers/analytics";
 import { getBalances, getMockRedemptionBalances, getRedemptionBalances } from "./AccountSlice";
@@ -27,7 +27,7 @@ export const redeemBalance = createAsyncThunk(
     }
 
     const signer = provider.getSigner();
-    const giving = new ethers.Contract(addresses[networkID].GIVING_ADDRESS as string, OlympusGiving, signer);
+    const giving = new ethers.Contract(addresses[networkID].GIVING_ADDRESS as string, RIPProtocolGiving, signer);
     const redeemableBalance = await giving.redeemableBalance(address);
     let redeemTx;
 
@@ -44,7 +44,7 @@ export const redeemBalance = createAsyncThunk(
       redeemTx = await giving.redeem();
       const pendingTxnType = "redeeming";
       uaData.txHash = redeemTx.hash;
-      dispatch(fetchPendingTxns({ txnHash: redeemTx.hash, text: "Redeeming sOHM", type: pendingTxnType }));
+      dispatch(fetchPendingTxns({ txnHash: redeemTx.hash, text: "Redeeming sRIP", type: pendingTxnType }));
       await redeemTx.wait();
     } catch (e: unknown) {
       uaData.approved = false;
@@ -85,7 +85,7 @@ export const redeemMockBalance = createAsyncThunk(
     }
 
     const signer = provider.getSigner();
-    const giving = new ethers.Contract(addresses[networkID].MOCK_GIVING_ADDRESS as string, OlympusGiving, signer);
+    const giving = new ethers.Contract(addresses[networkID].MOCK_GIVING_ADDRESS as string, RIPProtocolGiving, signer);
     const redeemableBalance = await giving.redeemableBalance(address);
     let redeemTx;
 
@@ -102,7 +102,7 @@ export const redeemMockBalance = createAsyncThunk(
       redeemTx = await giving.redeem();
       const pendingTxnType = "redeeming";
       uaData.txHash = redeemTx.hash;
-      dispatch(fetchPendingTxns({ txnHash: redeemTx.hash, text: "Redeeming sOHM", type: pendingTxnType }));
+      dispatch(fetchPendingTxns({ txnHash: redeemTx.hash, text: "Redeeming sRIP", type: pendingTxnType }));
       await redeemTx.wait();
     } catch (e: unknown) {
       uaData.approved = false;

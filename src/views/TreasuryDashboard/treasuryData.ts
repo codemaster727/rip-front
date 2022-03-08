@@ -6,16 +6,16 @@ query {
   protocolMetrics(first: 100, orderBy: timestamp, orderDirection: desc) {
     id
     timestamp
-    ohmCirculatingSupply
-    sOhmCirculatingSupply
+    ripCirculatingSupply
+    sRipCirculatingSupply
     totalSupply
-    ohmPrice
+    ripPrice
     marketCap
     totalValueLocked
     treasuryRiskFreeValue
     treasuryMarketValue
     nextEpochRebase
-    nextDistributedOhm
+    nextDistributedRip
     treasuryDaiRiskFreeValue
     treasuryFraxMarketValue
     treasuryDaiMarketValue
@@ -35,8 +35,8 @@ query {
     runway5k
     runway2dot5k
     runwayCurrent
-    treasuryOhmDaiPOL
-    treasuryOhmFraxPOL
+    treasuryRipDaiPOL
+    treasuryRipFraxPOL
   }
 }
 `;
@@ -186,7 +186,7 @@ export const tooltipItems = {
   tvl: [t`Total Value Deposited`],
   coin: ["DAI", "FRAX", "ETH", "LUSD", "BTC", "UST", "Other"],
   rfv: ["DAI", "FRAX", "LUSD", "UST"],
-  holder: ["OHMies"],
+  holder: ["RIPies"],
   apy: ["APY"],
   runway: [t`Current`, "7.5K APY", "5K APY", "2.5K APY"],
   pol: [t`SLP Treasury`, t`Market SLP`],
@@ -194,14 +194,14 @@ export const tooltipItems = {
 
 export const tooltipInfoMessages = () => {
   return {
-    tvl: t`Total Value Deposited, is the dollar amount of all OHM staked in the protocol. This metric is often used as growth or health indicator in DeFi projects.`,
+    tvl: t`Total Value Deposited, is the dollar amount of all RIP staked in the protocol. This metric is often used as growth or health indicator in DeFi projects.`,
     mvt: t`Market Value of Treasury Assets, is the sum of the value (in dollars) of all assets held by the treasury.`,
-    rfv: t`Risk Free Value, is the amount of funds the treasury guarantees to use for backing OHM.`,
+    rfv: t`Risk Free Value, is the amount of funds the treasury guarantees to use for backing RIP.`,
     pol: t`Protocol Owned Liquidity, is the amount of LP the treasury owns and controls. The more POL the better for the protocol and its users.`,
-    holder: t`Holders, represents the total number of Ohmies (sOHM holders)`,
-    staked: t`OHM Staked is the ratio of sOHM to circulating supply of OHM (staked vs total)`,
+    holder: t`Holders, represents the total number of Ripies (sRIP holders)`,
+    staked: t`RIP Staked is the ratio of sRIP to circulating supply of RIP (staked vs total)`,
     apy: t`Annual Percentage Yield, is the normalized representation of an interest rate, based on a compounding period over one year. Note that APYs provided are rather ballpark level indicators and not so much precise future results.`,
-    runway: t`Runway, is the number of days sOHM emissions can be sustained at a given rate. Lower APY = longer runway`,
+    runway: t`Runway, is the number of days sRIP emissions can be sustained at a given rate. Lower APY = longer runway`,
   };
 };
 

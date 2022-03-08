@@ -36,7 +36,7 @@ test.skip("getTokenPrice via api.olympusdao.finance (real)", async () => {
   when(theSpiedMethod)
     .calledWith(expect.stringMatching("https://api.coingecko.com"))
     .mockImplementation(async () => {
-      throw Error("Should not reach this API call if OHM API works.");
+      throw Error("Should not reach this API call if RIP API works.");
     });
 
   let price = await getTokenPrice("olympus");
@@ -50,7 +50,7 @@ test("getTokenPrice via api.olympusdao.finance (mock)", async () => {
   when(theSpiedMethod)
     .calledWith(expect.stringMatching("https://api.coingecko.com"))
     .mockImplementation(async () => {
-      throw Error("Should not reach this API call if OHM API works.");
+      throw Error("Should not reach this API call if RIP API works.");
     });
   let price = await getTokenPrice("olympus");
   expect(price).toEqual(356);
@@ -61,7 +61,7 @@ test("getTokenPrice fallback via api.coingecko.com (real)", async () => {
   when(theSpiedMethod)
     .calledWith(expect.stringMatching("https://api.olympusdao.finance"))
     .mockImplementation(async () => {
-      throw Error("Remote OHM API down");
+      throw Error("Remote RIP API down");
     });
 
   let price = await getTokenPrice("olympus");
@@ -73,7 +73,7 @@ test("getTokenPrice fallback via api.coingecko.com (mock)", async () => {
   when(theSpiedMethod)
     .calledWith(expect.stringMatching("https://api.olympusdao.finance"))
     .mockImplementation(async () => {
-      throw Error("Remote OHM API down");
+      throw Error("Remote RIP API down");
     });
 
   const resp = { data: { olympus: { usd: 478 } } };

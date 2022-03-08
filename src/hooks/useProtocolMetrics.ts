@@ -9,10 +9,10 @@ const query = `
       totalSupply
       nextEpochRebase
       totalValueLocked
-      nextDistributedOhm
+      nextDistributedRip
       treasuryMarketValue
-      ohmCirculatingSupply
-      sOhmCirculatingSupply
+      ripCirculatingSupply
+      sRipCirculatingSupply
     }
   }
 `;
@@ -23,10 +23,10 @@ interface ProtocolMetrics {
   readonly totalSupply: string;
   readonly totalValueLocked: string;
   readonly nextEpochRebase: string;
-  readonly nextDistributedOhm: string;
+  readonly nextDistributedRip: string;
   readonly treasuryMarketValue: string;
-  readonly ohmCirculatingSupply: string;
-  readonly sOhmCirculatingSupply: string;
+  readonly ripCirculatingSupply: string;
+  readonly sRipCirculatingSupply: string;
 }
 
 export const protocolMetricsQueryKey = () => ["useProtocolMetrics"];
@@ -59,6 +59,6 @@ export const useTreasuryMarketValue = () => {
   return useProtocolMetrics<number>(metrics => parseFloat(metrics.treasuryMarketValue));
 };
 
-export const useOhmCirculatingSupply = () => {
-  return useProtocolMetrics<number>(metrics => parseFloat(metrics.ohmCirculatingSupply));
+export const useRipCirculatingSupply = () => {
+  return useProtocolMetrics<number>(metrics => parseFloat(metrics.ripCirculatingSupply));
 };

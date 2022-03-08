@@ -7,7 +7,10 @@
     width: auto;
     text-overflow: ellipsis;
   }
+  & > div > div > div > svg {
+    color: white;
+  }
 }
-.ohm-chart {
+.rip-chart {
   padding: 0px 8px;
 }

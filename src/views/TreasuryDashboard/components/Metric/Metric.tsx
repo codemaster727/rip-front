@@ -3,10 +3,10 @@ import { Metric } from "@olympusdao/component-library";
 import { STAKING_CONTRACT_DECIMALS } from "src/constants/decimals";
 import { formatCurrency, parseBigNumber } from "src/helpers";
 import { useCurrentIndex } from "src/hooks/useCurrentIndex";
-import { useGohmPrice, useOhmPrice } from "src/hooks/usePrices";
+import { useGripPrice, useRipPrice } from "src/hooks/usePrices";
 import {
   useMarketCap,
-  useOhmCirculatingSupply,
+  useRipCirculatingSupply,
   useTotalSupply,
   useTreasuryMarketValue,
 } from "src/hooks/useProtocolMetrics";
@@ -32,15 +32,15 @@ export const MarketCap = () => {
   return <Metric {...props} />;
 };
 
-export const OHMPrice = () => {
-  const { data: ohmPrice } = useOhmPrice();
+export const RIPPrice = () => {
+  const { data: ripPrice } = useRipPrice();
 
   const props: MetricProps = {
     ...sharedProps,
-    label: t`OHM Price`,
+    label: t`RIP Price`,
   };
 
-  if (ohmPrice) props.metric = formatCurrency(ohmPrice, 2);
+  if (ripPrice) props.metric = formatCurrency(ripPrice, 2);
   else props.isLoading = true;
 
   return <Metric {...props} />;
@@ -48,7 +48,7 @@ export const OHMPrice = () => {
 
 export const CircSupply = () => {
   const { data: totalSupply } = useTotalSupply();
-  const { data: circSupply } = useOhmCirculatingSupply();
+  const { data: circSupply } = useRipCirculatingSupply();
 
   const props: MetricProps = {
     ...sharedProps,
@@ -61,13 +61,13 @@ export const CircSupply = () => {
   return <Metric {...props} />;
 };
 
-export const BackingPerOHM = () => {
-  const { data: circSupply } = useOhmCirculatingSupply();
+export const BackingPerRIP = () => {
+  const { data: circSupply } = useRipCirculatingSupply();
   const { data: treasuryValue } = useTreasuryMarketValue();
 
   const props: MetricProps = {
     ...sharedProps,
-    label: t`Backing per OHM`,
+    label: t`Backing per RIP`,
   };
 
   if (treasuryValue && circSupply) props.metric = formatCurrency(treasuryValue / circSupply, 2);
@@ -82,29 +82,29 @@ export const CurrentIndex = () => {
   const props: MetricProps = {
     ...sharedProps,
     label: t`Current Index`,
-    tooltip: t`The current index tracks the amount of sOHM accumulated since the beginning of staking. Basically, how much sOHM one would have if they staked and held 1 OHM from launch.`,
+    tooltip: t`The current index tracks the amount of sRIP accumulated since the beginning of staking. Basically, how much sRIP one would have if they staked and held 1 RIP from launch.`,
   };
 
-  if (currentIndex) props.metric = `${parseBigNumber(currentIndex, STAKING_CONTRACT_DECIMALS).toFixed(2)} sOHM`;
+  if (currentIndex) props.metric = `${parseBigNumber(currentIndex, STAKING_CONTRACT_DECIMALS).toFixed(2)} sRIP`;
   else props.isLoading = true;
 
   return <Metric {...props} />;
 };
 
-export const GOHMPrice = () => {
-  const { data: gOhmPrice } = useGohmPrice();
+export const GRIPPrice = () => {
+  const { data: gRipPrice } = useGripPrice();
 
   const props: MetricProps = {
     ...sharedProps,
-    label: t`gOHM Price`,
+    label: t`gRIP Price`,
     className: "wsoprice",
     tooltip:
-      t`gOHM = sOHM * index` +
+      t`gRIP = sRIP * index` +
       "\n\n" +
-      t`The price of gOHM is equal to the price of OHM multiplied by the current index`,
+      t`The price of gRIP is equal to the price of RIP multiplied by the current index`,
   };
 
-  if (gOhmPrice) props.metric = formatCurrency(gOhmPrice, 2);
+  if (gRipPrice) props.metric = formatCurrency(gRipPrice, 2);
   else props.isLoading = true;
 
   return <Metric {...props} />;

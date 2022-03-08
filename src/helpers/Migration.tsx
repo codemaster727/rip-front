@@ -16,41 +16,41 @@ export function useMigrationData() {
     setView(newView);
   };
 
-  const indexV1 = useAppSelector(state => Number(state.app.currentIndexV1!));
+  // const indexV1 = useAppSelector(state => Number(state.app.currentIndexV1!));
   const currentIndex = useAppSelector(state => Number(state.app.currentIndex));
 
-  const currentOhmBalance = useAppSelector(state => state.account.balances.ohmV1);
-  const currentSOhmBalance = useAppSelector(state => state.account.balances.sohmV1);
-  const currentWSOhmBalance = useAppSelector(state => state.account.balances.wsohm);
-  const wsOhmPrice = useAppSelector(state => state.app.marketPrice! * Number(state.app.currentIndex!));
-  const gOHMPrice = wsOhmPrice;
+  const currentRipBalance = useAppSelector(state => state.account.balances.ripV1);
+  const currentSRipBalance = useAppSelector(state => state.account.balances.sripV1);
+  const currentWSRipBalance = useAppSelector(state => state.account.balances.wsrip);
+  const wsRipPrice = useAppSelector(state => state.app.marketPrice! * Number(state.app.currentIndex!));
+  const gRIPPrice = wsRipPrice;
 
-  const approvedOhmBalance = useAppSelector(state => Number(state.account.migration.ohm));
-  const approvedSOhmBalance = useAppSelector(state => Number(state.account.migration.sohm));
-  const approvedWSOhmBalance = useAppSelector(state => Number(state.account.migration.wsohm));
-  const ohmFullApproval = approvedOhmBalance >= +currentOhmBalance;
-  const sOhmFullApproval = approvedSOhmBalance >= +currentSOhmBalance;
-  const wsOhmFullApproval = approvedWSOhmBalance >= +currentWSOhmBalance;
+  const approvedRipBalance = useAppSelector(state => Number(state.account.migration.rip));
+  const approvedSRipBalance = useAppSelector(state => Number(state.account.migration.srip));
+  const approvedWSRipBalance = useAppSelector(state => Number(state.account.migration.wsrip));
+  const ripFullApproval = approvedRipBalance >= +currentRipBalance;
+  const sRipFullApproval = approvedSRipBalance >= +currentSRipBalance;
+  const wsRipFullApproval = approvedWSRipBalance >= +currentWSRipBalance;
 
-  const ohmAsgOHM = +currentOhmBalance / indexV1;
-  const sOHMAsgOHM = +currentSOhmBalance / indexV1;
+  // const ripAsgRIP = +currentRipBalance / indexV1;
+  // const sRIPAsgRIP = +currentSRipBalance / indexV1;
 
-  const ohmInUSD = formatCurrency(gOHMPrice! * ohmAsgOHM);
-  const sOhmInUSD = formatCurrency(gOHMPrice! * sOHMAsgOHM);
-  const wsOhmInUSD = formatCurrency(wsOhmPrice * +currentWSOhmBalance);
+  // const ripInUSD = formatCurrency(gRIPPrice! * ripAsgRIP);
+  // const sRipInUSD = formatCurrency(gRIPPrice! * sRIPAsgRIP);
+  const wsRipInUSD = formatCurrency(wsRipPrice * +currentWSRipBalance);
 
-  const isGOHM = view === 1;
-  const targetAsset = React.useMemo(() => (isGOHM ? "gOHM" : "sOHM (v2)"), [view]);
-  const targetMultiplier = React.useMemo(() => (isGOHM ? 1 : currentIndex), [currentIndex, view]);
+  const isGRIP = view === 1;
+  const targetAsset = React.useMemo(() => (isGRIP ? "gRIP" : "sRIP (v2)"), [view]);
+  const targetMultiplier = React.useMemo(() => (isGRIP ? 1 : currentIndex), [currentIndex, view]);
 
-  const isAllApproved = ohmFullApproval && sOhmFullApproval && wsOhmFullApproval;
+  const isAllApproved = ripFullApproval && sRipFullApproval && wsRipFullApproval;
 
   const oldAssetsDetected = useAppSelector(state => {
     return (
       state.account.balances &&
-      (Number(state.account.balances.sohmV1) ||
-      Number(state.account.balances.ohmV1) ||
-      Number(state.account.balances.wsohm)
+      (Number(state.account.balances.sripV1) ||
+      Number(state.account.balances.ripV1) ||
+      Number(state.account.balances.wsrip)
         ? true
         : false)
     );
@@ -64,25 +64,25 @@ export function useMigrationData() {
     view,
     setView,
     changeView,
-    indexV1,
+    // indexV1,
     currentIndex,
-    currentOhmBalance,
-    currentSOhmBalance,
-    currentWSOhmBalance,
-    wsOhmPrice,
-    gOHMPrice,
-    approvedOhmBalance,
-    approvedSOhmBalance,
-    approvedWSOhmBalance,
-    ohmFullApproval,
-    sOhmFullApproval,
-    wsOhmFullApproval,
-    ohmAsgOHM,
-    sOHMAsgOHM,
-    ohmInUSD,
-    sOhmInUSD,
-    wsOhmInUSD,
-    isGOHM,
+    currentRipBalance,
+    currentSRipBalance,
+    currentWSRipBalance,
+    wsRipPrice,
+    gRIPPrice,
+    approvedRipBalance,
+    approvedSRipBalance,
+    approvedWSRipBalance,
+    ripFullApproval,
+    sRipFullApproval,
+    wsRipFullApproval,
+    // ripAsgRIP,
+    // sRIPAsgRIP,
+    // ripInUSD,
+    // sRipInUSD,
+    wsRipInUSD,
+    isGRIP,
     targetAsset,
     targetMultiplier,
     oldAssetsDetected,

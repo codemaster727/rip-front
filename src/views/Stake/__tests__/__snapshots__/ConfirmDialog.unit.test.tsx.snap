@@ -3,7 +3,7 @@
 exports[`<ConfirmDialog/> should render component 1`] = `
 <div>
   <div
-    class="MuiPaper-root ohm-card confirm-dialog MuiPaper-elevation0 MuiPaper-rounded"
+    class="MuiPaper-root rip-card confirm-dialog MuiPaper-elevation0 MuiPaper-rounded"
   >
     <div
       class="MuiBox-root MuiBox-root-1 dialog-container"
@@ -14,13 +14,13 @@ exports[`<ConfirmDialog/> should render component 1`] = `
         <div
           class="MuiGrid-root MuiGrid-item"
         >
-          sOHM
+          sRIP
         </div>
         <div
           class="MuiGrid-root MuiGrid-item"
         >
           <span
-            class="MuiSwitch-root stake-to-ohm-checkbox"
+            class="MuiSwitch-root stake-to-rip-checkbox"
           >
             <span
               aria-disabled="false"
@@ -30,7 +30,7 @@ exports[`<ConfirmDialog/> should render component 1`] = `
                 class="MuiIconButton-label"
               >
                 <input
-                  aria-label="stake to gohm"
+                  aria-label="stake to grip"
                   class="PrivateSwitchBase-input-5 MuiSwitch-input"
                   type="checkbox"
                   value=""
@@ -48,7 +48,7 @@ exports[`<ConfirmDialog/> should render component 1`] = `
         <div
           class="MuiGrid-root MuiGrid-item"
         >
-          gOHM
+          gRIP
           <div
             class="MuiBox-root MuiBox-root-6"
             style="display: inline-flex; justify-content: center; align-self: center;"

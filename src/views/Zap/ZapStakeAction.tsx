@@ -62,9 +62,9 @@ const ZapStakeAction: React.FC = () => {
 
   const [outputToken, setOutputToken] = useState<boolean | null>(null);
   const handleSelectOutputToken = (token: string) => {
-    if (token === "gOHM") {
+    if (token === "gRIP") {
       setOutputToken(true);
-    } else if (token === "sOHM") {
+    } else if (token === "sRIP") {
       setOutputToken(false);
     }
     setZapTokenQuantity(inputQuantity);
@@ -129,18 +129,18 @@ const ZapStakeAction: React.FC = () => {
     });
   };
 
-  const ohmMarketPrice = useAppSelector(state => state.app.marketPrice || 0);
+  const ripMarketPrice = useAppSelector(state => state.app.marketPrice || 0);
 
-  const sOhmBalance = useAppSelector(state => Number(state.account?.balances?.sohm ?? 0.0));
-  const gOhmBalance = useAppSelector(state => Number(state.account?.balances?.gohm ?? 0.0));
+  const sRipBalance = useAppSelector(state => Number(state.account?.balances?.srip ?? 0.0));
+  const gRipBalance = useAppSelector(state => Number(state.account?.balances?.grip ?? 0.0));
   const currentIndex = Number(useCurrentIndex().data?.div(1e9));
 
   const exchangeRate = useMemo(
     () =>
       zapToken && outputToken != null
         ? outputToken
-          ? (ohmMarketPrice * currentIndex) / tokens[zapToken]?.price
-          : ohmMarketPrice / tokens[zapToken]?.price
+          ? (ripMarketPrice * currentIndex) / tokens[zapToken]?.price
+          : ripMarketPrice / tokens[zapToken]?.price
         : Number.MAX_VALUE,
     [zapToken, outputToken],
   );
@@ -175,7 +175,7 @@ const ZapStakeAction: React.FC = () => {
   const inputTokenImages = useMemo(
     () =>
       Object.entries(tokens)
-        .filter(token => token[0] !== "sohm" && !token[1].hide)
+        .filter(token => token[0] !== "srip" && !token[1].hide)
         .sort((tokenA, tokenB) => tokenB[1].balanceUSD - tokenA[1].balanceUSD)
         .map(token => token[1].tokenImageUrl)
         .slice(0, 3),
@@ -240,7 +240,7 @@ const ZapStakeAction: React.FC = () => {
           tokenAddress: tokens[zapToken]?.address,
           networkID: networkId,
           minimumAmount: trim(+outputQuantity * (1 - +customSlippage / 100), 2),
-          gOHM: outputToken,
+          gRIP: outputToken,
         }),
       );
     }
@@ -365,13 +365,13 @@ const ZapStakeAction: React.FC = () => {
                       <ButtonBase onClick={handleOutputOpen}>
                         <Token name={outputToken ? "wsOHM" : "sOHM"} />
                         <Box width="10px" />
-                        <Typography>{outputToken ? "gOHM" : "sOHM"}</Typography>
+                        <Typography>{outputToken ? "gRIP" : "sRIP"}</Typography>
                         {downIcon}
                       </ButtonBase>
                     </Box>
                     <Box flexDirection="row" display="flex" alignItems="center">
                       <Typography color="textSecondary">{`Balance ${trim(
-                        outputToken ? gOhmBalance : sOhmBalance,
+                        outputToken ? gRipBalance : sRipBalance,
                         2,
                       )}`}</Typography>
                     </Box>
@@ -407,7 +407,7 @@ const ZapStakeAction: React.FC = () => {
         </Typography>
         <Typography>
           {zapToken == null || outputToken == null ? "nil" : `${trim(exchangeRate, 4)} ${tokens[zapToken]?.symbol}`} = 1{" "}
-          {outputToken ? "gOHM" : "sOHM"}
+          {outputToken ? "gRIP" : "sRIP"}
         </Typography>
       </Box>
       <Box
@@ -422,7 +422,7 @@ const ZapStakeAction: React.FC = () => {
           <Trans>Minimum You Get</Trans>
         </Typography>
         <Typography>
-          {trim(Number(outputQuantity) * (1 - +customSlippage / 100), 2)} {outputToken ? "gOHM" : "sOHM"}
+          {trim(Number(outputQuantity) * (1 - +customSlippage / 100), 2)} {outputToken ? "gRIP" : "sRIP"}
         </Typography>
       </Box>
       {initialTokenAllowance ? (

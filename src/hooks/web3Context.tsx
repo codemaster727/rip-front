@@ -64,8 +64,10 @@ const initModal = new Web3Modal({
       package: WalletConnectProvider,
       options: {
         rpc: {
-          1: NETWORKS[1].uri(),
+          1: NETWORKS[97].uri(),
           4: NETWORKS[4].uri(),
+          56: NETWORKS[56].uri(),
+          97: NETWORKS[97].uri(),
           42161: NETWORKS[42161].uri(),
           421611: NETWORKS[421611].uri(),
           43113: NETWORKS[43113].uri(),
@@ -81,7 +83,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
   const [address, setAddress] = useState("");
   // NOTE (appleseed): loading eth mainnet as default rpc provider for a non-connected wallet
   const [provider, setProvider] = useState<JsonRpcProvider>(NodeHelper.getMainnetStaticProvider());
-  const [networkId, setNetworkId] = useState(1);
+  const [networkId, setNetworkId] = useState(97);
   const [networkName, setNetworkName] = useState("");
   const [providerUri, setProviderUri] = useState("");
   const [providerInitialized, setProviderInitialized] = useState(false);
@@ -127,8 +129,13 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
     if (isIframe()) {
       rawProvider = new IFrameEthereumProvider();
     } else {
-      rawProvider = await web3Modal.connect();
+      try {
+        rawProvider = await web3Modal.connect();
+      } catch (error) {
+        console.log(error);
+      }
     }
+    if (!rawProvider) return;
 
     // new _initListeners implementation matches Web3Modal Docs
     // ... see here: https://github.com/Web3Modal/web3modal/blob/2ff929d0e99df5edf6bb9e88cff338ba6d8a3991/example/src/App.tsx#L185

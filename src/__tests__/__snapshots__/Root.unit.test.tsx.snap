@@ -103,7 +103,7 @@ exports[`<Root/> should render component 1`] = `
         >
           <button
             class="MuiButtonBase-root-336 MuiButton-root-363 MuiButton-contained-371 MuiButton-containedSecondary-373 MuiButton-disableElevation-374"
-            id="ohm-menu-button"
+            id="rip-menu-button"
             tabindex="0"
             type="button"
           >
@@ -513,7 +513,7 @@ exports[`<Root/> should render component 1`] = `
                       >
                         <a
                           class="MuiTypography-root-276 MuiLink-root-421 MuiLink-underlineNone-422 external-site-link  MuiTypography-colorPrimary-299"
-                          href="https://synapseprotocol.com/?inputCurrency=gOHM&outputCurrency=gOHM&outputChain=43114"
+                          href="https://synapseprotocol.com/?inputCurrency=gRIP&outputCurrency=gRIP&outputChain=43114"
                           target="_blank"
                         >
                           <h6
@@ -581,7 +581,7 @@ exports[`<Root/> should render component 1`] = `
                                     d="M 12.143 16.236 C 15.041 15.357 17.143 12.743 17.143 9.655 C 17.143 5.846 13.945 2.759 10 2.759 C 6.055 2.759 2.857 5.846 2.857 9.655 C 2.857 12.743 4.959 15.357 7.857 16.236 L 7.857 20 L 0 20 L 0 17.241 L 3.814 17.241 C 1.491 15.473 0 12.732 0 9.655 C 0 4.323 4.477 0 10 0 C 15.523 0 20 4.323 20 9.655 C 20 12.732 18.509 15.473 16.186 17.241 L 20 17.241 L 20 20 L 12.143 20 L 12.143 16.236 Z"
                                   />
                                 </svg>
-                                Olympus Pro
+                                RIPProtocol Pro
                                 <svg
                                   aria-hidden="true"
                                   class="MuiSvgIcon-root-337 external-site-link-icon MuiSvgIcon-fontSizeSmall-344"
@@ -779,7 +779,7 @@ exports[`<Root/> should render component 1`] = `
                   >
                     <a
                       class="MuiTypography-root-276 MuiLink-root-421 MuiLink-underlineNone-422 MuiTypography-colorPrimary-299"
-                      href="https://github.com/OlympusDAO"
+                      href="https://github.com/RIPProtocolDAO"
                       target="_blank"
                     >
                       <svg
@@ -811,7 +811,7 @@ exports[`<Root/> should render component 1`] = `
                     </a>
                     <a
                       class="MuiTypography-root-276 MuiLink-root-421 MuiLink-underlineNone-422 MuiTypography-colorPrimary-299"
-                      href="https://twitter.com/OlympusDAO"
+                      href="https://twitter.com/RIPProtocolDAO"
                       target="_blank"
                     >
                       <svg
@@ -1020,7 +1020,7 @@ exports[`<Root/> should render component 1`] = `
                     <h6
                       class="MuiTypography-root-276 MuiTypography-h6-286"
                     >
-                      Connect your wallet to stake OHM
+                      Connect your wallet to stake RIP
                     </h6>
                   </div>
                 </div>
@@ -1162,7 +1162,7 @@ exports[`<Root/> should render component 1`] = `
                       class="MuiTypography-root-276 MuiTypography-body1-278"
                       style="line-height: 1.4; margin-left: 10px;"
                     >
-                      gOHM-AVAX
+                      gRIP-AVAX
                     </p>
                   </div>
                   <p
@@ -1320,7 +1320,7 @@ exports[`<Root/> should render component 1`] = `
                       class="MuiTypography-root-276 MuiTypography-body1-278"
                       style="line-height: 1.4; margin-left: 10px;"
                     >
-                      gOHM-wETH
+                      gRIP-wETH
                     </p>
                   </div>
                   <p
@@ -1478,7 +1478,7 @@ exports[`<Root/> should render component 1`] = `
                       class="MuiTypography-root-276 MuiTypography-body1-278"
                       style="line-height: 1.4; margin-left: 10px;"
                     >
-                      gOHM-wETH
+                      gRIP-wETH
                     </p>
                   </div>
                   <p
@@ -1638,7 +1638,7 @@ exports[`<Root/> should render component 1`] = `
                       class="MuiTypography-root-276 MuiTypography-body1-278"
                       style="line-height: 1.4; margin-left: 10px;"
                     >
-                      gOHM-FTM
+                      gRIP-FTM
                     </p>
                   </div>
                   <p

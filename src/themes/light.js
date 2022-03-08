@@ -95,20 +95,20 @@ export const light = responsiveFontSizes(
         MuiPaper: {
           root: {
             backgroundColor: lightTheme.paperBg,
-            "&.ohm-card": {
+            "&.rip-card": {
               backgroundColor: lightTheme.paperBg,
             },
             "&.MuiPaper-root.tooltip-container": {
               backgroundColor: lightTheme.paperBg,
             },
-            "&.ohm-modal": {
+            "&.rip-modal": {
               backgroundColor: lightTheme.modalBg,
             },
-            "&.ohm-menu": {
+            "&.rip-menu": {
               backgroundColor: lightTheme.menuBg,
               backdropFilter: "blur(33px)",
             },
-            "&.ohm-popover": {
+            "&.rip-popover": {
               backgroundColor: lightTheme.popoverBg,
               color: lightTheme.color,
               backdropFilter: "blur(15px)",

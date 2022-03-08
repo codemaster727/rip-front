@@ -11,7 +11,9 @@ const pricingFunctionHelper = async (
   firstToken: string,
   secondToken: string,
 ) => {
+  console.log("object123");
   const baseContract = UniswapV2Lp__factory.connect(quoteToken, provider);
+  console.log(baseContract);
   const reserves = await baseContract.getReserves();
   const totalSupply = +(await baseContract.totalSupply()) / Math.pow(10, await baseContract.decimals());
 
@@ -99,8 +101,8 @@ const WbtcDetails: V2BondDetails = {
   lpUrl: {},
 };
 
-const OhmDaiDetails: V2BondDetails = {
-  name: "OHM-DAI LP",
+const RipDaiDetails: V2BondDetails = {
+  name: "RIP-DAI LP",
   bondIconSvg: ["OHM", "DAI"],
   async pricingFunction(provider, quoteToken) {
     return pricingFunctionHelper(provider, quoteToken, "olympus", "dai");
@@ -114,8 +116,8 @@ const OhmDaiDetails: V2BondDetails = {
   },
 };
 
-const OhmEthDetails: V2BondDetails = {
-  name: "OHM-ETH LP",
+const RipEthDetails: V2BondDetails = {
+  name: "RIP-ETH LP",
   bondIconSvg: ["OHM", "wETH"],
   async pricingFunction(provider, quoteToken) {
     return pricingFunctionHelper(provider, quoteToken, "olympus", "ethereum");
@@ -147,7 +149,7 @@ export const v2BondDetails: { [key: number]: { [key: string]: V2BondDetails } } 
     ["0x2f7249cb599139e560f0c81c269ab9b04799e453"]: FraxDetails,
     ["0xc778417e063141139fce010982780140aa0cd5ab"]: EthDetails,
     // ["0xb2180448f8945c8cc8ae9809e67d6bd27d8b2f2c"]: CvxDetails, // we do not have CVX rinkeby in previous bonds
-    ["0x80edbf2f58c7b130df962bb485c28188f6b5ed29"]: OhmDaiDetails,
+    ["0x80edbf2f58c7b130df962bb485c28188f6b5ed29"]: RipDaiDetails,
   },
   [NetworkId.MAINNET]: {
     ["0x6b175474e89094c44da98b954eedeac495271d0f"]: DaiDetails,
@@ -156,7 +158,7 @@ export const v2BondDetails: { [key: number]: { [key: string]: V2BondDetails } } 
     ["0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"]: WbtcDetails,
     ["0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"]: EthDetails,
     ["0x4e3fbd56cd56c3e72c1403e103b45db9da5b9d2b"]: CvxDetails,
-    ["0x69b81152c5a8d35a67b32a4d3772795d96cae4da"]: OhmEthDetails,
-    ["0x055475920a8c93cffb64d039a8205f7acc7722d3"]: OhmDaiDetails,
+    ["0x69b81152c5a8d35a67b32a4d3772795d96cae4da"]: RipEthDetails,
+    ["0x055475920a8c93cffb64d039a8205f7acc7722d3"]: RipDaiDetails,
   },
 };

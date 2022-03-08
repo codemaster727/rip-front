@@ -27,7 +27,7 @@ import { IBondDetails } from "src/slices/BondSlice";
 import { getAllBonds, getUserNotes } from "src/slices/BondSliceV2";
 // import { DisplayBondDiscount } from "src/views/BondV2/BondV2";
 
-import { ReactComponent as OlympusIcon } from "../../assets/icons/RipIcon.svg";
+import { ReactComponent as RIPProtocolIcon } from "../../assets/icons/RipIcon.svg";
 // import { ReactComponent as SpeedOmeterIcon } from "../../assets/icons/speedometer.svg";
 import SpeedOmeterIcon from "../../assets/icons/speedometer.svg";
 import GearIcon from "../../assets/icons/gear.svg";
@@ -67,8 +67,8 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
 
   useEffect(() => {
     const interval = setTimeout(() => {
-      dispatch(getAllBonds({ address, networkID: networkId, provider }));
-      dispatch(getUserNotes({ address, networkID: networkId, provider }));
+      // dispatch(getAllBonds({ address, networkID: networkId, provider }));
+      // dispatch(getUserNotes({ address, networkID: networkId, provider }));
     }, 60000);
     return () => clearTimeout(interval);
   });
@@ -89,7 +89,7 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
             <Link href="https://olympusdao.finance" target="_blank">
               <SvgIcon
                 color="primary"
-                component={OlympusIcon}
+                component={RIPProtocolIcon}
                 viewBox="0 0 350 100"
                 style={{ minWidth: "280px", minHeight: "98px", width: "280px" }}
               />
@@ -99,7 +99,10 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
 
           <div className="dapp-menu-links">
             <div className="dapp-nav" id="navbarNav">
-              {networkId === NetworkId.MAINNET || networkId === NetworkId.TESTNET_RINKEBY ? (
+              {networkId === NetworkId.MAINNET ||
+              networkId === NetworkId.TESTNET_RINKEBY ||
+              networkId === NetworkId.BSC ||
+              networkId === NetworkId.BSC_TEST ? (
                 <>
                   <div
                     style={{ backgroundColor: "black", marginLeft: "20px", marginRight: "20px", borderRadius: "20px" }}
@@ -275,7 +278,7 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                     }}
                   >
                     <Link
-                      href="https://synapseprotocol.com/?inputCurrency=gOHM&outputCurrency=gOHM&outputChain=43114"
+                      href="https://synapseprotocol.com/?inputCurrency=gRIP&outputCurrency=gRIP&outputChain=43114"
                       target="_blank"
                       style={{ color: "white", textDecoration: "none" }}
                     >
@@ -292,7 +295,7 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                       </Box>
                     </Link>
                     {/* <NavItem
-                      href={"https://synapseprotocol.com/?inputCurrency=gOHM&outputCurrency=gOHM&outputChain=43114"}
+                      href={"https://synapseprotocol.com/?inputCurrency=gRIP&outputCurrency=gRIP&outputChain=43114"}
                       icon="bridge"
                       label={t`Bridge`}
                       style={{ color: "white" }}
@@ -301,7 +304,7 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                   {/* <Box className="menu-divider">
                     <Divider />
                   </Box> */}
-                  {/* <NavItem href="https://pro.olympusdao.finance/" icon="olympus" label={t`Olympus Pro`} /> */}
+                  {/* <NavItem href="https://pro.olympusdao.finance/" icon="olympus" label={t`RIPProtocol Pro`} /> */}
                   {/* <NavItem to="/33-together" icon="33-together" label={t`3,3 Together`} /> */}
                   {/* <Box className="menu-divider">
                     <Divider />
@@ -311,7 +314,7 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                 <>
                   <NavItem to="/wrap" icon="wrap" label={t`Wrap`} />
                   <NavItem
-                    href="https://synapseprotocol.com/?inputCurrency=gOHM&outputCurrency=gOHM&outputChain=43114"
+                    href="https://synapseprotocol.com/?inputCurrency=gRIP&outputCurrency=gRIP&outputChain=43114"
                     icon="bridge"
                     label={t`Bridge`}
                   />

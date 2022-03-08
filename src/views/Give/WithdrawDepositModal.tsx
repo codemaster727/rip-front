@@ -78,9 +78,9 @@ export function WithdrawDepositModal({
   };
 
   return (
-    /* modal-container displays a background behind the ohm-card container, which means that if modal-container receives a click, we can close the modal */
+    /* modal-container displays a background behind the rip-card container, which means that if modal-container receives a click, we can close the modal */
     <Modal className="modal-container" open={isModalOpen} onClose={cancelFunc} onClick={cancelFunc} hideBackdrop={true}>
-      <Paper className="ohm-card ohm-modal" onClick={handleModalInsideClick}>
+      <Paper className="rip-card rip-modal" onClick={handleModalInsideClick}>
         <div className="yield-header">
           <Link onClick={() => cancelFunc()}>
             <SvgIcon color="primary" component={XIcon} />
@@ -98,7 +98,7 @@ export function WithdrawDepositModal({
         <Typography variant="body1">
           <Trans>Any remaining yield will still be redeemable by the recipient ({getRecipientTitle()}).</Trans>
         </Typography>
-        <FormControl className="ohm-modal-submit">
+        <FormControl className="rip-modal-submit">
           <Button variant="contained" color="primary" disabled={!canSubmit()} onClick={() => handleSubmit()}>
             {txnButtonText(pendingTransactions, PENDING_TXN_WITHDRAW, t`Withdraw`)}
           </Button>

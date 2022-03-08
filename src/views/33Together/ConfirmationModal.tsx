@@ -26,7 +26,7 @@ export const ConfirmationModal = (props: IConfirmationModalProps) => {
             </Box>
           </Box>
           <Typography variant="body2" className="info-text">
-            You're depositing <strong>{props.quantity} sOhm </strong>in the
+            You're depositing <strong>{props.quantity} sRip </strong>in the
             <strong> (3, 3) Together Pool </strong>
           </Typography>
           <Typography variant="h6" className="header" style={{ color: (theme.palette as any).highlight }}>
@@ -35,7 +35,7 @@ export const ConfirmationModal = (props: IConfirmationModalProps) => {
           <Typography variant="body2" className="info-text">
             <em>
               By entering the 3,3 Together Pool, you understand that you will <strong>not</strong> receive your normal
-              sOHM rebase reward and that it will instead go directly into funding the prize pool.
+              sRIP rebase reward and that it will instead go directly into funding the prize pool.
             </em>
           </Typography>
           <Typography variant="body2" className="info-text">

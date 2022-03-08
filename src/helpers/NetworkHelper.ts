@@ -14,6 +14,7 @@ export const initNetworkFunc = async ({ provider }: IGetCurrentNetwork) => {
     let uri: string;
     let supported = true;
     const id: number = await provider.getNetwork().then(network => network.chainId);
+    console.log("netid", id);
     switch (id) {
       case 1:
         networkName = "Ethereum";
@@ -21,6 +22,14 @@ export const initNetworkFunc = async ({ provider }: IGetCurrentNetwork) => {
         break;
       case 4:
         networkName = "Rinkeby Testnet";
+        uri = NodeHelper.getMainnetURI(id);
+        break;
+      case 56:
+        networkName = "BSC";
+        uri = NodeHelper.getMainnetURI(id);
+        break;
+      case 97:
+        networkName = "BSC Testnet";
         uri = NodeHelper.getMainnetURI(id);
         break;
       case 42161:

@@ -1,21 +1,22 @@
 import { t, Trans } from "@lingui/macro";
-import { Box, makeStyles, Typography, useTheme, Zoom } from "@material-ui/core";
+import { Box, Grid, makeStyles, Typography, useTheme, Zoom } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { Skeleton } from "@material-ui/lab";
-import { DataRow, Paper, SecondaryButton, TokenStack } from "@olympusdao/component-library";
+import { Paper, SecondaryButton, TokenStack } from "@olympusdao/component-library";
+// import { DataRow, Paper, SecondaryButton, TokenStack } from "@olympusdao/component-library";
 import { useQuery } from "react-query";
 import allPools, { fetchPoolData } from "src/helpers/AllExternalPools";
-import { useGohmPrice } from "src/hooks/usePrices";
+import { useGripPrice } from "src/hooks/usePrices";
 import { useWeb3Context } from "src/hooks/web3Context";
 import { ExternalPoolwBalance } from "src/lib/ExternalPool";
 
 export const useExternalPools = (address: string) => {
-  const { data: gOhmPrice } = useGohmPrice();
-  const { isLoading, data } = useQuery(["externalPools", address], () => fetchPoolData(address, Number(gOhmPrice)), {
+  const { data: gRipPrice } = useGripPrice();
+  const { isLoading, data } = useQuery(["externalPools", address], () => fetchPoolData(address, Number(gRipPrice)), {
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
     placeholderData: allPools,
-    enabled: !!gOhmPrice,
+    enabled: !!gRipPrice,
   });
   return { isLoading, pools: data };
 };
@@ -46,19 +47,38 @@ const MobileStakePool = ({ pool, isLoading }: { pool: ExternalPoolwBalance; isLo
   const styles = useStyles();
   const { connected } = useWeb3Context();
   return (
-    <Paper>
+    <Paper style={{ background: "black" }}>
       <div className={styles.poolPair}>
         <TokenStack tokens={pool.icons} />
-        <div className={styles.poolName}>
+        <div style={{ color: "white" }} className={styles.poolName}>
           <Typography>{pool.poolName}</Typography>
         </div>
       </div>
-      <DataRow title={`TVL`} balance={pool.tvl} isLoading={pool.tvl ? false : true} />
-      {connected && (
-        <DataRow title={t`Balance`} balance={`${pool.userBalance} LP`} isLoading={pool.userBalance ? false : true} />
+      {!pool.tvl ? (
+        <div>
+          <Typography style={{ color: "white", marginTop: "10px" }}>{t`TVL`}</Typography>
+          <Typography style={{ color: "white", marginTop: "10px" }}>Loading...</Typography>
+        </div>
+      ) : (
+        <div>
+          <Typography style={{ color: "white", marginTop: "10px" }}>{t`TVL`}</Typography>
+          <Typography style={{ color: "white", marginTop: "10px" }}>{pool.tvl}</Typography>
+        </div>
+      )}
+      {connected && !pool.userBalance ? (
+        <div>
+          <Typography style={{ color: "white", marginTop: "10px" }}>{t`Balance`}</Typography>
+          <Typography style={{ color: "white", marginTop: "10px" }}>Loading...</Typography>
+        </div>
+      ) : (
+        <div>
+          <Typography style={{ color: "white", marginTop: "10px" }}>{t`Balance`}</Typography>
+          <Typography style={{ color: "white", marginTop: "10px" }}>{`${pool.userBalance} LP`}</Typography>
+        </div>
+        // <DataRow title={t`Balance`} balance={`${pool.userBalance} LP`} isLoading={pool.userBalance ? false : true} />
       )}
       {/* Pool Staking Linkouts */}
-      <SecondaryButton href={pool.href} fullWidth>
+      <SecondaryButton href={pool.href} fullWidth style={{ background: "#333", color: "white" }}>
         {`${t`Stake on`} ${pool.stakeOn}`}
       </SecondaryButton>
     </Paper>
@@ -69,33 +89,62 @@ const StakePool = ({ pool, isLoading }: { pool: ExternalPoolwBalance; isLoading:
   const theme = useTheme();
   const styles = useStyles();
   const { connected } = useWeb3Context();
-
   return (
-    <Box style={{ gap: theme.spacing(1.5) }} className={styles.stakePoolsWrapper}>
-      <Box sx={{ display: "flex", alignItems: "center" }}>
-        <TokenStack tokens={pool.icons} />
-        <Typography gutterBottom={false} style={{ lineHeight: 1.4, marginLeft: "10px" }}>
+    <Grid md={3} sm={3}>
+      <div style={{ background: "black", margin: "10px", borderRadius: "10px" }}>
+        <TokenStack style={{ textAlign: "center", marginTop: "20px", marginLeft: "10px" }} tokens={pool.icons} />
+        <Typography style={{ color: "white", paddingTop: "20px", marginLeft: "10px" }} align="left">
           {pool.poolName}
         </Typography>
-      </Box>
-      <Typography gutterBottom={false} style={{ lineHeight: 1.4 }}>
-        {!pool.tvl ? <Skeleton width={30} /> : pool.tvl}
-      </Typography>
-      <Typography gutterBottom={false} style={{ lineHeight: 1.4 }}>
-        {!pool.userBalance && connected ? (
-          <Skeleton width={30} />
-        ) : connected && pool.userBalance ? (
-          `${pool.userBalance} LP`
-        ) : (
-          ""
-        )}
-      </Typography>
-      <Box sx={{ display: "flex", flexBasis: "100px", flexGrow: 1, maxWidth: "500px" }}>
-        <SecondaryButton target="_blank" href={pool.href} fullWidth>
-          {`${t`Stake on`} ${pool.stakeOn}`}
+        <Typography style={{ color: "white", marginTop: "30px", marginLeft: "15px" }} align="left">
+          <Trans>TVL</Trans>
+        </Typography>
+        <Typography style={{ color: "white", marginTop: "5px", marginLeft: "15px" }} align="left">
+          <Trans>
+            {!pool.userBalance && connected ? (
+              <Skeleton width={30} />
+            ) : connected && pool.userBalance ? (
+              `${pool.userBalance} LP`
+            ) : (
+              ""
+            )}
+          </Trans>
+        </Typography>
+        <SecondaryButton
+          target="_blank"
+          href={pool.href}
+          fullWidth
+          style={{ backgroundColor: "transparent", color: "#11ffbd" }}
+        >
+          {t`Stake`}
         </SecondaryButton>
-      </Box>
-    </Box>
+      </div>
+    </Grid>
+    // <Box style={{ gap: theme.spacing(1.5) }} className={styles.stakePoolsWrapper}>
+    //   <Box sx={{ display: "flex", alignItems: "center" }}>
+    //     <TokenStack tokens={pool.icons} />
+    //     <Typography gutterBottom={false} style={{ lineHeight: 1.4, marginLeft: "10px" }}>
+    //       {pool.poolName}
+    //     </Typography>
+    //   </Box>
+    //   <Typography gutterBottom={false} style={{ lineHeight: 1.4 }}>
+    //     {!pool.tvl ? <Skeleton width={30} /> : pool.tvl}
+    //   </Typography>
+    //   <Typography gutterBottom={false} style={{ lineHeight: 1.4 }}>
+    //     {!pool.userBalance && connected ? (
+    //       <Skeleton width={30} />
+    //     ) : connected && pool.userBalance ? (
+    //       `${pool.userBalance} LP`
+    //     ) : (
+    //       ""
+    //     )}
+    //   </Typography>
+    //   <Box sx={{ display: "flex", flexBasis: "100px", flexGrow: 1, maxWidth: "500px" }}>
+    //     <SecondaryButton target="_blank" href={pool.href} fullWidth>
+    //       {`${t`Stake on`} ${pool.stakeOn}`}
+    //     </SecondaryButton>
+    //   </Box>
+    // </Box>
   );
 };
 
@@ -106,31 +155,37 @@ export default function ExternalStakePool() {
   const theme = useTheme();
   const styles = useStyles();
   const allStakePools = useExternalPools(address);
+  // const stakePoolArray = [
+
+  // ]
+  console.log(allStakePools.pools);
   return (
     <Zoom in={true}>
       {isSmallScreen ? (
         <>
           {allStakePools?.pools?.map(pool => (
-            <MobileStakePool pool={pool} isLoading={allStakePools?.isLoading} />
+            <MobileStakePool key={pool.address} pool={pool} isLoading={allStakePools?.isLoading} />
           ))}
         </>
       ) : (
         <Paper headerText={t`Farm Pool`}>
-          <Box className={styles.stakePoolsWrapper} style={{ gap: theme.spacing(1.5), marginBottom: "0.5rem" }}>
+          {/* <Box className={styles.stakePoolsWrapper} style={{ gap: theme.spacing(1.5), marginBottom: "0.5rem" }}>
             <Typography gutterBottom={false} className={styles.stakePoolHeaderText} style={{ marginLeft: "75px" }}>
               <Trans>Asset</Trans>
             </Typography>
             <Typography gutterBottom={false} className={styles.stakePoolHeaderText} style={{ paddingLeft: "3px" }}>
-              <Trans>TVL</Trans>
+              <Trans>TVL</Trans>   
             </Typography>
             <Typography gutterBottom={false} className={styles.stakePoolHeaderText}>
               {connected && t`Balance`}
             </Typography>
-          </Box>
+          </Box> */}
           <Box sx={{ display: "flex", flexDirection: "column" }} style={{ gap: theme.spacing(4), padding: "16px 0px" }}>
-            {allStakePools?.pools?.map(pool => (
-              <StakePool pool={pool} isLoading={allStakePools?.isLoading} />
-            ))}
+            <Grid container direction="row" spacing={3}>
+              {allStakePools?.pools?.map(pool => (
+                <StakePool key={pool.address} pool={pool} isLoading={allStakePools?.isLoading} />
+              ))}
+            </Grid>
           </Box>
         </Paper>
       )}

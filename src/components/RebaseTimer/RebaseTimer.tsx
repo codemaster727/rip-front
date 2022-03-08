@@ -23,7 +23,8 @@ const RebaseTimer: React.FC = () => {
 
   const currentBlock = useAppSelector(state => state.app.currentBlock);
   const secondsToEpoch = useAppSelector(state => state.app.secondsToEpoch);
-
+  console.log(currentBlock);
+  console.log(secondsToEpoch);
   // This initializes secondsToRebase as soon as currentBlock becomes available
   useMemo(() => {
     if (secondsToEpoch && currentBlock) {

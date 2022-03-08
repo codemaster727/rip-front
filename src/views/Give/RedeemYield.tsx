@@ -38,19 +38,19 @@ export default function RedeemYield() {
   const isAppLoading = useSelector((state: any) => state.app.loading);
 
   const donationInfo = useSelector((state: State) => {
-    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSohmEnabled(location.search)
+    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
       ? state.account.mockGiving && state.account.mockGiving.donationInfo
       : state.account.giving && state.account.giving.donationInfo;
   });
 
   const redeemableBalance = useSelector((state: State) => {
-    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSohmEnabled(location.search)
-      ? state.account.mockRedeeming && state.account.mockRedeeming.sohmRedeemable
-      : state.account.redeeming && state.account.redeeming.sohmRedeemable;
+    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
+      ? state.account.mockRedeeming && state.account.mockRedeeming.sripRedeemable
+      : state.account.redeeming && state.account.redeeming.sripRedeemable;
   });
 
   const totalDebt = useSelector((state: State) => {
-    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSohmEnabled(location.search)
+    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
       ? state.account.mockRedeeming && state.account.mockRedeeming.recipientInfo.totalDebt
       : state.account.redeeming && state.account.redeeming.recipientInfo.totalDebt;
   });
@@ -140,7 +140,7 @@ export default function RedeemYield() {
   };
 
   const handleRedeemYieldModalSubmit = async () => {
-    if (networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSohmEnabled(location.search)) {
+    if (networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)) {
       await dispatch(redeemMockBalance({ address, provider, networkID: networkId }));
     } else {
       await dispatch(redeemBalance({ address, provider, networkID: networkId }));
@@ -170,14 +170,14 @@ export default function RedeemYield() {
         />
         <div id="give-view">
           <Zoom in={true}>
-            <Paper className={`ohm-card secondary ${isSmallScreen && "mobile"}`}>
+            <Paper className={`rip-card secondary ${isSmallScreen && "mobile"}`}>
               <div className="card-header">
                 <div className="give-yield-title">
                   <Typography variant="h5">
                     <Trans>Redeem Yield</Trans>
                   </Typography>
                   <InfoTooltip
-                    message={t`If other wallets have directed their sOHM rebases to you, you can transfer that yield into your wallet.`}
+                    message={t`If other wallets have directed their sRIP rebases to you, you can transfer that yield into your wallet.`}
                     children={null}
                   />
                 </div>
@@ -193,18 +193,18 @@ export default function RedeemYield() {
               </div>
               <Box>
                 <DataRow
-                  title={t`Donated sOHM Generating Yield`}
-                  balance={`${getTrimmedBigNumber(totalDeposit)} ${t`sOHM`}`}
+                  title={t`Donated sRIP Generating Yield`}
+                  balance={`${getTrimmedBigNumber(totalDeposit)} ${t`sRIP`}`}
                   isLoading={isRecipientInfoLoading}
                 />
                 <DataRow
                   title={t`Redeemable Amount`}
-                  balance={`${getTrimmedBigNumber(redeemableBalanceNumber)} ${t`sOHM`}`}
+                  balance={`${getTrimmedBigNumber(redeemableBalanceNumber)} ${t`sRIP`}`}
                   isLoading={isRecipientInfoLoading}
                 />
                 <DataRow
                   title={t`Next Reward Amount`}
-                  balance={`${getTrimmedBigNumber(nextRewardValue)} ${t`sOHM`}`}
+                  balance={`${getTrimmedBigNumber(nextRewardValue)} ${t`sRIP`}`}
                   isLoading={isAppLoading}
                 />
                 <DataRow

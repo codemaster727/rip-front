@@ -77,7 +77,7 @@ export const fetchCrossChainBalances = async (address: string) => {
   ).then(arr => arr.reduce((acc, networkBalances) => [...acc, ...networkBalances], []));
 
   return {
-    gohm: addressBalancesByNetwork(Networks, balances, "GOHM_ADDRESS"),
-    wsohm: addressBalancesByNetwork(Networks, balances, "WSOHM_ADDRESS"),
+    grip: addressBalancesByNetwork(Networks, balances, "GRIP_ADDRESS"),
+    wsrip: addressBalancesByNetwork(Networks, balances, "WSRIP_ADDRESS"),
   };
 };

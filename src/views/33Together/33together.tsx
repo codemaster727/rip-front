@@ -48,12 +48,12 @@ const PoolTogether = () => {
   // TODO (appleseed-33T): create a table for AwardHistory
   const [yourAwardHistory, setYourAwardHistory] = useState<Array<AwardItem>>([]);
   const [infoTooltipMessage, setInfoTooltipMessage] = useState<Array<string>>([
-    "Deposit sOHM to win! Once deposited, you will receive a corresponding amount of 33T and be entered to win until your sOHM is withdrawn.",
+    "Deposit sRIP to win! Once deposited, you will receive a corresponding amount of 33T and be entered to win until your sRIP is withdrawn.",
   ]);
   const isAccountLoading = useAppSelector(state => state.account.loading ?? true);
 
-  const sohmBalance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.sohmV1;
+  const sripBalance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.sripV1;
   });
 
   const poolBalance = useAppSelector(state => {
@@ -187,7 +187,7 @@ const PoolTogether = () => {
         graphLoading={graphLoading}
         isAccountLoading={isAccountLoading}
         poolBalance={trimOdds(parseFloat(poolBalance))}
-        sohmBalance={trimOdds(parseFloat(sohmBalance))}
+        sripBalance={trimOdds(parseFloat(sripBalance))}
         yourTotalAwards={trimOdds(yourTotalAwards)}
         yourOdds={trimOdds(yourOdds)}
         winners={winners}

@@ -27,7 +27,7 @@ export default function DepositYield() {
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   const totalDebt = useSelector((state: State) => {
-    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSohmEnabled(location.search)
+    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
       ? state.account.mockRedeeming && state.account.mockRedeeming.recipientInfo.totalDebt
       : state.account.redeeming && state.account.redeeming.recipientInfo.totalDebt;
   });
@@ -50,14 +50,14 @@ export default function DepositYield() {
         />
         <div id="give-view">
           <Zoom in={true}>
-            <Paper className={`ohm-card secondary ${isSmallScreen && "mobile"}`}>
+            <Paper className={`rip-card secondary ${isSmallScreen && "mobile"}`}>
               <div className="card-header">
                 <div className="give-yield-title">
                   <Typography variant="h5">
                     <Trans>My Donations</Trans>
                   </Typography>
                   <InfoTooltip
-                    message={t`Direct yield from your deposited sOHM to other recipients. Your sOHM is deposited in a vault, but you can withdraw it or change the deposited amount at any time.`}
+                    message={t`Direct yield from your deposited sRIP to other recipients. Your sRIP is deposited in a vault, but you can withdraw it or change the deposited amount at any time.`}
                     children={null}
                   />
                 </div>

@@ -68,7 +68,7 @@ function ClaimBonds({ activeNotes }: { activeNotes: IUserNote[] }) {
   const totalClaimable = view === 1 ? total : total * +currentIndex;
 
   const onRedeemAll = () => {
-    dispatch(claimAllNotes({ address, provider, networkID: networkId, gOHM: view === 1 }));
+    dispatch(claimAllNotes({ address, provider, networkID: networkId, gRIP: view === 1 }));
   };
 
   return (
@@ -93,8 +93,8 @@ function ClaimBonds({ activeNotes }: { activeNotes: IUserNote[] }) {
               aria-label="payout token tabs"
               className="payout-token-tabs"
             >
-              <Tab aria-label="payout-sohm-button" label="sOHM" className="payout-token-tab" />
-              <Tab aria-label="payout-sohm-button" label="gOHM" className="payout-token-tab" />
+              <Tab aria-label="payout-srip-button" label="sRIP" className="payout-token-tab" />
+              <Tab aria-label="payout-srip-button" label="gRIP" className="payout-token-tab" />
             </Tabs>
           </Box>
 
@@ -113,7 +113,7 @@ function ClaimBonds({ activeNotes }: { activeNotes: IUserNote[] }) {
                         Claimable Balance
                       </Typography>
                       <Typography variant="h4" align="center" style={{ marginBottom: "10px" }}>
-                        {view === 0 ? `${trim(totalClaimable, 4)} sOHM` : `${trim(totalClaimable, 4)} gOHM`}
+                        {view === 0 ? `${trim(totalClaimable, 4)} sRIP` : `${trim(totalClaimable, 4)} gRIP`}
                       </Typography>
 
                       <PrimaryButton
@@ -132,7 +132,7 @@ function ClaimBonds({ activeNotes }: { activeNotes: IUserNote[] }) {
                       <AccordionSection
                         bonds={fullyVestedBonds}
                         title="Fully Vested Bonds"
-                        gOHM={view === 1}
+                        gRIP={view === 1}
                         vested={true}
                         isSmallScreen={isSmallScreen}
                       />
@@ -141,7 +141,7 @@ function ClaimBonds({ activeNotes }: { activeNotes: IUserNote[] }) {
                       <AccordionSection
                         bonds={vestingBonds}
                         title="Vesting Bonds"
-                        gOHM={view === 1}
+                        gRIP={view === 1}
                         vested={false}
                         isSmallScreen={isSmallScreen}
                       />
@@ -177,7 +177,7 @@ function ClaimBonds({ activeNotes }: { activeNotes: IUserNote[] }) {
                     Claimable Balance
                   </Typography>
                   <Typography variant="h4" align="center" style={{ marginBottom: "10px" }}>
-                    {view === 0 ? `${trim(totalClaimable, 4)} sOHM` : `${trim(totalClaimable, 4)} gOHM`}
+                    {view === 0 ? `${trim(totalClaimable, 4)} sRIP` : `${trim(totalClaimable, 4)} gRIP`}
                   </Typography>
 
                   <PrimaryButton
@@ -196,7 +196,7 @@ function ClaimBonds({ activeNotes }: { activeNotes: IUserNote[] }) {
                   <AccordionSection
                     bonds={fullyVestedBonds}
                     title="Fully Vested Bonds"
-                    gOHM={view === 1}
+                    gRIP={view === 1}
                     vested={true}
                     isSmallScreen={isSmallScreen}
                   />
@@ -205,7 +205,7 @@ function ClaimBonds({ activeNotes }: { activeNotes: IUserNote[] }) {
                   <AccordionSection
                     bonds={vestingBonds}
                     title="Vesting Bonds"
-                    gOHM={view === 1}
+                    gRIP={view === 1}
                     vested={false}
                     isSmallScreen={isSmallScreen}
                   />

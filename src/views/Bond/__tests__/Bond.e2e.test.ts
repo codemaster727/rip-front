@@ -31,7 +31,7 @@ describe.skip("Bond E2E Tests", () => {
   });
 
   it("cannot bond without connected wallet", async () => {
-    const selector = await page.waitForSelector("#ohm_lusd_lp--bond");
+    const selector = await page.waitForSelector("#rip_lusd_lp--bond");
     await selector?.$eval("button", i => console.log(i));
 
     fail();

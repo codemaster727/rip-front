@@ -158,13 +158,13 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                     <em>
                       <Typography variant="body1" align="center" color="textSecondary">
                         <Trans>First time bonding</Trans> <b>{bond.displayName}</b>? <br />{" "}
-                        <Trans>Please approve Olympus Dao to use your</Trans> <b>{bond.displayName}</b>{" "}
+                        <Trans>Please approve RIPProtocol Dao to use your</Trans> <b>{bond.displayName}</b>{" "}
                         <Trans>for bonding</Trans>.
                       </Typography>
                     </em>
                   </div>
                 ) : (
-                  <FormControl className="ohm-input" variant="outlined" color="primary" fullWidth>
+                  <FormControl className="rip-input" variant="outlined" color="primary" fullWidth>
                     <InputLabel htmlFor="outlined-adornment-amount">
                       <Trans>Amount</Trans>
                     </InputLabel>

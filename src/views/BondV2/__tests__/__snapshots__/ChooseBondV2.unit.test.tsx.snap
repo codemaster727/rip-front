@@ -79,7 +79,7 @@ exports[`<ChooseBondV2/> should render component 1`] = `
                     <h5
                       class="MuiTypography-root MuiTypography-h5 MuiTypography-colorTextSecondary"
                     >
-                      OHM Price
+                      RIP Price
                     </h5>
                     <h4
                       class="MuiTypography-root MuiTypography-h4"
@@ -111,7 +111,7 @@ exports[`<ChooseBondV2/> should render component 1`] = `
               <p
                 class="MuiTypography-root MuiTypography-body2"
               >
-                Important: New bonds are auto-staked (accrue rebase rewards) and no longer vest linearly. Simply claim as sOHM or gOHM at the end of the term.
+                Important: New bonds are auto-staked (accrue rebase rewards) and no longer vest linearly. Simply claim as sRIP or gRIP at the end of the term.
               </p>
             </em>
           </div>

@@ -6,53 +6,57 @@ import axios from "axios";
 import { ethers } from "ethers";
 import { IBondV2 } from "src/slices/BondSliceV2";
 import { IBaseAsyncThunk } from "src/slices/interfaces";
-import { GOHM__factory } from "src/typechain/factories/GOHM__factory";
+import { GRIP__factory } from "src/typechain/factories/GRIP__factory";
 
-import { abi as PairContractABI } from "../abi/PairContract.json";
+// import { abi as PairContractABI } from "../abi/PairContract.json";
 import { abi as RedeemHelperABI } from "../abi/RedeemHelper.json";
-import { ReactComponent as OhmImg } from "../assets/tokens/token_OHM.svg";
-import { ReactComponent as SOhmImg } from "../assets/tokens/token_sOHM.svg";
+import { ReactComponent as RipImg } from "../assets/tokens/token_RIP.svg";
+import { ReactComponent as SRipImg } from "../assets/tokens/token_sRIP.svg";
 import { addresses, BLOCK_RATE_SECONDS, EPOCH_INTERVAL, NetworkId } from "../constants";
-import { PairContract, RedeemHelper } from "../typechain";
-import { ohm_dai, ohm_daiOld, ohm_weth } from "./AllBonds";
+import { RedeemHelper } from "../typechain";
+// import { rip_dai, rip_daiOld, rip_weth } from "./AllBonds";
 import { EnvHelper } from "./Environment";
 import { NodeHelper } from "./NodeHelper";
 
 /**
- * gets marketPrice from Ohm-DAI v2
+ * gets marketPrice from Rip-DAI v2
  * @returns Number like 333.33
  */
 export async function getMarketPrice() {
+  return 0;
   const mainnetProvider = NodeHelper.getMainnetStaticProvider();
   // v2 price
-  const ohm_dai_address = ohm_dai.getAddressForReserve(NetworkId.MAINNET);
-  const pairContract = new ethers.Contract(ohm_dai_address || "", PairContractABI, mainnetProvider) as PairContract;
-  const reserves = await pairContract.getReserves();
+  // const rip_dai_address = rip_dai.getAddressForReserve(NetworkId.MAINNET);
+  // const pairContract = new ethers.Contract(rip_dai_address || "", PairContractABI, mainnetProvider) as PairContract;
+  // const reserves = await pairContract.getReserves();
 
-  return Number(reserves[1].toString()) / Number(reserves[0].toString()) / 10 ** 9;
+  // return Number(reserves[1].toString()) / Number(reserves[0].toString()) / 10 ** 9;
 }
 
 export async function getMarketPriceFromWeth() {
+  return 0;
   const mainnetProvider = NodeHelper.getMainnetStaticProvider();
   // v2 price
-  const ohm_weth_address = ohm_weth.getAddressForReserve(NetworkId.MAINNET);
-  const wethBondContract = ohm_weth.getContractForBond(NetworkId.MAINNET, mainnetProvider);
-  const pairContract = new ethers.Contract(ohm_weth_address || "", PairContractABI, mainnetProvider) as PairContract;
-  const reserves = await pairContract.getReserves();
+  // const rip_weth_address = rip_weth.getAddressForReserve(NetworkId.MAINNET);
+  // const wethBondContract = rip_weth.getContractForBond(NetworkId.MAINNET, mainnetProvider);
+  // const pairContract = new ethers.Contract(rip_weth_address || "", PairContractABI, mainnetProvider) as PairContract;
+  // const reserves = await pairContract.getReserves();
 
-  // since we're using OHM/WETH... also need to multiply by weth price;
-  const wethPriceBN: BigNumber = await wethBondContract.assetPrice();
-  const wethPrice = Number(wethPriceBN.toString()) / Math.pow(10, 8);
-  return (Number(reserves[1].toString()) / Number(reserves[0].toString()) / 10 ** 9) * wethPrice;
+  // // since we're using RIP/WETH... also need to multiply by weth price;
+
+  // const wethPriceBN: BigNumber = await wethBondContract.assetPrice();
+  // const wethPrice = Number(wethPriceBN.toString()) / Math.pow(10, 8);
+  // return (Number(reserves[1].toString()) / Number(reserves[0].toString()) / 10 ** 9) * wethPrice;
 }
 
 export async function getV1MarketPrice() {
+  return 0;
   const mainnetProvider = NodeHelper.getMainnetStaticProvider();
   // v1 price
-  const ohm_dai_address = ohm_daiOld.getAddressForReserve(NetworkId.MAINNET);
-  const pairContract = new ethers.Contract(ohm_dai_address || "", PairContractABI, mainnetProvider) as PairContract;
-  const reserves = await pairContract.getReserves();
-  return Number(reserves[1].toString()) / Number(reserves[0].toString()) / 10 ** 9;
+  // const rip_dai_address = rip_daiOld.getAddressForReserve(NetworkId.MAINNET);
+  // const pairContract = new ethers.Contract(rip_dai_address || "", PairContractABI, mainnetProvider) as PairContract;
+  // const reserves = await pairContract.getReserves();
+  // return Number(reserves[1].toString()) / Number(reserves[0].toString()) / 10 ** 9;
 }
 
 /**
@@ -64,12 +68,12 @@ export async function getTokenPrice(tokenId = "olympus"): Promise<number> {
   let tokenPrice = 0;
   const priceApiURL = "https://api.olympusdao.finance/api/rest/coingecko_name";
   try {
-    const ohmResp = (await axios.get(`${priceApiURL}/${tokenId}`)) as {
+    const ripResp = (await axios.get(`${priceApiURL}/${tokenId}`)) as {
       data: { coingeckoTicker: { value: number } };
     };
-    tokenPrice = ohmResp.data.coingeckoTicker.value;
+    tokenPrice = ripResp.data.coingeckoTicker.value;
   } catch (e) {
-    console.warn(`Error accessing OHM API ${priceApiURL} . Falling back to coingecko API`, e);
+    console.warn(`Error accessing RIP API ${priceApiURL} . Falling back to coingecko API`, e);
     // fallback to coingecko
     const cgResp = (await axios.get(
       `https://api.coingecko.com/api/v3/simple/price?ids=${tokenId}&vs_currencies=usd`,
@@ -134,7 +138,7 @@ export function shortenString(str: string, length: number) {
 }
 
 export function formatCurrency(c: number, precision = 0, currency = "USD") {
-  if (currency === "OHM") return `${trim(c, precision)} Ω`;
+  if (currency === "RIP") return `${trim(c, precision)} Ω`;
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency,
@@ -203,19 +207,19 @@ export function prettifySeconds(seconds: number, resolution?: string) {
   return result;
 }
 
-function getSohmTokenImage() {
-  return <SvgIcon component={SOhmImg} viewBox="0 0 100 100" style={{ height: "1rem", width: "1rem" }} />;
+function getSripTokenImage() {
+  return <SvgIcon component={SRipImg} viewBox="0 0 100 100" style={{ height: "1rem", width: "1rem" }} />;
 }
 
-export function getOhmTokenImage(w?: number, h?: number) {
+export function getRipTokenImage(w?: number, h?: number) {
   const height = h == null ? "32px" : `${h}px`;
   const width = w == null ? "32px" : `${w}px`;
-  return <SvgIcon component={OhmImg} viewBox="0 0 32 32" style={{ height, width }} />;
+  return <SvgIcon component={RipImg} viewBox="0 0 32 32" style={{ height, width }} />;
 }
 
 export function getTokenImage(name: string) {
-  if (name === "ohm") return getOhmTokenImage();
-  if (name === "sohm") return getSohmTokenImage();
+  if (name === "rip") return getRipTokenImage();
+  if (name === "srip") return getSripTokenImage();
 }
 
 // TS-REFACTOR-NOTE - Used for:
@@ -293,18 +297,18 @@ export function assert(value: unknown, message: string | Error): asserts value {
 }
 
 /**
- * Converts gOHM to OHM. Mimics `balanceFrom()` gOHM contract function.
- * @returns Formatted string representation of OHM equivalent.
+ * Converts gRIP to RIP. Mimics `balanceFrom()` gRIP contract function.
+ * @returns Formatted string representation of RIP equivalent.
  */
-export const convertGohmToOhm = (amount: BigNumber, index: BigNumber): string => {
+export const convertGripToRip = (amount: BigNumber, index: BigNumber): string => {
   return formatUnits(amount.div(10 ** 9).mul(index), 36);
 };
 
 /**
- * Converts OHM to gOHM. Mimics `balanceTo()` gOHM contract function.
- * @returns Formatted string representation of gOHM equivalent.
+ * Converts RIP to gRIP. Mimics `balanceTo()` gRIP contract function.
+ * @returns Formatted string representation of gRIP equivalent.
  */
-export const convertOhmToGohm = (amount: BigNumber, index: BigNumber): string => {
+export const convertRipToGrip = (amount: BigNumber, index: BigNumber): string => {
   return formatUnits(amount.mul(10 ** 9).div(index), 18);
 };
 
@@ -313,11 +317,11 @@ export const parseBigNumber = (value: BigNumber, units: BigNumberish = 9) => {
 };
 
 interface ICheckBalance extends IBaseAsyncThunk {
-  readonly sOHMbalance: string;
+  readonly sRIPbalance: string;
 }
 
-export const getGohmBalFromSohm = async ({ provider, networkID, sOHMbalance }: ICheckBalance) => {
-  const gOhmContract = GOHM__factory.connect(addresses[networkID].GOHM_ADDRESS, provider);
-  const formattedGohmBal = await gOhmContract.balanceTo(ethers.utils.parseUnits(sOHMbalance, "gwei").toString());
-  return ethers.utils.formatEther(formattedGohmBal);
+export const getGripBalFromSrip = async ({ provider, networkID, sRIPbalance }: ICheckBalance) => {
+  const gRipContract = GRIP__factory.connect(addresses[networkID].GRIP_ADDRESS, provider);
+  const formattedGripBal = await gRipContract.balanceTo(ethers.utils.parseUnits(sRIPbalance, "gwei").toString());
+  return ethers.utils.formatEther(formattedGripBal);
 };

@@ -15,14 +15,14 @@ import { isPendingTxn, txnButtonTextMultiType } from "src/slices/PendingTxnsSlic
 import { NETWORKS } from "../../constants";
 import { formatCurrency, trim } from "../../helpers";
 import { switchNetwork } from "../../helpers/NetworkHelper";
-import { changeMigrationApproval, migrateCrossChainWSOHM } from "../../slices/MigrateThunk";
+import { changeMigrationApproval, migrateCrossChainWSRIP } from "../../slices/MigrateThunk";
 
 function WrapCrossChain() {
   const dispatch = useDispatch();
   const { provider, address, networkId, networkName, connect } = useWeb3Context();
   const [quantity, setQuantity] = useState("");
-  const assetFrom = "wsOHM";
-  const assetTo = "gOHM";
+  const assetFrom = "wsRIP";
+  const assetTo = "gRIP";
 
   const isAppLoading = useAppSelector(state => state.app.loading || state.account.loading);
   const currentIndex =
@@ -35,27 +35,27 @@ function WrapCrossChain() {
       return state.app.marketPrice;
     }) ?? 0;
 
-  const sOhmPrice = marketPrice;
+  const sRipPrice = marketPrice;
 
-  const gOhmPrice = marketPrice * currentIndex;
+  const gRipPrice = marketPrice * currentIndex;
 
-  const gohmBalance = useAppSelector(state => {
-    return state.account.balances && Number(state.account.balances.gohm);
+  const gripBalance = useAppSelector(state => {
+    return state.account.balances && Number(state.account.balances.grip);
   });
 
-  const wsOhmAllowance = useAppSelector(state => state.account.migration.wsohm);
-  const wsOhmBalance = useAppSelector(state => Number(state.account.balances.wsohm));
+  const wsRipAllowance = useAppSelector(state => state.account.migration.wsrip);
+  const wsRipBalance = useAppSelector(state => Number(state.account.balances.wsrip));
 
   const pendingTransactions = useAppSelector(state => {
     return state.pendingTransactions;
   });
 
-  const ethereum = NETWORKS[1];
+  const ethereum = NETWORKS[97];
 
   const wrapButtonText = "Migrate";
 
   const setMax = () => {
-    setQuantity(wsOhmBalance.toString());
+    setQuantity(wsRipBalance.toString());
   };
 
   const handleSwitchChain = (id: any) => {
@@ -65,14 +65,14 @@ function WrapCrossChain() {
   };
 
   const hasCorrectAllowance = useCallback(() => {
-    return wsOhmAllowance > wsOhmBalance;
-  }, [wsOhmBalance, wsOhmAllowance]);
+    return wsRipAllowance > wsRipBalance;
+  }, [wsRipBalance, wsRipAllowance]);
 
   const isDataLoading = useAppSelector(state => state.account.loading);
 
-  const migrateToGohm = () =>
+  const migrateToGrip = () =>
     dispatch(
-      migrateCrossChainWSOHM({
+      migrateCrossChainWSRIP({
         provider,
         address,
         networkID: networkId,
@@ -83,8 +83,8 @@ function WrapCrossChain() {
   const approveWrap = () => {
     dispatch(
       changeMigrationApproval({
-        token: "wsohm",
-        displayName: "wsOHM",
+        token: "wsrip",
+        displayName: "wsRIP",
         insertName: true,
         address,
         networkID: networkId,
@@ -95,12 +95,12 @@ function WrapCrossChain() {
 
   const chooseInputArea = () => {
     if (!address || isAppLoading) return <Skeleton width="80%" />;
-    if (!hasCorrectAllowance() && assetTo === "gOHM")
+    if (!hasCorrectAllowance() && assetTo === "gRIP")
       return (
         <div className="no-input-visible">
-          First time wrapping to <b>gOHM</b>?
+          First time wrapping to <b>gRIP</b>?
           <br />
-          Please approve Olympus to use your <b>{assetFrom}</b> for this transaction.
+          Please approve RIPProtocol to use your <b>{assetFrom}</b> for this transaction.
         </div>
       );
 
@@ -115,7 +115,7 @@ function WrapCrossChain() {
         endString={t`Max`}
         endStringOnClick={setMax}
         disabled={isPendingTxn(pendingTransactions, "wrapping") || isPendingTxn(pendingTransactions, "migrate")}
-        buttonOnClick={migrateToGohm}
+        buttonOnClick={migrateToGrip}
         buttonText={txnButtonTextMultiType(pendingTransactions, ["wrapping", "migrate"], wrapButtonText)}
       />
     );
@@ -147,13 +147,13 @@ function WrapCrossChain() {
           headerText={t`Wrap / Unwrap`}
           topRight={
             <Link
-              className="migrate-sohm-button"
+              className="migrate-srip-button"
               style={{ textDecoration: "none" }}
-              href={"https://docs.olympusdao.finance/main/contracts/tokens#gohm"}
-              aria-label="wsohm-wut"
+              href={"https://docs.olympusdao.finance/main/contracts/tokens#grip"}
+              aria-label="wsrip-wut"
               target="_blank"
             >
-              <Typography>gOHM</Typography> <Icon name="arrow-up" style={{ marginLeft: "5px" }} />
+              <Typography>gRIP</Typography> <Icon name="arrow-up" style={{ marginLeft: "5px" }} />
             </Link>
           }
         >
@@ -161,20 +161,20 @@ function WrapCrossChain() {
             <Grid item>
               <MetricCollection>
                 <Metric
-                  label={`sOHM ${t`Price`}`}
-                  metric={formatCurrency(sOhmPrice, 2)}
-                  isLoading={sOhmPrice ? false : true}
+                  label={`sRIP ${t`Price`}`}
+                  metric={formatCurrency(sRipPrice, 2)}
+                  isLoading={sRipPrice ? false : true}
                 />
                 <Metric
                   label={t`Current Index`}
-                  metric={`${trim(currentIndex, 1)} OHM`}
+                  metric={`${trim(currentIndex, 1)} RIP`}
                   isLoading={currentIndex ? false : true}
                 />
                 <Metric
                   label={`${assetTo} Price`}
-                  metric={formatCurrency(gOhmPrice, 2)}
-                  isLoading={gOhmPrice ? false : true}
-                  tooltip={`${assetTo} = sOHM * index\n\nThe price of ${assetTo} is equal to the price of OHM multiplied by the current index`}
+                  metric={formatCurrency(gRipPrice, 2)}
+                  isLoading={gRipPrice ? false : true}
+                  tooltip={`${assetTo} = sRIP * index\n\nThe price of ${assetTo} is equal to the price of RIP multiplied by the current index`}
                 />
               </MetricCollection>
             </Grid>
@@ -193,7 +193,7 @@ function WrapCrossChain() {
                     <Box style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
                       <Box height="32px">
                         <Typography>
-                          Transform <b>wsOHM</b> to <b>gOHM</b>
+                          Transform <b>wsRIP</b> to <b>gRIP</b>
                         </Typography>
                       </Box>
                     </Box>
@@ -206,13 +206,13 @@ function WrapCrossChain() {
                   </Box>
                   <div className={`stake-user-data`}>
                     <DataRow
-                      title={`${t`wsOHM Balance`} (${networkName})`}
-                      balance={`${trim(wsOhmBalance, 4)} wsOHM`}
+                      title={`${t`wsRIP Balance`} (${networkName})`}
+                      balance={`${trim(wsRipBalance, 4)} wsRIP`}
                       isLoading={isAppLoading}
                     />
                     <DataRow
-                      title={`${t`gOHM Balance`} (${networkName})`}
-                      balance={`${trim(gohmBalance, 4)} gOHM`}
+                      title={`${t`gRIP Balance`} (${networkName})`}
+                      balance={`${trim(gripBalance, 4)} gRIP`}
                       isLoading={isAppLoading}
                     />
                     <Divider />

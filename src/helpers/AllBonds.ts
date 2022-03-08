@@ -4,15 +4,15 @@ import { abi as DaiBondContract } from "src/abi/bonds/DaiContract.json";
 import { abi as EthBondContract } from "src/abi/bonds/EthContract.json";
 import { abi as FraxBondContract } from "src/abi/bonds/FraxContract.json";
 import { abi as LusdBondContract } from "src/abi/bonds/LusdContract.json";
-import { abi as BondOhmDaiContract } from "src/abi/bonds/OhmDaiContract.json";
-import { abi as BondOhmEthContract } from "src/abi/bonds/OhmEthContract.json";
-import { abi as FraxOhmBondContract } from "src/abi/bonds/OhmFraxContract.json";
-import { abi as BondOhmLusdContract } from "src/abi/bonds/OhmLusdContract.json";
+import { abi as BondRipDaiContract } from "src/abi/bonds/RipDaiContract.json";
+import { abi as BondRipEthContract } from "src/abi/bonds/RipEthContract.json";
+import { abi as FraxRipBondContract } from "src/abi/bonds/RipFraxContract.json";
+import { abi as BondRipLusdContract } from "src/abi/bonds/RipLusdContract.json";
 import { abi as ierc20Abi } from "src/abi/IERC20.json";
-import { abi as ReserveOhmDaiContract } from "src/abi/reserves/OhmDai.json";
-import { abi as ReserveOhmEthContract } from "src/abi/reserves/OhmEth.json";
-import { abi as ReserveOhmFraxContract } from "src/abi/reserves/OhmFrax.json";
-import { abi as ReserveOhmLusdContract } from "src/abi/reserves/OhmLusd.json";
+import { abi as ReserveRipDaiContract } from "src/abi/reserves/RipDai.json";
+import { abi as ReserveRipEthContract } from "src/abi/reserves/RipEth.json";
+import { abi as ReserveRipFraxContract } from "src/abi/reserves/RipFrax.json";
+import { abi as ReserveRipLusdContract } from "src/abi/reserves/RipLusd.json";
 import { addresses, NetworkId } from "src/constants";
 import { getTokenPrice } from "src/helpers";
 import { getBondCalculator } from "src/helpers/BondCalculator";
@@ -24,7 +24,7 @@ export const dai = new StableBond({
   name: "dai",
   displayName: "DAI",
   bondToken: "DAI",
-  payoutToken: "OHM",
+  payoutToken: "RIP",
   v2Bond: false,
   bondIconSvg: ["DAI"],
   bondContractABI: DaiBondContract,
@@ -66,6 +66,14 @@ export const dai = new StableBond({
       bondAddress: "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
       reserveAddress: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
     },
+    [NetworkId.BSC]: {
+      bondAddress: "",
+      reserveAddress: "",
+    },
+    [NetworkId.BSC_TEST]: {
+      bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
+      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+    },
   },
 });
 
@@ -73,7 +81,7 @@ export const fraxOld = new StableBond({
   name: "frax-old",
   displayName: "FRAX OLD",
   bondToken: "FRAX",
-  payoutToken: "OHM",
+  payoutToken: "RIP",
   v2Bond: false,
   bondIconSvg: ["FRAX"],
   bondContractABI: FraxBondContract,
@@ -111,6 +119,14 @@ export const fraxOld = new StableBond({
       bondAddress: "0xF651283543fB9D61A91f318b78385d187D300738",
       reserveAddress: "0x2F7249cb599139e560f0c81c269Ab9b04799E453",
     },
+    [NetworkId.BSC]: {
+      bondAddress: "",
+      reserveAddress: "",
+    },
+    [NetworkId.BSC_TEST]: {
+      bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
+      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+    },
   },
 });
 
@@ -118,7 +134,7 @@ export const frax = new StableBond({
   name: "frax",
   displayName: "FRAX",
   bondToken: "FRAX",
-  payoutToken: "OHM",
+  payoutToken: "RIP",
   v2Bond: true,
   bondIconSvg: ["FRAX"],
   bondContractABI: FraxBondContract,
@@ -160,6 +176,14 @@ export const frax = new StableBond({
       bondAddress: "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
       reserveAddress: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
     },
+    [NetworkId.BSC]: {
+      bondAddress: "",
+      reserveAddress: "",
+    },
+    [NetworkId.BSC_TEST]: {
+      bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
+      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+    },
   },
 });
 
@@ -167,7 +191,7 @@ export const lusd = new StableBond({
   name: "lusd",
   displayName: "LUSD",
   bondToken: "LUSD",
-  payoutToken: "OHM",
+  payoutToken: "RIP",
   v2Bond: false,
   bondIconSvg: ["LUSD"],
   bondContractABI: LusdBondContract,
@@ -210,6 +234,14 @@ export const lusd = new StableBond({
       bondAddress: "0x3aD02C4E4D1234590E87A1f9a73B8E0fd8CF8CCa",
       reserveAddress: "0x45754dF05AA6305114004358eCf8D04FF3B84e26",
     },
+    [NetworkId.BSC]: {
+      bondAddress: "",
+      reserveAddress: "",
+    },
+    [NetworkId.BSC_TEST]: {
+      bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
+      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+    },
   },
 });
 
@@ -219,7 +251,7 @@ export const eth = new CustomBond({
   lpUrl: "",
   bondType: BondType.StableAsset,
   bondToken: "wETH",
-  payoutToken: "OHM",
+  payoutToken: "RIP",
   v2Bond: false,
   bondIconSvg: ["wETH"],
   bondContractABI: EthBondContract,
@@ -263,9 +295,18 @@ export const eth = new CustomBond({
       bondAddress: "0xca7b90f8158A4FAA606952c023596EE6d322bcf0",
       reserveAddress: "0xc778417e063141139fce010982780140aa0cd5ab",
     },
+    [NetworkId.BSC]: {
+      bondAddress: "",
+      reserveAddress: "",
+    },
+    [NetworkId.BSC_TEST]: {
+      bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
+      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+    },
   },
   customTreasuryBalanceFunc: async function (this: CustomBond, NetworkId, provider) {
     const ethBondContract = this.getContractForBond(NetworkId, provider);
+    if (!ethBondContract) return 0;
     let ethPrice: BigNumberish = await ethBondContract.assetPrice();
     ethPrice = Number(ethPrice.toString()) / Math.pow(10, 8);
     const token = this.getContractForReserve(NetworkId, provider);
@@ -281,7 +322,7 @@ export const cvx = new CustomBond({
   lpUrl: "",
   bondType: BondType.StableAsset,
   bondToken: "CVX",
-  payoutToken: "OHM",
+  payoutToken: "RIP",
   v2Bond: false,
   bondIconSvg: ["CVX"],
   bondContractABI: CvxBondContract,
@@ -321,6 +362,14 @@ export const cvx = new CustomBond({
       reserveAddress: "0xB2180448f8945C8Cc8AE9809E67D6bd27d8B2f2C", // using DAI per `principal` address
       // reserveAddress: "0x6761Cb314E39082e08e1e697eEa23B6D1A77A34b", // guessed
     },
+    [NetworkId.BSC]: {
+      bondAddress: "",
+      reserveAddress: "",
+    },
+    [NetworkId.BSC_TEST]: {
+      bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
+      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+    },
   },
   customTreasuryBalanceFunc: async function (this: CustomBond, NetworkId, provider) {
     const cvxPrice: number = await getTokenPrice("convex-finance");
@@ -338,7 +387,7 @@ export const cvx_expired = new CustomBond({
   lpUrl: "",
   bondType: BondType.StableAsset,
   bondToken: "CVX",
-  payoutToken: "OHM",
+  payoutToken: "RIP",
   v2Bond: false,
   bondIconSvg: ["CVX"],
   bondContractABI: CvxBondContract,
@@ -383,6 +432,14 @@ export const cvx_expired = new CustomBond({
       bondAddress: "0xcF449dA417cC36009a1C6FbA78918c31594B9377",
       reserveAddress: "0x8D5a22Fb6A1840da602E56D1a260E56770e0bCE2",
     },
+    [NetworkId.BSC]: {
+      bondAddress: "",
+      reserveAddress: "",
+    },
+    [NetworkId.BSC_TEST]: {
+      bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
+      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+    },
   },
   customTreasuryBalanceFunc: async function (this: CustomBond, NetworkId, provider) {
     const cvxPrice: number = await getTokenPrice("convex-finance");
@@ -393,15 +450,15 @@ export const cvx_expired = new CustomBond({
   },
 });
 
-export const ohm_dai = new LPBond({
-  name: "ohm_dai_lp",
-  displayName: "OHM-DAI LP",
+export const rip_dai = new LPBond({
+  name: "rip_dai_lp",
+  displayName: "RIP-DAI LP",
   bondToken: "DAI",
-  payoutToken: "OHM",
+  payoutToken: "RIP",
   v2Bond: true,
   bondIconSvg: ["OHM", "DAI"],
-  bondContractABI: BondOhmDaiContract,
-  reserveContract: ReserveOhmDaiContract,
+  bondContractABI: BondRipDaiContract,
+  reserveContract: ReserveRipDaiContract,
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -428,29 +485,42 @@ export const ohm_dai = new LPBond({
     [NetworkId.AVALANCHE_TESTNET]: false,
   },
   networkAddrs: {
-    [NetworkId.MAINNET]: {
-      // TODO: add correct bond address when it's created
-      bondAddress: "0x956c43998316b6a2F21f89a1539f73fB5B78c151",
-      reserveAddress: "0x055475920a8c93CfFb64d039A8205F7AcC7722d3",
-    },
+    // [NetworkId.MAINNET]: {
+    //   // TODO: add correct bond address when it's created
+    //   bondAddress: "0x956c43998316b6a2F21f89a1539f73fB5B78c151",
+    //   reserveAddress: "0x055475920a8c93CfFb64d039A8205F7AcC7722d3",
+    // },
     [NetworkId.TESTNET_RINKEBY]: {
       bondAddress: "0xcF449dA417cC36009a1C6FbA78918c31594B9377",
       reserveAddress: "0x8D5a22Fb6A1840da602E56D1a260E56770e0bCE2",
+    },
+    [NetworkId.MAINNET]: {
+      // TODO: add correct bond address when it's created
+      bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
+      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+    },
+    [NetworkId.BSC]: {
+      bondAddress: "",
+      reserveAddress: "",
+    },
+    [NetworkId.BSC_TEST]: {
+      bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
+      reserveAddress: "0xfbC540ebB2AD331486d35E28331aA95A5c9ff0C3",
     },
   },
   lpUrl:
     "https://app.sushi.com/add/0x64aa3364f17a4d01c6f1751fd97c2bd3d7e7f1d5/0x6b175474e89094c44da98b954eedeac495271d0f",
 });
 
-export const ohm_daiOld = new LPBond({
-  name: "ohm_dai_lp_old",
-  displayName: "OHM-DAI LP OLD",
+export const rip_daiOld = new LPBond({
+  name: "rip_dai_lp_old",
+  displayName: "RIP-DAI LP OLD",
   bondToken: "DAI",
-  payoutToken: "OHM",
+  payoutToken: "RIP",
   v2Bond: false,
   bondIconSvg: ["OHM", "DAI"],
-  bondContractABI: BondOhmDaiContract,
-  reserveContract: ReserveOhmDaiContract,
+  bondContractABI: BondRipDaiContract,
+  reserveContract: ReserveRipDaiContract,
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -490,20 +560,28 @@ export const ohm_daiOld = new LPBond({
       bondAddress: "0xcF449dA417cC36009a1C6FbA78918c31594B9377",
       reserveAddress: "0x8D5a22Fb6A1840da602E56D1a260E56770e0bCE2",
     },
+    [NetworkId.BSC]: {
+      bondAddress: "",
+      reserveAddress: "",
+    },
+    [NetworkId.BSC_TEST]: {
+      bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
+      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+    },
   },
   lpUrl:
     "https://app.sushi.com/add/0x383518188c0c6d7730d91b2c03a03c837814a899/0x6b175474e89094c44da98b954eedeac495271d0f",
 });
 
-export const ohm_frax = new LPBond({
-  name: "ohm_frax_lp",
-  displayName: "OHM-FRAX LP",
+export const rip_frax = new LPBond({
+  name: "rip_frax_lp",
+  displayName: "RIP-FRAX LP",
   bondToken: "FRAX",
-  payoutToken: "OHM",
+  payoutToken: "RIP",
   v2Bond: true,
   bondIconSvg: ["OHM", "FRAX"],
-  bondContractABI: FraxOhmBondContract,
-  reserveContract: ReserveOhmFraxContract,
+  bondContractABI: FraxRipBondContract,
+  reserveContract: ReserveRipFraxContract,
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -538,20 +616,28 @@ export const ohm_frax = new LPBond({
       bondAddress: "0x7BB53Ef5088AEF2Bb073D9C01DCa3a1D484FD1d2",
       reserveAddress: "0x11BE404d7853BDE29A3e73237c952EcDCbBA031E",
     },
+    [NetworkId.BSC]: {
+      bondAddress: "",
+      reserveAddress: "",
+    },
+    [NetworkId.BSC_TEST]: {
+      bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
+      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+    },
   },
   lpUrl:
     "https://app.uniswap.org/#/add/v2/0x64aa3364f17a4d01c6f1751fd97c2bd3d7e7f1d5/0x853d955acef822db058eb8505911ed77f175b99e",
 });
 
-export const ohm_fraxOld = new LPBond({
-  name: "ohm_frax_lp_old",
-  displayName: "OHM-FRAX LP OLD",
+export const rip_fraxOld = new LPBond({
+  name: "rip_frax_lp_old",
+  displayName: "RIP-FRAX LP OLD",
   bondToken: "FRAX",
-  payoutToken: "OHM",
+  payoutToken: "RIP",
   v2Bond: false,
   bondIconSvg: ["OHM", "FRAX"],
-  bondContractABI: FraxOhmBondContract,
-  reserveContract: ReserveOhmFraxContract,
+  bondContractABI: FraxRipBondContract,
+  reserveContract: ReserveRipFraxContract,
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -591,20 +677,28 @@ export const ohm_fraxOld = new LPBond({
       bondAddress: "0x7BB53Ef5088AEF2Bb073D9C01DCa3a1D484FD1d2",
       reserveAddress: "0x11BE404d7853BDE29A3e73237c952EcDCbBA031E",
     },
+    [NetworkId.BSC]: {
+      bondAddress: "",
+      reserveAddress: "",
+    },
+    [NetworkId.BSC_TEST]: {
+      bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
+      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+    },
   },
   lpUrl:
     "https://app.uniswap.org/#/add/v2/0x853d955acef822db058eb8505911ed77f175b99e/0x383518188c0c6d7730d91b2c03a03c837814a899",
 });
 
-export const ohm_lusd = new LPBond({
-  name: "ohm_lusd_lp",
-  displayName: "OHM-LUSD LP",
+export const rip_lusd = new LPBond({
+  name: "rip_lusd_lp",
+  displayName: "RIP-LUSD LP",
   bondToken: "LUSD",
-  payoutToken: "OHM",
+  payoutToken: "RIP",
   v2Bond: false,
   bondIconSvg: ["OHM", "LUSD"],
-  bondContractABI: BondOhmLusdContract,
-  reserveContract: ReserveOhmLusdContract,
+  bondContractABI: BondRipLusdContract,
+  reserveContract: ReserveRipLusdContract,
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -636,7 +730,7 @@ export const ohm_lusd = new LPBond({
       reserveAddress: "0xfDf12D1F85b5082877A6E070524f50F6c84FAa6b",
     },
     [NetworkId.TESTNET_RINKEBY]: {
-      // NOTE (appleseed-lusd): using ohm-dai rinkeby contracts
+      // NOTE (appleseed-lusd): using rip-dai rinkeby contracts
       bondAddress: "0xcF449dA417cC36009a1C6FbA78918c31594B9377",
       reserveAddress: "0x8D5a22Fb6A1840da602E56D1a260E56770e0bCE2",
     },
@@ -645,20 +739,28 @@ export const ohm_lusd = new LPBond({
       bondAddress: "0xcF449dA417cC36009a1C6FbA78918c31594B9377",
       reserveAddress: "0x8D5a22Fb6A1840da602E56D1a260E56770e0bCE2",
     },
+    [NetworkId.BSC]: {
+      bondAddress: "",
+      reserveAddress: "",
+    },
+    [NetworkId.BSC_TEST]: {
+      bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
+      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+    },
   },
   lpUrl:
     "https://app.sushi.com/add/0x383518188C0C6d7730D91b2c03a03C837814a899/0x5f98805A4E8be255a32880FDeC7F6728C6568bA0",
 });
 
-export const ohm_weth = new CustomBond({
-  name: "ohm_weth_lp",
-  displayName: "OHM-WETH SLP",
+export const rip_weth = new CustomBond({
+  name: "rip_weth_lp",
+  displayName: "RIP-WETH SLP",
   bondToken: "WETH",
-  payoutToken: "OHM",
+  payoutToken: "RIP",
   v2Bond: true,
   bondIconSvg: ["OHM", "wETH"],
-  bondContractABI: BondOhmEthContract,
-  reserveContract: ReserveOhmEthContract,
+  bondContractABI: BondRipEthContract,
+  reserveContract: ReserveRipEthContract,
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -691,9 +793,17 @@ export const ohm_weth = new CustomBond({
       reserveAddress: "0x69b81152c5A8d35A67B32A4D3772795d96CaE4da",
     },
     [NetworkId.TESTNET_RINKEBY]: {
-      // NOTE (unbanksy): using ohm-dai rinkeby contracts
+      // NOTE (unbanksy): using rip-dai rinkeby contracts
       bondAddress: "0xcF449dA417cC36009a1C6FbA78918c31594B9377",
       reserveAddress: "0x8D5a22Fb6A1840da602E56D1a260E56770e0bCE2",
+    },
+    [NetworkId.BSC]: {
+      bondAddress: "",
+      reserveAddress: "",
+    },
+    [NetworkId.BSC_TEST]: {
+      bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
+      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
     },
   },
   bondType: BondType.LP,
@@ -702,6 +812,7 @@ export const ohm_weth = new CustomBond({
   customTreasuryBalanceFunc: async function (this: CustomBond, networkId, provider) {
     if (networkId === NetworkId.MAINNET) {
       const ethBondContract = this.getContractForBond(networkId, provider);
+      if (!ethBondContract) return 0;
       let ethPrice: BigNumberish = await ethBondContract.assetPrice();
       ethPrice = Number(ethPrice.toString()) / Math.pow(10, 8);
       const token = this.getContractForReserve(networkId, provider);
@@ -714,7 +825,7 @@ export const ohm_weth = new CustomBond({
         (Number(valuation.toString()) / Math.pow(10, 9)) * (Number(markdown.toString()) / Math.pow(10, 18));
       return tokenUSD * Number(ethPrice.toString());
     } else {
-      // NOTE (appleseed): using OHM-DAI on rinkeby
+      // NOTE (appleseed): using RIP-DAI on rinkeby
       const token = this.getContractForReserve(networkId, provider);
       const tokenAddress = this.getAddressForReserve(networkId);
       const bondCalculator = getBondCalculator(networkId, provider, false);
@@ -728,15 +839,15 @@ export const ohm_weth = new CustomBond({
   },
 });
 
-export const ohm_wethOld = new CustomBond({
-  name: "ohm_weth_lp_old",
-  displayName: "OHM-WETH SLP OLD",
+export const rip_wethOld = new CustomBond({
+  name: "rip_weth_lp_old",
+  displayName: "RIP-WETH SLP OLD",
   bondToken: "WETH",
-  payoutToken: "OHM",
+  payoutToken: "RIP",
   v2Bond: false,
   bondIconSvg: ["OHM", "wETH"],
-  bondContractABI: BondOhmEthContract,
-  reserveContract: ReserveOhmEthContract,
+  bondContractABI: BondRipEthContract,
+  reserveContract: ReserveRipEthContract,
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -768,7 +879,7 @@ export const ohm_wethOld = new CustomBond({
       reserveAddress: "0xfffae4a0f4ac251f4705717cd24cadccc9f33e06",
     },
     [NetworkId.TESTNET_RINKEBY]: {
-      // NOTE (unbanksy): using ohm-dai rinkeby contracts
+      // NOTE (unbanksy): using rip-dai rinkeby contracts
       bondAddress: "0xcF449dA417cC36009a1C6FbA78918c31594B9377",
       reserveAddress: "0x8D5a22Fb6A1840da602E56D1a260E56770e0bCE2",
     },
@@ -777,6 +888,14 @@ export const ohm_wethOld = new CustomBond({
       bondAddress: "0xcF449dA417cC36009a1C6FbA78918c31594B9377",
       reserveAddress: "0x8D5a22Fb6A1840da602E56D1a260E56770e0bCE2",
     },
+    [NetworkId.BSC]: {
+      bondAddress: "",
+      reserveAddress: "",
+    },
+    [NetworkId.BSC_TEST]: {
+      bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
+      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+    },
   },
   bondType: BondType.LP,
   lpUrl:
@@ -784,6 +903,7 @@ export const ohm_wethOld = new CustomBond({
   customTreasuryBalanceFunc: async function (this: CustomBond, networkId, provider) {
     if (networkId === NetworkId.MAINNET) {
       const ethBondContract = this.getContractForBond(networkId, provider);
+      if (!ethBondContract) return 0;
       let ethPrice: BigNumberish = await ethBondContract.assetPrice();
       ethPrice = Number(ethPrice.toString()) / Math.pow(10, 8);
       const token = this.getContractForReserve(networkId, provider);
@@ -796,7 +916,7 @@ export const ohm_wethOld = new CustomBond({
         (Number(valuation.toString()) / Math.pow(10, 9)) * (Number(markdown.toString()) / Math.pow(10, 18));
       return tokenUSD * Number(ethPrice.toString());
     } else {
-      // NOTE (appleseed): using OHM-DAI on rinkeby
+      // NOTE (appleseed): using RIP-DAI on rinkeby
       const token = this.getContractForReserve(networkId, provider);
       const tokenAddress = this.getAddressForReserve(networkId);
       const bondCalculator = getBondCalculator(networkId, provider, false);
@@ -816,17 +936,17 @@ export const ohm_wethOld = new CustomBond({
 // Add new bonds to this array!!
 export const allBonds = [
   dai,
-  frax,
-  eth,
-  cvx,
-  ohm_dai,
-  ohm_daiOld,
-  ohm_frax,
-  ohm_fraxOld,
-  lusd,
-  ohm_lusd,
-  ohm_weth,
-  ohm_wethOld,
+  // frax,
+  // eth,
+  // cvx,
+  // rip_dai,
+  // rip_daiOld,
+  // rip_frax,
+  // rip_fraxOld,
+  // lusd,
+  // rip_lusd,
+  // rip_weth,
+  // rip_wethOld,
 ];
 // TODO (appleseed-expiredBonds): there may be a smarter way to refactor this
 export const allExpiredBonds = [cvx_expired, fraxOld];

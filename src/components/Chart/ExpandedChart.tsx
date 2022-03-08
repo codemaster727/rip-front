@@ -1,3 +1,5 @@
+import "./expandedchart.scss";
+
 import { Trans } from "@lingui/macro";
 import { Box, Typography } from "@material-ui/core";
 import { InfoTooltip } from "@olympusdao/component-library";
@@ -30,11 +32,12 @@ function ExpandedChart({
       onClose={handleClose}
       closePosition={"right"}
       minHeight={"450px"}
+      id="dashboardchartmodal"
       headerContent={
         <div className="chart-card-header">
           <Box display="flex">
             <Box display="flex" alignItems="center" style={{ width: "max-content", whiteSpace: "nowrap" }}>
-              <Typography variant="h6" color="textSecondary" style={{ fontWeight: 400 }}>
+              <Typography variant="h6" color="textSecondary" style={{ fontWeight: 400, color: "white" }}>
                 {headerText}
               </Typography>
             </Box>
@@ -50,11 +53,11 @@ function ExpandedChart({
             </Box>
           </Box>
           <Box display="flex" flexWrap="wrap">
-            <Typography variant="h4" style={{ fontWeight: 600, marginRight: 5 }}>
+            <Typography variant="h4" style={{ fontWeight: 600, marginRight: 5, color: "white" }}>
               {headerSubText}
             </Typography>
             {runwayExtraInfo}
-            <Typography variant="h4" color="textSecondary" style={{ fontWeight: 400 }}>
+            <Typography variant="h4" color="textSecondary" style={{ fontWeight: 400, color: "white" }}>
               <Trans>Today</Trans>
             </Typography>
           </Box>
@@ -70,7 +73,9 @@ function ExpandedChart({
           )}
         </Box>
         <Box display="flex" style={{ width: "100%", margin: "15px" }}>
-          <Typography variant="h6">{infoTooltipMessage}</Typography>
+          <Typography variant="h6" style={{ color: "white" }}>
+            {infoTooltipMessage}
+          </Typography>
         </Box>
       </div>
     </Modal>

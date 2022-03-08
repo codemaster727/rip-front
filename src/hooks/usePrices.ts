@@ -1,46 +1,46 @@
 import { BigNumber } from "@ethersproject/bignumber";
 import { useQuery } from "react-query";
-import { OHM_DAI_RESERVE_CONTRACT_DECIMALS, STAKING_CONTRACT_DECIMALS } from "src/constants/decimals";
+import { RIP_DAI_RESERVE_CONTRACT_DECIMALS, STAKING_CONTRACT_DECIMALS } from "src/constants/decimals";
 import { parseBigNumber, queryAssertion } from "src/helpers";
 
-import { useOhmDaiReserveContract } from "./useContract";
+import { useRipDaiReserveContract } from "./useContract";
 import { useCurrentIndex } from "./useCurrentIndex";
 
-export const ohmPriceQueryKey = () => ["useOhmPrice"];
+export const ripPriceQueryKey = () => ["useRipPrice"];
 
 /**
- * Returns the market price of OHM.
+ * Returns the market price of RIP.
  */
-export const useOhmPrice = () => {
-  const reserveContract = useOhmDaiReserveContract();
+export const useRipPrice = () => {
+  const reserveContract = useRipDaiReserveContract();
 
-  return useQuery<number, Error>(ohmPriceQueryKey(), async () => {
-    const [ohm, dai] = await reserveContract.getReserves();
+  return useQuery<number, Error>(ripPriceQueryKey(), async () => {
+    const [rip, dai] = await reserveContract.getReserves();
 
-    return parseBigNumber(dai.div(ohm), OHM_DAI_RESERVE_CONTRACT_DECIMALS);
+    return parseBigNumber(dai.div(rip), RIP_DAI_RESERVE_CONTRACT_DECIMALS);
   });
 };
 
-export const gohmPriceQueryKey = (marketPrice?: number, currentIndex?: BigNumber) => [
-  "useGOHMPrice",
+export const gripPriceQueryKey = (marketPrice?: number, currentIndex?: BigNumber) => [
+  "useGRIPPrice",
   marketPrice,
   currentIndex,
 ];
 
 /**
- * Returns the calculated price of gOHM.
+ * Returns the calculated price of gRIP.
  */
-export const useGohmPrice = () => {
-  const { data: ohmPrice } = useOhmPrice();
+export const useGripPrice = () => {
+  const { data: ripPrice } = useRipPrice();
   const { data: currentIndex } = useCurrentIndex();
 
   return useQuery<number, Error>(
-    gohmPriceQueryKey(ohmPrice, currentIndex),
+    gripPriceQueryKey(ripPrice, currentIndex),
     async () => {
-      queryAssertion(ohmPrice && currentIndex, gohmPriceQueryKey(ohmPrice, currentIndex));
+      queryAssertion(ripPrice && currentIndex, gripPriceQueryKey(ripPrice, currentIndex));
 
-      return parseBigNumber(currentIndex, STAKING_CONTRACT_DECIMALS) * ohmPrice;
+      return parseBigNumber(currentIndex, STAKING_CONTRACT_DECIMALS) * ripPrice;
     },
-    { enabled: !!ohmPrice && !!currentIndex },
+    { enabled: !!ripPrice && !!currentIndex },
   );
 };

@@ -1,6 +1,6 @@
 import { BigNumber, ethers } from "ethers";
 
-import { abi as OlympusGiving } from "../abi/OlympusGiving.json";
+import { abi as RIPProtocolGiving } from "../abi/RIPProtocolGiving.json";
 import { addresses } from "../constants";
 import { IBaseAddressAsyncThunk } from "../slices/interfaces";
 
@@ -25,10 +25,15 @@ export const getRedemptionBalancesAsync = async ({ address, networkID, provider 
   };
 
   if (addresses[networkID] && addresses[networkID].GIVING_ADDRESS) {
-    const givingContract = new ethers.Contract(addresses[networkID].GIVING_ADDRESS as string, OlympusGiving, provider);
-    redeemableBalance = await givingContract.redeemableBalance(address);
-
+    const givingContract = new ethers.Contract(
+      addresses[networkID].GIVING_ADDRESS as string,
+      RIPProtocolGiving,
+      provider,
+    );
+    console.log("object1234");
+    console.log(givingContract);
     try {
+      redeemableBalance = await givingContract.redeemableBalance(address);
       const recipientInfoData = await givingContract.recipientInfo(address);
       recipientInfo.totalDebt = ethers.utils.formatUnits(recipientInfoData.totalDebt.toNumber(), "gwei");
       recipientInfo.carry = ethers.utils.formatUnits(recipientInfoData.carry.toNumber(), "gwei");
@@ -41,12 +46,12 @@ export const getRedemptionBalancesAsync = async ({ address, networkID, provider 
       console.log(e);
     }
   } else {
-    console.log("Unable to find MOCK_SOHM contract on chain ID " + networkID);
+    console.log("Unable to find MOCK_SRIP contract on chain ID " + networkID);
   }
 
   return {
     redeeming: {
-      sohmRedeemable: ethers.utils.formatUnits(redeemableBalance, "gwei"),
+      sripRedeemable: ethers.utils.formatUnits(redeemableBalance, "gwei"),
       recipientInfo: recipientInfo,
     },
   };
@@ -64,7 +69,7 @@ export const getMockRedemptionBalancesAsync = async ({ address, networkID, provi
   if (addresses[networkID] && addresses[networkID].MOCK_GIVING_ADDRESS) {
     const givingContract = new ethers.Contract(
       addresses[networkID].MOCK_GIVING_ADDRESS as string,
-      OlympusGiving,
+      RIPProtocolGiving,
       provider,
     );
     redeemableBalance = await givingContract.redeemableBalance(address);
@@ -87,20 +92,24 @@ export const getMockRedemptionBalancesAsync = async ({ address, networkID, provi
 
   return {
     mockRedeeming: {
-      sohmRedeemable: ethers.utils.formatUnits(redeemableBalance, "gwei"),
+      sripRedeemable: ethers.utils.formatUnits(redeemableBalance, "gwei"),
       recipientInfo: recipientInfo,
     },
   };
 };
 
 /*
-  With the old YieldDirector contract hooked to MockSohm this will no longer work
+  With the old YieldDirector contract hooked to MockSrip this will no longer work
   but it will work with the new YieldDirector version that indexes event topics
 */
 export const getDonorNumbers = async ({ address, networkID, provider }: IBaseAddressAsyncThunk) => {
   const zeroPadAddress = ethers.utils.hexZeroPad(address, 32);
 
-  const givingContract = new ethers.Contract(addresses[networkID].GIVING_ADDRESS as string, OlympusGiving, provider);
+  const givingContract = new ethers.Contract(
+    addresses[networkID].GIVING_ADDRESS as string,
+    RIPProtocolGiving,
+    provider,
+  );
 
   // creates a filter looking at all Deposited events on the YieldDirector contract
   const filter = {

@@ -105,9 +105,9 @@ export interface IUserNote {
 }
 
 function checkNetwork(networkID: NetworkId) {
-  if (networkID !== 1 && networkID !== 4) {
+  if (networkID !== 97 && networkID !== 4) {
     //ENABLE FOR MAINNET LAUNCH
-    throw Error(`Network=${networkID} is not supported for V2 bonds`);
+    // throw Error(`Network=${networkID} is not supported for V2 bonds`);
   }
 }
 
@@ -115,6 +115,7 @@ export const changeApproval = createAsyncThunk(
   "bondsV2/changeApproval",
   async ({ bond, provider, networkID, address }: IBondV2AysncThunk, { dispatch, getState }) => {
     checkNetwork(networkID);
+    console.log("here", networkID);
     const signer = provider.getSigner();
     const bondState: IBondV2 = (getState() as RootState).bondingV2.bonds[bond.index];
     const tokenContractAddress: string = bondState.quoteToken;
@@ -186,6 +187,7 @@ export const getSingleBond = createAsyncThunk(
   async ({ provider, networkID, bondIndex }: IBondV2IndexAsyncThunk, { dispatch }): Promise<IBondV2> => {
     checkNetwork(networkID);
     const depositoryContract = BondDepository__factory.connect(addresses[networkID].BOND_DEPOSITORY, provider);
+    console.log("depositoryContract", depositoryContract);
     const bondCore = await depositoryContract.markets(bondIndex);
     const bondMetadata = await depositoryContract.metadata(bondIndex);
     const bondTerms = await depositoryContract.terms(bondIndex);
@@ -225,8 +227,8 @@ async function processBond(
   const bondPriceBigNumber = await depositoryContract.marketPrice(index);
   const bondPrice = +bondPriceBigNumber / Math.pow(10, BASE_TOKEN_DECIMALS);
   const bondPriceUSD = quoteTokenPrice * +bondPrice;
-  const ohmPrice = (await dispatch(findOrLoadMarketPrice({ provider, networkID })).unwrap())?.marketPrice;
-  const bondDiscount = (ohmPrice - bondPriceUSD) / ohmPrice;
+  const ripPrice = (await dispatch(findOrLoadMarketPrice({ provider, networkID })).unwrap())?.marketPrice;
+  const bondDiscount = (ripPrice - bondPriceUSD) / ripPrice;
 
   let capacityInBaseToken: string, capacityInQuoteToken: string;
   if (bond.capacityInQuote) {
@@ -286,7 +288,7 @@ async function processBond(
     duration,
     isLP: v2BondDetail.isLP,
     lpUrl: v2BondDetail.isLP ? v2BondDetail.lpUrl[networkID] : "",
-    marketPrice: ohmPrice,
+    marketPrice: ripPrice,
     quoteToken: bond.quoteToken.toLowerCase(),
     maxPayoutInQuoteToken,
     maxPayoutInBaseToken,
@@ -304,13 +306,16 @@ export const getAllBonds = createAsyncThunk(
   async ({ provider, networkID, address }: IBaseAddressAsyncThunk, { dispatch }) => {
     checkNetwork(networkID);
     const depositoryContract = BondDepository__factory.connect(addresses[networkID].BOND_DEPOSITORY, provider);
+    console.log(networkID);
+    console.log(depositoryContract);
     const liveBondIndexes = await depositoryContract.liveMarkets();
     // `markets()` returns quote/price data
     const liveBondPromises = liveBondIndexes.map(async index => await depositoryContract.markets(index));
     const liveBondMetadataPromises = liveBondIndexes.map(async index => await depositoryContract.metadata(index));
     const liveBondTermsPromises = liveBondIndexes.map(async index => await depositoryContract.terms(index));
     const liveBonds: IBondV2[] = [];
-
+    console.log(liveBondIndexes);
+    console.log(liveBonds);
     for (let i = 0; i < liveBondIndexes.length; i++) {
       const bondIndex = +liveBondIndexes[i];
       try {
@@ -328,6 +333,8 @@ export const getAllBonds = createAsyncThunk(
         console.log(e);
       }
     }
+    console.log(liveBondIndexes);
+    console.log(liveBonds);
     return liveBonds;
   },
 );
@@ -336,9 +343,11 @@ export const getUserNotes = createAsyncThunk(
   "bondsV2/notes",
   async ({ provider, networkID, address }: IBaseAddressAsyncThunk, { dispatch, getState }): Promise<IUserNote[]> => {
     checkNetwork(networkID);
+    console.log(address);
     const currentTime = Date.now() / 1000;
     const depositoryContract = BondDepository__factory.connect(addresses[networkID].BOND_DEPOSITORY, provider);
     const userNoteIndexes = await depositoryContract.indexesFor(address);
+    console.log(userNoteIndexes);
     const userNotePromises = userNoteIndexes.map(async index => await depositoryContract.notes(address, index));
     const userNotes: {
       payout: ethers.BigNumber;
@@ -382,7 +391,7 @@ export const getUserNotes = createAsyncThunk(
       }
       const note: IUserNote = {
         ...rawNote,
-        payout: +rawNote.payout / Math.pow(10, 18), //Always in gOHM
+        payout: +rawNote.payout / Math.pow(10, 18), //Always in gRIP
         fullyMatured: seconds == 0,
         claimed: rawNote.matured == rawNote.redeemed,
         originalDurationSeconds: originalDurationSeconds,
@@ -402,13 +411,13 @@ export const getUserNotes = createAsyncThunk(
 
 export const claimAllNotes = createAsyncThunk(
   "bondsV2/claimAll",
-  async ({ provider, networkID, address, gOHM }: IBaseBondV2ClaimAsyncThunk, { dispatch, getState }) => {
+  async ({ provider, networkID, address, gRIP }: IBaseBondV2ClaimAsyncThunk, { dispatch, getState }) => {
     const signer = provider.getSigner();
     const depositoryContract = BondDepository__factory.connect(addresses[networkID].BOND_DEPOSITORY, signer);
 
     let claimTx: ethers.ContractTransaction | undefined;
     try {
-      claimTx = await depositoryContract.redeemAll(address, gOHM);
+      claimTx = await depositoryContract.redeemAll(address, gRIP);
       const text = `Claim All Bonds`;
       const pendingTxnType = `redeem_all_notes`;
       if (claimTx) {
@@ -431,13 +440,13 @@ export const claimAllNotes = createAsyncThunk(
 
 export const claimSingleNote = createAsyncThunk(
   "bondsV2/claimSingle",
-  async ({ provider, networkID, address, indexes, gOHM }: IBaseBondV2SingleClaimAsyncThunk, { dispatch, getState }) => {
+  async ({ provider, networkID, address, indexes, gRIP }: IBaseBondV2SingleClaimAsyncThunk, { dispatch, getState }) => {
     const signer = provider.getSigner();
     const depositoryContract = BondDepository__factory.connect(addresses[networkID].BOND_DEPOSITORY, signer);
 
     let claimTx: ethers.ContractTransaction | undefined;
     try {
-      claimTx = await depositoryContract.redeem(address, indexes, gOHM);
+      claimTx = await depositoryContract.redeem(address, indexes, gRIP);
       const text = `Redeem Note Index=${indexes}`;
       if (claimTx) {
         for (let i = 0; i < indexes.length; i++) {
@@ -530,7 +539,7 @@ const bondingSliceV2 = createSlice({
       .addCase(getUserNotes.rejected, (state, { error }) => {
         state.notes = [];
         state.notesLoading = false;
-        console.error(`Error when getting user notes: ${error.message}`);
+        // console.error(`Error when getting user notes: ${error.message}`);
       });
   },
 });

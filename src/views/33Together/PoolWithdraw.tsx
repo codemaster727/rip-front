@@ -141,8 +141,8 @@ export const PoolWithdraw = (props: IPoolWithdrawProps) => {
               endStringOnClick={setMax}
               buttonText={
                 exitFee > 0
-                  ? txnButtonText(pendingTransactions, "pool_withdraw", t`Withdraw Early & pay` + exitFee + " sOHM")
-                  : txnButtonText(pendingTransactions, "pool_withdraw", t`Withdraw sOHM`)
+                  ? txnButtonText(pendingTransactions, "pool_withdraw", t`Withdraw Early & pay` + exitFee + " sRIP")
+                  : txnButtonText(pendingTransactions, "pool_withdraw", t`Withdraw sRIP`)
               }
               disabled={isPendingTxn(pendingTransactions, "pool_withdraw")}
               buttonOnClick={() => onWithdraw("withdraw")}
@@ -151,7 +151,7 @@ export const PoolWithdraw = (props: IPoolWithdrawProps) => {
               <Box padding={1}>
                 <Typography color="error" variant="body2">
                   <Trans>
-                    Withdrawing {quantity} sOHM reduces your odds of winning to 1 in {newOdds}
+                    Withdrawing {quantity} sRIP reduces your odds of winning to 1 in {newOdds}
                   </Trans>
                   &nbsp;
                 </Typography>
@@ -174,7 +174,7 @@ export const PoolWithdraw = (props: IPoolWithdrawProps) => {
                 </Typography>
               </Box>
             )}
-            {/* NOTE (Appleseed): added this bc I kept losing track of which accounts I had sOHM in during testing */}
+            {/* NOTE (Appleseed): added this bc I kept losing track of which accounts I had sRIP in during testing */}
             <div className={`stake-user-data`}>
               <div className="data-row">
                 <Typography variant="body1" align="left">

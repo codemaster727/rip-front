@@ -16,7 +16,7 @@ exports[`<PoolTogether/> should render component 1`] = `
         />
       </div>
       <div
-        class="MuiPaper-root ohm-card MuiPaper-elevation0 MuiPaper-rounded"
+        class="MuiPaper-root rip-card MuiPaper-elevation0 MuiPaper-rounded"
       >
         <div
           class="MuiBox-root MuiBox-root-4"
@@ -352,7 +352,7 @@ exports[`<PoolTogether/> should render component 1`] = `
                 class="MuiTypography-root MuiTypography-body1 MuiTypography-colorPrimary"
                 style="text-align: right;"
               >
-                sOHM
+                sRIP
               </p>
             </div>
             <div
@@ -371,7 +371,7 @@ exports[`<PoolTogether/> should render component 1`] = `
                 class="MuiTypography-root MuiTypography-body1 MuiTypography-colorPrimary"
                 style="text-align: right;"
               >
-                OlympusDAO
+                RIPProtocolDAO
               </p>
             </div>
             <hr
@@ -442,14 +442,14 @@ exports[`<PoolTogether/> should render component 1`] = `
             <a
               aria-disabled="false"
               class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-root-20 makeStyles-root-37 undefined MuiButton-outlinedSecondary MuiButton-disableElevation"
-              href="https://app.pooltogether.com/pools/mainnet/sOHM"
+              href="https://app.pooltogether.com/pools/mainnet/sRIP"
               tabindex="0"
               target="_blank"
             >
               <span
                 class="MuiButton-label"
               >
-                sOHM Prize Pool
+                sRIP Prize Pool
                 <span
                   class="MuiButton-endIcon MuiButton-iconSizeMedium"
                 >
@@ -479,7 +479,7 @@ exports[`<PoolTogether/> should render component 1`] = `
                 <span
                   class="MuiButton-label"
                 >
-                  sOHM Pool Details
+                  sRIP Pool Details
                   <span
                     class="MuiButton-endIcon MuiButton-iconSizeMedium"
                   >

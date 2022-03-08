@@ -2,9 +2,9 @@
   "abi": [
     {
       "inputs": [
-        { "internalType": "contract IOlympusAuthority", "name": "_authority", "type": "address" },
-        { "internalType": "contract IERC20", "name": "_ohm", "type": "address" },
-        { "internalType": "contract IgOHM", "name": "_gohm", "type": "address" },
+        { "internalType": "contract IRIPProtocolAuthority", "name": "_authority", "type": "address" },
+        { "internalType": "contract IERC20", "name": "_rip", "type": "address" },
+        { "internalType": "contract IgRIP", "name": "_grip", "type": "address" },
         { "internalType": "contract IStaking", "name": "_staking", "type": "address" }
       ],
       "stateMutability": "nonpayable",
@@ -13,7 +13,7 @@
     {
       "anonymous": false,
       "inputs": [
-        { "indexed": true, "internalType": "contract IOlympusAuthority", "name": "authority", "type": "address" }
+        { "indexed": true, "internalType": "contract IRIPProtocolAuthority", "name": "authority", "type": "address" }
       ],
       "name": "AuthorityUpdated",
       "type": "event"
@@ -62,7 +62,7 @@
     {
       "inputs": [],
       "name": "authority",
-      "outputs": [{ "internalType": "contract IOlympusAuthority", "name": "", "type": "address" }],
+      "outputs": [{ "internalType": "contract IRIPProtocolAuthority", "name": "", "type": "address" }],
       "stateMutability": "view",
       "type": "function"
     },
@@ -284,7 +284,7 @@
       "inputs": [
         { "internalType": "address", "name": "_user", "type": "address" },
         { "internalType": "uint256[]", "name": "_indexes", "type": "uint256[]" },
-        { "internalType": "bool", "name": "_sendgOHM", "type": "bool" }
+        { "internalType": "bool", "name": "_sendgRIP", "type": "bool" }
       ],
       "name": "redeem",
       "outputs": [{ "internalType": "uint256", "name": "payout_", "type": "uint256" }],
@@ -294,7 +294,7 @@
     {
       "inputs": [
         { "internalType": "address", "name": "_user", "type": "address" },
-        { "internalType": "bool", "name": "_sendgOHM", "type": "bool" }
+        { "internalType": "bool", "name": "_sendgRIP", "type": "bool" }
       ],
       "name": "redeemAll",
       "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
@@ -316,7 +316,7 @@
       "type": "function"
     },
     {
-      "inputs": [{ "internalType": "contract IOlympusAuthority", "name": "_newAuthority", "type": "address" }],
+      "inputs": [{ "internalType": "contract IRIPProtocolAuthority", "name": "_newAuthority", "type": "address" }],
       "name": "setAuthority",
       "outputs": [],
       "stateMutability": "nonpayable",

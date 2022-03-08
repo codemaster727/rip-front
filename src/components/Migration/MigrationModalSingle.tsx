@@ -43,25 +43,25 @@ function MigrationModalSingle({ open, handleClose }: { open: boolean; handleClos
     view,
     setView,
     changeView,
-    indexV1,
+    // indexV1,
     currentIndex,
-    currentOhmBalance,
-    currentSOhmBalance,
-    currentWSOhmBalance,
-    wsOhmPrice,
-    gOHMPrice,
-    approvedOhmBalance,
-    approvedSOhmBalance,
-    approvedWSOhmBalance,
-    ohmFullApproval,
-    sOhmFullApproval,
-    wsOhmFullApproval,
-    ohmAsgOHM,
-    sOHMAsgOHM,
-    ohmInUSD,
-    sOhmInUSD,
-    wsOhmInUSD,
-    isGOHM,
+    currentRipBalance,
+    currentSRipBalance,
+    currentWSRipBalance,
+    wsRipPrice,
+    gRIPPrice,
+    approvedRipBalance,
+    approvedSRipBalance,
+    approvedWSRipBalance,
+    ripFullApproval,
+    sRipFullApproval,
+    wsRipFullApproval,
+    // ripAsgRIP,
+    // sRIPAsgRIP,
+    // ripInUSD,
+    // sRipInUSD,
+    wsRipInUSD,
+    isGRIP,
     targetAsset,
     targetMultiplier,
     oldAssetsDetected,
@@ -69,38 +69,38 @@ function MigrationModalSingle({ open, handleClose }: { open: boolean; handleClos
   } = useMigrationData();
 
   const onMigrate = (type: number, amount: string) =>
-    dispatch(migrateSingle({ provider, address, networkID: networkId, gOHM: isGOHM, type, amount }));
+    dispatch(migrateSingle({ provider, address, networkID: networkId, gRIP: isGRIP, type, amount }));
 
   rows = [
     {
-      initialAsset: "OHM",
-      initialBalance: currentOhmBalance,
+      initialAsset: "RIP",
+      initialBalance: currentRipBalance,
       targetAsset: targetAsset,
-      targetBalance: ohmAsgOHM * targetMultiplier,
-      fullApproval: ohmFullApproval,
-      usdBalance: ohmInUSD,
+      // targetBalance: ripAsgRIP * targetMultiplier,
+      fullApproval: ripFullApproval,
+      // usdBalance: ripInUSD,
       type: TokenType.UNSTAKED,
-      display: gOHMPrice! * ohmAsgOHM > 10,
+      // display: gRIPPrice! * ripAsgRIP > 10,
     },
     {
-      initialAsset: "sOHM",
-      initialBalance: currentSOhmBalance,
+      initialAsset: "sRIP",
+      initialBalance: currentSRipBalance,
       targetAsset: targetAsset,
-      targetBalance: sOHMAsgOHM * targetMultiplier,
-      fullApproval: sOhmFullApproval,
-      usdBalance: sOhmInUSD,
+      // targetBalance: sRIPAsgRIP * targetMultiplier,
+      fullApproval: sRipFullApproval,
+      // usdBalance: sRipInUSD,
       type: TokenType.STAKED,
-      display: gOHMPrice! * sOHMAsgOHM > 10,
+      // display: gRIPPrice! * sRIPAsgRIP > 10,
     },
     {
-      initialAsset: "wsOHM",
-      initialBalance: currentWSOhmBalance,
+      initialAsset: "wsRIP",
+      initialBalance: currentWSRipBalance,
       targetAsset: targetAsset,
-      targetBalance: +currentWSOhmBalance * targetMultiplier,
-      fullApproval: wsOhmFullApproval,
-      usdBalance: wsOhmInUSD,
+      targetBalance: +currentWSRipBalance * targetMultiplier,
+      fullApproval: wsRipFullApproval,
+      usdBalance: wsRipInUSD,
       type: TokenType.WRAPPED,
-      display: wsOhmPrice * +currentWSOhmBalance > 10,
+      display: wsRipPrice * +currentWSRipBalance > 10,
     },
   ];
 
@@ -120,7 +120,7 @@ function MigrationModalSingle({ open, handleClose }: { open: boolean; handleClos
           {!oldAssetsDetected ? null : (
             <Box paddingTop={isMobileScreen ? 2 : 4} paddingBottom={isMobileScreen ? 2 : 0}>
               <Typography id="migration-modal-description" variant="body2" className={isMobileScreen ? `mobile` : ``}>
-                {t`Olympus v2 introduces upgrades to on-chain governance and bonds to enhance decentralization and immutability.`}{" "}
+                {t`RIPProtocol v2 introduces upgrades to on-chain governance and bonds to enhance decentralization and immutability.`}{" "}
                 <a
                   href="https://docs.olympusdao.finance/main/basics/migration"
                   target="_blank"
@@ -150,8 +150,8 @@ function MigrationModalSingle({ open, handleClose }: { open: boolean; handleClos
             aria-label="payout token tabs"
             className="payout-token-tabs"
           >
-            <Tab aria-label="payout-sohm-button" label="sOHM" className="payout-token-tab" />
-            <Tab aria-label="payout-sohm-button" label="gOHM" className="payout-token-tab" />
+            <Tab aria-label="payout-srip-button" label="sRIP" className="payout-token-tab" />
+            <Tab aria-label="payout-srip-button" label="gRIP" className="payout-token-tab" />
           </Tabs>
           {isMobileScreen ? (
             <Box id="mobile-container-migration">
@@ -233,7 +233,7 @@ function MigrationModalSingle({ open, handleClose }: { open: boolean; handleClos
                           <Trans>Post-migration</Trans>
                         </Typography>
                         <InfoTooltip
-                          message={t`This is the equivalent amount of gOHM you will have in your wallet once migration is complete.`}
+                          message={t`This is the equivalent amount of gRIP you will have in your wallet once migration is complete.`}
                           children={undefined}
                         ></InfoTooltip>
                       </Box>

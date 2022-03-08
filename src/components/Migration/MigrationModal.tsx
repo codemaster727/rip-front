@@ -32,25 +32,25 @@ function MigrationModal({ open, handleClose }: { open: boolean; handleClose: any
     view,
     setView,
     changeView,
-    indexV1,
+    // indexV1,
     currentIndex,
-    currentOhmBalance,
-    currentSOhmBalance,
-    currentWSOhmBalance,
-    wsOhmPrice,
-    gOHMPrice,
-    approvedOhmBalance,
-    approvedSOhmBalance,
-    approvedWSOhmBalance,
-    ohmFullApproval,
-    sOhmFullApproval,
-    wsOhmFullApproval,
-    ohmAsgOHM,
-    sOHMAsgOHM,
-    ohmInUSD,
-    sOhmInUSD,
-    wsOhmInUSD,
-    isGOHM,
+    currentRipBalance,
+    currentSRipBalance,
+    currentWSRipBalance,
+    wsRipPrice,
+    gRIPPrice,
+    approvedRipBalance,
+    approvedSRipBalance,
+    approvedWSRipBalance,
+    ripFullApproval,
+    sRipFullApproval,
+    wsRipFullApproval,
+    // ripAsgRIP,
+    // sRIPAsgRIP,
+    // ripInUSD,
+    // sRipInUSD,
+    wsRipInUSD,
+    isGRIP,
     targetAsset,
     targetMultiplier,
     oldAssetsDetected,
@@ -79,38 +79,38 @@ function MigrationModal({ open, handleClose }: { open: boolean; handleClose: any
       networkId &&
       (networkId === NetworkId.MAINNET || networkId === NetworkId.TESTNET_RINKEBY) &&
       isAllApproved &&
-      (currentOhmBalance || currentSOhmBalance || currentWSOhmBalance)
+      (currentRipBalance || currentSRipBalance || currentWSRipBalance)
     ) {
       dispatch(info("All approvals complete. You may now migrate."));
     }
   }, [isAllApproved]);
 
-  const onMigrate = () => dispatch(migrateAll({ provider, address, networkID: networkId, gOHM: isGOHM }));
+  const onMigrate = () => dispatch(migrateAll({ provider, address, networkID: networkId, gRIP: isGRIP }));
 
   rows = [
     {
-      initialAsset: "OHM",
-      initialBalance: currentOhmBalance,
+      initialAsset: "RIP",
+      initialBalance: currentRipBalance,
       targetAsset: targetAsset,
-      targetBalance: ohmAsgOHM * targetMultiplier,
-      fullApproval: ohmFullApproval,
-      usdBalance: ohmInUSD,
+      // targetBalance: ripAsgRIP * targetMultiplier,
+      fullApproval: ripFullApproval,
+      // usdBalance: ripInUSD,
     },
     {
-      initialAsset: "sOHM",
-      initialBalance: currentSOhmBalance,
+      initialAsset: "sRIP",
+      initialBalance: currentSRipBalance,
       targetAsset: targetAsset,
-      targetBalance: sOHMAsgOHM * targetMultiplier,
-      fullApproval: sOhmFullApproval,
-      usdBalance: sOhmInUSD,
+      // targetBalance: sRIPAsgRIP * targetMultiplier,
+      fullApproval: sRipFullApproval,
+      // usdBalance: sRipInUSD,
     },
     {
-      initialAsset: "wsOHM",
-      initialBalance: currentWSOhmBalance,
+      initialAsset: "wsRIP",
+      initialBalance: currentWSRipBalance,
       targetAsset: targetAsset,
-      targetBalance: +currentWSOhmBalance * targetMultiplier,
-      fullApproval: wsOhmFullApproval,
-      usdBalance: wsOhmInUSD,
+      targetBalance: +currentWSRipBalance * targetMultiplier,
+      fullApproval: wsRipFullApproval,
+      usdBalance: wsRipInUSD,
     },
   ];
 
@@ -140,7 +140,7 @@ function MigrationModal({ open, handleClose }: { open: boolean; handleClose: any
               <Typography id="migration-modal-description" variant="body2" className={isMobileScreen ? `mobile` : ``}>
                 {isAllApproved
                   ? t`Click on the Migrate button to complete the upgrade to v2.`
-                  : t`Olympus v2 introduces upgrades to on-chain governance and bonds to enhance decentralization and immutability.`}{" "}
+                  : t`RIPProtocol v2 introduces upgrades to on-chain governance and bonds to enhance decentralization and immutability.`}{" "}
                 <a
                   href="https://docs.olympusdao.finance/main/basics/migration"
                   target="_blank"
@@ -169,8 +169,8 @@ function MigrationModal({ open, handleClose }: { open: boolean; handleClose: any
             aria-label="payout token tabs"
             className="payout-token-tabs"
           >
-            <Tab aria-label="payout-sohm-button" label="sOHM" className="payout-token-tab" />
-            <Tab aria-label="payout-gohm-button" label="gOHM" className="payout-token-tab" />
+            <Tab aria-label="payout-srip-button" label="sRIP" className="payout-token-tab" />
+            <Tab aria-label="payout-grip-button" label="gRIP" className="payout-token-tab" />
           </Tabs>
           {isMobileScreen ? (
             <Box id="mobile-container-migration">
@@ -246,7 +246,7 @@ function MigrationModal({ open, handleClose }: { open: boolean; handleClose: any
                           <Trans>Post-migration</Trans>
                         </Typography>
                         <InfoTooltip
-                          message={t`This is the equivalent amount of gOHM you will have in your wallet once migration is complete.`}
+                          message={t`This is the equivalent amount of gRIP you will have in your wallet once migration is complete.`}
                           children={undefined}
                         />
                       </Box>
@@ -334,7 +334,7 @@ function MigrationModal({ open, handleClose }: { open: boolean; handleClose: any
                     : txnButtonText(
                         pendingTransactions,
                         "migrate_all",
-                        `${t`Migrate all to`} ${isGOHM ? "gOHM" : "sOHM"}`,
+                        `${t`Migrate all to`} ${isGRIP ? "gRIP" : "sRIP"}`,
                       )}
                 </Typography>
               </Box>
@@ -344,7 +344,7 @@ function MigrationModal({ open, handleClose }: { open: boolean; handleClose: any
             <em>
               <Typography variant="body2" style={isMobileScreen ? { lineHeight: "1em" } : {}}>
                 <Trans>
-                  Save on gas fees by migrating all your assets to the new gOHM or sOHM in one transaction. Each asset
+                  Save on gas fees by migrating all your assets to the new gRIP or sRIP in one transaction. Each asset
                   asset above must be approved before all can be migrated.
                 </Trans>
               </Typography>

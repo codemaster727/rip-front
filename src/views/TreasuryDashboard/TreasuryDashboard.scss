@@ -14,14 +14,14 @@
     display: none !important;
   }
 
-  .ohm-card {
+  .rip-card {
     max-width: unset !important;
     width: 100%;
     margin: auto;
     .card-header {
       margin-bottom: 1rem;
     }
-    &.ohm-chart-card {
+    &.rip-chart-card {
       .chart-card-header {
         padding: 0px 20px !important;
         min-width: 300px;
@@ -33,7 +33,7 @@
     width: 100%;
     margin-bottom: 23px;
     text-align: center;
-    .ohm-card {
+    .rip-card {
       max-width: unset !important;
       flex-direction: row;
       flex-wrap: wrap;
@@ -49,10 +49,10 @@
 }
 
 .smaller {
-  .ohm-card {
+  .rip-card {
     width: 97%;
   }
-  .hero-metrics .ohm-card {
+  .hero-metrics .rip-card {
     > .MuiBox-root {
       flex-direction: column;
       align-items: flex-start;
@@ -83,7 +83,7 @@
 }
 
 .very-small {
-  .hero-metrics .ohm-card {
+  .hero-metrics .rip-card {
     > .MuiBox-root {
       flex-direction: column;
       justify-content: center;

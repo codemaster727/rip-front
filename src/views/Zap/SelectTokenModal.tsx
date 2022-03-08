@@ -20,7 +20,7 @@ import { ZapperToken } from "src/helpers/ZapHelper";
 
 import { ReactComponent as XIcon } from "../../assets/icons/x.svg";
 
-const NATIVE_TOKENS = ["sOHM", "wsOHM"];
+const NATIVE_TOKENS = ["sRIP", "wsRIP"];
 
 function SelectTokenModal(
   handleClose: () => void,
@@ -95,17 +95,17 @@ function SelectTokenModal(
                   ))}
               {tokens.output && (
                 <>
-                  <ListItem button onClick={() => handleSelectToken("sOHM")} key={"sOHM"}>
+                  <ListItem button onClick={() => handleSelectToken("sRIP")} key={"sRIP"}>
                     <ListItemAvatar>
                       <Token name={"sOHM"} />
                     </ListItemAvatar>
-                    <ListItemText primary={"sOHM"} />
+                    <ListItemText primary={"sRIP"} />
                   </ListItem>
-                  <ListItem button onClick={() => handleSelectToken("gOHM")} key={"gOHM"}>
+                  <ListItem button onClick={() => handleSelectToken("gRIP")} key={"gRIP"}>
                     <ListItemAvatar>
                       <Token name={"wsOHM"} />
                     </ListItemAvatar>
-                    <ListItemText primary={"gOHM"} />
+                    <ListItemText primary={"gRIP"} />
                   </ListItem>
                 </>
               )}

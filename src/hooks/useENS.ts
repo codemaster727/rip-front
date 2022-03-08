@@ -15,10 +15,15 @@ export const useEns = () => {
     ensQueryKey(address),
     async () => {
       queryAssertion(address, ensQueryKey(address));
-
-      const name = await provider.lookupAddress(address);
-      const avatar = name ? await provider.getAvatar(name) : null;
-
+      let name: string | null = "";
+      let avatar: string | null = "";
+      try {
+        name = await provider.lookupAddress(address);
+        avatar = name ? await provider.getAvatar(name) : null;
+        console.log(name, avatar);
+      } catch (error) {
+        console.log(error);
+      }
       return { name, avatar };
     },
 

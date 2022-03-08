@@ -59,7 +59,7 @@ function BondPurchase({
           t`Max capacity is ${maxBondable} ${bond.displayName} for ${trim(
             +bond.maxPayoutOrCapacityInBase,
             4,
-          )} sOHM. Click Max to autocomplete.`,
+          )} sRIP. Click Max to autocomplete.`,
         ),
       );
     } else {
@@ -133,13 +133,13 @@ function BondPurchase({
                     <em>
                       <Typography variant="body1" align="center" color="textSecondary">
                         <Trans>First time bonding</Trans> <b>{bond.displayName}</b>? <br />{" "}
-                        <Trans>Please approve Olympus Dao to use your</Trans> <b>{bond.displayName}</b>{" "}
+                        <Trans>Please approve RIPProtocol Dao to use your</Trans> <b>{bond.displayName}</b>{" "}
                         <Trans>for bonding</Trans>.
                       </Typography>
                     </em>
                   </div>
                 ) : (
-                  <FormControl className="ohm-input" fullWidth>
+                  <FormControl className="rip-input" fullWidth>
                     <Input
                       endString={t`Max`}
                       id="outlined-adornment-amount"
@@ -236,7 +236,7 @@ function BondPurchase({
                     </Typography>
                     <Typography align="left" variant="h6" style={{ color: "white" }}>
                       {`${trim(Number(quantity) / bond.priceToken, 4) || "0"} ` +
-                        `sOHM (≈${trim(+quantity / bond.priceToken / +currentIndex, 4) || "0"} gr.rip)`}
+                        `sRIP (≈${trim(+quantity / bond.priceToken / +currentIndex, 4) || "0"} gr.rip)`}
                     </Typography>
                     <Typography align="left" variant="h6" style={{ color: "white" }}>
                       {`${trim(+bond.maxPayoutOrCapacityInBase, 4) || "0"} sr.rip (≈${
@@ -263,14 +263,14 @@ function BondPurchase({
             title={t`You Will Get`}
             balance={
               `${trim(Number(quantity) / bond.priceToken, 4) || "0"} ` +
-              `sOHM (≈${trim(+quantity / bond.priceToken / +currentIndex, 4) || "0"} gOHM)`
+              `sRIP (≈${trim(+quantity / bond.priceToken / +currentIndex, 4) || "0"} ggRIP
             }
-            tooltip={t`The total amount of payout asset you will recieve from this bond purhcase. (sOHM amount will be higher due to rebasing)`}
+            tooltip={t`The total amount of payout asset you will recieve from this bond purhcase. (sRIP amount will be higher due to rebasing)`}
             isLoading={isBondLoading}
           /> */}
           {/* <DataRow
             title={t`Max You Can Buy`}
-            balance={`${trim(+bond.maxPayoutOrCapacityInBase, 4) || "0"} sOHM (≈${
+            balance={`${trim(+bond.maxPayoutOrCapacityInBase, 4) || "0"} sRIP (≈${
               trim(+bond.maxPayoutOrCapacityInQuote, 4) || "0"
             } ${bond.displayName})`}
             isLoading={isBondLoading}
@@ -279,7 +279,7 @@ function BondPurchase({
           <DataRow
             title={t`Discount`}
             balance={<DisplayBondDiscount key={bond.displayName} bond={bond} />}
-            tooltip={t`Negative discount is bad (you pay more than the market value). The bond discount is the percentage difference between OHM's market value and the bond's price.`}
+            tooltip={t`Negative discount is bad (you pay more than the market value). The bond discount is the percentage difference between RIP's market value and the bond's price.`}
             isLoading={isBondLoading}
           />
 
@@ -298,7 +298,7 @@ function BondPurchase({
         <em>
           <Typography variant="body2" style={{ color: "white", marginTop: "40px" }}>
             Important: New bonds are auto-staked (accrue rebase rewards) and no longer vest linearly. Simply claim as
-            sOHM or gOHM at the end of the term.
+            sRIP or gRIP at the end of the term.
           </Typography>
         </em>
       </div>
