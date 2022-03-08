@@ -11,7 +11,9 @@ const pricingFunctionHelper = async (
   firstToken: string,
   secondToken: string,
 ) => {
+  console.log("object123");
   const baseContract = UniswapV2Lp__factory.connect(quoteToken, provider);
+  console.log(baseContract);
   const reserves = await baseContract.getReserves();
   const totalSupply = +(await baseContract.totalSupply()) / Math.pow(10, await baseContract.decimals());
 

@@ -16,7 +16,7 @@ import { shouldTriggerSafetyCheck } from "./helpers";
 
 import { calcBondDetails } from "./slices/BondSlice";
 import { loadAppDetails } from "./slices/AppSlice";
-import { loadAccountDetails, calculateUserBondDetails, getMigrationAllowances } from "./slices/AccountSlice";
+import { loadAccountDetails, calculateUserBondDetails } from "./slices/AccountSlice";
 import { getZapTokenBalances } from "./slices/ZapSlice";
 import { info } from "./slices/MessagesSlice";
 
@@ -169,7 +169,7 @@ function App() {
       }
       dispatch(getUserNotes({ networkID: networkId, address, provider: loadProvider }));
       dispatch(loadAccountDetails({ networkID: networkId, address, provider: loadProvider }));
-      dispatch(getMigrationAllowances({ address, provider: loadProvider, networkID: networkId }));
+      // dispatch(getMigrationAllowances({ address, provider: loadProvider, networkID: networkId }));
       bonds.map(bond => {
         // NOTE: get any Claimable bonds, they may not be bondable
         if (bond.getClaimability(networkId)) {

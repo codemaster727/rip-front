@@ -30,9 +30,10 @@ export const getRedemptionBalancesAsync = async ({ address, networkID, provider 
       RIPProtocolGiving,
       provider,
     );
-    redeemableBalance = await givingContract.redeemableBalance(address);
-
+    console.log("object1234");
+    console.log(givingContract);
     try {
+      redeemableBalance = await givingContract.redeemableBalance(address);
       const recipientInfoData = await givingContract.recipientInfo(address);
       recipientInfo.totalDebt = ethers.utils.formatUnits(recipientInfoData.totalDebt.toNumber(), "gwei");
       recipientInfo.carry = ethers.utils.formatUnits(recipientInfoData.carry.toNumber(), "gwei");

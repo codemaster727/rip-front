@@ -16,7 +16,7 @@ export function useMigrationData() {
     setView(newView);
   };
 
-  const indexV1 = useAppSelector(state => Number(state.app.currentIndexV1!));
+  // const indexV1 = useAppSelector(state => Number(state.app.currentIndexV1!));
   const currentIndex = useAppSelector(state => Number(state.app.currentIndex));
 
   const currentRipBalance = useAppSelector(state => state.account.balances.ripV1);
@@ -32,11 +32,11 @@ export function useMigrationData() {
   const sRipFullApproval = approvedSRipBalance >= +currentSRipBalance;
   const wsRipFullApproval = approvedWSRipBalance >= +currentWSRipBalance;
 
-  const ripAsgRIP = +currentRipBalance / indexV1;
-  const sRIPAsgRIP = +currentSRipBalance / indexV1;
+  // const ripAsgRIP = +currentRipBalance / indexV1;
+  // const sRIPAsgRIP = +currentSRipBalance / indexV1;
 
-  const ripInUSD = formatCurrency(gRIPPrice! * ripAsgRIP);
-  const sRipInUSD = formatCurrency(gRIPPrice! * sRIPAsgRIP);
+  // const ripInUSD = formatCurrency(gRIPPrice! * ripAsgRIP);
+  // const sRipInUSD = formatCurrency(gRIPPrice! * sRIPAsgRIP);
   const wsRipInUSD = formatCurrency(wsRipPrice * +currentWSRipBalance);
 
   const isGRIP = view === 1;
@@ -64,7 +64,7 @@ export function useMigrationData() {
     view,
     setView,
     changeView,
-    indexV1,
+    // indexV1,
     currentIndex,
     currentRipBalance,
     currentSRipBalance,
@@ -77,10 +77,10 @@ export function useMigrationData() {
     ripFullApproval,
     sRipFullApproval,
     wsRipFullApproval,
-    ripAsgRIP,
-    sRIPAsgRIP,
-    ripInUSD,
-    sRipInUSD,
+    // ripAsgRIP,
+    // sRIPAsgRIP,
+    // ripInUSD,
+    // sRipInUSD,
     wsRipInUSD,
     isGRIP,
     targetAsset,

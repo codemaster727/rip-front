@@ -50,7 +50,7 @@ function WrapCrossChain() {
     return state.pendingTransactions;
   });
 
-  const ethereum = NETWORKS[1];
+  const ethereum = NETWORKS[97];
 
   const wrapButtonText = "Migrate";
 

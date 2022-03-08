@@ -4,7 +4,7 @@ import { BigNumber, BigNumberish, ethers } from "ethers";
 import { EnvHelper } from "src/helpers/Environment";
 import { NodeHelper } from "src/helpers/NodeHelper";
 import { RootState } from "src/store";
-import { FiatDAOContract, FuseProxy, IERC20, IERC20__factory, SRipv2 } from "src/typechain";
+import { FiatDAOContract, FuseProxy, IERC20, IERC20__factory } from "src/typechain";
 import { GRIP__factory } from "src/typechain/factories/GRIP__factory";
 
 import { abi as fiatDAO } from "../abi/FiatDAOContract.json";
@@ -13,7 +13,7 @@ import { abi as ierc20Abi } from "../abi/IERC20.json";
 import { abi as MockSrip } from "../abi/MockSrip.json";
 import { abi as RIPProtocolGiving } from "../abi/RIPProtocolGiving.json";
 import { abi as RIPProtocolMockGiving } from "../abi/RIPProtocolMockGiving.json";
-import { abi as sRIPv2 } from "../abi/sRipv2.json";
+// import { abi as sRIPv2 } from "../abi/sRipv2.json";
 // import { abi as wsRIP } from "../abi/wsRIP.json";
 import { addresses, NetworkId } from "../constants";
 import { handleContractError, setAll } from "../helpers";
@@ -291,7 +291,11 @@ export const getDonationBalances = createAsyncThunk(
       );
       try {
         // NOTE: The BigNumber here is from ethers, and is a different implementation of BigNumber used in the rest of the frontend. For that reason, we convert to string in the interim.
+        console.log("object1");
+        console.log(givingContract);
+        console.log(address);
         const allDeposits: [string[], BigNumber[]] = await givingContract.getAllDeposits(address);
+        console.log(allDeposits);
         for (let i = 0; i < allDeposits[0].length; i++) {
           if (allDeposits[1][i].eq(0)) continue;
 
@@ -456,36 +460,35 @@ export const getMigrationAllowances = createAsyncThunk(
 export const loadAccountDetails = createAsyncThunk(
   "account/loadAccountDetails",
   async ({ networkID, provider, address }: IBaseAddressAsyncThunk, { dispatch }) => {
-    let stakeAllowance = BigNumber.from("0");
+    const stakeAllowance = BigNumber.from("0");
     let stakeAllowanceV2 = BigNumber.from("0");
     let unstakeAllowanceV2 = BigNumber.from("0");
-    let unstakeAllowance = BigNumber.from("0");
+    const unstakeAllowance = BigNumber.from("0");
     let wrapAllowance = BigNumber.from("0");
     let gRipUnwrapAllowance = BigNumber.from("0");
     let poolAllowance = BigNumber.from("0");
     const ripToGripAllowance = BigNumber.from("0");
-    let wsRipMigrateAllowance = BigNumber.from("0");
+    const wsRipMigrateAllowance = BigNumber.from("0");
 
     try {
       const gRipContract = GRIP__factory.connect(addresses[networkID].GRIP_ADDRESS, provider);
       gRipUnwrapAllowance = await gRipContract.allowance(address, addresses[networkID].STAKING_V2);
 
-      const wsRipContract = IERC20__factory.connect(addresses[networkID].WSRIP_ADDRESS, provider);
-      wsRipMigrateAllowance = await wsRipContract.balanceOf(address);
+      // const wsRipContract = IERC20__factory.connect(addresses[networkID].WSRIP_ADDRESS, provider);
+      // wsRipMigrateAllowance = await wsRipContract.balanceOf(address);
 
-      const ripContract = new ethers.Contract(
-        addresses[networkID].RIP_ADDRESS as string,
-        ierc20Abi,
-        provider,
-      ) as IERC20;
-      stakeAllowance = await ripContract.allowance(address, addresses[networkID].STAKING_HELPER_ADDRESS);
+      // const ripContract = new ethers.Contract(
+      //   addresses[networkID].RIP_ADDRESS as string,
+      //   ierc20Abi,
+      //   provider,
+      // ) as IERC20;
+      // stakeAllowance = await ripContract.allowance(address, addresses[networkID].STAKING_HELPER_ADDRESS);
 
-      const sripContract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, sRIPv2, provider) as SRipv2;
-      unstakeAllowance = await sripContract.allowance(address, addresses[networkID].STAKING_ADDRESS);
-      poolAllowance = await sripContract.allowance(address, addresses[networkID].PT_PRIZE_POOL_ADDRESS);
-      wrapAllowance = await sripContract.allowance(address, addresses[networkID].STAKING_V2);
-
+      // const sripContract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, sRIPv2, provider) as SRipv2;
+      // unstakeAllowance = await sripContract.allowance(address, addresses[networkID].STAKING_ADDRESS);
       const sripV2Contract = IERC20__factory.connect(addresses[networkID].SRIP_V2, provider);
+      poolAllowance = await sripV2Contract.allowance(address, addresses[networkID].PT_PRIZE_POOL_ADDRESS);
+      wrapAllowance = await sripV2Contract.allowance(address, addresses[networkID].STAKING_V2);
       unstakeAllowanceV2 = await sripV2Contract.allowance(address, addresses[networkID].STAKING_V2);
 
       const ripV2Contract = IERC20__factory.connect(addresses[networkID].RIP_V2, provider);
@@ -502,6 +505,7 @@ export const loadAccountDetails = createAsyncThunk(
     } else {
       if (EnvHelper.env.NODE_ENV !== "production") console.log("Give - Contract mocks skipped except on Rinkeby");
     }
+    console.log(EnvHelper.env.NODE_ENV);
 
     return {
       staking: {
@@ -552,7 +556,6 @@ export const calculateUserBondDetails = createAsyncThunk(
     // Calculate bond details.
     const bondContract = bond.getContractForBond(networkID, provider);
     const reserveContract = bond.getContractForReserve(networkID, provider);
-    console.log("reserveContract", reserveContract);
     const bondDetails = await bondContract.bondInfo(address);
     const interestDue: BigNumberish = Number(bondDetails.payout.toString()) / Math.pow(10, 9);
     const bondMaturationBlock = +bondDetails.vesting + +bondDetails.lastBlock;

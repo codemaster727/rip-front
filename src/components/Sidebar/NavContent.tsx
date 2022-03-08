@@ -67,8 +67,8 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
 
   useEffect(() => {
     const interval = setTimeout(() => {
-      dispatch(getAllBonds({ address, networkID: networkId, provider }));
-      dispatch(getUserNotes({ address, networkID: networkId, provider }));
+      // dispatch(getAllBonds({ address, networkID: networkId, provider }));
+      // dispatch(getUserNotes({ address, networkID: networkId, provider }));
     }, 60000);
     return () => clearTimeout(interval);
   });

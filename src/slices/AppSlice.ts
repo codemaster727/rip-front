@@ -7,7 +7,7 @@ import { abi as sRIPv2 } from "../abi/sRipv2.json";
 import { addresses, NetworkId } from "../constants";
 import { getMarketPrice, getTokenPrice, setAll } from "../helpers";
 import apollo from "../lib/apolloClient";
-import { RIPProtocolStaking__factory, RIPProtocolStakingv2__factory, SRipv2 } from "../typechain";
+import { RIPProtocolStakingv2__factory, SRipv2 } from "../typechain";
 import { IBaseAsyncThunk } from "./interfaces";
 
 interface IProtocolMetrics {
@@ -95,7 +95,7 @@ export const loadAppDetails = createAsyncThunk(
     const currentBlock = await provider.getBlockNumber();
     console.log("here1", networkID);
     const stakingContract = RIPProtocolStakingv2__factory.connect(addresses[networkID].STAKING_V2, provider);
-    const stakingContractV1 = RIPProtocolStaking__factory.connect(addresses[networkID].STAKING_ADDRESS, provider);
+    // const stakingContractV1 = RIPProtocolStaking__factory.connect(addresses[networkID].STAKING_ADDRESS, provider);
     const sripMainContract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, sRIPv2, provider) as SRipv2;
     // Calculating staking
     const epoch = await stakingContract.epoch();
@@ -115,17 +115,15 @@ export const loadAppDetails = createAsyncThunk(
     const stakingRebase = Number(circ.toString()).valueOf()
       ? Number(stakingReward.toString()) / Number(circ.toString())
       : Number("0");
-    console.log(circ);
-    console.log(stakingReward);
-    console.log(stakingRebase);
     const fiveDayRate = Math.pow(1 + stakingRebase, 5 * 3) - 1;
     const stakingAPY = Math.pow(1 + stakingRebase, 365 * 3) - 1;
     // Current index
     const currentIndex = await stakingContract.index();
-    const currentIndexV1 = await stakingContractV1.index();
+    // const currentIndexV1 = await stakingContractV1.index();
+
     return {
       currentIndex: ethers.utils.formatUnits(currentIndex, "gwei"),
-      currentIndexV1: ethers.utils.formatUnits(currentIndexV1, "gwei"),
+      // currentIndexV1: ethers.utils.formatUnits(currentIndexV1, "gwei"),
       currentBlock,
       fiveDayRate,
       stakingAPY,

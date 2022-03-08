@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { BigNumber, ethers } from "ethers";
-import { IERC20, RIPProtocolStaking__factory, RIPProtocolStakingv2__factory, StakingHelper } from "src/typechain";
+import { IERC20, RIPProtocolStakingv2__factory } from "src/typechain";
 
 import { abi as ierc20ABI } from "../abi/IERC20.json";
-import { abi as StakingHelperABI } from "../abi/StakingHelper.json";
+// import { abi as StakingHelperABI } from "../abi/StakingHelper.json";
 import { addresses } from "../constants";
 import { trackGAEvent, trackSegmentEvent } from "../helpers/analytics";
 import { fetchAccountSuccess, getBalances } from "./AccountSlice";
@@ -21,8 +21,8 @@ interface IUAData {
 
 function alreadyApprovedToken(
   token: string,
-  stakeAllowance: BigNumber,
-  unstakeAllowance: BigNumber,
+  // stakeAllowance: BigNumber,
+  // unstakeAllowance: BigNumber,
   stakeAllowanceV2: BigNumber,
   unstakeAllowanceV2: BigNumber,
   version2: boolean,
@@ -36,9 +36,9 @@ function alreadyApprovedToken(
   } else if (token === "srip" && version2) {
     applicableAllowance = unstakeAllowanceV2;
   } else if (token === "rip") {
-    applicableAllowance = stakeAllowance;
+    // applicableAllowance = stakeAllowance;
   } else if (token === "srip") {
-    applicableAllowance = unstakeAllowance;
+    // applicableAllowance = unstakeAllowance;
   }
 
   // check if allowance exists
@@ -55,23 +55,23 @@ export const changeApproval = createAsyncThunk(
       return;
     }
     const signer = provider.getSigner();
-    const ripContract = new ethers.Contract(addresses[networkID].RIP_ADDRESS as string, ierc20ABI, signer) as IERC20;
-    const sripContract = new ethers.Contract(addresses[networkID].SRIP_ADDRESS as string, ierc20ABI, signer) as IERC20;
+    // const ripContract = new ethers.Contract(addresses[networkID].RIP_ADDRESS as string, ierc20ABI, signer) as IERC20;
+    // const sripContract = new ethers.Contract(addresses[networkID].SRIP_ADDRESS as string, ierc20ABI, signer) as IERC20;
     const ripV2Contract = new ethers.Contract(addresses[networkID].RIP_V2 as string, ierc20ABI, signer) as IERC20;
     const sripV2Contract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, ierc20ABI, signer) as IERC20;
     let approveTx;
-    let stakeAllowance = await ripContract.allowance(address, addresses[networkID].STAKING_HELPER_ADDRESS);
-    let unstakeAllowance = await sripContract.allowance(address, addresses[networkID].STAKING_ADDRESS);
+    // let stakeAllowance = await ripContract.allowance(address, addresses[networkID].STAKING_HELPER_ADDRESS);
+    // let unstakeAllowance = await sripContract.allowance(address, addresses[networkID].STAKING_ADDRESS);
     let stakeAllowanceV2 = await ripV2Contract.allowance(address, addresses[networkID].STAKING_V2);
     let unstakeAllowanceV2 = await sripV2Contract.allowance(address, addresses[networkID].STAKING_V2);
     // return early if approval has already happened
-    if (alreadyApprovedToken(token, stakeAllowance, unstakeAllowance, stakeAllowanceV2, unstakeAllowanceV2, version2)) {
+    if (alreadyApprovedToken(token, stakeAllowanceV2, unstakeAllowanceV2, version2)) {
       dispatch(info("Approval completed."));
       return dispatch(
         fetchAccountSuccess({
           staking: {
-            ripStakeV1: +stakeAllowance,
-            ripUnstakeV1: +unstakeAllowance,
+            // ripStakeV1: +stakeAllowance,
+            // ripUnstakeV1: +unstakeAllowance,
             ripStake: +stakeAllowanceV2,
             ripUnstake: +unstakeAllowanceV2,
           },
@@ -94,15 +94,15 @@ export const changeApproval = createAsyncThunk(
         }
       } else {
         if (token === "rip") {
-          approveTx = await ripContract.approve(
-            addresses[networkID].STAKING_ADDRESS,
-            ethers.utils.parseUnits("1000000000", "gwei").toString(),
-          );
+          // approveTx = await ripContract.approve(
+          //   addresses[networkID].STAKING_ADDRESS,
+          //   ethers.utils.parseUnits("1000000000", "gwei").toString(),
+          // );
         } else if (token === "srip") {
-          approveTx = await sripContract.approve(
-            addresses[networkID].STAKING_ADDRESS,
-            ethers.utils.parseUnits("1000000000", "gwei").toString(),
-          );
+          // approveTx = await sripContract.approve(
+          //   addresses[networkID].STAKING_ADDRESS,
+          //   ethers.utils.parseUnits("1000000000", "gwei").toString(),
+          // );
         }
       }
 
@@ -123,16 +123,16 @@ export const changeApproval = createAsyncThunk(
     }
 
     // go get fresh allowances
-    stakeAllowance = await ripContract.allowance(address, addresses[networkID].STAKING_HELPER_ADDRESS);
-    unstakeAllowance = await sripContract.allowance(address, addresses[networkID].STAKING_ADDRESS);
+    // stakeAllowance = await ripContract.allowance(address, addresses[networkID].STAKING_HELPER_ADDRESS);
+    // unstakeAllowance = await sripContract.allowance(address, addresses[networkID].STAKING_ADDRESS);
     stakeAllowanceV2 = await ripV2Contract.allowance(address, addresses[networkID].STAKING_V2);
     unstakeAllowanceV2 = await sripV2Contract.allowance(address, addresses[networkID].STAKING_V2);
 
     return dispatch(
       fetchAccountSuccess({
         staking: {
-          ripStakeV1: +stakeAllowance,
-          ripUnstakeV1: +unstakeAllowance,
+          // ripStakeV1: +stakeAllowance,
+          // ripUnstakeV1: +unstakeAllowance,
           ripStake: +stakeAllowanceV2,
           ripUnstake: +unstakeAllowanceV2,
         },
@@ -148,16 +148,15 @@ export const changeStake = createAsyncThunk(
       dispatch(error("Please connect your wallet!"));
       return;
     }
-
     const signer = provider.getSigner();
 
-    const staking = RIPProtocolStaking__factory.connect(addresses[networkID].STAKING_ADDRESS, signer);
+    // const staking = RIPProtocolStaking__factory.connect(addresses[networkID].STAKING_ADDRESS, signer);
 
-    const stakingHelper = new ethers.Contract(
-      addresses[networkID].STAKING_HELPER_ADDRESS as string,
-      StakingHelperABI,
-      signer,
-    ) as StakingHelper;
+    // const stakingHelper = new ethers.Contract(
+    //   addresses[networkID].STAKING_HELPER_ADDRESS as string,
+    //   StakingHelperABI,
+    //   signer,
+    // ) as StakingHelper;
 
     const stakingV2 = RIPProtocolStakingv2__factory.connect(addresses[networkID].STAKING_V2, signer);
 
@@ -170,12 +169,15 @@ export const changeStake = createAsyncThunk(
       type: "",
     };
     try {
-      if (version2) {
+      if (version2 || true) {
         const rebasing = true; // when true stake into sRIP
         if (action === "stake") {
+          alert();
           uaData.type = "stake";
           // 3rd arg is rebase
           // 4th argument is claim default to true
+          console.log("object234");
+          console.log(stakingV2);
           stakeTx = rebase
             ? await stakingV2.stake(address, ethers.utils.parseUnits(value, "gwei"), true, true)
             : await stakingV2.stake(address, ethers.utils.parseUnits(value, "gwei"), false, true);
@@ -188,13 +190,13 @@ export const changeStake = createAsyncThunk(
             : await stakingV2.unstake(address, ethers.utils.parseUnits(value, "ether"), true, false);
         }
       } else {
-        if (action === "stake") {
-          uaData.type = "stake";
-          stakeTx = await stakingHelper.stake(ethers.utils.parseUnits(value, "gwei"));
-        } else {
-          uaData.type = "unstake";
-          stakeTx = await staking.unstake(ethers.utils.parseUnits(value, "gwei"), true);
-        }
+        // if (action === "stake") {
+        //   uaData.type = "stake";
+        //   stakeTx = await stakingHelper.stake(ethers.utils.parseUnits(value, "gwei"));
+        // } else {
+        //   uaData.type = "unstake";
+        //   // stakeTx = await staking.unstake(ethers.utils.parseUnits(value, "gwei"), true);
+        // }
       }
       const pendingTxnType = action === "stake" ? "staking" : "unstaking";
       uaData.txHash = stakeTx.hash;
