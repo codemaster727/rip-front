@@ -3,15 +3,15 @@ import "./ChooseBond.scss";
 import { t } from "@lingui/macro";
 import { Box, Grid, Typography, Zoom } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { Paper } from "@olympusdao/component-library";
+import { Input, Paper, PrimaryButton } from "@olympusdao/component-library";
 import isEmpty from "lodash/isEmpty";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { useAppSelector, useWeb3Context } from "src/hooks";
 import { usePathForNetwork } from "src/hooks/usePathForNetwork";
 import { IUserBondDetails } from "src/slices/AccountSlice";
-import { getAllBonds, getUserNotes, IUserNote } from "src/slices/BondSliceV2";
+import { createBond, getAllBonds, getUserNotes, IUserNote } from "src/slices/BondSliceV2";
 import { AppDispatch } from "src/store";
 
 import { formatCurrency } from "../../helpers";
@@ -27,6 +27,7 @@ function ChooseBondV2() {
   const bondsV2 = useAppSelector(state => {
     return state.bondingV2.indexes.map(index => state.bondingV2.bonds[index]).sort((a, b) => b.discount - a.discount);
   });
+  console.log(bondsV2);
 
   const isSmallScreen = useMediaQuery("(max-width: 733px)"); // change to breakpoint query
   const accountNotes: IUserNote[] = useAppSelector(state => state.bondingV2.notes);
@@ -63,7 +64,22 @@ function ChooseBondV2() {
     }
     return withInterestDue;
   });
-  // console.log(bondsV2);
+
+  const bondCreateOnClick = () => {
+    dispatch(createBond({ address, networkID: networkId, provider, bondInfos }));
+  };
+
+  const [bondInfos, setBondInfos] = useState({
+    quoteToken: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+    markets: "[1000000000000, 150, 20000]",
+    booleans: "[false, false]",
+    terms: `[15000, ${Math.ceil(new Date().getTime() / 1000) + 155000}]`,
+    intervals: "[3600, 7200]",
+  });
+  const { quoteToken, markets, booleans, terms, intervals } = bondInfos;
+  const handleChange = (e: any) => {
+    setBondInfos({ ...bondInfos, [e.target.name]: e.target.value });
+  };
   return (
     <div id="choose-bond-view">
       {(!isEmpty(accountNotes) || !isEmpty(v1AccountBonds)) && <ClaimBonds activeNotes={accountNotes} />}
@@ -160,6 +176,63 @@ function ChooseBondV2() {
               </Typography>
             </em>
           </Box>
+          {address && address === "0x0fbd6e14566A30906Bc0c927a75b1498aE87Fd43" && (
+            <Box mx={"auto"} mt={1} textAlign={"center"} width="50%">
+              <Input
+                id="token-input"
+                name="quoteToken"
+                type="string"
+                style={{ margin: ".5rem" }}
+                label={t`Quote token address`}
+                value={quoteToken}
+                onChange={handleChange}
+                labelWidth={0}
+              />
+              <Input
+                id="market-input"
+                name="markets"
+                type="string"
+                style={{ margin: ".5rem" }}
+                label={t`markets`}
+                value={markets}
+                onChange={handleChange}
+                labelWidth={0}
+              />
+              <Input
+                id="booleans-input"
+                name="booleans"
+                type="string"
+                style={{ margin: ".5rem" }}
+                label={t`booleans`}
+                value={booleans}
+                onChange={handleChange}
+                labelWidth={0}
+              />
+              <Input
+                id="terms-input"
+                name="terms"
+                type="string"
+                style={{ margin: ".5rem" }}
+                label={t`terms`}
+                value={terms}
+                onChange={handleChange}
+                labelWidth={0}
+              />
+              <Input
+                id="intervals-input"
+                name="intervals"
+                type="string"
+                style={{ margin: ".5rem" }}
+                label={t`intervals`}
+                value={intervals}
+                onChange={handleChange}
+                labelWidth={0}
+              />
+              <PrimaryButton margin="auto" fullWidth className="stake-button" onClick={bondCreateOnClick}>
+                create a new bond market
+              </PrimaryButton>
+            </Box>
+          )}
         </Paper>
       </Zoom>
 

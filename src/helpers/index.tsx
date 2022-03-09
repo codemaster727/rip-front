@@ -8,13 +8,13 @@ import { IBondV2 } from "src/slices/BondSliceV2";
 import { IBaseAsyncThunk } from "src/slices/interfaces";
 import { GRIP__factory } from "src/typechain/factories/GRIP__factory";
 
-// import { abi as PairContractABI } from "../abi/PairContract.json";
+import { abi as PairContractABI } from "../abi/PairContract.json";
 import { abi as RedeemHelperABI } from "../abi/RedeemHelper.json";
 import { ReactComponent as RipImg } from "../assets/tokens/token_RIP.svg";
 import { ReactComponent as SRipImg } from "../assets/tokens/token_sRIP.svg";
 import { addresses, BLOCK_RATE_SECONDS, EPOCH_INTERVAL, NetworkId } from "../constants";
-import { RedeemHelper } from "../typechain";
-// import { rip_dai, rip_daiOld, rip_weth } from "./AllBonds";
+import { PairContract, RedeemHelper } from "../typechain";
+import { rip_dai } from "./AllBonds";
 import { EnvHelper } from "./Environment";
 import { NodeHelper } from "./NodeHelper";
 
@@ -23,14 +23,14 @@ import { NodeHelper } from "./NodeHelper";
  * @returns Number like 333.33
  */
 export async function getMarketPrice() {
-  return 0;
+  // return 0;
   const mainnetProvider = NodeHelper.getMainnetStaticProvider();
   // v2 price
-  // const rip_dai_address = rip_dai.getAddressForReserve(NetworkId.MAINNET);
-  // const pairContract = new ethers.Contract(rip_dai_address || "", PairContractABI, mainnetProvider) as PairContract;
-  // const reserves = await pairContract.getReserves();
+  const rip_dai_address = rip_dai.getAddressForReserve(NetworkId.MAINNET);
+  const pairContract = new ethers.Contract(rip_dai_address || "", PairContractABI, mainnetProvider) as PairContract;
+  const reserves = await pairContract.getReserves();
 
-  // return Number(reserves[1].toString()) / Number(reserves[0].toString()) / 10 ** 9;
+  return Number(reserves[0].toString()) / Number(reserves[1].toString()) / 10 ** 9;
 }
 
 export async function getMarketPriceFromWeth() {

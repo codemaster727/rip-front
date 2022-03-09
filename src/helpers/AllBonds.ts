@@ -497,7 +497,7 @@ export const rip_dai = new LPBond({
     [NetworkId.MAINNET]: {
       // TODO: add correct bond address when it's created
       bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
-      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+      reserveAddress: "0xfbC540ebB2AD331486d35E28331aA95A5c9ff0C3",
     },
     [NetworkId.BSC]: {
       bondAddress: "",

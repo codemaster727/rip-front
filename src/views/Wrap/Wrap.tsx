@@ -47,7 +47,7 @@ const Wrap: FC = () => {
   const avax = NETWORKS[43114];
   const arbitrum = NETWORKS[42161];
 
-  const isAvax = useMemo(() => networkId != 1 && networkId != 4 && networkId != -1, [networkId]);
+  const isAvax = useMemo(() => networkId != 56 && networkId != 97 && networkId != -1, [networkId]);
 
   const wrapButtonText =
     assetTo === "gRIP" ? (assetFrom === "wsRIP" ? "Migrate" : "Wrap") + " to gRIP" : `${currentAction} ${assetFrom}`;
@@ -353,10 +353,9 @@ const Wrap: FC = () => {
                       <Divider />
                       <Box width="100%" p={1} sx={{ textAlign: "center" }}>
                         <Typography variant="body1" style={{ margin: "15px 0 10px 0" }}>
-                          Got wsRIP on Avalanche or Arbitrum? Click below to switch networks and migrate to gRIP (no
-                          bridge required!)
+                          wsRIP on the other networks is not launched yet.
                         </Typography>
-                        <Button onClick={handleSwitchChain(43114)} variant="outlined" style={{ margin: "0.3rem" }}>
+                        {/* <Button onClick={handleSwitchChain(43114)} variant="outlined" style={{ margin: "0.3rem" }}>
                           <img height="28px" width="28px" src={String(avax.image)} alt={avax.imageAltText} />
                           <Typography variant="h6" style={{ marginLeft: "8px" }}>
                             {avax.chainName}
@@ -367,7 +366,7 @@ const Wrap: FC = () => {
                           <Typography variant="h6" style={{ marginLeft: "8px" }}>
                             {arbitrum.chainName}
                           </Typography>
-                        </Button>
+                        </Button> */}
                       </Box>
                     </>
                   </div>
