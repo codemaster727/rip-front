@@ -36,15 +36,19 @@ export const changeApproval = createAsyncThunk(
     try {
       if (token === "srip") {
         // won't run if wrapAllowance > 0
-        approveTx = await sripContract.approve(
-          addresses[networkID].STAKING_V2,
-          ethers.utils.parseUnits("1000000000", "gwei"),
-        );
+        if (Number(wrapAllowance) <= 0) {
+          approveTx = await sripContract.approve(
+            addresses[networkID].STAKING_V2,
+            ethers.utils.parseUnits("1000000000", "gwei"),
+          );
+        }
       } else if (token === "grip") {
-        approveTx = await gripContract.approve(
-          addresses[networkID].STAKING_V2,
-          ethers.utils.parseUnits("1000000000", "ether"),
-        );
+        if (Number(unwrapAllowance) <= 0) {
+          approveTx = await gripContract.approve(
+            addresses[networkID].STAKING_V2,
+            ethers.utils.parseUnits("1000000000000000000", "ether"),
+          );
+        }
       }
 
       const text = "Approve " + (token === "srip" ? "Wrapping" : "Unwrapping");

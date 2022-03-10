@@ -12,10 +12,10 @@ import { IBaseAsyncThunk } from "./interfaces";
 
 interface IProtocolMetrics {
   readonly timestamp: string;
-  readonly ripCirculatingSupply: string;
-  readonly sRipCirculatingSupply: string;
+  readonly ohmCirculatingSupply: string;
+  readonly sOhmCirculatingSupply: string;
   readonly totalSupply: string;
-  readonly ripPrice: string;
+  readonly ohmPrice: string;
   readonly marketCap: string;
   readonly totalValueLocked: string;
   readonly treasuryMarketValue: string;
@@ -76,7 +76,7 @@ export const loadAppDetails = createAsyncThunk(
     }
 
     const marketCap = parseFloat(graphData.data.protocolMetrics[0].marketCap);
-    const circSupply = parseFloat(graphData.data.protocolMetrics[0].ripCirculatingSupply);
+    const circSupply = parseFloat(graphData.data.protocolMetrics[0].ohmCirculatingSupply);
     const totalSupply = parseFloat(graphData.data.protocolMetrics[0].totalSupply);
     const treasuryMarketValue = parseFloat(graphData.data.protocolMetrics[0].treasuryMarketValue);
     // const currentBlock = parseFloat(graphData.data._meta.block.number);

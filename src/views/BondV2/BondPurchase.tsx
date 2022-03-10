@@ -3,6 +3,7 @@ import { Box, FormControl, Grid, Slide, Typography } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import { Input, PrimaryButton } from "@olympusdao/component-library";
 import { ethers } from "ethers";
+import { parseEther } from "ethers/lib/utils";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "src/hooks";
@@ -81,7 +82,8 @@ function BondPurchase({
   };
 
   const hasAllowance = useCallback(() => {
-    return +balance?.allowance > 0;
+    console.log("hasAllowance", balance);
+    return balance?.allowance.gt(parseEther("1000000000000"));
   }, [balance]);
 
   const setMax = () => {

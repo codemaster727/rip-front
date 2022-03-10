@@ -132,11 +132,10 @@ export const RIPStakedGraph = () => {
     data &&
     data
       .map(metric => ({
-        staked: (metric.sRipCirculatingSupply / metric.ripCirculatingSupply) * 100,
+        staked: (metric.sOhmCirculatingSupply / metric.ohmCirculatingSupply) * 100,
         timestamp: metric.timestamp,
       }))
       .filter(metric => metric.staked < 100);
-
   return (
     <Chart
       isStaked
@@ -149,7 +148,7 @@ export const RIPStakedGraph = () => {
       bulletpointColors={bulletpoints.staked}
       infoTooltipMessage={tooltipInfoMessages().staked}
       expandedGraphStrokeColor={theme.palette.graphStrokeColor}
-      headerSubText={`${staked && trim(staked[0].staked, 2)}% `}
+      headerSubText={`${staked && staked.length && trim(staked[0].staked, 2)}% `}
     />
   );
 };

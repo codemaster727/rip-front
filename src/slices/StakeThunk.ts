@@ -172,7 +172,6 @@ export const changeStake = createAsyncThunk(
       if (version2 || true) {
         const rebasing = true; // when true stake into sRIP
         if (action === "stake") {
-          alert();
           uaData.type = "stake";
           // 3rd arg is rebase
           // 4th argument is claim default to true

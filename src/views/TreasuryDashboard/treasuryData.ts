@@ -6,16 +6,16 @@ query {
   protocolMetrics(first: 100, orderBy: timestamp, orderDirection: desc) {
     id
     timestamp
-    ripCirculatingSupply
-    sRipCirculatingSupply
+    ohmCirculatingSupply
+    sOhmCirculatingSupply
     totalSupply
-    ripPrice
+    ohmPrice
     marketCap
     totalValueLocked
     treasuryRiskFreeValue
     treasuryMarketValue
     nextEpochRebase
-    nextDistributedRip
+    nextDistributedOhm
     treasuryDaiRiskFreeValue
     treasuryFraxMarketValue
     treasuryDaiMarketValue
@@ -35,8 +35,8 @@ query {
     runway5k
     runway2dot5k
     runwayCurrent
-    treasuryRipDaiPOL
-    treasuryRipFraxPOL
+    treasuryOhmDaiPOL
+    treasuryOhmFraxPOL
   }
 }
 `;

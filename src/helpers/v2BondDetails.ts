@@ -152,7 +152,7 @@ export const v2BondDetails: { [key: number]: { [key: string]: V2BondDetails } } 
     ["0x80edbf2f58c7b130df962bb485c28188f6b5ed29"]: RipDaiDetails,
   },
   [NetworkId.MAINNET]: {
-    ["0x6b175474e89094c44da98b954eedeac495271d0f"]: DaiDetails,
+    ["0x369c2333139dbB15c612F46ef8513F0768F31864".toLowerCase()]: DaiDetails,
     ["0x853d955acef822db058eb8505911ed77f175b99e"]: FraxDetails,
     ["0xa693b19d2931d498c5b318df961919bb4aee87a5"]: UstDetails,
     ["0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"]: WbtcDetails,

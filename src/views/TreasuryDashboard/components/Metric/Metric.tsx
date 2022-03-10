@@ -34,7 +34,7 @@ export const MarketCap = () => {
 
 export const RIPPrice = () => {
   const { data: ripPrice } = useRipPrice();
-
+  console.log("realhere", ripPrice);
   const props: MetricProps = {
     ...sharedProps,
     label: t`RIP Price`,

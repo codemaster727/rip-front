@@ -301,13 +301,43 @@ async function processBond(
   };
 }
 
+export const createBond = createAsyncThunk(
+  "bondsV2/createBond",
+  async ({ provider, networkID, address, bondInfos }: any, { dispatch }) => {
+    checkNetwork(networkID);
+    const signer = provider.getSigner();
+    const depositoryContract = BondDepository__factory.connect(addresses[networkID].BOND_DEPOSITORY, signer);
+    const markets = JSON.parse(bondInfos.markets);
+    const result = await depositoryContract.create(
+      bondInfos.quoteToken,
+      [ethers.utils.parseEther(markets[0].toString()), ethers.utils.parseUnits(markets[1].toString(), 9), markets[2]],
+      // markets,
+      JSON.parse(bondInfos.booleans),
+      JSON.parse(bondInfos.terms),
+      JSON.parse(bondInfos.intervals),
+      // "0x369c2333139dbB15c612F46ef8513F0768F31864",
+      // [100000, 1000, 10000],
+      // [true, true],
+      // [15000, 1647709767],
+      // [10, 10],
+    );
+    console.log(result);
+  },
+);
+
 export const getAllBonds = createAsyncThunk(
   "bondsV2/getAll",
   async ({ provider, networkID, address }: IBaseAddressAsyncThunk, { dispatch }) => {
     checkNetwork(networkID);
-    const depositoryContract = BondDepository__factory.connect(addresses[networkID].BOND_DEPOSITORY, provider);
-    console.log(networkID);
-    console.log(depositoryContract);
+    const signer = provider.getSigner();
+    const depositoryContract = BondDepository__factory.connect(addresses[networkID].BOND_DEPOSITORY, signer);
+    // const result = await depositoryContract.create(
+    //   "0x369c2333139dbB15c612F46ef8513F0768F31864",
+    //   [100000, 1000, 10000],
+    //   [true, true],
+    //   [15000, 1647709767],
+    //   [10, 10],
+    // );
     const liveBondIndexes = await depositoryContract.liveMarkets();
     // `markets()` returns quote/price data
     const liveBondPromises = liveBondIndexes.map(async index => await depositoryContract.markets(index));

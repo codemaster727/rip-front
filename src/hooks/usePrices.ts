@@ -16,8 +16,11 @@ export const useRipPrice = () => {
 
   return useQuery<number, Error>(ripPriceQueryKey(), async () => {
     const [rip, dai] = await reserveContract.getReserves();
-
-    return parseBigNumber(dai.div(rip), RIP_DAI_RESERVE_CONTRACT_DECIMALS);
+    if (rip.gt(dai)) {
+      return parseBigNumber(rip.div(dai), RIP_DAI_RESERVE_CONTRACT_DECIMALS);
+    } else {
+      return parseBigNumber(dai.div(rip), RIP_DAI_RESERVE_CONTRACT_DECIMALS);
+    }
   });
 };
 
