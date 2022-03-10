@@ -55,8 +55,8 @@ export const dai = new StableBond({
   },
   networkAddrs: {
     [NetworkId.MAINNET]: {
-      bondAddress: "0x575409F8d77c12B05feD8B455815f0e54797381c",
-      reserveAddress: "0x6b175474e89094c44da98b954eedeac495271d0f",
+      bondAddress: "0xA2d3A2A24709F876243aDDC837dcCbBeaee28910",
+      reserveAddress: "0xfbC540ebB2AD331486d35E28331aA95A5c9ff0C3",
     },
     [NetworkId.TESTNET_RINKEBY]: {
       bondAddress: "0xDea5668E815dAF058e3ecB30F645b04ad26374Cf",
@@ -68,11 +68,11 @@ export const dai = new StableBond({
     },
     [NetworkId.BSC]: {
       bondAddress: "",
-      reserveAddress: "",
+      reserveAddress: "0xfbC540ebB2AD331486d35E28331aA95A5c9ff0C3",
     },
     [NetworkId.BSC_TEST]: {
-      bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
-      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+      bondAddress: "0xA2d3A2A24709F876243aDDC837dcCbBeaee28910",
+      reserveAddress: "0xfbC540ebB2AD331486d35E28331aA95A5c9ff0C3",
     },
   },
 });

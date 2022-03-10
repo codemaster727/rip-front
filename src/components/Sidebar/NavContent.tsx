@@ -278,7 +278,7 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                     }}
                   >
                     <Link
-                      href="https://synapseprotocol.com/?inputCurrency=gRIP&outputCurrency=gRIP&outputChain=43114"
+                      href="https://anyswap.exchange/#/bridge"
                       target="_blank"
                       style={{ color: "white", textDecoration: "none" }}
                     >

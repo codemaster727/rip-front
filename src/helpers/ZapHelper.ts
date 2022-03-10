@@ -49,9 +49,11 @@ export class ZapHelper {
     const apiKey = ZapHelper.getZapperAPIKey();
     try {
       const response = await fetch(
-        `https://api.zapper.fi/v1/protocols/tokens/balances?api_key=${apiKey}&addresses%5B%5D=${address}&newBalances=true`,
+        `https://api.zapper.fi/v1/protocols/tokens/balances?api_key=${apiKey}&addresses%5B%5D=${address}&network=binance-smart-chain&newBalances=true`,
       );
       const responseJson = await response.json();
+      console.log("realhere", responseJson);
+      console.log(response);
       if (response.ok) {
         return ZapHelper.parseResponse(responseJson, address);
       } else {
@@ -100,7 +102,7 @@ export class ZapHelper {
     tokenAddress = tokenAddress.toLowerCase();
     const apiKey = ZapHelper.getZapperAPIKey();
     const response = await fetch(
-      `https://api.zapper.fi/v1/exchange/quote?sellTokenAddress=${tokenAddress}&buyTokenAddress=0x64aa3364f17a4d01c6f1751fd97c2bd3d7e7f1d5&sellAmount=${sellAmount}&slippagePercentage=${slippageDecimal}&network=ethereum&api_key=${apiKey}&ownerAddress=${address}&isZap=true`,
+      `https://api.zapper.fi/v1/exchange/quote?sellTokenAddress=${tokenAddress}&buyTokenAddress=0x1a0100f25CF16488069b40d932e902865B8a4Fa0&sellAmount=${sellAmount}&slippagePercentage=${slippageDecimal}&network=binance-smart-chain&api_key=${apiKey}&ownerAddress=${address}&isZap=true`,
     );
     const responseJson = await response.json();
     if (response.ok) {

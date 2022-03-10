@@ -102,7 +102,7 @@ export const getZapTokenBalances = createAsyncThunk(
         if (result.balances["rip"]) {
           result.balances["rip"].hide = true;
         }
-
+        // console.log("realhere", result);
         for (const key in result.balances) {
           const balance = result.balances[key];
           const balanceRaw = balance.balanceRaw;
@@ -209,7 +209,7 @@ export const executeZap = createAsyncThunk(
 );
 
 const zapNetworkAvailable = (networkID: NetworkId, dispatch: ThunkDispatch<unknown, unknown, AnyAction>) => {
-  if (Number(networkID) === 1) {
+  if (Number(networkID) === 97) {
     return true;
   } else {
     dispatch(info("Zaps are only available on Mainnet"));

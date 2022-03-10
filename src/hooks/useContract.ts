@@ -7,7 +7,7 @@ import STAKING_ABI from "src/abi/RIPProtocolStakingv2.json";
 import { NetworkId } from "src/constants";
 import { AddressMap, STAKING_ADDRESSES } from "src/constants/addresses";
 import { assert } from "src/helpers";
-import { rip_dai } from "src/helpers/AllBonds";
+import { dai } from "src/helpers/AllBonds";
 import { NodeHelper } from "src/helpers/NodeHelper";
 import { IERC20, PairContract, RIPProtocolStakingv2 } from "src/typechain";
 
@@ -62,8 +62,7 @@ export const useStakingContract = () => {
 };
 
 export const useRipDaiReserveContract = () => {
-  console.log(11111);
-  const address = rip_dai.getAddressForReserve(NetworkId.MAINNET);
+  const address = dai.networkAddrs[NetworkId.MAINNET]?.reserveAddress;
   assert(address, "Contract should exist for NetworkId.MAINNET");
 
   return usePairContract(address);

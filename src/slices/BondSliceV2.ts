@@ -310,8 +310,8 @@ export const createBond = createAsyncThunk(
     const markets = JSON.parse(bondInfos.markets);
     const result = await depositoryContract.create(
       bondInfos.quoteToken,
-      // [ethers.utils.parseEther(markets[0].toString()), markets[1], markets[2]],
-      markets,
+      [ethers.utils.parseEther(markets[0].toString()), ethers.utils.parseUnits(markets[1].toString(), 9), markets[2]],
+      // markets,
       JSON.parse(bondInfos.booleans),
       JSON.parse(bondInfos.terms),
       JSON.parse(bondInfos.intervals),

@@ -71,8 +71,8 @@ function ChooseBondV2() {
 
   const [bondInfos, setBondInfos] = useState({
     quoteToken: "0x369c2333139dbB15c612F46ef8513F0768F31864",
-    markets: "[1000000000000, 150, 20000]",
-    booleans: "[false, false]",
+    markets: "[1000000, 150, 20000]",
+    booleans: "[true, false]",
     terms: `[15000, ${Math.ceil(new Date().getTime() / 1000) + 155000}]`,
     intervals: "[3600, 7200]",
   });
