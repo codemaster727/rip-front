@@ -30,8 +30,6 @@ export const getRedemptionBalancesAsync = async ({ address, networkID, provider 
       RIPProtocolGiving,
       provider,
     );
-    console.log("object1234");
-    console.log(givingContract);
     try {
       redeemableBalance = await givingContract.redeemableBalance(address);
       const recipientInfoData = await givingContract.recipientInfo(address);

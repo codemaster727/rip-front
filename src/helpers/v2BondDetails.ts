@@ -11,9 +11,7 @@ const pricingFunctionHelper = async (
   firstToken: string,
   secondToken: string,
 ) => {
-  console.log("object123");
   const baseContract = UniswapV2Lp__factory.connect(quoteToken, provider);
-  console.log(baseContract);
   const reserves = await baseContract.getReserves();
   const totalSupply = +(await baseContract.totalSupply()) / Math.pow(10, await baseContract.decimals());
 
@@ -152,13 +150,13 @@ export const v2BondDetails: { [key: number]: { [key: string]: V2BondDetails } } 
     ["0x80edbf2f58c7b130df962bb485c28188f6b5ed29"]: RipDaiDetails,
   },
   [NetworkId.MAINNET]: {
-    ["0x369c2333139dbB15c612F46ef8513F0768F31864".toLowerCase()]: DaiDetails,
+    ["0xB17b4703Cf1ce5bF44A22e14D25Ef4fDCd05c4b4".toLowerCase()]: DaiDetails,
     ["0x853d955acef822db058eb8505911ed77f175b99e"]: FraxDetails,
     ["0xa693b19d2931d498c5b318df961919bb4aee87a5"]: UstDetails,
     ["0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"]: WbtcDetails,
     ["0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"]: EthDetails,
     ["0x4e3fbd56cd56c3e72c1403e103b45db9da5b9d2b"]: CvxDetails,
     ["0x69b81152c5a8d35a67b32a4d3772795d96cae4da"]: RipEthDetails,
-    ["0x055475920a8c93cffb64d039a8205f7acc7722d3"]: RipDaiDetails,
+    ["0x862cFBEd37f8b6Cfd442e36169fb5A7c9A4489A9".toLowerCase()]: RipDaiDetails,
   },
 };

@@ -82,9 +82,7 @@ const ZapInfo: React.FC<ZapInfoProps> = ({ tokens, address }) => {
         <Grid
           item
           sm={12}
-          // col-offset={3}
           md={3}
-          // lg={4}
           classes={{ root: classes.infoBox, item: classes.infoBoxItem }}
           style={
             !isSmallScreen

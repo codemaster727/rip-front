@@ -115,7 +115,6 @@ export const changeApproval = createAsyncThunk(
   "bondsV2/changeApproval",
   async ({ bond, provider, networkID, address }: IBondV2AysncThunk, { dispatch, getState }) => {
     checkNetwork(networkID);
-    console.log("here", networkID);
     const signer = provider.getSigner();
     const bondState: IBondV2 = (getState() as RootState).bondingV2.bonds[bond.index];
     const tokenContractAddress: string = bondState.quoteToken;
@@ -187,7 +186,6 @@ export const getSingleBond = createAsyncThunk(
   async ({ provider, networkID, bondIndex }: IBondV2IndexAsyncThunk, { dispatch }): Promise<IBondV2> => {
     checkNetwork(networkID);
     const depositoryContract = BondDepository__factory.connect(addresses[networkID].BOND_DEPOSITORY, provider);
-    console.log("depositoryContract", depositoryContract);
     const bondCore = await depositoryContract.markets(bondIndex);
     const bondMetadata = await depositoryContract.metadata(bondIndex);
     const bondTerms = await depositoryContract.terms(bondIndex);
@@ -273,7 +271,6 @@ async function processBond(
     +capacityInQuoteToken > +maxPayoutInQuoteToken ? maxPayoutInQuoteToken : capacityInQuoteToken;
   const maxPayoutOrCapacityInBase =
     +capacityInBaseToken > +maxPayoutInBaseToken ? maxPayoutInBaseToken : capacityInBaseToken;
-
   return {
     ...bond,
     ...metadata,
@@ -315,13 +312,7 @@ export const createBond = createAsyncThunk(
       JSON.parse(bondInfos.booleans),
       JSON.parse(bondInfos.terms),
       JSON.parse(bondInfos.intervals),
-      // "0x369c2333139dbB15c612F46ef8513F0768F31864",
-      // [100000, 1000, 10000],
-      // [true, true],
-      // [15000, 1647709767],
-      // [10, 10],
     );
-    console.log(result);
   },
 );
 
@@ -331,21 +322,12 @@ export const getAllBonds = createAsyncThunk(
     checkNetwork(networkID);
     const signer = provider.getSigner();
     const depositoryContract = BondDepository__factory.connect(addresses[networkID].BOND_DEPOSITORY, signer);
-    // const result = await depositoryContract.create(
-    //   "0x369c2333139dbB15c612F46ef8513F0768F31864",
-    //   [100000, 1000, 10000],
-    //   [true, true],
-    //   [15000, 1647709767],
-    //   [10, 10],
-    // );
     const liveBondIndexes = await depositoryContract.liveMarkets();
     // `markets()` returns quote/price data
     const liveBondPromises = liveBondIndexes.map(async index => await depositoryContract.markets(index));
     const liveBondMetadataPromises = liveBondIndexes.map(async index => await depositoryContract.metadata(index));
     const liveBondTermsPromises = liveBondIndexes.map(async index => await depositoryContract.terms(index));
     const liveBonds: IBondV2[] = [];
-    console.log(liveBondIndexes);
-    console.log(liveBonds);
     for (let i = 0; i < liveBondIndexes.length; i++) {
       const bondIndex = +liveBondIndexes[i];
       try {
@@ -363,8 +345,6 @@ export const getAllBonds = createAsyncThunk(
         console.log(e);
       }
     }
-    console.log(liveBondIndexes);
-    console.log(liveBonds);
     return liveBonds;
   },
 );
@@ -373,11 +353,9 @@ export const getUserNotes = createAsyncThunk(
   "bondsV2/notes",
   async ({ provider, networkID, address }: IBaseAddressAsyncThunk, { dispatch, getState }): Promise<IUserNote[]> => {
     checkNetwork(networkID);
-    console.log(address);
     const currentTime = Date.now() / 1000;
     const depositoryContract = BondDepository__factory.connect(addresses[networkID].BOND_DEPOSITORY, provider);
     const userNoteIndexes = await depositoryContract.indexesFor(address);
-    console.log(userNoteIndexes);
     const userNotePromises = userNoteIndexes.map(async index => await depositoryContract.notes(address, index));
     const userNotes: {
       payout: ethers.BigNumber;

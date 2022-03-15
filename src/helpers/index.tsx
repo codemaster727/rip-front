@@ -29,8 +29,7 @@ export async function getMarketPrice() {
   const rip_dai_address = rip_dai.getAddressForReserve(NetworkId.MAINNET);
   const pairContract = new ethers.Contract(rip_dai_address || "", PairContractABI, mainnetProvider) as PairContract;
   const reserves = await pairContract.getReserves();
-
-  return Number(reserves[0].toString()) / Number(reserves[1].toString()) / 10 ** 9;
+  return Number(reserves[1].toString()) / Number(reserves[0].toString()) / 10 ** 9;
 }
 
 export async function getMarketPriceFromWeth() {
@@ -305,7 +304,7 @@ export const convertGripToRip = (amount: BigNumber, index: BigNumber): string =>
 };
 
 /**
- * Converts RIP to gRIP. Mimics `balanceTo()` gRIP contract function.
+ * Converts R.RIP to gR.RIP. Mimics `balanceTo()` gRIP contract function.
  * @returns Formatted string representation of gRIP equivalent.
  */
 export const convertRipToGrip = (amount: BigNumber, index: BigNumber): string => {

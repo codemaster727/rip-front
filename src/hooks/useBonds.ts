@@ -54,7 +54,6 @@ const useBonds = (networkId: NetworkId) => {
       return a["bondDiscount"] > b["bondDiscount"] ? -1 : b["bondDiscount"] > a["bondDiscount"] ? 1 : 0;
     });
     setBonds(mostProfitableBonds);
-    // setBonds(bondDetails);
 
     // TODO (appleseed-expiredBonds): there may be a smarter way to refactor this
     const expiredDetails: IAllBondData[] = allExpiredBonds
@@ -74,7 +73,6 @@ const useBonds = (networkId: NetworkId) => {
   }, [bondState, accountBondsState, bondLoading]);
 
   // Debug Log:
-  // console.log(bonds);
   return { bonds, loading: bondLoading, expiredBonds };
 };
 

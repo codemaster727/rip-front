@@ -409,10 +409,6 @@ function App() {
                 </Route>
               </Route>
 
-              {/* <Route path="/33-together">
-                <PoolTogether />
-              </Route> */}
-
               <Redirect from="/bonds-v1" to="/bonds" />
 
               <Route path="/bonds">

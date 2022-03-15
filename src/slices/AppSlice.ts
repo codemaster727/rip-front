@@ -93,15 +93,10 @@ export const loadAppDetails = createAsyncThunk(
       } as IAppData;
     }
     const currentBlock = await provider.getBlockNumber();
-    console.log("here1", networkID);
     const stakingContract = RIPProtocolStakingv2__factory.connect(addresses[networkID].STAKING_V2, provider);
-    // const stakingContractV1 = RIPProtocolStaking__factory.connect(addresses[networkID].STAKING_ADDRESS, provider);
     const sripMainContract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, sRIPv2, provider) as SRipv2;
     // Calculating staking
     const epoch = await stakingContract.epoch();
-    console.log(epoch);
-    console.log(stakingContract);
-    // console.log(await stakingContract.secondsToNextEpoch());
     let secondsToEpoch;
     try {
       secondsToEpoch = await stakingContract.secondsToNextEpoch();
@@ -109,7 +104,6 @@ export const loadAppDetails = createAsyncThunk(
       secondsToEpoch = 0;
       console.log(error);
     }
-    console.log(secondsToEpoch);
     const stakingReward = epoch.distribute;
     const circ = await sripMainContract.circulatingSupply();
     const stakingRebase = Number(circ.toString()).valueOf()

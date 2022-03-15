@@ -27,7 +27,6 @@ function ChooseBondV2() {
   const bondsV2 = useAppSelector(state => {
     return state.bondingV2.indexes.map(index => state.bondingV2.bonds[index]).sort((a, b) => b.discount - a.discount);
   });
-  console.log(bondsV2);
 
   const isSmallScreen = useMediaQuery("(max-width: 733px)"); // change to breakpoint query
   const accountNotes: IUserNote[] = useAppSelector(state => state.bondingV2.notes);
@@ -70,9 +69,9 @@ function ChooseBondV2() {
   };
 
   const [bondInfos, setBondInfos] = useState({
-    quoteToken: "0x369c2333139dbB15c612F46ef8513F0768F31864",
-    markets: "[1000000, 150, 20000]",
-    booleans: "[true, false]",
+    quoteToken: "0xB17b4703Cf1ce5bF44A22e14D25Ef4fDCd05c4b4",
+    markets: "[100000, 45, 20000]",
+    booleans: "[true, true]",
     terms: `[15000, ${Math.ceil(new Date().getTime() / 1000) + 155000}]`,
     intervals: "[3600, 7200]",
   });
@@ -89,28 +88,15 @@ function ChooseBondV2() {
           <Typography align="center" variant="h4" style={{ fontWeight: "bold" }}>{`${t`Bond`} (4,4)`}</Typography>
           <Grid container direction="row" spacing={3} style={{ marginTop: "30px" }}>
             <Grid item md={6} sm={6} xs={6}>
-              <Box
-                alignItems="right"
-                display="flex"
-                flexDirection="column"
-                justifyContent="right"
-                // className={`${classes.infoHeader} oly-info-header-box`}
-              >
+              <Box alignItems="right" display="flex" flexDirection="column" justifyContent="right">
                 <Typography align="right" variant="h5" style={{ fontWeight: "bold" }}>{t`treasury balance`}</Typography>
                 <Typography align="right" variant="h5" style={{ fontWeight: "bold" }}>{t`r.rip price`}</Typography>
               </Box>
             </Grid>
             <Grid item md={6} sm={6} xs={6}>
-              <Box
-                alignItems="left"
-                display="flex"
-                flexDirection="column"
-                justifyContent="left"
-                // className={`${classes.infoHeader} oly-info-header-box`}
-              >
+              <Box alignItems="left" display="flex" flexDirection="column" justifyContent="left">
                 <Typography align="left" variant="h5">
                   {!!treasuryBalance ? formattedTreasuryBalance : "loading..."}
-                  {/* {formattedTreasuryBalance} */}
                 </Typography>
                 <Typography align="left" variant="h5">
                   {marketPrice ? formatCurrency(Number(marketPrice), 2) : "loading..."}
@@ -118,19 +104,6 @@ function ChooseBondV2() {
               </Box>
             </Grid>
           </Grid>
-          {/* <MetricCollection>
-            <Metric
-              label={t`Treasury Balance`}
-              metric={formattedTreasuryBalance}
-              isLoading={!!treasuryBalance ? false : true}
-            />
-            <Metric
-              label={t`RIP Price`}
-              metric={formatCurrency(Number(marketPrice), 2)}
-              isLoading={marketPrice ? false : true}
-            />
-          </MetricCollection> */}
-
           {bondsV2.length == 0 && !isBondsLoading && (
             <Box display="flex" justifyContent="center" marginY="24px">
               <Typography variant="h4">No active bonds</Typography>
@@ -139,29 +112,6 @@ function ChooseBondV2() {
 
           {!isSmallScreen && bondsV2.length != 0 && (
             <Grid container item direction="row" spacing={3}>
-              {/* <TableContainer>
-                <Table aria-label="Available bonds">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell align="center">
-                        <Trans>Bond</Trans>
-                      </TableCell>
-                      <TableCell align="left">
-                        <Trans>Price</Trans>
-                      </TableCell>
-                      <TableCell align="left">
-                        <Trans>Discount</Trans>
-                      </TableCell>
-                      <TableCell align="left">
-                        <Trans>Duration</Trans>
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    
-                  </TableBody>
-                </Table>
-              </TableContainer> */}
               {bondsV2.map(bond => {
                 if (bond.displayName !== "unknown")
                   return <BondTableData networkId={networkId} key={bond.index} bond={bond} />;

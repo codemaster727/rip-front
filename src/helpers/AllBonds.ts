@@ -25,7 +25,7 @@ export const dai = new StableBond({
   displayName: "DAI",
   bondToken: "DAI",
   payoutToken: "RIP",
-  v2Bond: false,
+  v2Bond: true,
   bondIconSvg: ["DAI"],
   bondContractABI: DaiBondContract,
   isBondable: {
@@ -56,7 +56,7 @@ export const dai = new StableBond({
   networkAddrs: {
     [NetworkId.MAINNET]: {
       bondAddress: "0xA2d3A2A24709F876243aDDC837dcCbBeaee28910",
-      reserveAddress: "0xfbC540ebB2AD331486d35E28331aA95A5c9ff0C3",
+      reserveAddress: "0x862cFBEd37f8b6Cfd442e36169fb5A7c9A4489A9",
     },
     [NetworkId.TESTNET_RINKEBY]: {
       bondAddress: "0xDea5668E815dAF058e3ecB30F645b04ad26374Cf",
@@ -68,11 +68,11 @@ export const dai = new StableBond({
     },
     [NetworkId.BSC]: {
       bondAddress: "",
-      reserveAddress: "0xfbC540ebB2AD331486d35E28331aA95A5c9ff0C3",
+      reserveAddress: "0x862cFBEd37f8b6Cfd442e36169fb5A7c9A4489A9",
     },
     [NetworkId.BSC_TEST]: {
       bondAddress: "0xA2d3A2A24709F876243aDDC837dcCbBeaee28910",
-      reserveAddress: "0xfbC540ebB2AD331486d35E28331aA95A5c9ff0C3",
+      reserveAddress: "0x862cFBEd37f8b6Cfd442e36169fb5A7c9A4489A9",
     },
   },
 });
@@ -125,7 +125,7 @@ export const fraxOld = new StableBond({
     },
     [NetworkId.BSC_TEST]: {
       bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
-      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+      reserveAddress: "0xB17b4703Cf1ce5bF44A22e14D25Ef4fDCd05c4b4",
     },
   },
 });
@@ -182,7 +182,7 @@ export const frax = new StableBond({
     },
     [NetworkId.BSC_TEST]: {
       bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
-      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+      reserveAddress: "0xB17b4703Cf1ce5bF44A22e14D25Ef4fDCd05c4b4",
     },
   },
 });
@@ -240,7 +240,7 @@ export const lusd = new StableBond({
     },
     [NetworkId.BSC_TEST]: {
       bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
-      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+      reserveAddress: "0xB17b4703Cf1ce5bF44A22e14D25Ef4fDCd05c4b4",
     },
   },
 });
@@ -301,7 +301,7 @@ export const eth = new CustomBond({
     },
     [NetworkId.BSC_TEST]: {
       bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
-      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+      reserveAddress: "0xB17b4703Cf1ce5bF44A22e14D25Ef4fDCd05c4b4",
     },
   },
   customTreasuryBalanceFunc: async function (this: CustomBond, NetworkId, provider) {
@@ -360,7 +360,6 @@ export const cvx = new CustomBond({
     [NetworkId.TESTNET_RINKEBY]: {
       bondAddress: "0xd43940687f6e76056789d00c43A40939b7a559b5",
       reserveAddress: "0xB2180448f8945C8Cc8AE9809E67D6bd27d8B2f2C", // using DAI per `principal` address
-      // reserveAddress: "0x6761Cb314E39082e08e1e697eEa23B6D1A77A34b", // guessed
     },
     [NetworkId.BSC]: {
       bondAddress: "",
@@ -368,7 +367,7 @@ export const cvx = new CustomBond({
     },
     [NetworkId.BSC_TEST]: {
       bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
-      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+      reserveAddress: "0xB17b4703Cf1ce5bF44A22e14D25Ef4fDCd05c4b4",
     },
   },
   customTreasuryBalanceFunc: async function (this: CustomBond, NetworkId, provider) {
@@ -438,7 +437,7 @@ export const cvx_expired = new CustomBond({
     },
     [NetworkId.BSC_TEST]: {
       bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
-      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+      reserveAddress: "0xB17b4703Cf1ce5bF44A22e14D25Ef4fDCd05c4b4",
     },
   },
   customTreasuryBalanceFunc: async function (this: CustomBond, NetworkId, provider) {
@@ -485,11 +484,6 @@ export const rip_dai = new LPBond({
     [NetworkId.AVALANCHE_TESTNET]: false,
   },
   networkAddrs: {
-    // [NetworkId.MAINNET]: {
-    //   // TODO: add correct bond address when it's created
-    //   bondAddress: "0x956c43998316b6a2F21f89a1539f73fB5B78c151",
-    //   reserveAddress: "0x055475920a8c93CfFb64d039A8205F7AcC7722d3",
-    // },
     [NetworkId.TESTNET_RINKEBY]: {
       bondAddress: "0xcF449dA417cC36009a1C6FbA78918c31594B9377",
       reserveAddress: "0x8D5a22Fb6A1840da602E56D1a260E56770e0bCE2",
@@ -497,15 +491,15 @@ export const rip_dai = new LPBond({
     [NetworkId.MAINNET]: {
       // TODO: add correct bond address when it's created
       bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
-      reserveAddress: "0xfbC540ebB2AD331486d35E28331aA95A5c9ff0C3",
+      reserveAddress: "0x862cFBEd37f8b6Cfd442e36169fb5A7c9A4489A9",
     },
     [NetworkId.BSC]: {
       bondAddress: "",
       reserveAddress: "",
     },
     [NetworkId.BSC_TEST]: {
-      bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
-      reserveAddress: "0xfbC540ebB2AD331486d35E28331aA95A5c9ff0C3",
+      bondAddress: "",
+      reserveAddress: "0x862cFBEd37f8b6Cfd442e36169fb5A7c9A4489A9",
     },
   },
   lpUrl:
@@ -566,7 +560,7 @@ export const rip_daiOld = new LPBond({
     },
     [NetworkId.BSC_TEST]: {
       bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
-      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+      reserveAddress: "0xB17b4703Cf1ce5bF44A22e14D25Ef4fDCd05c4b4",
     },
   },
   lpUrl:
@@ -622,7 +616,7 @@ export const rip_frax = new LPBond({
     },
     [NetworkId.BSC_TEST]: {
       bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
-      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+      reserveAddress: "0xB17b4703Cf1ce5bF44A22e14D25Ef4fDCd05c4b4",
     },
   },
   lpUrl:
@@ -683,7 +677,7 @@ export const rip_fraxOld = new LPBond({
     },
     [NetworkId.BSC_TEST]: {
       bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
-      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+      reserveAddress: "0xB17b4703Cf1ce5bF44A22e14D25Ef4fDCd05c4b4",
     },
   },
   lpUrl:
@@ -745,7 +739,7 @@ export const rip_lusd = new LPBond({
     },
     [NetworkId.BSC_TEST]: {
       bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
-      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+      reserveAddress: "0xB17b4703Cf1ce5bF44A22e14D25Ef4fDCd05c4b4",
     },
   },
   lpUrl:
@@ -803,7 +797,7 @@ export const rip_weth = new CustomBond({
     },
     [NetworkId.BSC_TEST]: {
       bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
-      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+      reserveAddress: "0xB17b4703Cf1ce5bF44A22e14D25Ef4fDCd05c4b4",
     },
   },
   bondType: BondType.LP,
@@ -894,7 +888,7 @@ export const rip_wethOld = new CustomBond({
     },
     [NetworkId.BSC_TEST]: {
       bondAddress: "0xEC9e2EEE75b060856B9518f46283068f3B0FC434",
-      reserveAddress: "0x369c2333139dbB15c612F46ef8513F0768F31864",
+      reserveAddress: "0xB17b4703Cf1ce5bF44A22e14D25Ef4fDCd05c4b4",
     },
   },
   bondType: BondType.LP,
@@ -934,20 +928,7 @@ export const rip_wethOld = new CustomBond({
 // Is it a stableCoin bond? use `new StableBond`
 // Is it an LP Bond? use `new LPBond`
 // Add new bonds to this array!!
-export const allBonds = [
-  dai,
-  // frax,
-  // eth,
-  // cvx,
-  // rip_dai,
-  // rip_daiOld,
-  // rip_frax,
-  // rip_fraxOld,
-  // lusd,
-  // rip_lusd,
-  // rip_weth,
-  // rip_wethOld,
-];
+export const allBonds = [dai];
 // TODO (appleseed-expiredBonds): there may be a smarter way to refactor this
 export const allExpiredBonds = [cvx_expired, fraxOld];
 export const allBondsMap = allBonds.reduce((prevVal, bond) => {

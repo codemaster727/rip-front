@@ -13,15 +13,6 @@ import { useWeb3Context } from "src/hooks/web3Context";
 import ZapInfo from "./ZapInfo";
 import ZapStakeAction from "./ZapStakeAction";
 
-// import { Box, Typography, Zoom } from "@material-ui/core";
-// import React, { useMemo } from "react";
-// import { useHistory } from "react-router";
-// import { useAppSelector } from "src/hooks";
-// import { usePathForNetwork } from "src/hooks/usePathForNetwork";
-// import { useWeb3Context } from "src/hooks/web3Context";
-
-// import ZapInfo from "./ZapInfo";
-
 const Zap: React.FC = () => {
   const { address, networkId } = useWeb3Context();
   const history = useHistory();

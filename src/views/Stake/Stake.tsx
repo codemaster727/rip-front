@@ -4,16 +4,7 @@ import { t, Trans } from "@lingui/macro";
 import { Accordion, AccordionDetails, AccordionSummary, Box, Divider, Grid, Typography, Zoom } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 import { Skeleton } from "@material-ui/lab";
-import {
-  DataRow,
-  InputWrapper,
-  // Metric,
-  // MetricCollection,
-  Paper,
-  PrimaryButton,
-  Tab,
-  Tabs,
-} from "@olympusdao/component-library";
+import { DataRow, InputWrapper, Paper, PrimaryButton, Tab, Tabs } from "@olympusdao/component-library";
 import { ethers } from "ethers";
 import { ChangeEvent, ChangeEventHandler, memo, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -190,7 +181,6 @@ const Stake: React.FC = () => {
      * converts sRIP quantity to gRIP quantity when box is checked for gRIP staking
      * @returns sRIP as gRIP quantity
      */
-    // const formQuant = checked && currentIndex && view === 1 ? quantity / Number(currentIndex) : quantity;
     const formQuant = async () => {
       if (confirmation && currentIndex && view === 1) {
         return await getGripBalFromSrip({ provider, networkID: networkId, sRIPbalance: quantity });
@@ -248,8 +238,6 @@ const Stake: React.FC = () => {
       gRipOnPolygonAsSrip,
       gRipOnFantomAsSrip,
       gRipOnTokemakAsSrip,
-      // sripV1Balance,
-      // wsripAsSrip,
       fiatDaoAsSrip,
       fsripBalance,
       fgRIPAsfsRIPBalance,
@@ -329,13 +317,7 @@ const Stake: React.FC = () => {
           <Grid container direction="column" spacing={2} style={{ marginTop: "20px" }}>
             <Grid container direction="row" spacing={3} style={{ marginTop: "20px", padding: "0 0 2rem 0" }}>
               <Grid item md={6} sm={6} xs={6}>
-                <Box
-                  alignItems="right"
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="right"
-                  // className={`${classes.infoHeader} oly-info-header-box`}
-                >
+                <Box alignItems="right" display="flex" flexDirection="column" justifyContent="right">
                   <Typography
                     align="right"
                     variant="h5"
@@ -354,13 +336,7 @@ const Stake: React.FC = () => {
                 </Box>
               </Grid>
               <Grid item md={6} sm={6} xs={6}>
-                <Box
-                  alignItems="left"
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="left"
-                  // className={`${classes.infoHeader} oly-info-header-box`}
-                >
+                <Box alignItems="left" display="flex" flexDirection="column" justifyContent="left">
                   {stakingAPY ? (
                     <Typography align="left" variant="h5" style={{ color: "black" }}>
                       {`${formattedTrimmedStakingAPY}%`}
@@ -391,27 +367,6 @@ const Stake: React.FC = () => {
                 </Box>
               </Grid>
             </Grid>
-            {/* <MetricCollection>
-              <Metric
-                className="stake-apy"
-                label={t`APY`}
-                metric={`${formattedTrimmedStakingAPY}%`}
-                isLoading={stakingAPY ? false : true}
-              />
-              <Metric
-                className="stake-tvl"
-                label={t`Total Value Deposited`}
-                metric={formattedStakingTVL}
-                isLoading={stakingTVL ? false : true}
-              />
-              <Metric
-                className="stake-index"
-                label={t`Current Index`}
-                metric={`${formattedCurrentIndex} sRIP`}
-                isLoading={currentIndex ? false : true}
-              />
-            </MetricCollection> */}
-            {/* </Grid> */}
             <div className="staking-area">
               {!address ? (
                 <div className="stake-wallet-notification">
@@ -647,7 +602,6 @@ const Stake: React.FC = () => {
         </Paper>
       </Zoom>
       {/* NOTE (appleseed-olyzaps) olyzaps disabled until v2 contracts */}
-      {/* <ZapCta /> */}
       <ExternalStakePool />
     </div>
   );

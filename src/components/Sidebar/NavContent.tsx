@@ -3,9 +3,6 @@ import "./Sidebar.scss";
 
 import { t, Trans } from "@lingui/macro";
 import {
-  // Accordion,
-  // AccordionDetails,
-  // AccordionSummary,
   Box,
   Divider,
   Link,
@@ -13,22 +10,18 @@ import {
   SvgIcon,
   Typography,
 } from "@material-ui/core";
-// import { ExpandMore } from "@material-ui/icons";
 import { NavItem } from "@olympusdao/component-library";
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 import { NetworkId } from "src/constants";
-// import { EnvHelper } from "src/helpers/Environment";
 import { useAppSelector } from "src/hooks";
 import { useWeb3Context } from "src/hooks/web3Context";
 import { Bond } from "src/lib/Bond";
 import { IBondDetails } from "src/slices/BondSlice";
 import { getAllBonds, getUserNotes } from "src/slices/BondSliceV2";
-// import { DisplayBondDiscount } from "src/views/BondV2/BondV2";
 
 import { ReactComponent as RIPProtocolIcon } from "../../assets/icons/RipIcon.svg";
-// import { ReactComponent as SpeedOmeterIcon } from "../../assets/icons/speedometer.svg";
 import SpeedOmeterIcon from "../../assets/icons/speedometer.svg";
 import GearIcon from "../../assets/icons/gear.svg";
 import StakeIcon from "../../assets/icons/stake.svg";
@@ -37,7 +30,6 @@ import BlanketIcon from "../../assets/icons/blanket.svg";
 import BridgeIcon from "../../assets/icons/bridge.svg";
 import useBonds from "../../hooks/useBonds";
 import WalletAddressEns from "../TopBar/Wallet/WalletAddressEns";
-// import externalUrls from "./externalUrls";
 import Social from "./Social";
 
 type NavContentProps = {
@@ -64,14 +56,6 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
       handleDrawerToggle();
     }
   }, [location]);
-
-  useEffect(() => {
-    const interval = setTimeout(() => {
-      // dispatch(getAllBonds({ address, networkID: networkId, provider }));
-      // dispatch(getUserNotes({ address, networkID: networkId, provider }));
-    }, 60000);
-    return () => clearTimeout(interval);
-  });
 
   const sortedBonds = bondsV2
     .filter(bond => bond.soldOut === false)
@@ -107,7 +91,6 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                   <div
                     style={{ backgroundColor: "black", marginLeft: "20px", marginRight: "20px", borderRadius: "20px" }}
                   >
-                    {/* <NavItem to="/dashboard" icon={"dashboard"} label={t`Dashboard`} style={{ color: "white" }} /> */}
                     <NavLink to="/dashboard" style={{ color: "white", textDecoration: "none" }}>
                       <Box display="flex" justifyContent="space-between">
                         <img src={SpeedOmeterIcon} width="45px" height="45px" style={{ marginLeft: "20px" }} />
@@ -131,14 +114,6 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                       borderRadius: "20px",
                     }}
                   >
-                    {/* <Link href="/dashboard" style={{ color: "white" }}>
-                      <Box display="flex" justifyContent="space-between" >
-                        <img src={SpeedOmeterIcon} width="45px" height="45px" style={{marginLeft: "20px"}} />
-                        <Typography variant="h5" align="right" style={{margin: 'auto'}} className="cta-text">
-                          dashboard
-                        </Typography>
-                      </Box>
-                    </Link> */}
                     <NavLink to="/bonds" style={{ color: "white", textDecoration: "none" }}>
                       <Box display="flex" justifyContent="space-between">
                         <img src={GearIcon} width="45px" height="45px" style={{ marginLeft: "20px" }} />
@@ -152,43 +127,7 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                         </Typography>
                       </Box>
                     </NavLink>
-                    {/* <NavItem to="/bonds" icon="bond" label={t`Bond`} style={{ color: "white" }} /> */}
                   </div>
-                  {/* <div className="dapp-menu-data discounts">
-                    <div className="bond-discounts">
-                      <Accordion className="discounts-accordion" square defaultExpanded={true}>
-                        <AccordionSummary
-                          expandIcon={
-                            <ExpandMore className="discounts-expand" style={{ width: "18px", height: "18px" }} />
-                          }
-                        >
-                          <Typography variant="body2">
-                            <Trans>Highest Discount</Trans>
-                          </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          {sortedBonds.map((bond, i) => {
-                            return (
-                              <Link
-                                component={NavLink}
-                                to={`/bonds/${bond.index}`}
-                                key={i}
-                                className={"bond"}
-                                onClick={handleDrawerToggle}
-                              >
-                                <Typography variant="body2">
-                                  {bond.displayName}
-                                  <span className="bond-pair-roi">
-                                    <DisplayBondDiscount key={bond.index} bond={bond} />
-                                  </span>
-                                </Typography>
-                              </Link>
-                            );
-                          })}
-                        </AccordionDetails>
-                      </Accordion>
-                    </div>
-                  </div> */}
                   <div
                     style={{
                       backgroundColor: "black",
@@ -211,12 +150,10 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                         </Typography>
                       </Box>
                     </NavLink>
-                    {/* <NavItem to="/stake" icon="stake" label={t`Stake`} style={{ color: "white" }} /> */}
                   </div>
                   <br />
                   <br />
                   <br />
-                  {/* NOTE (appleseed-olyzaps): OlyZaps disabled until v2 contracts */}
                   <div
                     style={{
                       backgroundColor: "black",
@@ -239,11 +176,7 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                         </Typography>
                       </Box>
                     </NavLink>
-                    {/* <NavItem to="/zap" icon="zap" label={t`Zap`} style={{ color: "white" }} /> */}
                   </div>
-                  {/* {EnvHelper.isGiveEnabled(location.search) && (
-                    <NavItem to="/give" icon="give" label={t`Give`} chip={t`New`} />
-                  )} */}
                   <div
                     style={{
                       backgroundColor: "black",
@@ -266,7 +199,6 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                         </Typography>
                       </Box>
                     </NavLink>
-                    {/* <NavItem to="/wrap" icon="wrap" label={t`Wrap`} style={{ color: "white" }} /> */}
                   </div>
                   <div
                     style={{
@@ -294,21 +226,7 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                         </Typography>
                       </Box>
                     </Link>
-                    {/* <NavItem
-                      href={"https://synapseprotocol.com/?inputCurrency=gRIP&outputCurrency=gRIP&outputChain=43114"}
-                      icon="bridge"
-                      label={t`Bridge`}
-                      style={{ color: "white" }}
-                    /> */}
                   </div>
-                  {/* <Box className="menu-divider">
-                    <Divider />
-                  </Box> */}
-                  {/* <NavItem href="https://pro.olympusdao.finance/" icon="olympus" label={t`RIPProtocol Pro`} /> */}
-                  {/* <NavItem to="/33-together" icon="33-together" label={t`3,3 Together`} /> */}
-                  {/* <Box className="menu-divider">
-                    <Divider />
-                  </Box> */}
                 </>
               ) : (
                 <>
@@ -321,14 +239,6 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                 </>
               )}
               {}
-              {/* {Object.keys(externalUrls).map((link: any, i: number) => (
-                <NavItem
-                  key={i}
-                  href={`${externalUrls[link].url}`}
-                  icon={externalUrls[link].icon as any}
-                  label={externalUrls[link].title as any}
-                />
-              ))} */}
             </div>
           </div>
         </div>
