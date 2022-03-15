@@ -91,18 +91,10 @@ export const PoolPrize = () => {
     } else if (poolIsLocked) {
       setShowAwardStart(false);
       // wait 30 seconds... we're just waiting for award
-      // setTimeout(() => {
-      //   // retry until Pool Is Not Locked, then go get new time
-      //   rngQueryFunc();
-      // }, 30000);
     } else if (poolAwardTimeRemaining) {
       setShowAwardStart(true);
       // There is no time left, attach RNG (Award) Start listener
       // the rngQueryFunc will run repeatedly once the above conditions are true;
-      // setTimeout(() => {
-      //   // retry until pool is locked, then hits above block
-      //   rngQueryFunc();
-      // }, 10000);
     }
   }, [poolAwardTimeRemaining, poolIsLocked, rngRequestCompleted]);
 
@@ -136,9 +128,6 @@ export const PoolPrize = () => {
             </Typography>
           ) : (
             <Typography></Typography>
-            // <Typography variant="h6">
-            //   <Trans>Next award</Trans>
-            // </Typography>
           )}
           <Box className="pool-timer">
             {timer && poolIsLocked !== true && (
@@ -176,17 +165,6 @@ export const PoolPrize = () => {
           {/* Timer won't show when poolIsLocked */}
           {poolIsLocked && (
             <Box margin={2} display="flex" style={{ flexDirection: "column", gap: 4, justifyContent: "center" }}>
-              {/* <Button
-                id="pool-complete-award-button"
-                className="pool-complete-award-button"
-                variant="contained"
-                color="primary"
-                onClick={() => handleAward("completeAward")}
-                style={{ alignSelf: "center", margin: "5px" }}
-              >
-                Complete Award
-              </Button> */}
-              {/* 0xdavinchee: padding={2} removed due to error */}
               <Typography variant="body1" color="textSecondary">
                 <Trans>
                   Award period has finished, you can navigate to Pool Together's UI to complete distribution
@@ -198,16 +176,6 @@ export const PoolPrize = () => {
           {/* Timer still shows (0s) for poolIsLocked === false */}
           {!poolIsLocked && showAwardStart && (
             <Box margin={2} display="flex" style={{ flexDirection: "column", gap: 4, justifyContent: "center" }}>
-              {/* <Button
-                id="pool-start-award-button"
-                className="pool-start-award-button"
-                variant="contained"
-                color="primary"
-                onClick={() => handleAward("startAward")}
-                style={{ alignSelf: "center", margin: "5px" }}
-              >
-                Start Award
-              </Button> */}
               <Typography variant="body1" color="textSecondary">
                 <Trans>Award period has finished, you can navigate to Pool Together's UI to begin distribution</Trans>
               </Typography>

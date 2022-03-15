@@ -115,8 +115,6 @@ function BondPurchase({
     dispatch(changeApproval({ address, provider, networkID: networkId, bond }));
   };
 
-  // const displayUnits = bond.displayUnits;
-
   const isAllowanceDataLoading = useAppSelector(state => state.bondingV2.balanceLoading[bond.quoteToken]);
 
   return (
@@ -191,13 +189,7 @@ function BondPurchase({
         <Box className="bond-data">
           <Grid container direction="row" spacing={3}>
             <Grid item md={6}>
-              <Box
-                alignItems="right"
-                display="flex"
-                flexDirection="column"
-                justifyContent="right"
-                // className={`${classes.infoHeader} oly-info-header-box`}
-              >
+              <Box alignItems="right" display="flex" flexDirection="column" justifyContent="right">
                 <Typography align="right" variant="h6" style={{ color: "white" }}>{t`Your Balance`}</Typography>
                 <Typography align="right" variant="h6" style={{ color: "white" }}>{t`You Will Get`}</Typography>
                 <Typography align="right" variant="h6" style={{ color: "white" }}>{t`Max You Can Buy`}</Typography>
@@ -206,13 +198,7 @@ function BondPurchase({
               </Box>
             </Grid>
             <Grid item md={6}>
-              <Box
-                alignItems="left"
-                display="flex"
-                flexDirection="column"
-                justifyContent="left"
-                // className={`${classes.infoHeader} oly-info-header-box`}
-              >
+              <Box alignItems="left" display="flex" flexDirection="column" justifyContent="left">
                 {isBondLoading ? (
                   <>
                     <Typography align="left" variant="h6" style={{ color: "white" }}>

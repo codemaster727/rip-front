@@ -13,8 +13,6 @@ import { abi as ierc20Abi } from "../abi/IERC20.json";
 import { abi as MockSrip } from "../abi/MockSrip.json";
 import { abi as RIPProtocolGiving } from "../abi/RIPProtocolGiving.json";
 import { abi as RIPProtocolMockGiving } from "../abi/RIPProtocolMockGiving.json";
-// import { abi as sRIPv2 } from "../abi/sRipv2.json";
-// import { abi as wsRIP } from "../abi/wsRIP.json";
 import { addresses, NetworkId } from "../constants";
 import { handleContractError, setAll } from "../helpers";
 import { getMockRedemptionBalancesAsync, getRedemptionBalancesAsync } from "../helpers/GiveRedemptionBalanceHelper";
@@ -291,11 +289,7 @@ export const getDonationBalances = createAsyncThunk(
       );
       try {
         // NOTE: The BigNumber here is from ethers, and is a different implementation of BigNumber used in the rest of the frontend. For that reason, we convert to string in the interim.
-        console.log("object1");
-        console.log(givingContract);
-        console.log(address);
         const allDeposits: [string[], BigNumber[]] = await givingContract.getAllDeposits(address);
-        console.log(allDeposits);
         for (let i = 0; i < allDeposits[0].length; i++) {
           if (allDeposits[1][i].eq(0)) continue;
 
@@ -473,19 +467,6 @@ export const loadAccountDetails = createAsyncThunk(
     try {
       const gRipContract = GRIP__factory.connect(addresses[networkID].GRIP_ADDRESS, provider);
       gRipUnwrapAllowance = await gRipContract.allowance(address, addresses[networkID].STAKING_V2);
-
-      // const wsRipContract = IERC20__factory.connect(addresses[networkID].WSRIP_ADDRESS, provider);
-      // wsRipMigrateAllowance = await wsRipContract.balanceOf(address);
-
-      // const ripContract = new ethers.Contract(
-      //   addresses[networkID].RIP_ADDRESS as string,
-      //   ierc20Abi,
-      //   provider,
-      // ) as IERC20;
-      // stakeAllowance = await ripContract.allowance(address, addresses[networkID].STAKING_HELPER_ADDRESS);
-
-      // const sripContract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, sRIPv2, provider) as SRipv2;
-      // unstakeAllowance = await sripContract.allowance(address, addresses[networkID].STAKING_ADDRESS);
       const sripV2Contract = IERC20__factory.connect(addresses[networkID].SRIP_V2, provider);
       poolAllowance = await sripV2Contract.allowance(address, addresses[networkID].PT_PRIZE_POOL_ADDRESS);
       wrapAllowance = await sripV2Contract.allowance(address, addresses[networkID].STAKING_V2);

@@ -137,7 +137,6 @@ function ChooseBond() {
                   <TableBody>
                     {bonds.map(bond => {
                       // NOTE (appleseed): temporary for ONHOLD MIGRATION
-                      // if (bond.getBondability(networkId)) {
                       if (bond.getBondability(networkId) || bond.getLOLability(networkId)) {
                         return <BondTableData key={bond.name} bond={bond} />;
                       }
@@ -155,7 +154,6 @@ function ChooseBond() {
           <Grid container item spacing={2}>
             {bonds.map(bond => {
               // NOTE (appleseed): temporary for ONHOLD MIGRATION
-              // if (bond.getBondability(networkId)) {
               if (bond.getBondability(networkId) || bond.getLOLability(networkId)) {
                 return (
                   <Grid item xs={12} key={bond.name}>

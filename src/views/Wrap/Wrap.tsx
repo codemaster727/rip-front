@@ -164,35 +164,13 @@ const Wrap: FC = () => {
     return (
       <div id="stake-view" className="wrapper">
         <Zoom in={true} onEntered={() => setZoomed(true)}>
-          <Paper
-          // topRight={
-          //   <Link
-          //     className="migrate-srip-button"
-          //     style={{ textDecoration: "none" }}
-          //     href={
-          //       assetTo === "wsRIP"
-          //         ? "https://docs.olympusdao.finance/main/contracts/tokens#wsrip"
-          //         : "https://docs.olympusdao.finance/main/contracts/tokens#grip"
-          //     }
-          //     aria-label="wsrip-wut"
-          //     target="_blank"
-          //   >
-          //     <Typography>gr.rip</Typography> <Icon style={{ marginRight: "5px" }} name="arrow-up" />
-          //   </Link>
-          // }
-          >
+          <Paper>
             <Typography align="center" variant="h4" style={{ fontWeight: "bold", marginTop: "20px" }}>
               {t`Wrap / Unwrap`}
             </Typography>
             <Grid container direction="row" spacing={3} style={{ marginTop: "20px", padding: "0 0 2rem 0" }}>
               <Grid item md={6} sm={6} xs={6}>
-                <Box
-                  alignItems="right"
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="right"
-                  // className={`${classes.infoHeader} oly-info-header-box`}
-                >
+                <Box alignItems="right" display="flex" flexDirection="column" justifyContent="right">
                   <Typography
                     align="right"
                     variant="h5"
@@ -211,13 +189,7 @@ const Wrap: FC = () => {
                 </Box>
               </Grid>
               <Grid item md={6} sm={6} xs={6}>
-                <Box
-                  alignItems="left"
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="left"
-                  // className={`${classes.infoHeader} oly-info-header-box`}
-                >
+                <Box alignItems="left" display="flex" flexDirection="column" justifyContent="left">
                   {sRipPrice ? (
                     <Typography align="left" variant="h5" style={{ color: "black" }}>
                       {formatCurrency(sRipPrice, 2)}
@@ -247,24 +219,6 @@ const Wrap: FC = () => {
                   )}
                 </Box>
               </Grid>
-              {/* <MetricCollection>
-                <Metric
-                  label={`sRIP ${t`Price`}`}
-                  metric={formatCurrency(sRipPrice, 2)}
-                  isLoading={sRipPrice ? false : true}
-                />
-                <Metric
-                  label={t`Current Index`}
-                  metric={trim(currentIndex, 1)}
-                  isLoading={currentIndex ? false : true}
-                />
-                <Metric
-                  label={`gRIP ${t`Price`}`}
-                  metric={formatCurrency(gRipPrice, 2)}
-                  isLoading={gRipPrice ? false : true}
-                  tooltip={`gRIP = sRIP * index\n\nThe price of gRIP is equal to the price of sRIP multiplied by the current index`}
-                />
-              </MetricCollection> */}
             </Grid>
             <div className="staking-area">
               {!address ? (
@@ -355,18 +309,6 @@ const Wrap: FC = () => {
                         <Typography variant="body1" style={{ margin: "15px 0 10px 0" }}>
                           wsRIP on the other networks is not launched yet.
                         </Typography>
-                        {/* <Button onClick={handleSwitchChain(43114)} variant="outlined" style={{ margin: "0.3rem" }}>
-                          <img height="28px" width="28px" src={String(avax.image)} alt={avax.imageAltText} />
-                          <Typography variant="h6" style={{ marginLeft: "8px" }}>
-                            {avax.chainName}
-                          </Typography>
-                        </Button>
-                        <Button onClick={handleSwitchChain(42161)} variant="outlined" style={{ margin: "0.3rem" }}>
-                          <img height="28px" width="28px" src={String(arbitrum.image)} alt={arbitrum.imageAltText} />
-                          <Typography variant="h6" style={{ marginLeft: "8px" }}>
-                            {arbitrum.chainName}
-                          </Typography>
-                        </Button> */}
                       </Box>
                     </>
                   </div>

@@ -105,7 +105,6 @@ export function BondTableData({ bond }: { bond: Bond }) {
   const { networkId } = useWeb3Context();
   // Use BondPrice as indicator of loading.
   const isBondLoading = !allBondData.bondPrice ?? true;
-  // const isBondLoading = useSelector(state => !state.bonding[bond]?.bondPrice ?? true);
 
   return (
     <TableRow id={`${bond.name}--bond`}>

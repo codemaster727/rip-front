@@ -5,18 +5,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { ReactComponent as MenuIcon } from "../../assets/icons/hamburger.svg";
 import Wallet from "./Wallet";
-// import "./TopBar.scss";
-
-// import { i18n } from "@lingui/core";
-// import { t } from "@lingui/macro";
-// import { AppBar, Box, Button, SvgIcon, Toolbar } from "@material-ui/core";
-// import { makeStyles } from "@material-ui/core/styles";
-// import { LocaleSwitcher } from "@olympusdao/component-library";
-
-// import { ReactComponent as MenuIcon } from "../../assets/icons/hamburger.svg";
-// import { locales, selectLocale } from "../../locales";
-// import ThemeSwitcher from "./ThemeSwitch";
-// import Wallet from "./Wallet";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -63,13 +51,6 @@ function TopBar({ theme, toggleTheme, handleDrawerToggle }: TopBarProps) {
         </Button>
         <Box display="flex">
           <Wallet />
-          {/* <ThemeSwitcher theme={theme} toggleTheme={toggleTheme} />
-          <LocaleSwitcher
-            initialLocale={i18n.locale}
-            locales={locales}
-            onLocaleChange={selectLocale}
-            label={t`Change locale`}
-          /> */}
         </Box>
       </Toolbar>
     </AppBar>

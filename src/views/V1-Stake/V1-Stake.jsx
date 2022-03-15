@@ -196,13 +196,7 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
           <Grid container direction="column" spacing={2} style={{ marginTop: "20px" }}>
             <Grid container direction="row" spacing={3} style={{ marginTop: "20px", padding: "0 0 2rem 0" }}>
               <Grid item md={6} sm={6} xs={6}>
-                <Box
-                  alignItems="right"
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="right"
-                  // className={`${classes.infoHeader} oly-info-header-box`}
-                >
+                <Box alignItems="right" display="flex" flexDirection="column" justifyContent="right">
                   <Typography
                     align="right"
                     variant="h5"
@@ -221,13 +215,7 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
                 </Box>
               </Grid>
               <Grid item md={6} sm={6} xs={6}>
-                <Box
-                  alignItems="left"
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="left"
-                  // className={`${classes.infoHeader} oly-info-header-box`}
-                >
+                <Box alignItems="left" display="flex" flexDirection="column" justifyContent="left">
                   {stakingAPY ? (
                     <Typography align="left" variant="h5" style={{ color: "black" }}>
                       {`${formattedTrimmedStakingAPY}%`}

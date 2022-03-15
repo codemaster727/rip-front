@@ -52,8 +52,6 @@ export class ZapHelper {
         `https://api.zapper.fi/v1/protocols/tokens/balances?api_key=${apiKey}&addresses%5B%5D=${address}&network=binance-smart-chain&newBalances=true`,
       );
       const responseJson = await response.json();
-      console.log("realhere", responseJson);
-      console.log(response);
       if (response.ok) {
         return ZapHelper.parseResponse(responseJson, address);
       } else {

@@ -1,9 +1,7 @@
 import "./TreasuryDashboard.scss";
 
 import { Grid, useMediaQuery, Zoom } from "@material-ui/core";
-// import { Box, Container, Grid, useMediaQuery, Zoom } from "@material-ui/core";
 import { Paper } from "@olympusdao/component-library";
-// import { MetricCollection, Paper } from "@olympusdao/component-library";
 import { memo } from "react";
 
 import {
@@ -27,18 +25,6 @@ const TreasuryDashboard = memo(() => {
           paddingRight: isSmallScreen || isVerySmallScreen ? "0" : "1rem",
         }}
       >
-        {/* <Box className="hero-metrics">
-          <Paper className="rip-card">
-            <MetricCollection>
-              <MarketCap />
-              <RIPPrice />
-              <GRIPPrice />
-              <CircSupply />
-              <BackingPerRIP />
-              <CurrentIndex />
-            </MetricCollection>
-          </Paper>
-        </Box> */}
         <Paper className="rip-card">
           <Zoom in={true}>
             <Grid container className="data-grid" style={{ marginTop: "50px" }}>
@@ -75,32 +61,6 @@ const TreasuryDashboard = memo(() => {
                       <ProtocolOwnedLiquidityGraph />
                     </Paper>
                   </Grid>
-
-                  {/*  Temporarily removed until correct data is in the graph */}
-                  {/* <Grid item lg={6} md={12} sm={12} xs={12}>
-                    <Paper className="rip-card">
-                      <Chart
-                        type="bar"
-                        data={data}
-                        dataKey={["holders"]}
-                        headerText="Holders"
-                        stroke={[theme.palette.text.secondary]}
-                        headerSubText={`${data.length > 0 && data[0].holders}`}
-                        bulletpointColors={bulletpoints.holder}
-                        itemNames={tooltipItems.holder}
-                        itemType={undefined}
-                        infoTooltipMessage={tooltipInfoMessages().holder}
-                        expandedGraphStrokeColor={theme.palette.graphStrokeColor}
-                        scale={undefined}
-                        color={undefined}
-                        stroke={undefined}
-                        dataFormat={undefined}
-                        isPOL={undefined}
-                        isStaked={undefined}
-                      />
-                    </Paper>
-                  </Grid> */}
-
                   <Grid item lg={6} md={6} sm={12} xs={12}>
                     <Paper className="rip-card rip-chart-card" style={{ background: "black" }}>
                       <RIPStakedGraph />

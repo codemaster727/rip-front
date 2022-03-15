@@ -264,8 +264,6 @@ const ZapStakeAction: React.FC = () => {
             disabled={zapToken == null}
             value={inputQuantity}
             onChange={e => setZapTokenQuantity(e.target.value)}
-            //   labelWidth={0}
-            //   label="Hello"
             endAdornment={
               <InputAdornment position="end">
                 <div

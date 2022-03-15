@@ -1,9 +1,4 @@
-import arbitrum from "./assets/arbitrum.png";
-import avalanche from "./assets/tokens/AVAX.svg";
 import binance from "./assets/tokens/BNB.svg";
-import polygon from "./assets/tokens/matic.svg";
-import ethereum from "./assets/tokens/wETH.svg";
-import { EnvHelper } from "./helpers/Environment";
 import { NodeHelper } from "./helpers/NodeHelper";
 
 export enum NetworkId {
@@ -102,130 +97,31 @@ export const addresses: IAddresses = {
   //   ZAP: "0x6F5CC3EDEa92AB52b75bad50Bcf4C6daa781B87e",
   // },
   [NetworkId.MAINNET]: {
-    DAI_ADDRESS: "0x369c2333139dbB15c612F46ef8513F0768F31864", // duplicate
+    DAI_ADDRESS: "0xB17b4703Cf1ce5bF44A22e14D25Ef4fDCd05c4b4", // duplicate
     RIP_ADDRESS: "",
     STAKING_ADDRESS: "", // The new staking contract
-    STAKING_HELPER_ADDRESS: "0xb8117237Cc4C86999de428BeBfe1eD00eC462560", // Helper contract used for Staking only
+    STAKING_HELPER_ADDRESS: "", // Helper contract used for Staking only
     OLD_STAKING_ADDRESS: "",
     SRIP_ADDRESS: "",
     OLD_SRIP_ADDRESS: "",
     PRESALE_ADDRESS: "0xcBb60264fe0AC96B0EFa0145A9709A825afa17D8",
-    // ARIP_ADDRESS: "",
     MIGRATE_ADDRESS: "", // aRIPMigration
-    DISTRIBUTOR_ADDRESS: "0xA481cE329Ed8131F247C4923B21444646d9420B6",
-    BONDINGCALC_ADDRESS: "0xa4d66791a70Af486aD4A2d1d6D8db4603188189E",
-    // CIRCULATING_SUPPLY_ADDRESS: "",
+    DISTRIBUTOR_ADDRESS: "0x619B993f40e37B1c0d7C6EE84A17BE3b587b8233",
+    BONDINGCALC_ADDRESS: "0xc9906ee9471226C2884Fd921Fb4C49EC27BaF690",
     TREASURY_ADDRESS: "",
-    REDEEM_HELPER_ADDRESS: "0x41E8Fd0661f7982Ea7a330D899a1149D3502734A",
-    // FUSE_6_SRIP: "", // Tetranode's Locker
-    // FUSE_18_SRIP: "", // RIPProtocol Pool Party
-    // FUSE_36_SRIP: "", // Fraximalist Money Market
-    // PT_TOKEN_ADDRESS: "", // 33T token address, taken from `ticket` function on PRIZE_STRATEGY_ADDRESS
-    // PT_PRIZE_POOL_ADDRESS: "", // NEW
-    // PT_PRIZE_STRATEGY_ADDRESS: "", // NEW
-    // ZAPPER_POOL_V1: "",
-    BONDINGCALC_V2: "0xa4d66791a70Af486aD4A2d1d6D8db4603188189E",
+    REDEEM_HELPER_ADDRESS: "",
+    BONDINGCALC_V2: "0x6cF66AA7fF22db4cfA62eA78972f20a9E334E826",
     MIGRATOR_ADDRESS: "",
-    GRIP_ADDRESS: "0x964fA59d357FD5Df3D8242fb05DcF6D6BeC619B2",
-    RIP_V2: "0x1a0100f25CF16488069b40d932e902865B8a4Fa0",
-    TREASURY_V2: "0xa0c31D96eec78833AfFdc194F5dCF667EBEB1571",
-    SRIP_V2: "0x9E6090ae108502f9caB0466D40225309dCE6C04c",
-    STAKING_V2: "0x622b873DF7E55310fad8064C4f0a0f3037b39A7a",
-    // FIATDAO_WSRIP_ADDRESS: "",
-    GIVING_ADDRESS: "0x6812Aa7B321bEED74E965cd306D2c40986c83b3C",
-    BOND_DEPOSITORY: "0xA2d3A2A24709F876243aDDC837dcCbBeaee28910", // updated
-    DAO_TREASURY: "0x0fbd6e14566A30906Bc0c927a75b1498aE87Fd43",
-    // TOKEMAK_GRIP: "",
-    ZAP: "0xf27D1dEc9224Fa03ed1E2D2DCD963B81C1473869",
+    GRIP_ADDRESS: "0x47F8D559e6feC98852bC6789DEf22F401B60A81f",
+    RIP_V2: "0x9ACF3fCaee2F0d40F684DEF891B201C706A60B42",
+    TREASURY_V2: "0x5343825A215499175f7c85E9aa1780ffB2298d9B",
+    SRIP_V2: "0xb5F91D8AfB91fD5E89Cab44Db67Bc1C1DC54Bc8E",
+    STAKING_V2: "0x0151738baBEaCCDE21803DB1D212e30c23E8C578",
+    GIVING_ADDRESS: "0x66C23E9A61D49dab72a4286D70069CcA576cCAFf",
+    BOND_DEPOSITORY: "0xBfc6fDFFc8f995ECDbABa878059775a54949E8b2", // updated
+    DAO_TREASURY: "0x5343825A215499175f7c85E9aa1780ffB2298d9B",
+    ZAP: "0xCC37b420cFb9751e8c4e38818dbE4E01BFeACB00",
   },
-  // [NetworkId.ARBITRUM]: {
-  //   DAI_ADDRESS: "", // duplicate
-  //   RIP_ADDRESS: "",
-  //   STAKING_ADDRESS: "", // The new staking contract
-  //   STAKING_HELPER_ADDRESS: "", // Helper contract used for Staking only
-  //   OLD_STAKING_ADDRESS: "",
-  //   SRIP_ADDRESS: "",
-  //   OLD_SRIP_ADDRESS: "",
-  //   PRESALE_ADDRESS: "",
-  //   ARIP_ADDRESS: "",
-  //   MIGRATE_ADDRESS: "",
-  //   DISTRIBUTOR_ADDRESS: "",
-  //   BONDINGCALC_ADDRESS: "",
-  //   CIRCULATING_SUPPLY_ADDRESS: "",
-  //   TREASURY_ADDRESS: "",
-  //   WSRIP_ADDRESS: "0x739ca6D71365a08f584c8FC4e1029045Fa8ABC4B",
-  //   MIGRATOR_ADDRESS: "0x1e7902a8b0adbf81042b5e30bdfa281f0b928d6d", // good
-  //   GRIP_ADDRESS: "0x8D9bA570D6cb60C7e3e0F31343Efe75AB8E65FB1", // good
-  //   REDEEM_HELPER_ADDRESS: "",
-  // }, // TODO: Replace with Arbitrum contract addresses when ready
-  // [NetworkId.ARBITRUM_TESTNET]: {
-  //   DAI_ADDRESS: "",
-  //   RIP_ADDRESS: "",
-  //   STAKING_ADDRESS: "",
-  //   STAKING_HELPER_ADDRESS: "",
-  //   OLD_STAKING_ADDRESS: "",
-  //   SRIP_ADDRESS: "",
-  //   OLD_SRIP_ADDRESS: "",
-  //   PRESALE_ADDRESS: "",
-  //   ARIP_ADDRESS: "",
-  //   MIGRATE_ADDRESS: "",
-  //   DISTRIBUTOR_ADDRESS: "",
-  //   BONDINGCALC_ADDRESS: "",
-  //   CIRCULATING_SUPPLY_ADDRESS: "",
-  //   TREASURY_ADDRESS: "",
-  //   REDEEM_HELPER_ADDRESS: "",
-  //   WSRIP_ADDRESS: "0x3DE0150338BDeE175a8EAc6fBbBF2c55279454d5",
-  //   MIGRATOR_ADDRESS: "0xde9518c8444Fa436704Fbd9db27B3910bca9F532",
-  //   GRIP_ADDRESS: "0x950c3626B9E9798aA1a4832cEee603ECfb7741a8",
-  // },
-  // [NetworkId.AVALANCHE_TESTNET]: {
-  //   DAI_ADDRESS: "",
-  //   RIP_ADDRESS: "",
-  //   STAKING_ADDRESS: "",
-  //   STAKING_HELPER_ADDRESS: "",
-  //   OLD_STAKING_ADDRESS: "",
-  //   SRIP_ADDRESS: "",
-  //   OLD_SRIP_ADDRESS: "",
-  //   PRESALE_ADDRESS: "",
-  //   ARIP_ADDRESS: "",
-  //   MIGRATE_ADDRESS: "",
-  //   DISTRIBUTOR_ADDRESS: "",
-  //   BONDINGCALC_ADDRESS: "",
-  //   CIRCULATING_SUPPLY_ADDRESS: "",
-  //   TREASURY_ADDRESS: "",
-  //   PICKLE_RIP_LUSD_ADDRESS: "",
-  //   REDEEM_HELPER_ADDRESS: "",
-  //   WSRIP_ADDRESS: "0x8e8ffc8d41Ee4A915A1FB3940b1beAB0c2Cd5bB0",
-  //   GRIP_ADDRESS: "0x115E5979435c89eF38fB87C2D7Fc3BCA09053c54",
-  //   MIGRATOR_ADDRESS: "0x9050D25977F8A19CDD5599A28bC5f55d39fb6105",
-  // },
-  // [NetworkId.AVALANCHE]: {
-  //   DAI_ADDRESS: "",
-  //   RIP_ADDRESS: "",
-  //   // STAKING_ADDRESS: "", // The new staking contract
-  //   STAKING_HELPER_ADDRESS: "", // Helper contract used for Staking only
-  //   OLD_STAKING_ADDRESS: "",
-  //   SRIP_ADDRESS: "",
-  //   OLD_SRIP_ADDRESS: "",
-  //   PRESALE_ADDRESS: "",
-  //   ARIP_ADDRESS: "",
-  //   MIGRATE_ADDRESS: "",
-  //   DISTRIBUTOR_ADDRESS: "",
-  //   BONDINGCALC_ADDRESS: "",
-  //   CIRCULATING_SUPPLY_ADDRESS: "",
-  //   TREASURY_ADDRESS: "",
-  //   PICKLE_RIP_LUSD_ADDRESS: "",
-  //   REDEEM_HELPER_ADDRESS: "",
-  //   WSRIP_ADDRESS: "0x8cd309e14575203535ef120b5b0ab4dded0c2073",
-  //   GRIP_ADDRESS: "0x321e7092a180bb43555132ec53aaa65a5bf84251",
-  //   MIGRATOR_ADDRESS: "0xB10209BFbb37d38EC1B5F0c964e489564e223ea7",
-  // }, // TODO: Avalanche Mainnet addresses
-  // [NetworkId.POLYGON]: {
-  //   GRIP_ADDRESS: "0xd8cA34fd379d9ca3C6Ee3b3905678320F5b45195",
-  // },
-  // [NetworkId.FANTOM]: {
-  //   GRIP_ADDRESS: "0x91fa20244fb509e8289ca630e5db3e9166233fdc",
-  // },
 };
 
 /**
@@ -264,34 +160,6 @@ export const USER_SELECTABLE_NETWORKS = [
 export const NEWEST_NETWORK_ID = NetworkId.AVALANCHE;
 
 export const NETWORKS: { [key: number]: INetwork } = {
-  // [NetworkId.MAINNET]: {
-  //   chainName: "Ethereum",
-  //   chainId: 1,
-  //   nativeCurrency: {
-  //     name: "Ethereum",
-  //     symbol: "ETH",
-  //     decimals: 18,
-  //   },
-  //   rpcUrls: [""],
-  //   blockExplorerUrls: ["https://etherscan.io/#/"],
-  //   image: ethereum,
-  //   imageAltText: "Ethereum Logo",
-  //   uri: () => NodeHelper.getMainnetURI(NetworkId.MAINNET),
-  // },
-  [NetworkId.TESTNET_RINKEBY]: {
-    chainName: "Rinkeby Testnet",
-    chainId: 4,
-    nativeCurrency: {
-      name: "Ethereum",
-      symbol: "ETH",
-      decimals: 18,
-    },
-    rpcUrls: [""],
-    blockExplorerUrls: ["https://rinkeby.etherscan.io/#/"],
-    image: ethereum,
-    imageAltText: "Ethereum Logo",
-    uri: () => NodeHelper.getMainnetURI(NetworkId.TESTNET_RINKEBY),
-  },
   [NetworkId.BSC]: {
     chainName: "Binance",
     chainId: 56,
@@ -306,7 +174,7 @@ export const NETWORKS: { [key: number]: INetwork } = {
     imageAltText: "Binance Logo",
     uri: () => NodeHelper.getMainnetURI(NetworkId.BSC),
   },
-  [NetworkId.MAINNET]: {
+  [NetworkId.BSC_TEST]: {
     chainName: "Binance Test",
     chainId: 97,
     nativeCurrency: {
@@ -319,90 +187,6 @@ export const NETWORKS: { [key: number]: INetwork } = {
     image: binance,
     imageAltText: "Binance Logo",
     uri: () => NodeHelper.getMainnetURI(NetworkId.BSC_TEST),
-  },
-  [NetworkId.ARBITRUM]: {
-    chainName: "Arbitrum",
-    chainId: 42161,
-    nativeCurrency: {
-      name: "Ethereum",
-      symbol: "ETH",
-      decimals: 18,
-    },
-    rpcUrls: ["https://arb1.arbitrum.io/rpc"],
-    blockExplorerUrls: ["https://explorer.arbitrum.io/#/"],
-    image: arbitrum,
-    imageAltText: "Arbitrum Logo",
-    uri: () => NodeHelper.getMainnetURI(NetworkId.ARBITRUM),
-  },
-  [NetworkId.ARBITRUM_TESTNET]: {
-    chainName: "Arbitrum Testnet",
-    chainId: 421611,
-    nativeCurrency: {
-      name: "Ethereum",
-      symbol: "ETH",
-      decimals: 18,
-    },
-    rpcUrls: ["https://rinkeby.arbitrum.io/rpc"],
-    blockExplorerUrls: ["https://rinkeby-explorer.arbitrum.io/#/"],
-    image: arbitrum,
-    imageAltText: "Arbitrum Logo",
-    uri: () => EnvHelper.alchemyArbitrumTestnetURI,
-  },
-  [NetworkId.AVALANCHE_TESTNET]: {
-    chainName: "Avalanche Fuji Testnet",
-    chainId: 43113,
-    nativeCurrency: {
-      name: "AVAX",
-      symbol: "AVAX",
-      decimals: 18,
-    },
-    rpcUrls: ["https://api.avax-test.network/ext/bc/C/rpc"],
-    blockExplorerUrls: ["https://testnet.snowtrace.io/#/"],
-    image: avalanche,
-    imageAltText: "Avalanche Logo",
-    uri: () => EnvHelper.alchemyAvalancheTestnetURI,
-  },
-  [NetworkId.AVALANCHE]: {
-    chainName: "Avalanche",
-    chainId: 43114,
-    nativeCurrency: {
-      name: "AVAX",
-      symbol: "AVAX",
-      decimals: 18,
-    },
-    rpcUrls: ["https://api.avax.network/ext/bc/C/rpc"],
-    blockExplorerUrls: ["https://cchain.explorer.avax.network/"],
-    image: avalanche,
-    imageAltText: "Avalanche Logo",
-    uri: () => NodeHelper.getMainnetURI(NetworkId.AVALANCHE),
-  },
-  [NetworkId.POLYGON]: {
-    chainName: "Polygon",
-    chainId: 137,
-    nativeCurrency: {
-      name: "Polygon",
-      symbol: "MATIC",
-      decimals: 18,
-    },
-    rpcUrls: ["https://polygon-rpc.com"],
-    blockExplorerUrls: ["https://polygonscan.com/"],
-    image: polygon,
-    imageAltText: "Polygon Logo",
-    uri: () => NodeHelper.getMainnetURI(NetworkId.POLYGON),
-  },
-  [NetworkId.POLYGON_TESTNET]: {
-    chainName: "Polygon Mumbai Testnet",
-    chainId: 80001,
-    nativeCurrency: {
-      name: "Polygon",
-      symbol: "MATIC",
-      decimals: 18,
-    },
-    rpcUrls: ["https://polygon-rpc.com"],
-    blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
-    image: polygon,
-    imageAltText: "Polygon Logo",
-    uri: () => "", // NodeHelper.getMainnetURI(NetworkId.POLYGON_TESTNET),
   },
 };
 
@@ -462,44 +246,4 @@ export const VIEWS_FOR_NETWORK: { [key: number]: IViewsForNetwork } = {
     network: true,
     bondsV2: true,
   },
-  // [NetworkId.ARBITRUM]: {
-  //   dashboard: true,
-  //   stake: false,
-  //   wrap: true,
-  //   zap: false,
-  //   threeTogether: false,
-  //   bonds: false,
-  //   network: true,
-  //   bondsV2: false,
-  // },
-  // [NetworkId.ARBITRUM_TESTNET]: {
-  //   dashboard: true,
-  //   stake: false,
-  //   wrap: true,
-  //   zap: false,
-  //   threeTogether: false,
-  //   bonds: false,
-  //   network: true,
-  //   bondsV2: false,
-  // },
-  // [NetworkId.AVALANCHE]: {
-  //   dashboard: true,
-  //   stake: false,
-  //   wrap: true,
-  //   zap: false,
-  //   threeTogether: false,
-  //   bonds: false,
-  //   network: true,
-  //   bondsV2: false,
-  // },
-  // [NetworkId.AVALANCHE_TESTNET]: {
-  //   dashboard: true,
-  //   stake: false,
-  //   wrap: true,
-  //   zap: false,
-  //   threeTogether: false,
-  //   bonds: false,
-  //   network: true,
-  //   bondsV2: false,
-  // },
 };

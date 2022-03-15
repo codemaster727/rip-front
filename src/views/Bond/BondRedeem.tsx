@@ -46,12 +46,6 @@ function BondRedeem({ bond }: { bond: IAllBondData }) {
     return prettifySeconds(seconds, "day");
   };
 
-  // useEffect(() => {
-  //   console.log(bond);
-  //   console.log(bondingState);
-  //   console.log(bondDetails);
-  // }, []);
-
   return (
     <Box display="flex" flexDirection="column">
       <Box display="flex" justifyContent="space-around" flexWrap="wrap">

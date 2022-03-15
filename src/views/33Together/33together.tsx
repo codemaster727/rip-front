@@ -70,7 +70,6 @@ const PoolTogether = () => {
   }, [networkId]);
 
   useEffect(() => {
-    console.log("apollo", networkId);
     let apolloUrl: string;
     if (!providerInitialized) {
       apolloUrl = poolDataQuery(addresses[1].PT_PRIZE_POOL_ADDRESS);

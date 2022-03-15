@@ -173,7 +173,6 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                       type="number"
                       value={quantity}
                       onChange={e => setQuantity(e.target.value)}
-                      // startAdornment={<InputAdornment position="start">$</InputAdornment>}
                       labelWidth={55}
                       endAdornment={
                         <InputAdornment position="end">

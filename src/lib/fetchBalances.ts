@@ -31,10 +31,6 @@ export const balancesOf = async (address: string, NetworkId: NetworkId): Promise
     const balance = ethers.utils.formatUnits(token.balance, token.contract_decimals);
     return {
       contractAddress: token.contract_address,
-      // symbol: token.contract_ticker_symbol,
-      // name: token.contract_name,
-      // decimals: token.contract_decimals,
-      // image: token.logo_url,
       balance,
       priceUSD,
       priceUSD24HR: token.quote_rate_24h,
@@ -43,14 +39,7 @@ export const balancesOf = async (address: string, NetworkId: NetworkId): Promise
   });
 };
 
-const Networks = [
-  NetworkId.MAINNET,
-  NetworkId.AVALANCHE,
-  NetworkId.ARBITRUM,
-  NetworkId.POLYGON,
-  // covalent does not support rinkeby
-  // ...(process.env.NODE_ENV === "development" ? [NetworkId.AvalancheTestnet, NetworkId.ArbitrumTestnet] : []),
-];
+const Networks = [NetworkId.MAINNET, NetworkId.AVALANCHE, NetworkId.ARBITRUM, NetworkId.POLYGON];
 
 const balanceByContractAddress = (balances: Token[], address: string) => {
   if (address) {

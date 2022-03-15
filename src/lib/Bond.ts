@@ -105,12 +105,10 @@ export abstract class Bond {
   }
 
   getAddressForReserve(NetworkId: NetworkId) {
-    console.log("object", this.networkAddrs[NetworkId]?.reserveAddress);
     return this.networkAddrs[NetworkId]?.reserveAddress;
   }
   getContractForReserve(NetworkId: NetworkId, provider: StaticJsonRpcProvider | JsonRpcSigner) {
     const bondAddress = this.getAddressForReserve(NetworkId) || "";
-    console.log("reserve", this.reserveContract);
     return new ethers.Contract(bondAddress, this.reserveContract, provider) as PairContract;
   }
 
@@ -119,7 +117,6 @@ export abstract class Bond {
     let marketPrice: number;
     if (this.isLP) {
       const pairContract = this.getContractForReserve(NetworkId, provider);
-      console.log("contracthere", pairContract);
       const reserves = await pairContract.getReserves();
       marketPrice = Number(reserves[1].toString()) / Number(reserves[0].toString()) / 10 ** 9;
     } else {
@@ -157,7 +154,6 @@ export class LPBond extends Bond {
     const tokenAmount = tokenAmountV1.add(tokenAmountV2);
     const valuation = await bondCalculator.valuation(tokenAddress || "", tokenAmount);
     const markdown = await bondCalculator.markdown(tokenAddress || "");
-    console.log(valuation, markdown);
     const tokenUSD =
       (Number(valuation.toString()) / Math.pow(10, 9)) * (Number(markdown.toString()) / Math.pow(10, 18));
     return Number(tokenUSD.toString());
