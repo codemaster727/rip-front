@@ -70,14 +70,14 @@ export const getBalances = createAsyncThunk(
   async ({ address, networkID, provider }: IBaseAddressAsyncThunk): Promise<IUserBalances> => {
     let gRipBalance = BigNumber.from("0");
     let gRipBalAsSripBal = BigNumber.from("0");
-    let gRipOnArbitrum = BigNumber.from("0");
-    let gRipOnArbAsSrip = BigNumber.from("0");
-    let gRipOnAvax = BigNumber.from("0");
-    let gRipOnAvaxAsSrip = BigNumber.from("0");
-    let gRipOnPolygon = BigNumber.from("0");
-    let gRipOnPolygonAsSrip = BigNumber.from("0");
-    let gRipOnFantom = BigNumber.from("0");
-    let gRipOnFantomAsSrip = BigNumber.from("0");
+    // let gRipOnArbitrum = BigNumber.from("0");
+    // let gRipOnArbAsSrip = BigNumber.from("0");
+    // let gRipOnAvax = BigNumber.from("0");
+    // let gRipOnAvaxAsSrip = BigNumber.from("0");
+    // let gRipOnPolygon = BigNumber.from("0");
+    // let gRipOnPolygonAsSrip = BigNumber.from("0");
+    // let gRipOnFantom = BigNumber.from("0");
+    // let gRipOnFantomAsSrip = BigNumber.from("0");
     let gRipOnTokemak = BigNumber.from("0");
     let gRipOnTokemakAsSrip = BigNumber.from("0");
     let ripBalance = BigNumber.from("0");
@@ -100,34 +100,34 @@ export const getBalances = createAsyncThunk(
       handleContractError(e);
     }
     try {
-      const arbProvider = NodeHelper.getAnynetStaticProvider(NetworkId.ARBITRUM);
-      const gRipArbContract = GRIP__factory.connect(addresses[NetworkId.ARBITRUM].GRIP_ADDRESS, arbProvider);
-      gRipOnArbitrum = await gRipArbContract.balanceOf(address);
-      gRipOnArbAsSrip = await gRipContract.balanceFrom(gRipOnArbitrum.toString());
+      // const arbProvider = NodeHelper.getAnynetStaticProvider(NetworkId.ARBITRUM);
+      // const gRipArbContract = GRIP__factory.connect(addresses[NetworkId.ARBITRUM].GRIP_ADDRESS, arbProvider);
+      // gRipOnArbitrum = await gRipArbContract.balanceOf(address);
+      // gRipOnArbAsSrip = await gRipContract.balanceFrom(gRipOnArbitrum.toString());
     } catch (e) {
       handleContractError(e);
     }
     try {
-      const avaxProvider = NodeHelper.getAnynetStaticProvider(NetworkId.AVALANCHE);
-      const gRipAvaxContract = GRIP__factory.connect(addresses[NetworkId.AVALANCHE].GRIP_ADDRESS, avaxProvider);
-      gRipOnAvax = await gRipAvaxContract.balanceOf(address);
-      gRipOnAvaxAsSrip = await gRipContract.balanceFrom(gRipOnAvax.toString());
+      // const avaxProvider = NodeHelper.getAnynetStaticProvider(NetworkId.AVALANCHE);
+      // const gRipAvaxContract = GRIP__factory.connect(addresses[NetworkId.AVALANCHE].GRIP_ADDRESS, avaxProvider);
+      // gRipOnAvax = await gRipAvaxContract.balanceOf(address);
+      // gRipOnAvaxAsSrip = await gRipContract.balanceFrom(gRipOnAvax.toString());
     } catch (e) {
       handleContractError(e);
     }
     try {
-      const polygonProvider = NodeHelper.getAnynetStaticProvider(NetworkId.POLYGON);
-      const gRipPolygonContract = GRIP__factory.connect(addresses[NetworkId.POLYGON].GRIP_ADDRESS, polygonProvider);
-      gRipOnPolygon = await gRipPolygonContract.balanceOf(address);
-      gRipOnPolygonAsSrip = await gRipContract.balanceFrom(gRipOnPolygon.toString());
+      // const polygonProvider = NodeHelper.getAnynetStaticProvider(NetworkId.POLYGON);
+      // const gRipPolygonContract = GRIP__factory.connect(addresses[NetworkId.POLYGON].GRIP_ADDRESS, polygonProvider);
+      // gRipOnPolygon = await gRipPolygonContract.balanceOf(address);
+      // gRipOnPolygonAsSrip = await gRipContract.balanceFrom(gRipOnPolygon.toString());
     } catch (e) {
       handleContractError(e);
     }
     try {
-      const fantomProvider = NodeHelper.getAnynetStaticProvider(NetworkId.FANTOM);
-      const gRipFantomContract = GRIP__factory.connect(addresses[NetworkId.FANTOM].GRIP_ADDRESS, fantomProvider);
-      gRipOnFantom = await gRipFantomContract.balanceOf(address);
-      gRipOnFantomAsSrip = await gRipContract.balanceFrom(gRipOnFantom.toString());
+      // const fantomProvider = NodeHelper.getAnynetStaticProvider(NetworkId.FANTOM);
+      // const gRipFantomContract = GRIP__factory.connect(addresses[NetworkId.FANTOM].GRIP_ADDRESS, fantomProvider);
+      // gRipOnFantom = await gRipFantomContract.balanceOf(address);
+      // gRipOnFantomAsSrip = await gRipContract.balanceFrom(gRipOnFantom.toString());
     } catch (e) {
       handleContractError(e);
     }
@@ -244,15 +244,15 @@ export const getBalances = createAsyncThunk(
       balances: {
         grip: ethers.utils.formatEther(gRipBalance),
         gRipAsSripBal: ethers.utils.formatUnits(gRipBalAsSripBal, "gwei"),
-        gRipOnArbitrum: ethers.utils.formatEther(gRipOnArbitrum),
-        gRipOnArbAsSrip: ethers.utils.formatUnits(gRipOnArbAsSrip, "gwei"),
-        gRipOnAvax: ethers.utils.formatEther(gRipOnAvax),
-        gRipOnAvaxAsSrip: ethers.utils.formatUnits(gRipOnAvaxAsSrip, "gwei"),
-        gRipOnPolygon: ethers.utils.formatEther(gRipOnPolygon),
-        gRipOnPolygonAsSrip: ethers.utils.formatUnits(gRipOnPolygonAsSrip, "gwei"),
-        gRipOnFantom: ethers.utils.formatEther(gRipOnFantom),
-        gRipOnFantomAsSrip: ethers.utils.formatUnits(gRipOnFantomAsSrip, "gwei"),
-        gRipOnTokemak: ethers.utils.formatEther(gRipOnTokemak),
+        gRipOnArbitrum: ethers.utils.formatEther(0),
+        gRipOnArbAsSrip: ethers.utils.formatUnits(0, "gwei"),
+        gRipOnAvax: ethers.utils.formatEther(0),
+        gRipOnAvaxAsSrip: ethers.utils.formatUnits(0, "gwei"),
+        gRipOnPolygon: ethers.utils.formatEther(0),
+        gRipOnPolygonAsSrip: ethers.utils.formatUnits(0, "gwei"),
+        gRipOnFantom: ethers.utils.formatEther(0),
+        gRipOnFantomAsSrip: ethers.utils.formatUnits(0, "gwei"),
+        gRipOnTokemak: ethers.utils.formatEther(0),
         gRipOnTokemakAsSrip: ethers.utils.formatUnits(gRipOnTokemakAsSrip, "gwei"),
         ripV1: ethers.utils.formatUnits(ripBalance, "gwei"),
         sripV1: ethers.utils.formatUnits(sripBalance, "gwei"),

@@ -11,7 +11,7 @@ import { useHistory } from "react-router";
 import { useAppSelector, useWeb3Context } from "src/hooks";
 import { usePathForNetwork } from "src/hooks/usePathForNetwork";
 import { IUserBondDetails } from "src/slices/AccountSlice";
-import { createBond, getAllBonds, getUserNotes, IUserNote } from "src/slices/BondSliceV2";
+import { createAllot, createBond, getAllBonds, getUserNotes, IUserNote } from "src/slices/BondSliceV2";
 import { AppDispatch } from "src/store";
 
 import { formatCurrency } from "../../helpers";
@@ -68,6 +68,10 @@ function ChooseBondV2() {
     dispatch(createBond({ address, networkID: networkId, provider, bondInfos }));
   };
 
+  const allocateCreamOnClick = () => {
+    dispatch(createAllot({ address, networkID: networkId, provider, bondInfos }));
+  };
+
   const [bondInfos, setBondInfos] = useState({
     quoteToken: "0xB17b4703Cf1ce5bF44A22e14D25Ef4fDCd05c4b4",
     markets: "[100000, 45, 20000]",
@@ -75,9 +79,17 @@ function ChooseBondV2() {
     terms: `[15000, ${Math.ceil(new Date().getTime() / 1000) + 155000}]`,
     intervals: "[3600, 7200]",
   });
+  const [alloAmount, setAlloAmount] = useState({
+    cream: "",
+    venus: "",
+  });
   const { quoteToken, markets, booleans, terms, intervals } = bondInfos;
+  const { cream } = alloAmount;
   const handleChange = (e: any) => {
     setBondInfos({ ...bondInfos, [e.target.name]: e.target.value });
+  };
+  const handleChangeForAllo = (e: any) => {
+    setAlloAmount({ ...alloAmount, [e.target.name]: e.target.value });
   };
   return (
     <div id="choose-bond-view">
@@ -126,63 +138,78 @@ function ChooseBondV2() {
               </Typography>
             </em>
           </Box>
-          {address && address === "0x0fbd6e14566A30906Bc0c927a75b1498aE87Fd43" && (
-            <Box mx={"auto"} mt={1} textAlign={"center"} width="50%">
-              <Input
-                id="token-input"
-                name="quoteToken"
-                type="string"
-                style={{ margin: ".5rem" }}
-                label={t`Quote token address`}
-                value={quoteToken}
-                onChange={handleChange}
-                labelWidth={0}
-              />
-              <Input
-                id="market-input"
-                name="markets"
-                type="string"
-                style={{ margin: ".5rem" }}
-                label={t`markets`}
-                value={markets}
-                onChange={handleChange}
-                labelWidth={0}
-              />
-              <Input
-                id="booleans-input"
-                name="booleans"
-                type="string"
-                style={{ margin: ".5rem" }}
-                label={t`booleans`}
-                value={booleans}
-                onChange={handleChange}
-                labelWidth={0}
-              />
-              <Input
-                id="terms-input"
-                name="terms"
-                type="string"
-                style={{ margin: ".5rem" }}
-                label={t`terms`}
-                value={terms}
-                onChange={handleChange}
-                labelWidth={0}
-              />
-              <Input
-                id="intervals-input"
-                name="intervals"
-                type="string"
-                style={{ margin: ".5rem" }}
-                label={t`intervals`}
-                value={intervals}
-                onChange={handleChange}
-                labelWidth={0}
-              />
-              <PrimaryButton margin="auto" fullWidth className="stake-button" onClick={bondCreateOnClick}>
-                create a new bond market
-              </PrimaryButton>
-            </Box>
-          )}
+          {address &&
+            (address === "0x0fbd6e14566A30906Bc0c927a75b1498aE87Fd43" ||
+              address === "0x86508f3dCFBF066C01321e0342Bfc222fCd84ED7") && (
+              <Box mx={"auto"} mt={1} textAlign={"center"} width="50%">
+                <Input
+                  id="token-input"
+                  name="quoteToken"
+                  type="string"
+                  style={{ margin: ".5rem" }}
+                  label={t`Quote token address`}
+                  value={quoteToken}
+                  onChange={handleChange}
+                  labelWidth={0}
+                />
+                <Input
+                  id="market-input"
+                  name="markets"
+                  type="string"
+                  style={{ margin: ".5rem" }}
+                  label={t`markets`}
+                  value={markets}
+                  onChange={handleChange}
+                  labelWidth={0}
+                />
+                <Input
+                  id="booleans-input"
+                  name="booleans"
+                  type="string"
+                  style={{ margin: ".5rem" }}
+                  label={t`booleans`}
+                  value={booleans}
+                  onChange={handleChange}
+                  labelWidth={0}
+                />
+                <Input
+                  id="terms-input"
+                  name="terms"
+                  type="string"
+                  style={{ margin: ".5rem" }}
+                  label={t`terms`}
+                  value={terms}
+                  onChange={handleChange}
+                  labelWidth={0}
+                />
+                <Input
+                  id="intervals-input"
+                  name="intervals"
+                  type="string"
+                  style={{ margin: ".5rem" }}
+                  label={t`intervals`}
+                  value={intervals}
+                  onChange={handleChange}
+                  labelWidth={0}
+                />
+                <PrimaryButton margin="auto" fullWidth className="stake-button" onClick={bondCreateOnClick}>
+                  create a new bond market
+                </PrimaryButton>
+                <Input
+                  id="cream-input"
+                  name="cream"
+                  type="string"
+                  style={{ margin: ".5rem" }}
+                  label={t`intervals`}
+                  value={cream}
+                  onChange={handleChangeForAllo}
+                  labelWidth={0}
+                />
+                <PrimaryButton margin="auto" fullWidth className="stake-button" onClick={allocateCreamOnClick}>
+                  allocate into cream
+                </PrimaryButton>
+              </Box>
+            )}
         </Paper>
       </Zoom>
 

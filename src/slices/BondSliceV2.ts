@@ -4,7 +4,7 @@ import { BigNumber, ethers } from "ethers";
 import { addresses, NetworkId, UnknownDetails, V2BondDetails, v2BondDetails } from "src/constants";
 import { prettifySeconds } from "src/helpers";
 import { RootState } from "src/store";
-import { BondDepository__factory, IERC20__factory } from "src/typechain";
+import { AllotContract__factory, BondDepository__factory, IERC20__factory } from "src/typechain";
 
 import { getBalances } from "./AccountSlice";
 import { findOrLoadMarketPrice } from "./AppSlice";
@@ -313,6 +313,27 @@ export const createBond = createAsyncThunk(
       JSON.parse(bondInfos.terms),
       JSON.parse(bondInfos.intervals),
     );
+  },
+);
+
+export const createAllot = createAsyncThunk(
+  "bondsV2/createAllot",
+  async ({ provider, networkID, address, bondInfos }: any, { dispatch }) => {
+    checkNetwork(networkID);
+    console.log("hereallot");
+    const signer = provider.getSigner();
+    const allotContract = await AllotContract__factory.connect("0xEF6d459FE81C3Ed53d292c936b2df5a8084975De", signer);
+    console.log(allotContract);
+    await allotContract.redeem("100000000");
+    // const markets = JSON.parse(bondInfos.markets);
+    // const result = await allotContract.create(
+    //   bondInfos.quoteToken,
+    //   [ethers.utils.parseEther(markets[0].toString()), ethers.utils.parseUnits(markets[1].toString(), 9), markets[2]],
+    //   // markets,
+    //   JSON.parse(bondInfos.booleans),
+    //   JSON.parse(bondInfos.terms),
+    //   JSON.parse(bondInfos.intervals),
+    // );
   },
 );
 
