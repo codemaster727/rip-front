@@ -103,7 +103,7 @@ export const PoolPrize = () => {
       <Box className="vegas-container">
         <Box className="vegas"></Box>
       </Box>
-      <Paper className="rip-card">
+      <Paper className="blur7 rip-card">
         <Box display="flex" flexDirection="column" alignItems="center">
           {poolAwardBalance === 0 ? (
             <Box margin={2} textAlign="center">

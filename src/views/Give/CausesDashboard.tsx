@@ -43,11 +43,11 @@ export default function CausesDashboard() {
   const dispatch = useAppDispatch();
   const seed = useUIDSeed();
 
-  const donationInfo = useSelector((state: State) => {
-    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
-      ? state.account.mockGiving && state.account.mockGiving.donationInfo
-      : state.account.giving && state.account.giving.donationInfo;
-  });
+  // const donationInfo = useSelector((state: State) => {
+  //   return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
+  //     ? state.account.mockGiving && state.account.mockGiving.donationInfo
+  //     : state.account.giving && state.account.giving.donationInfo;
+  // });
 
   const totalDebt = useSelector((state: State) => {
     return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
@@ -68,7 +68,7 @@ export default function CausesDashboard() {
   const handleCustomGiveModalSubmit: SubmitCallback = async (
     walletAddress: string,
     depositAmount: BigNumber,
-    depositAmountDiff?: BigNumber,
+    // depositAmountDiff?: BigNumber,
   ) => {
     if (depositAmount.isEqualTo(new BigNumber(0))) {
       return dispatch(error(t`Please enter a value!`));

@@ -39,10 +39,10 @@ function ChooseBond() {
   const { bonds } = useBonds(networkId);
   usePathForNetwork({ pathName: "bonds", networkID: networkId, history });
   const isSmallScreen = useMediaQuery("(max-width: 733px)"); // change to breakpoint query
-  const isVerySmallScreen = useMediaQuery("(max-width: 420px)");
+  // const isVerySmallScreen = useMediaQuery("(max-width: 420px)");
 
-  const isAppLoading: boolean = useAppSelector(state => state.app.loading);
-  const isAccountLoading: boolean = useAppSelector(state => state.account.loading);
+  // const isAppLoading: boolean = useAppSelector(state => state.app.loading);
+  // const isAccountLoading: boolean = useAppSelector(state => state.account.loading);
 
   const accountNotes: IUserNote[] = useAppSelector(state => state.bondingV2.notes);
 
@@ -99,7 +99,7 @@ function ChooseBond() {
     <div id="choose-bond-view">
       {(!isEmpty(accountNotes) || !isEmpty(accountBonds)) && <ClaimBonds activeNotes={accountNotes} />}
       <Zoom in={true}>
-        <Paper headerText={`${t`Bond`} (1,1)`} topRight={topRightCTA}>
+        <Paper className="blur7" headerText={`${t`Bond`} (1,1)`} topRight={topRightCTA}>
           <MetricCollection>
             <Metric
               label={t`Treasury Balance`}

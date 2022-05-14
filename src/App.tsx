@@ -31,6 +31,10 @@ import {
   RedeemYield,
   BondV2,
   ChooseBondV2,
+  Swap,
+  Liquidity,
+  AddLiquidity,
+  PoolFinder,
 } from "./views";
 import Sidebar from "./components/Sidebar/Sidebar";
 import TopBar from "./components/TopBar/TopBar";
@@ -45,11 +49,28 @@ import { girth as gTheme } from "./themes/girth.js";
 import { useGoogleAnalytics } from "./hooks/useGoogleAnalytics";
 import ProjectInfo from "./views/Give/ProjectInfo";
 import projectData from "src/views/Give/projects.json";
+import { Updaters } from "./Root";
 import { getAllBonds, getUserNotes } from "./slices/BondSliceV2";
 import { NetworkId } from "./constants";
 import MigrationModalSingle from "./components/Migration/MigrationModalSingle";
 import { trackGAEvent, trackSegmentEvent } from "./helpers/analytics";
 import Background from "./assets/images/background.svg";
+// import useSentryUser from "src/hooks/useSentryUser";
+// import useUserAgent from "src/hooks/useUserAgent";
+import { usePollBlockNumber } from "src/slices/block/hooks";
+import { usePollCoreFarmData } from "src/slices/farms/hooks";
+// import useEagerConnect from "src/hooks/useEagerConnect";
+// import { useAccountEventListener } from "src/hooks/useAccountEventListener";
+
+export function GlobalHooks() {
+  usePollBlockNumber();
+  // useEagerConnect();
+  usePollCoreFarmData();
+  // useUserAgent();
+  // useAccountEventListener();
+  // useSentryUser();
+  return null;
+}
 
 // 😬 Sorry for all the console logging
 const DEBUG = false;
@@ -205,7 +226,7 @@ function App() {
     if (!state.app.currentIndex || !state.app.marketPrice) {
       return true;
     }
-    const wrappedBalance = Number(state.account.balances.wsrip) * Number(state.app.currentIndex!);
+    const wrappedBalance = Number(state.account.balances.wsrip) * Number(state.app.currentIndex as string);
     const allAssetsBalance =
       Number(state.account.balances.sripV1) + Number(state.account.balances.ripV1) + wrappedBalance;
     return state.app.marketPrice * allAssetsBalance >= 10;
@@ -215,7 +236,7 @@ function App() {
     if (!state.app.currentIndex || !state.app.marketPrice) {
       return true;
     }
-    const wrappedBalance = Number(state.account.balances.wsrip) * Number(state.app.currentIndex!);
+    const wrappedBalance = Number(state.account.balances.wsrip) * Number(state.app.currentIndex as string);
     const ripBalance = Number(state.account.balances.ripV1);
     const sRipbalance = Number(state.account.balances.sripV1);
     if (ripBalance > 0 && ripBalance * state.app.marketPrice < 10) {
@@ -318,6 +339,8 @@ function App() {
 
   return (
     <ThemeProvider theme={themeMode}>
+      <GlobalHooks />
+      <Updaters />
       <CssBaseline />
       <div style={{ backgroundColor: "black" }}>
         <div
@@ -368,6 +391,22 @@ function App() {
                   oldAssetsDetected={oldAssetsDetected}
                   setMigrationModalOpen={setMigrationModalOpen}
                 />
+              </Route>
+
+              <Route exact path="/swap">
+                <Swap></Swap>
+              </Route>
+
+              <Route exact path="/liquidity">
+                <Liquidity />
+              </Route>
+
+              <Route exact path="/add/:currencyIdA?/:currencyIdB?">
+                <AddLiquidity />
+              </Route>
+
+              <Route exact path="/find">
+                <PoolFinder />
               </Route>
 
               <Route exact path="/give">

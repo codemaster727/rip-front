@@ -57,7 +57,7 @@ type ZapInfoProps = {
   address: string;
 };
 
-const ZapInfo: React.FC<ZapInfoProps> = ({ tokens, address }) => {
+const ZapInfo: React.FC<ZapInfoProps> = ({ address }) => {
   const isSmallScreen = useMediaQuery("(max-width: 960px)");
   const classes = useStyles();
 
@@ -74,7 +74,7 @@ const ZapInfo: React.FC<ZapInfoProps> = ({ tokens, address }) => {
   };
 
   return (
-    <Paper className="rip-card" id="olyzaps-info">
+    <Paper className="blur7 rip-card" id="olyzaps-info">
       <Typography variant="h5" style={{ color: "black" }} align="center">
         <Trans>Zap</Trans>
       </Typography>

@@ -23,6 +23,7 @@ type onChainProvider = {
   disconnect: () => void;
   hasCachedProvider: () => boolean;
   address: string;
+  account: string | undefined;
   connected: boolean;
   provider: JsonRpcProvider;
   web3Modal: Web3Modal;
@@ -64,7 +65,7 @@ const initModal = new Web3Modal({
       package: WalletConnectProvider,
       options: {
         rpc: {
-          1: NETWORKS[97].uri(),
+          1: NETWORKS[56].uri(),
           // 4: NETWORKS[4].uri(),
           56: NETWORKS[56].uri(),
           97: NETWORKS[97].uri(),
@@ -81,9 +82,10 @@ const initModal = new Web3Modal({
 export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
   const [connected, setConnected] = useState(false);
   const [address, setAddress] = useState("");
+  const [account, setAccount] = useState<string | undefined>(undefined);
   // NOTE (appleseed): loading eth mainnet as default rpc provider for a non-connected wallet
   const [provider, setProvider] = useState<JsonRpcProvider>(NodeHelper.getMainnetStaticProvider());
-  const [networkId, setNetworkId] = useState(97);
+  const [networkId, setNetworkId] = useState(56);
   const [networkName, setNetworkName] = useState("");
   const [providerUri, setProviderUri] = useState("");
   const [providerInitialized, setProviderInitialized] = useState(false);
@@ -148,8 +150,8 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
     // Save everything after we've validated the right network.
     // Eventually we'll be fine without doing network validations.
     setAddress(connectedAddress);
+    setAccount(connectedAddress && connectedAddress !== "" ? connectedAddress : undefined);
     const networkHash = await initNetworkFunc({ provider: connectedProvider });
-    console.log("networkHash", networkHash);
     setNetworkId(networkHash.networkId);
     setNetworkName(networkHash.networkName);
     setProviderUri(networkHash.uri);
@@ -177,6 +179,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
       provider,
       connected,
       address,
+      account,
       web3Modal,
       networkId,
       networkName,
@@ -190,6 +193,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
       provider,
       connected,
       address,
+      account,
       web3Modal,
       networkId,
       networkName,

@@ -19,7 +19,7 @@ export function ClaimBondTableData({ userNote, gRIP }: { userNote: IUserNote; gR
   const note = userNote;
   const bondName = note.displayName;
 
-  const isAppLoading = useAppSelector(state => state.app.loading ?? true);
+  // const isAppLoading = useAppSelector(state => state.app.loading ?? true);
 
   const pendingTransactions = useAppSelector(state => {
     return state.pendingTransactions;

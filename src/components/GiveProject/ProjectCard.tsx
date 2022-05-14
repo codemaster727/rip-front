@@ -11,7 +11,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@material-ui/core";
-import { useTheme } from "@material-ui/core/styles";
+// import { useTheme } from "@material-ui/core/styles";
 import { Skeleton } from "@material-ui/lab";
 import { Icon } from "@olympusdao/component-library";
 import { BigNumber } from "bignumber.js";
@@ -75,7 +75,7 @@ export default function ProjectCard({ project, mode }: ProjectDetailsProps) {
   const isSmallScreen = useMediaQuery("(max-width: 600px) and (min-width: 375px)") && !isVerySmallScreen;
   const isMediumScreen = useMediaQuery("(max-width: 960px) and (min-width: 600px)") && !isSmallScreen;
   const { provider, address, connected, networkId, providerInitialized } = useWeb3Context();
-  const { title, owner, shortDescription, details, finishDate, photos, category, wallet, depositGoal } = project;
+  const { title, owner, shortDescription, details, finishDate, photos, wallet, depositGoal } = project;
   const [recipientInfoIsLoading, setRecipientInfoIsLoading] = useState(true);
   const [donorCountIsLoading, setDonorCountIsLoading] = useState(true);
   const [totalDebt, setTotalDebt] = useState("");
@@ -83,11 +83,11 @@ export default function ProjectCard({ project, mode }: ProjectDetailsProps) {
 
   const [isGiveModalOpen, setIsGiveModalOpen] = useState(false);
 
-  const donationInfo = useSelector((state: State) => {
-    return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
-      ? state.account.mockGiving && state.account.mockGiving.donationInfo
-      : state.account.giving && state.account.giving.donationInfo;
-  });
+  // const donationInfo = useSelector((state: State) => {
+  //   return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
+  //     ? state.account.mockGiving && state.account.mockGiving.donationInfo
+  //     : state.account.giving && state.account.giving.donationInfo;
+  // });
 
   const userTotalDebt = useSelector((state: State) => {
     return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
@@ -95,12 +95,12 @@ export default function ProjectCard({ project, mode }: ProjectDetailsProps) {
       : state.account.redeeming && state.account.redeeming.recipientInfo.totalDebt;
   });
 
-  const theme = useTheme();
+  // const theme = useTheme();
   // We use useAppDispatch here so the result of the AsyncThunkAction is typed correctly
   // See: https://stackoverflow.com/a/66753532
   const dispatch = useAppDispatch();
 
-  const svgFillColour: string = theme.palette.type === "light" ? "black" : "white";
+  // const svgFillColour: string = theme.palette.type === "light" ? "black" : "white";
 
   useEffect(() => {
     const items = document.getElementsByClassName("project-container");
@@ -365,7 +365,7 @@ export default function ProjectCard({ project, mode }: ProjectDetailsProps) {
   const getCardContent = () => {
     return (
       <>
-        <Paper style={{ width: "100%", borderRadius: "10px" }}>
+        <Paper className="blur7" style={{ width: "100%", borderRadius: "10px" }}>
           <Grid item className={isVerySmallScreen ? "cause-card very-small" : "cause-card"} key={title}>
             {getProjectImage()}
             <div className="cause-content">
@@ -471,7 +471,7 @@ export default function ProjectCard({ project, mode }: ProjectDetailsProps) {
                       paddingRight: isMediumScreen || isSmallScreen || isVerySmallScreen ? "1rem" : 0,
                     }}
                   >
-                    <Paper className="project-sidebar">
+                    <Paper className="blur7 project-sidebar">
                       <Grid container className="project-intro" justifyContent="space-between">
                         <Grid item className="project-title">
                           <Typography variant="h5">
@@ -508,7 +508,7 @@ export default function ProjectCard({ project, mode }: ProjectDetailsProps) {
                         </Grid>
                       </Grid>
                     </Paper>
-                    <Paper className="project-sidebar">
+                    <Paper className="blur7 project-sidebar">
                       <Grid container direction="column">
                         <Grid item className="donors-title">
                           <Typography variant="h5">
@@ -545,7 +545,7 @@ export default function ProjectCard({ project, mode }: ProjectDetailsProps) {
                       paddingLeft: isMediumScreen || isSmallScreen || isVerySmallScreen ? "1rem" : 0,
                     }}
                   >
-                    <Paper className="project-info">
+                    <Paper className="blur7 project-info">
                       <Typography variant="h5" className="project-about-header">
                         <strong>
                           <Trans>About</Trans>

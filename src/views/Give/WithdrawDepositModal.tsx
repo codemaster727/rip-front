@@ -80,7 +80,7 @@ export function WithdrawDepositModal({
   return (
     /* modal-container displays a background behind the rip-card container, which means that if modal-container receives a click, we can close the modal */
     <Modal className="modal-container" open={isModalOpen} onClose={cancelFunc} onClick={cancelFunc} hideBackdrop={true}>
-      <Paper className="rip-card rip-modal" onClick={handleModalInsideClick}>
+      <Paper className="blur7 rip-card rip-modal" onClick={handleModalInsideClick}>
         <div className="yield-header">
           <Link onClick={() => cancelFunc()}>
             <SvgIcon color="primary" component={XIcon} />

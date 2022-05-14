@@ -18,7 +18,7 @@ export function BondDataCard({ bond, networkId }: { bond: IBondV2; networkId: Ne
 
   return (
     <Slide direction="up" in={true} style={{ backgroundColor: "black" }}>
-      <Paper id={`${bond.index}--bond`} className="bond-data-card rip-card">
+      <Paper id={`${bond.index}--bond`} className="bond-data-card rip-card blur7">
         <div className="bond-pair">
           <TokenStack tokens={bond.bondIconSvg} />
           <div className="bond-name">

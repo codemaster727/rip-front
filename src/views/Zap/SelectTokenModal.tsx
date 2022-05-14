@@ -20,7 +20,7 @@ import { ZapperToken } from "src/helpers/ZapHelper";
 
 import { ReactComponent as XIcon } from "../../assets/icons/x.svg";
 
-const NATIVE_TOKENS = ["sRIP", "wsRIP"];
+// const NATIVE_TOKENS = ["sRIP", "wsRIP"];
 
 function SelectTokenModal(
   handleClose: () => void,
@@ -73,7 +73,7 @@ function SelectTokenModal(
             </Typography>
           </Box>
         ) : (
-          <Paper style={{ maxHeight: 300, overflow: "auto", borderRadius: 10 }}>
+          <Paper className="blur7" style={{ maxHeight: 300, overflow: "auto", borderRadius: 10 }}>
             <List>
               {tokens.regularTokens &&
                 Object.entries(tokens.regularTokens)

@@ -12,3 +12,7 @@ export { default as Give } from "./Give/Give";
 export { default as Zap } from "./Zap/Zap";
 export { default as BondV2 } from "./BondV2/BondV2";
 export { default as ChooseBondV2 } from "./BondV2/ChooseBondV2";
+export { default as Swap } from "./Swap";
+export { default as Liquidity } from "./Pool";
+export { default as AddLiquidity } from "./AddLiquidity";
+export { default as PoolFinder } from "./PoolFinder";

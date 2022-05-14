@@ -20,7 +20,6 @@ export const useEns = () => {
       try {
         name = await provider.lookupAddress(address);
         avatar = name ? await provider.getAvatar(name) : null;
-        console.log(name, avatar);
       } catch (error) {
         console.log(error);
       }

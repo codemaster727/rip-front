@@ -46,7 +46,7 @@ const MobileStakePool = ({ pool, isLoading }: { pool: ExternalPoolwBalance; isLo
   const styles = useStyles();
   const { connected } = useWeb3Context();
   return (
-    <Paper style={{ background: "black" }}>
+    <Paper className="blur7" style={{ background: "black" }}>
       <div className={styles.poolPair}>
         <TokenStack tokens={pool.icons} />
         <div style={{ color: "white" }} className={styles.poolName}>
@@ -136,7 +136,7 @@ export default function ExternalStakePool() {
           ))}
         </>
       ) : (
-        <Paper headerText={t`Farm Pool`}>
+        <Paper headerText={t`Farm Pool`} className="blur7">
           <Box sx={{ display: "flex", flexDirection: "column" }} style={{ gap: theme.spacing(4), padding: "16px 0px" }}>
             <Grid container direction="row" spacing={3}>
               {allStakePools?.pools?.map(pool => (

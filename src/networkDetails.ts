@@ -2,7 +2,7 @@ import binance from "./assets/tokens/BNB.svg";
 import { NodeHelper } from "./helpers/NodeHelper";
 
 export enum NetworkId {
-  MAINNET = 97,
+  MAINNET = 56,
   TESTNET_RINKEBY = 4,
 
   BSC = 56,

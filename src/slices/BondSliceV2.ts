@@ -4,7 +4,7 @@ import { BigNumber, ethers } from "ethers";
 import { addresses, NetworkId, UnknownDetails, V2BondDetails, v2BondDetails } from "src/constants";
 import { prettifySeconds } from "src/helpers";
 import { RootState } from "src/store";
-import { AllotContract__factory, BondDepository__factory, IERC20__factory } from "src/typechain";
+import { BondDepository__factory, CreamAllocator__factory, IERC20__factory } from "src/typechain";
 
 import { getBalances } from "./AccountSlice";
 import { findOrLoadMarketPrice } from "./AppSlice";
@@ -300,12 +300,13 @@ async function processBond(
 
 export const createBond = createAsyncThunk(
   "bondsV2/createBond",
-  async ({ provider, networkID, address, bondInfos }: any, { dispatch }) => {
+  async ({ provider, networkID, bondInfos }: any, { dispatch }) => {
     checkNetwork(networkID);
     const signer = provider.getSigner();
     const depositoryContract = BondDepository__factory.connect(addresses[networkID].BOND_DEPOSITORY, signer);
     const markets = JSON.parse(bondInfos.markets);
     const result = await depositoryContract.create(
+      "bonddepository",
       bondInfos.quoteToken,
       [ethers.utils.parseEther(markets[0].toString()), ethers.utils.parseUnits(markets[1].toString(), 9), markets[2]],
       // markets,
@@ -318,13 +319,11 @@ export const createBond = createAsyncThunk(
 
 export const createAllot = createAsyncThunk(
   "bondsV2/createAllot",
-  async ({ provider, networkID, address, bondInfos }: any, { dispatch }) => {
+  async ({ provider, networkID, token, amount }: any, { dispatch }) => {
     checkNetwork(networkID);
-    console.log("hereallot");
     const signer = provider.getSigner();
-    const allotContract = await AllotContract__factory.connect("0xEF6d459FE81C3Ed53d292c936b2df5a8084975De", signer);
-    console.log(allotContract);
-    await allotContract.redeem("100000000");
+    const allotContract = await CreamAllocator__factory.connect("0xEF6d459FE81C3Ed53d292c936b2df5a8084975De", signer);
+    await allotContract.withdraw(token, amount);
     // const markets = JSON.parse(bondInfos.markets);
     // const result = await allotContract.create(
     //   bondInfos.quoteToken,
@@ -568,7 +567,7 @@ const bondingSliceV2 = createSlice({
       .addCase(getUserNotes.rejected, (state, { error }) => {
         state.notes = [];
         state.notesLoading = false;
-        // console.error(`Error when getting user notes: ${error.message}`);
+        console.error(`Error when getting user notes: ${error.message}`);
       });
   },
 });

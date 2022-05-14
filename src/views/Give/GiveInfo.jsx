@@ -7,7 +7,7 @@ import { DepositSrip, LockInVault, ReceivesYield } from "../../components/Educat
 export function GiveInfo() {
   return (
     <>
-      <Paper className={"rip-card secondary"}>
+      <Paper className={"rip-card secondary blur7"}>
         <Grid container className="give-info">
           <Grid item xs={12} sm={4} className="give-info-deposit-box">
             <DepositSrip message={t`Deposit sRIP from wallet`} />

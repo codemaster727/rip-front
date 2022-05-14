@@ -1,10 +1,11 @@
 import { t } from "@lingui/macro";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import { Icon } from "@olympusdao/component-library";
+import { MouseEvent } from "react";
 
 interface IThemeSwitcherProps {
   theme: string;
-  toggleTheme: (e: any) => void;
+  toggleTheme: (e: MouseEvent) => void;
 }
 
 function ThemeSwitcher({ theme, toggleTheme }: IThemeSwitcherProps) {

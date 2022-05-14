@@ -102,7 +102,6 @@ export const getZapTokenBalances = createAsyncThunk(
         if (result.balances["rip"]) {
           result.balances["rip"].hide = true;
         }
-        // console.log("realhere", result);
         for (const key in result.balances) {
           const balance = result.balances[key];
           const balanceRaw = balance.balanceRaw;
