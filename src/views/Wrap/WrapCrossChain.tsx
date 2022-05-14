@@ -19,7 +19,7 @@ import { changeMigrationApproval, migrateCrossChainWSRIP } from "../../slices/Mi
 
 function WrapCrossChain() {
   const dispatch = useDispatch();
-  const { provider, address, networkId, networkName, connect } = useWeb3Context();
+  const { provider, address, networkId, networkName } = useWeb3Context();
   const [quantity, setQuantity] = useState("");
   const assetFrom = "wsRIP";
   const assetTo = "gRIP";
@@ -58,7 +58,7 @@ function WrapCrossChain() {
     setQuantity(wsRipBalance.toString());
   };
 
-  const handleSwitchChain = (id: any) => {
+  const handleSwitchChain = (id: number) => {
     return () => {
       switchNetwork({ provider: provider, networkId: id });
     };
@@ -68,7 +68,7 @@ function WrapCrossChain() {
     return wsRipAllowance > wsRipBalance;
   }, [wsRipBalance, wsRipAllowance]);
 
-  const isDataLoading = useAppSelector(state => state.account.loading);
+  // const isDataLoading = useAppSelector(state => state.account.loading);
 
   const migrateToGrip = () =>
     dispatch(
@@ -144,6 +144,7 @@ function WrapCrossChain() {
     <div id="stake-view" className="wrapper">
       <Zoom in={true}>
         <Paper
+          className="blur7"
           headerText={t`Wrap / Unwrap`}
           topRight={
             <Link

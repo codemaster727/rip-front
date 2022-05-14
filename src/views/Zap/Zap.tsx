@@ -31,7 +31,7 @@ const Zap: React.FC = () => {
   return (
     <div id="zap-view">
       <Zoom in={true}>
-        <Paper headerText={address && `Zap`}>
+        <Paper className="blur7" headerText={address && `Zap`}>
           <div className="staking-area">
             {!address ? (
               <div className="stake-wallet-notification">

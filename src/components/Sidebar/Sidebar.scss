@@ -7,7 +7,10 @@
 .MuiDrawer-paper .MuiPaper-root {
   border-radius: 0 !important;
 }
-.MuiPaper-root {
+.blur7 {
+  backdrop-filter: blur(15px) !important;
+}
+.sidebar .MuiPaper-root {
   backdrop-filter: blur(0px) !important;
 }
 .dapp-sidebar {

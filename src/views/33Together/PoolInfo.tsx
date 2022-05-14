@@ -41,7 +41,7 @@ export const PoolInfo = (props: PoolInfoProps) => {
 
   return (
     <Zoom in={true}>
-      <Paper headerText={t`Prize Pool Info`}>
+      <Paper className="blur7" headerText={t`Prize Pool Info`}>
         {address && (
           <>
             <Box display="flex" flexDirection="column" className="user-pool-data">

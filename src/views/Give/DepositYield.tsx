@@ -50,7 +50,7 @@ export default function DepositYield() {
         />
         <div id="give-view">
           <Zoom in={true}>
-            <Paper className={`rip-card secondary ${isSmallScreen && "mobile"}`}>
+            <Paper className={`rip-card secondary ${isSmallScreen && "mobile"} blur7`}>
               <div className="card-header">
                 <div className="give-yield-title">
                   <Typography variant="h5">

@@ -74,7 +74,7 @@ function ClaimBonds({ activeNotes }: { activeNotes: IUserNote[] }) {
   return (
     <>
       <Zoom in={true}>
-        <Paper headerText="Your Bonds">
+        <Paper className="blur7" headerText="Your Bonds">
           <Box
             display="flex"
             flexDirection="column"

@@ -16,13 +16,12 @@ export function useMigrationData() {
     setView(newView);
   };
 
-  // const indexV1 = useAppSelector(state => Number(state.app.currentIndexV1!));
   const currentIndex = useAppSelector(state => Number(state.app.currentIndex));
 
   const currentRipBalance = useAppSelector(state => state.account.balances.ripV1);
   const currentSRipBalance = useAppSelector(state => state.account.balances.sripV1);
   const currentWSRipBalance = useAppSelector(state => state.account.balances.wsrip);
-  const wsRipPrice = useAppSelector(state => state.app.marketPrice! * Number(state.app.currentIndex!));
+  const wsRipPrice = useAppSelector(state => state.app.marketPrice! * Number(state.app.currentIndex as string));
   const gRIPPrice = wsRipPrice;
 
   const approvedRipBalance = useAppSelector(state => Number(state.account.migration.rip));

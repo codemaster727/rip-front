@@ -2,14 +2,7 @@
 import "./Sidebar.scss";
 
 import { t, Trans } from "@lingui/macro";
-import {
-  Box,
-  Divider,
-  Link,
-  Paper,
-  SvgIcon,
-  Typography,
-} from "@material-ui/core";
+import { Box, Divider, Link, Paper, SvgIcon, Typography } from "@material-ui/core";
 import { NavItem } from "@olympusdao/component-library";
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
@@ -63,10 +56,10 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
       return a.discount > b.discount ? -1 : b.discount > a.discount ? 1 : 0;
     });
 
-  bonds.sort((a: CustomBond, b: CustomBond) => b.bondDiscount! - a.bondDiscount!);
+  bonds.sort((a: CustomBond, b: CustomBond) => (b.bondDiscount as number) - (a.bondDiscount as number));
 
   return (
-    <Paper className="dapp-sidebar">
+    <Paper className="blur7 dapp-sidebar">
       <Box className="dapp-sidebar-inner" display="flex" justifyContent="space-between" flexDirection="column">
         <div className="dapp-menu-top">
           <Box className="branding-header">
@@ -154,6 +147,62 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                   <br />
                   <br />
                   <br />
+                  <div
+                    style={{
+                      backgroundColor: "black",
+                      marginLeft: "20px",
+                      marginRight: "20px",
+                      marginTop: "20px",
+                      borderRadius: "20px",
+                    }}
+                  >
+                    <NavLink to="/swap" style={{ color: "white", textDecoration: "none" }}>
+                      <Box paddingY={1} display="flex" justifyContent="space-between">
+                        <img
+                          src={"/assets/images/exchange.png"}
+                          width="30px"
+                          height="30px"
+                          style={{ marginLeft: "25px" }}
+                        />
+                        <Typography
+                          variant="h5"
+                          align="right"
+                          style={{ margin: "auto", marginRight: "20px" }}
+                          className="cta-text"
+                        >
+                          Swap
+                        </Typography>
+                      </Box>
+                    </NavLink>
+                  </div>
+                  <div
+                    style={{
+                      backgroundColor: "black",
+                      marginLeft: "20px",
+                      marginRight: "20px",
+                      marginTop: "20px",
+                      borderRadius: "20px",
+                    }}
+                  >
+                    <NavLink to="/liquidity" style={{ color: "white", textDecoration: "none" }}>
+                      <Box paddingY={1} display="flex" justifyContent="space-between">
+                        <img
+                          src={"/assets/images/exchange.png"}
+                          width="30px"
+                          height="30px"
+                          style={{ marginLeft: "25px" }}
+                        />
+                        <Typography
+                          variant="h5"
+                          align="right"
+                          style={{ margin: "auto", marginRight: "20px" }}
+                          className="cta-text"
+                        >
+                          Liquidity
+                        </Typography>
+                      </Box>
+                    </NavLink>
+                  </div>
                   <div
                     style={{
                       backgroundColor: "black",

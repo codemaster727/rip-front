@@ -151,7 +151,7 @@ function InitialWalletView({ onClose }: { onClose: () => void }) {
   const isSmallScreen = useMediaQuery("(max-width: 600px)");
 
   return (
-    <Paper>
+    <Paper style={{ backdropFilter: "blur(7px)" }}>
       <Box sx={{ padding: theme.spacing(0, 3), display: "flex", flexDirection: "column", minHeight: "100vh" }}>
         <Box sx={{ display: "flex", justifyContent: "space-between", padding: theme.spacing(3, 0) }}>
           <WalletTotalValue />

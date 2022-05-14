@@ -5,16 +5,16 @@ import { useEns } from "src/hooks/useENS";
 
 export default function WalletAddressEns() {
   const { data: ens } = useEns();
-  const { address } = useWeb3Context();
+  const { account } = useWeb3Context();
 
-  if (!address) return null;
+  if (!account) return null;
 
   return (
     <div className="wallet-link">
-      {ens?.avatar && <img className="avatar" src={ens.avatar} alt={address} />}
+      {ens?.avatar && <img className="avatar" src={ens.avatar} alt={account} />}
 
-      <Link href={`https://etherscan.io/address/${address}`} target="_blank">
-        {ens?.name || shorten(address)}
+      <Link href={`https://bscscan.io/address/${account}`} target="_blank">
+        {ens?.name || shorten(account)}
       </Link>
     </div>
   );

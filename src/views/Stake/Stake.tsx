@@ -26,7 +26,7 @@ import ExternalStakePool from "./ExternalStakePool";
 const Stake: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { provider, address, connect, networkId } = useWeb3Context();
+  const { provider, address, networkId } = useWeb3Context();
   usePathForNetwork({ pathName: "stake", networkID: networkId, history });
 
   const [zoomed, setZoomed] = useState(false);
@@ -111,7 +111,7 @@ const Stake: React.FC = () => {
     return state.account.balances && state.account.balances.gRipOnTokemakAsSrip;
   });
 
-  const wsripAsSrip = calculateWrappedAsSrip(wsripBalance);
+  // const wsripAsSrip = calculateWrappedAsSrip(wsripBalance);
 
   const stakeAllowance = useAppSelector(state => {
     return (state.account.staking && state.account.staking.ripStake) || 0;
@@ -307,7 +307,7 @@ const Stake: React.FC = () => {
   return (
     <div id="stake-view">
       <Zoom in={true} onEntered={() => setZoomed(true)}>
-        <Paper>
+        <Paper className="blur7">
           <Typography align="center" variant="h4" style={{ fontWeight: "bold", marginTop: "20px" }}>
             {t`Single Stake (3, 3)`}
           </Typography>

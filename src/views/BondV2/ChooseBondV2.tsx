@@ -5,7 +5,7 @@ import { Box, Grid, Typography, Zoom } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { Input, Paper, PrimaryButton } from "@olympusdao/component-library";
 import isEmpty from "lodash/isEmpty";
-import { useEffect, useState } from "react";
+import { /*KeyboardEvent,*/ useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { useAppSelector, useWeb3Context } from "src/hooks";
@@ -86,17 +86,17 @@ function ChooseBondV2() {
   const { quoteToken, markets, booleans, terms, intervals } = bondInfos;
   const { cream } = alloAmount;
   const handleChange = (e: any) => {
-    setBondInfos({ ...bondInfos, [e.target.name]: e.target.value });
+    setBondInfos({ ...bondInfos, [e?.target?.name]: e?.target?.value });
   };
   const handleChangeForAllo = (e: any) => {
-    setAlloAmount({ ...alloAmount, [e.target.name]: e.target.value });
+    setAlloAmount({ ...alloAmount, [e?.target?.name]: e?.target?.value });
   };
   return (
     <div id="choose-bond-view">
       {(!isEmpty(accountNotes) || !isEmpty(v1AccountBonds)) && <ClaimBonds activeNotes={accountNotes} />}
 
       <Zoom in={true}>
-        <Paper>
+        <Paper style={{ backdropFilter: "blur(7px)" }}>
           <Typography align="center" variant="h4" style={{ fontWeight: "bold" }}>{`${t`Bond`} (4,4)`}</Typography>
           <Grid container direction="row" spacing={3} style={{ marginTop: "30px" }}>
             <Grid item md={6} sm={6} xs={6}>

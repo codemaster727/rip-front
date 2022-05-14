@@ -152,7 +152,11 @@ const PoolTogether = () => {
     <div id="pool-together-view">
       <PoolPrize />
 
-      <Paper headerText={t`3, 3 Together`} topRight={<InfoTooltipMulti messagesArray={infoTooltipMessage} />}>
+      <Paper
+        className="blur7"
+        headerText={t`3, 3 Together`}
+        topRight={<InfoTooltipMulti messagesArray={infoTooltipMessage} />}
+      >
         <Tabs
           centered
           value={view}

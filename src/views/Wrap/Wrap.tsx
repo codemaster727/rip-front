@@ -11,15 +11,15 @@ import { useAppSelector } from "src/hooks";
 import { useWeb3Context } from "src/hooks/web3Context";
 import { isPendingTxn, txnButtonTextMultiType } from "src/slices/PendingTxnsSlice";
 
-import { NETWORKS } from "../../constants";
+// import { NETWORKS } from "../../constants";
 import { formatCurrency, trim } from "../../helpers";
-import { switchNetwork } from "../../helpers/NetworkHelper";
+// import { switchNetwork } from "../../helpers/NetworkHelper";
 import { changeApproval, changeWrapV2 } from "../../slices/WrapThunk";
 import WrapCrossChain from "./WrapCrossChain";
 
 const Wrap: FC = () => {
   const dispatch = useDispatch();
-  const { provider, address, connect, networkId } = useWeb3Context();
+  const { provider, address, networkId } = useWeb3Context();
 
   const [, setZoomed] = useState<boolean>(false);
   const [assetFrom, setAssetFrom] = useState<string>("sRIP");
@@ -37,15 +37,15 @@ const Wrap: FC = () => {
   const currentIndex = useAppSelector(state => Number(state.app.currentIndex));
   const sRipPrice = useAppSelector(state => Number(state.app.marketPrice));
 
-  const gRipPrice = useAppSelector(state => state.app.marketPrice! * Number(state.app.currentIndex));
+  const gRipPrice = useAppSelector(state => (state.app.marketPrice as number) * Number(state.app.currentIndex));
   const sripBalance = useAppSelector(state => state.account.balances && state.account.balances.srip);
   const gripBalance = useAppSelector(state => state.account.balances && state.account.balances.grip);
   const unwrapGripAllowance = useAppSelector(state => state.account.wrapping && state.account.wrapping.gRipUnwrap);
   const wrapSripAllowance = useAppSelector(state => state.account.wrapping && state.account.wrapping.sripWrap);
   const pendingTransactions = useAppSelector(state => state.pendingTransactions);
 
-  const avax = NETWORKS[43114];
-  const arbitrum = NETWORKS[42161];
+  // const avax = NETWORKS[43114];
+  // const arbitrum = NETWORKS[42161];
 
   const isAvax = useMemo(() => networkId != 56 && networkId != 97 && networkId != -1, [networkId]);
 
@@ -57,11 +57,11 @@ const Wrap: FC = () => {
     if (assetFrom === "gRIP") setQuantity(gripBalance);
   };
 
-  const handleSwitchChain = (id: number) => {
-    return () => {
-      switchNetwork({ provider: provider, networkId: id });
-    };
-  };
+  // const handleSwitchChain = (id: number) => {
+  //   return () => {
+  //     switchNetwork({ provider: provider, networkId: id });
+  //   };
+  // };
 
   const hasCorrectAllowance = useCallback(() => {
     if (assetFrom === "sRIP" && assetTo === "gRIP") return wrapSripAllowance > Number(sripBalance);
@@ -164,7 +164,7 @@ const Wrap: FC = () => {
     return (
       <div id="stake-view" className="wrapper">
         <Zoom in={true} onEntered={() => setZoomed(true)}>
-          <Paper>
+          <Paper style={{ backdropFilter: "blur(7px)" }}>
             <Typography align="center" variant="h4" style={{ fontWeight: "bold", marginTop: "20px" }}>
               {t`Wrap / Unwrap`}
             </Typography>

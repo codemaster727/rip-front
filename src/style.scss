@@ -10,10 +10,23 @@
 html,
 body,
 #root {
-  font-family: "Square";
+  font-family: "Lato";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: "Fredoka One";
+  }
+  input:not(.token-amount-input, #token-search-input) {
+    box-shadow: none;
+    background: linear-gradient(259.15deg, rgba(41, 255, 198, 0.2) 40.61%, rgba(255, 255, 255, 0) 166.25%);
+    border: 1px solid #b3ffab;
+    border-radius: 20px;
+  }
 }
 
 body {
@@ -91,4 +104,26 @@ a:hover svg {
 
 .tooltip {
   z-index: 9999999;
+}
+
+.teal-gradient {
+  background: linear-gradient(180deg, #aaffa9 0%, #11ffbd 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
 }

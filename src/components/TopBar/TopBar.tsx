@@ -32,7 +32,7 @@ interface TopBarProps {
   handleDrawerToggle: () => void;
 }
 
-function TopBar({ theme, toggleTheme, handleDrawerToggle }: TopBarProps) {
+function TopBar({ handleDrawerToggle }: TopBarProps) {
   const classes = useStyles();
 
   return (

@@ -108,7 +108,7 @@ function BondPurchase({
       dispatch(getSingleBond({ bondIndex: bond.index, address, networkID: networkId, provider }));
       setSecondsToRefresh(SECONDS_TO_REFRESH);
     }
-    return () => clearInterval(interval!);
+    return () => clearInterval(interval as NodeJS.Timer);
   }, [secondsToRefresh, quantity]);
 
   const onSeekApproval = async () => {

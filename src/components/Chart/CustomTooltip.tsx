@@ -110,7 +110,7 @@ function CustomTooltip({
 }) {
   if (active && payload && payload.length) {
     return (
-      <Paper className={`rip-card tooltip-container`}>
+      <Paper className={`rip-card tooltip-container blur7`}>
         {renderTooltipItems(payload, bulletpointColors, itemNames, itemType, isStaked, isPOL)}
       </Paper>
     );

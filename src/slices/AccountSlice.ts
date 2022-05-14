@@ -675,7 +675,7 @@ const accountSlice = createSlice({
   name: "account",
   initialState,
   reducers: {
-    fetchAccountSuccess(state, action) {
+    fetchAccountSuccess(state: any, action: any) {
       setAll(state, action.payload);
     },
   },

@@ -25,7 +25,7 @@ const TreasuryDashboard = memo(() => {
           paddingRight: isSmallScreen || isVerySmallScreen ? "0" : "1rem",
         }}
       >
-        <Paper className="rip-card">
+        <Paper className="blur7 rip-card">
           <Zoom in={true}>
             <Grid container className="data-grid" style={{ marginTop: "50px" }}>
               <Grid item lg={2} md={2} sm={12} xs={12} justify="flex-end">
@@ -39,36 +39,36 @@ const TreasuryDashboard = memo(() => {
               <Grid item lg={10} md={10} sm={12} xs={12}>
                 <Grid container spacing={2} className="data-grid">
                   <Grid item lg={6} md={6} sm={12} xs={12}>
-                    <Paper className="rip-card rip-chart-card" style={{ background: "black" }}>
+                    <Paper className="blur7 rip-card rip-chart-card" style={{ background: "black" }}>
                       <TotalValueDepositedGraph />
                     </Paper>
                   </Grid>
 
                   <Grid item lg={6} md={6} sm={12} xs={12}>
-                    <Paper className="rip-card rip-chart-card" style={{ background: "black" }}>
+                    <Paper className="blur7 rip-card rip-chart-card" style={{ background: "black" }}>
                       <MarketValueGraph />
                     </Paper>
                   </Grid>
 
                   <Grid item lg={6} md={6} sm={12} xs={12}>
-                    <Paper className="rip-card rip-chart-card" style={{ background: "black" }}>
+                    <Paper className="blur7 rip-card rip-chart-card" style={{ background: "black" }}>
                       <RiskFreeValueGraph />
                     </Paper>
                   </Grid>
 
                   <Grid item lg={6} md={6} sm={12} xs={12}>
-                    <Paper className="rip-card rip-chart-card" style={{ background: "black" }}>
+                    <Paper className="blur7 rip-card rip-chart-card" style={{ background: "black" }}>
                       <ProtocolOwnedLiquidityGraph />
                     </Paper>
                   </Grid>
                   <Grid item lg={6} md={6} sm={12} xs={12}>
-                    <Paper className="rip-card rip-chart-card" style={{ background: "black" }}>
+                    <Paper className="blur7 rip-card rip-chart-card" style={{ background: "black" }}>
                       <RIPStakedGraph />
                     </Paper>
                   </Grid>
 
                   <Grid item lg={6} md={6} sm={12} xs={12}>
-                    <Paper className="rip-card rip-chart-card" style={{ background: "black" }}>
+                    <Paper className="blur7 rip-card rip-chart-card" style={{ background: "black" }}>
                       <RunwayAvailableGraph />
                     </Paper>
                   </Grid>

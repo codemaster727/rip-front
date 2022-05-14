@@ -10,7 +10,7 @@ import DepositYield from "./DepositYield";
 import RedeemYield from "./RedeemYield";
 
 function Give() {
-  const { address, connect } = useWeb3Context();
+  const { address } = useWeb3Context();
   const isSmallScreen = useMediaQuery("(max-width: 705px)");
 
   return (
@@ -18,7 +18,7 @@ function Give() {
       <div className="give-view">
         {!address ? (
           <Zoom in={true}>
-            <Paper className={`rip-card secondary ${isSmallScreen && "mobile"}`}>
+            <Paper className={`rip-card secondary ${isSmallScreen && "mobile"} blur7`}>
               <div className="stake-wallet-notification">
                 <div className="wallet-menu" id="wallet-menu">
                   <ConnectButton />

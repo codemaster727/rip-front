@@ -24,7 +24,7 @@ export function BondDataCard({ bond }: { bond: IAllBondData | Bond }) {
 
   return (
     <Slide direction="up" in={true}>
-      <Paper id={`${bond.name}--bond`} className="bond-data-card rip-card">
+      <Paper id={`${bond.name}--bond`} className="bond-data-card rip-card blur7">
         <div className="bond-pair">
           <TokenStack tokens={bond.bondIconSvg} />
           <div className="bond-name">

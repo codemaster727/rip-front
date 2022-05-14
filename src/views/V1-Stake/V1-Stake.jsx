@@ -32,18 +32,18 @@ import { useWeb3Context } from "src/hooks/web3Context";
 import { isPendingTxn, txnButtonText } from "src/slices/PendingTxnsSlice";
 
 import RebaseTimer from "../../components/RebaseTimer/RebaseTimer";
-import { getRipTokenImage, getTokenImage, trim } from "../../helpers";
+import { /*getRipTokenImage, getTokenImage,*/ trim } from "../../helpers";
 import { error } from "../../slices/MessagesSlice";
 import { changeApproval, changeStake } from "../../slices/StakeThunk";
 import ExternalStakePool from "../Stake/ExternalStakePool";
 
-const sRipImg = getTokenImage("srip");
-const ripImg = getRipTokenImage(16, 16);
+// const sRipImg = getTokenImage("srip");
+// const ripImg = getRipTokenImage(16, 16);
 
 function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { provider, address, connect, networkId } = useWeb3Context();
+  const { provider, address, networkId } = useWeb3Context();
 
   const [zoomed, setZoomed] = useState(false);
   const [view, setView] = useState(0);
@@ -186,7 +186,7 @@ function V1Stake({ oldAssetsDetected, setMigrationModalOpen, hasActiveV1Bonds })
   return (
     <div id="v1-stake-view">
       <Zoom in={true} onEntered={() => setZoomed(true)}>
-        <Paper headerText={`${t`Single Stake`} (3, 3)`} subHeader={<RebaseTimer />}>
+        <Paper className="blur7" headerText={`${t`Single Stake`} (3, 3)`} subHeader={<RebaseTimer />}>
           <Typography align="center" variant="h4" style={{ fontWeight: "bold", marginTop: "20px" }}>
             {t`Single Stake (3, 3)`}
           </Typography>

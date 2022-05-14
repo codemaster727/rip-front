@@ -6,6 +6,7 @@ import { Skeleton } from "@material-ui/lab";
 import { TertiaryButton, TokenStack } from "@olympusdao/component-library";
 import { useDispatch } from "react-redux";
 import { useAppSelector, useBonds, useWeb3Context } from "src/hooks";
+import { Bond } from "src/lib/Bond";
 import { IUserBondDetails } from "src/slices/AccountSlice";
 import { isPendingTxn, txnButtonText } from "src/slices/PendingTxnsSlice";
 
@@ -37,7 +38,7 @@ export function ClaimBondTableData({ userBond }: { userBond: [string, IUserBondD
   async function onRedeem({ autostake }: { autostake: boolean }) {
     // TODO (appleseed-expiredBonds): there may be a smarter way to refactor this
     const currentBond = [...bonds, ...expiredBonds].find(bnd => bnd.name === bondName);
-    await dispatch(redeemBond({ address, bond: currentBond!, networkID: networkId, provider, autostake }));
+    await dispatch(redeemBond({ address, bond: currentBond as Bond, networkID: networkId, provider, autostake }));
   }
 
   return (
@@ -98,7 +99,7 @@ export function ClaimBondCardData({ userBond }: { userBond: [string, IUserBondDe
   async function onRedeem({ autostake }: { autostake: boolean }) {
     // TODO (appleseed-expiredBonds): there may be a smarter way to refactor this
     const currentBond = [...bonds, ...expiredBonds].find(bnd => bnd.name === bondName);
-    await dispatch(redeemBond({ address, bond: currentBond!, networkID: networkId, provider, autostake }));
+    await dispatch(redeemBond({ address, bond: currentBond as Bond, networkID: networkId, provider, autostake }));
   }
 
   return (

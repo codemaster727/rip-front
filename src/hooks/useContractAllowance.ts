@@ -11,7 +11,7 @@ import {
 import { queryAssertion } from "src/helpers";
 
 import { useWeb3Context } from ".";
-import { useTokenContract } from "./useContract";
+import { useTokenContractForRip } from "./useContract";
 
 export const contractAllowanceQueryKey = (networkId?: NetworkId, address?: string) => [
   "useContractAllowances",
@@ -21,7 +21,7 @@ export const contractAllowanceQueryKey = (networkId?: NetworkId, address?: strin
 
 export const useContractAllowance = (tokenMap: AddressMap, contractMap: AddressMap) => {
   const { address, networkId } = useWeb3Context();
-  const token = useTokenContract(tokenMap);
+  const token = useTokenContractForRip(tokenMap);
 
   return useQuery<BigNumber, Error>(
     contractAllowanceQueryKey(networkId, address),

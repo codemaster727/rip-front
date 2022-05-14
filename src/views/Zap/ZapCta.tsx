@@ -30,7 +30,7 @@ const ZapCta: React.FC = () => {
   const classes = useStyles();
   return (
     <>
-      <Paper className="rip-card" id="olyzaps-cta">
+      <Paper className="blur7 rip-card" id="olyzaps-cta">
         <Grid container className="cta-box">
           <Grid item xs={5} sm={3} className="icons-box">
             <TokenStack tokens={["DAI", "wETH"]} />

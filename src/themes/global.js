@@ -114,7 +114,7 @@ const commonSettings = {
     },
     MuiPaper: {
       root: {
-        backdropFilter: "blur(33px)",
+        backdropFilter: "blur(7px)",
         "&.rip-card": {
           padding: "20px 30px 30px 30px",
           borderRadius: "10px",
