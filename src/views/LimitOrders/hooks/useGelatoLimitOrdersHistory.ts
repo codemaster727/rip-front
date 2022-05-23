@@ -70,7 +70,10 @@ const useOpenOrders = (turnOn: boolean): Order[] => {
     startFetch ? OPEN_ORDERS_SWR_KEY : null,
     async () => {
       try {
-        const orders = await gelatoLimitOrders?.getOpenOrders((account as string).toLowerCase(), false);
+        const orders: Order[] = (await gelatoLimitOrders?.getOpenOrders(
+          (account as string).toLowerCase(),
+          false,
+        )) as Order[];
 
         await syncOrderToLocalStorage({
           orders,

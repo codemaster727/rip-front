@@ -111,7 +111,7 @@ export const initialState: UserState = {
   userFarmStakedOnly: FarmStakedOnly.ON_FINISHED,
   userPoolStakedOnly: false,
   userPoolsViewMode: ViewMode.TABLE,
-  userFarmsViewMode: ViewMode.TABLE,
+  userFarmsViewMode: ViewMode.CARD,
   userPredictionAcceptedRisk: false,
   userLimitOrderAcceptedWarning: false,
   userPredictionChartDisclaimerShow: true,

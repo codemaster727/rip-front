@@ -77,7 +77,7 @@ export const useBUSDCurrencyAmount = (currency: Currency, amount: number): numbe
   const busdPrice = useBUSDPrice(currency);
   const wrapped = wrappedCurrency(currency, chainId);
   if (busdPrice) {
-    return multiplyPriceByAmount(busdPrice, amount, wrapped.decimals);
+    return multiplyPriceByAmount(busdPrice, amount, wrapped?.decimals);
   }
   return undefined;
 };

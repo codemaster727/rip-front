@@ -35,7 +35,11 @@ import {
   Liquidity,
   AddLiquidity,
   PoolFinder,
+  Farms,
+  FarmsHistory,
 } from "./views";
+import FarmsView from "./views/FarmsView";
+// import FarmsHistory from "./views/FarmsView/history";
 import Sidebar from "./components/Sidebar/Sidebar";
 import TopBar from "./components/TopBar/TopBar";
 import CallToAction from "./components/CallToAction/CallToAction";
@@ -407,6 +411,18 @@ function App() {
 
               <Route exact path="/find">
                 <PoolFinder />
+              </Route>
+
+              <Route exact path="/farms">
+                <Farms>
+                  <FarmsView />
+                </Farms>
+              </Route>
+
+              <Route exact path="/farms/history">
+                <Farms>
+                  <FarmsHistory />
+                </Farms>
               </Route>
 
               <Route exact path="/give">

@@ -16,3 +16,6 @@ export { default as Swap } from "./Swap";
 export { default as Liquidity } from "./Pool";
 export { default as AddLiquidity } from "./AddLiquidity";
 export { default as PoolFinder } from "./PoolFinder";
+export { FarmsPageLayout as Farms } from "./Farms";
+// export { default as Farms } from "./FarmsView";
+export { default as FarmsHistory } from "./FarmsView/history";

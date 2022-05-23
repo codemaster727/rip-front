@@ -12,7 +12,17 @@ import { CurrencyModalView } from "./types";
 export const StyledButtonMenu = styled(ButtonMenu)`
   width: 100%;
   background: linear-gradient(259.15deg, rgba(41, 255, 198, 0.2) 40.61%, rgba(255, 255, 255, 0) 166.25%);
+  padding: 1px;
   border-color: #09fdb5;
+  border-radius: 40px;
+`;
+
+export const StyledButtonMenuBlack = styled(ButtonMenu)`
+  width: 100%;
+  background: ${({ theme }) => theme.colors.background};
+  padding: 1px;
+  border-color: #09fdb5;
+  border-radius: 40px;
 `;
 
 export default function Manage({

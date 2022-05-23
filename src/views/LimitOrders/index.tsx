@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount, Price, Token, Trade } from "@pancakeswap/sdk";
+import { Currency, CurrencyAmount, Percent, Price, Token, Trade } from "@pancakeswap/sdk";
 import { BottomDrawer, Box, Button, Flex, Link, useMatchBreakpoints, useModal } from "@pancakeswap/uikit";
 import { useCallback, useEffect, useState } from "react";
 import { AppBody } from "src/components/App";
@@ -275,9 +275,9 @@ const LimitOrders = () => {
           <Flex width={isChartExpanded ? "100%" : "50%"} flexDirection="column">
             <PriceChartContainer
               inputCurrencyId={currencyIds.input}
-              inputCurrency={currencies.input as string}
+              inputCurrency={currencies.input as Currency | Token}
               outputCurrencyId={currencyIds.output as string}
-              outputCurrency={currencies.output as string}
+              outputCurrency={currencies.output as Currency | Token}
               isChartExpanded={isChartExpanded}
               setIsChartExpanded={setIsChartExpanded}
               isChartDisplayed={isChartDisplayed}
@@ -338,8 +338,8 @@ const LimitOrders = () => {
                       id="limit-order-desired-rate-input"
                       value={formattedAmounts.price}
                       onUserInput={handleTypeDesiredRate}
-                      inputCurrency={currencies.input as string}
-                      outputCurrency={currencies.output as string}
+                      inputCurrency={currencies.input as Currency}
+                      outputCurrency={currencies.output as Currency}
                       percentageRateDifference={percentageRateDifference as Percent}
                       rateType={rateType}
                       handleRateType={handleRateType}
