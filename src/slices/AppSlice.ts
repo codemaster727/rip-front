@@ -62,7 +62,6 @@ export const loadAppDetails = createAsyncThunk(
 
     const stakingTVL = parseFloat(graphData.data.protocolMetrics[0].totalValueLocked);
     // NOTE (appleseed): marketPrice from Graph was delayed, so get CoinGecko price
-    // const marketPrice = parseFloat(graphData.data.protocolMetrics[0].ripPrice);
     let marketPrice;
     try {
       const originalPromiseResult = await dispatch(
@@ -79,7 +78,6 @@ export const loadAppDetails = createAsyncThunk(
     const circSupply = parseFloat(graphData.data.protocolMetrics[0].ohmCirculatingSupply);
     const totalSupply = parseFloat(graphData.data.protocolMetrics[0].totalSupply);
     const treasuryMarketValue = parseFloat(graphData.data.protocolMetrics[0].treasuryMarketValue);
-    // const currentBlock = parseFloat(graphData.data._meta.block.number);
 
     if (!provider) {
       console.error("failed to connect to provider, please connect your wallet");
@@ -113,11 +111,9 @@ export const loadAppDetails = createAsyncThunk(
     const stakingAPY = Math.pow(1 + stakingRebase, 365 * 3) - 1;
     // Current index
     const currentIndex = await stakingContract.index();
-    // const currentIndexV1 = await stakingContractV1.index();
 
     return {
       currentIndex: ethers.utils.formatUnits(currentIndex, "gwei"),
-      // currentIndexV1: ethers.utils.formatUnits(currentIndexV1, "gwei"),
       currentBlock,
       fiveDayRate,
       stakingAPY,
@@ -182,7 +178,6 @@ const loadMarketPrice = createAsyncThunk("app/loadMarketPrice", async ({ network
   try {
     // only get marketPrice from eth mainnet
     marketPrice = await getMarketPrice();
-    // v1MarketPrice = await getV1MarketPrice();
   } catch (e) {
     marketPrice = await getTokenPrice("olympus");
   }

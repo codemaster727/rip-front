@@ -44,9 +44,6 @@ const Wrap: FC = () => {
   const wrapSripAllowance = useAppSelector(state => state.account.wrapping && state.account.wrapping.sripWrap);
   const pendingTransactions = useAppSelector(state => state.pendingTransactions);
 
-  // const avax = NETWORKS[43114];
-  // const arbitrum = NETWORKS[42161];
-
   const isAvax = useMemo(() => networkId != 56 && networkId != 97 && networkId != -1, [networkId]);
 
   const wrapButtonText =
@@ -56,12 +53,6 @@ const Wrap: FC = () => {
     if (assetFrom === "sRIP") setQuantity(sripBalance);
     if (assetFrom === "gRIP") setQuantity(gripBalance);
   };
-
-  // const handleSwitchChain = (id: number) => {
-  //   return () => {
-  //     switchNetwork({ provider: provider, networkId: id });
-  //   };
-  // };
 
   const hasCorrectAllowance = useCallback(() => {
     if (assetFrom === "sRIP" && assetTo === "gRIP") return wrapSripAllowance > Number(sripBalance);

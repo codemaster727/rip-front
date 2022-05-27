@@ -35,7 +35,7 @@ export const poolsWithVaultSelector = createSelector(
       ...cakePool,
       ...deserializedCakeVault,
       vaultKey: VaultKey.CakeVault,
-      userData: { ...cakePool.userData, ...deserializedCakeVault.userData },
+      userData: { ...cakePool?.userData, ...deserializedCakeVault.userData },
     };
 
     const cakeAutoVaultWithApr = {

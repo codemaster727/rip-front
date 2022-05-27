@@ -1,41 +1,34 @@
 import "./Swap.scss";
 
 import { Zoom } from "@material-ui/core";
-import { Paper, PrimaryButton } from "@olympusdao/component-library";
+import { Paper } from "@olympusdao/component-library";
 import { Currency, CurrencyAmount, JSBI, Token, Trade } from "@pancakeswap/sdk";
 import {
   ArrowDownIcon,
-  // ArrowUpDownIcon,
   BottomDrawer,
   Box,
   Button,
   Flex,
   IconButton,
-  // Skeleton,
   Text,
   useMatchBreakpoints,
   useModal,
 } from "@pancakeswap/uikit";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useLocation } from "react-router-dom";
-// import { StyledInputCurrencyWrapper /*, StyledSwapContainer*/ } from "./styles";
+import { useHistory } from "react-router-dom";
 import ExchangeIcon from "src/assets/icons/exchange.svg";
 import GlobalSettings from "src/components/Menu/GlobalSettings";
+import StyledButton from "src/components/StyledButton";
 import { WrappedTokenInfo } from "src/slices/types";
 import styled from "styled-components";
 
-// import { AppBody } from "../../components/App";
 import { GreyCard } from "../../components/Card";
-// import ConnectWalletButton from '../../components/ConnectWalletButton'
 import ConnectButton from "../../components/ConnectButton/ConnectButton";
 import CurrencyInputPanel from "../../components/CurrencyInputPanel";
 import { AutoColumn } from "../../components/Layout/Column";
-import { AutoRow /*, RowBetween*/ } from "../../components/Layout/Row";
+import { AutoRow } from "../../components/Layout/Row";
 import CircleLoader from "../../components/Loader/CircleLoader";
-// import UnsupportedCurrencyFooter from "../../components/UnsupportedCurrencyFooter";
-// import Footer from '../../components/Menu/Footer'
 import { useTranslation } from "../../contexts/Localization";
-// import useActiveWeb3React from '../../hooks/useActiveWeb3React'
 import { useWeb3Context } from "../../hooks";
 import { useAllTokens, useCurrency } from "../../hooks/Tokens";
 import { useIsTransactionUnsupported } from "../../hooks/Trades";
@@ -59,25 +52,14 @@ import {
 import { maxAmountSpend } from "../../utils/maxAmountSpend";
 import { computeTradePriceBreakdown, warningSeverity } from "../../utils/prices";
 import shouldShowSwapWarning from "../../utils/shouldShowSwapWarning";
-// import Page from "../Page";
 import AddressInputPanel from "./components/AddressInputPanel";
-// import AdvancedSwapDetailsDropdown from "./components/AdvancedSwapDetailsDropdown";
 import PriceChartContainer from "./components/Chart/PriceChartContainer";
 import confirmPriceImpactWithoutFee from "./components/confirmPriceImpactWithoutFee";
 import ConfirmSwapModal from "./components/ConfirmSwapModal";
-// import CurrencyInputHeader from "./components/CurrencyInputHeader";
 import ImportTokenWarningModal from "./components/ImportTokenWarningModal";
-// import ProgressSteps from "./components/ProgressSteps";
-import { ArrowWrapper, /*SwapCallbackError,*/ Wrapper } from "./components/styleds";
+import { ArrowWrapper, Wrapper } from "./components/styleds";
 import SwapWarningModal from "./components/SwapWarningModal";
-// import TradePrice from "./components/TradePrice";
 import useRefreshBlockNumberID from "./hooks/useRefreshBlockNumber";
-
-// const Label = styled(Text)`
-//   font-size: 12px;
-//   font-weight: bold;
-//   color: ${({ theme }) => theme.colors.secondary};
-// `;
 
 const SwitchIconButton = styled(IconButton)`
   box-shadow: inset 0px -2px 0px rgba(0, 0, 0, 0.1);
@@ -98,7 +80,6 @@ const SwitchIconButton = styled(IconButton)`
 `;
 
 export default function Swap() {
-  // const router = useRouter()
   const loadedUrlParams = useDefaultsFromURLSearch();
   const { t } = useTranslation();
   const { isMobile } = useMatchBreakpoints();
@@ -107,7 +88,7 @@ export default function Swap() {
   const [isChartDisplayed, setIsChartDisplayed] = useState(userChartPreference);
   const [zoomed, setZoomed] = useState(false);
   const { refreshBlockNumber, isLoading } = useRefreshBlockNumberID();
-  const history = useLocation();
+  const history = useHistory();
 
   useEffect(() => {
     setUserChartPreference(isChartDisplayed);
@@ -377,19 +358,10 @@ export default function Swap() {
     "confirmSwapModal",
   );
 
-  const hasAmount = Boolean(parsedAmount);
-
-  // const onRefreshPrice = useCallback(() => {
-  //   if (hasAmount) {
-  //     refreshBlockNumber();
-  //   }
-  // }, [hasAmount, refreshBlockNumber]);
-
   return (
     <div id="swap-view">
       <Zoom in={true} onEntered={() => setZoomed(true)}>
         <Paper className="blur7">
-          {/* <Page removePadding={isChartExpanded} hideFooterOnDesktop={isChartExpanded}> */}
           <Flex flexDirection={"column"} width="100%" justifyContent="center" position="relative" pt="2rem">
             {!isMobile && (
               <PriceChartContainer
@@ -421,18 +393,7 @@ export default function Swap() {
               setIsOpen={setIsChartDisplayed}
             />
             <Flex flexDirection="column">
-              {/* <StyledSwapContainer $isChartExpanded={isChartExpanded}> */}
               <div style={{ textAlign: "center" }}>
-                {/* <StyledInputCurrencyWrapper mt={isChartExpanded ? "24px" : "0"}> */}
-                {/* <AppBody>
-                  <CurrencyInputHeader
-                    title={t("Swap")}
-                    subtitle={t("Trade tokens in an instant")}
-                    setIsChartDisplayed={setIsChartDisplayed}
-                    isChartDisplayed={isChartDisplayed}
-                    hasAmount={hasAmount}
-                    onRefreshPrice={onRefreshPrice}
-                  /> */}
                 <Wrapper id="swap-page">
                   <Flex
                     mb="6px"
@@ -455,9 +416,6 @@ export default function Swap() {
                       otherCurrency={currencies[Field.OUTPUT]}
                       id="swap-currency-input"
                     />
-
-                    {/* <AutoColumn justify="space-between"> */}
-                    {/* <AutoRow justify={isExpertMode ? "space-between" : "center"} style={{ padding: "0 1rem" }}> */}
                     <SwitchIconButton
                       variant="light"
                       scale="sm"
@@ -482,8 +440,6 @@ export default function Swap() {
                         {t("+ Add a send (optional)")}
                       </Button>
                     ) : null}
-                    {/* </AutoRow> */}
-                    {/* </AutoColumn> */}
                     <CurrencyInputPanel
                       value={formattedAmounts[Field.OUTPUT]}
                       onUserInput={handleTypeOutput}
@@ -511,16 +467,16 @@ export default function Swap() {
                   </Flex>
                   <Box mt="0.75rem">
                     {swapIsUnsupported ? (
-                      <PrimaryButton width="100%" disabled>
+                      <StyledButton light="light" width="100%" disabled>
                         {t("Unsupported Asset")}
-                      </PrimaryButton>
+                      </StyledButton>
                     ) : !account ? (
-                      <ConnectButton />
+                      <ConnectButton light="light" />
                     ) : showWrap ? (
-                      <PrimaryButton width="100%" disabled={Boolean(wrapInputError)} onClick={onWrap}>
+                      <StyledButton light="light" width="100%" disabled={Boolean(wrapInputError)} onClick={onWrap}>
                         {wrapInputError ??
                           (wrapType === WrapType.WRAP ? "Wrap" : wrapType === WrapType.UNWRAP ? "Unwrap" : null)}
-                      </PrimaryButton>
+                      </StyledButton>
                     ) : noRoute && userHasSpecifiedInputOutput ? (
                       <GreyCard style={{ textAlign: "center", padding: "0.75rem" }}>
                         <Text color="textSubtle">{t("Insufficient liquidity for this trade.")}</Text>
@@ -528,7 +484,8 @@ export default function Swap() {
                       </GreyCard>
                     ) : showApproveFlow ? (
                       <Flex style={{ justifyContent: "center" }}>
-                        <PrimaryButton
+                        <StyledButton
+                          light="light"
                           variant={approval === ApprovalState.APPROVED ? "success" : "primary"}
                           onClick={approveCallback}
                           disabled={approval !== ApprovalState.NOT_APPROVED || approvalSubmitted}
@@ -543,8 +500,9 @@ export default function Swap() {
                           ) : (
                             t("Enable %asset%", { asset: currencies[Field.INPUT]?.symbol ?? "" })
                           )}
-                        </PrimaryButton>
-                        <PrimaryButton
+                        </StyledButton>
+                        <StyledButton
+                          light="light"
                           variant={isValid && priceImpactSeverity > 2 ? "danger" : "primary"}
                           onClick={() => {
                             if (isExpertMode) {
@@ -572,10 +530,11 @@ export default function Swap() {
                             : priceImpactSeverity > 2
                             ? t("Swap Anyway")
                             : t("Swap")}
-                        </PrimaryButton>
+                        </StyledButton>
                       </Flex>
                     ) : (
-                      <PrimaryButton
+                      <StyledButton
+                        light="light"
                         onClick={() => {
                           if (isExpertMode) {
                             handleSwap();
@@ -599,41 +558,12 @@ export default function Swap() {
                             : priceImpactSeverity > 2
                             ? t("Swap Anyway")
                             : t("Swap"))}
-                      </PrimaryButton>
+                      </StyledButton>
                     )}
-                    {/* {showApproveFlow && (
-                      <Column style={{ marginTop: "1rem" }}>
-                        <ProgressSteps steps={[approval === ApprovalState.APPROVED]} />
-                      </Column>
-                    )}
-                    {isExpertMode && swapErrorMessage ? <SwapCallbackError error={swapErrorMessage} /> : null} */}
                   </Box>
                 </Wrapper>
-                {/* </AppBody> */}
-                {/* {!swapIsUnsupported ? (
-                  trade && <AdvancedSwapDetailsDropdown trade={trade} />
-                ) : (
-                  <UnsupportedCurrencyFooter currencies={[currencies.INPUT, currencies.OUTPUT]} />
-                )} */}
-                {/* </StyledInputCurrencyWrapper> */}
                 {showWrap ? null : (
                   <AutoColumn gap="7px" style={{ padding: "0 16px" }}>
-                    {/* <RowBetween align="center">
-                      {Boolean(trade) && (
-                        <>
-                          <Label>{t("Price")}</Label>
-                          {isLoading ? (
-                            <Skeleton width="100%" ml="8px" height="24px" />
-                          ) : (
-                            <TradePrice
-                              price={trade?.executionPrice}
-                              showInverted={showInverted}
-                              setShowInverted={setShowInverted}
-                            />
-                          )}
-                        </>
-                      )}
-                    </RowBetween> */}
                     <Box>
                       <Text color="blueish_gray">
                         {t("Slippage Tolerance")}
@@ -643,12 +573,6 @@ export default function Swap() {
                   </AutoColumn>
                 )}
               </div>
-              {/* </StyledSwapContainer> */}
-              {isChartExpanded && (
-                <Box display={["none", null, null, "block"]} width="100%" height="100%">
-                  {/* <Footer variant="side" helpUrl={EXCHANGE_DOCS_URLS} /> */}
-                </Box>
-              )}
             </Flex>
           </Flex>
         </Paper>

@@ -4,7 +4,7 @@ import { useActiveIfoWithBlocks } from "../../../hooks/useActiveIfoWithBlocks";
 import { useCurrentBlock } from "../../../slices/block/hooks";
 import { getStatus } from "../../../views/Ifos/hooks/helpers";
 
-export const useMenuItemsStatus = (): Record<string, string> => {
+export const useMenuItemsStatus = (): Record<string, string> | null => {
   const currentBlock = useCurrentBlock();
   const activeIfo = useActiveIfoWithBlocks();
 

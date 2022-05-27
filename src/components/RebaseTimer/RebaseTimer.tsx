@@ -6,7 +6,7 @@ import { Skeleton } from "@material-ui/lab";
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { /*getRebaseBlock,*/ prettifySeconds } from "../../helpers";
+import { prettifySeconds } from "../../helpers";
 import { useAppSelector } from "../../hooks";
 import { useWeb3Context } from "../../hooks/web3Context";
 import { loadAppDetails } from "../../slices/AppSlice";
@@ -26,7 +26,6 @@ const RebaseTimer: React.FC = () => {
   // This initializes secondsToRebase as soon as currentBlock becomes available
   useMemo(() => {
     if (secondsToEpoch && currentBlock) {
-      // const rebaseBlock = getRebaseBlock(currentBlock);
       setSecondsToRebase(secondsToEpoch);
       const prettified = prettifySeconds(secondsToEpoch);
       setRebaseString(prettified !== "" ? prettified : <Trans>Less than a minute</Trans>);

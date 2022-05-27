@@ -1,4 +1,3 @@
-// import { t } from "@lingui/macro";
 import { SvgIcon, SwipeableDrawer, useTheme, withStyles } from "@material-ui/core";
 import { useState } from "react";
 import { ReactComponent as WalletIcon } from "src/assets/icons/ripwallet.svg";
@@ -9,7 +8,6 @@ import InitialWalletView from "./InitialWalletView";
 const WalletButton = ({ openWallet }: { openWallet: () => void }) => {
   const { connect, connected } = useWeb3Context();
   const onClick = connected ? openWallet : connect;
-  // const label = connected ? t`Wallet` : t`Connect Wallet`;
   const theme = useTheme();
   return (
     <SvgIcon

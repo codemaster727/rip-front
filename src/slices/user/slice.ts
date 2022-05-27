@@ -111,7 +111,7 @@ export const initialState: UserState = {
   userFarmStakedOnly: FarmStakedOnly.ON_FINISHED,
   userPoolStakedOnly: false,
   userPoolsViewMode: ViewMode.TABLE,
-  userFarmsViewMode: ViewMode.TABLE,
+  userFarmsViewMode: ViewMode.CARD,
   userPredictionAcceptedRisk: false,
   userLimitOrderAcceptedWarning: false,
   userPredictionChartDisclaimerShow: true,
@@ -128,9 +128,9 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    fetchUserSuccess(state, action) {
+    fetchUserSuccess(state: any, action: any) {
       setAll(state, action.payload);
-      // state[action.payload.user] = action.payload;
+      state[action.payload.user] = action.payload;
     },
   },
 

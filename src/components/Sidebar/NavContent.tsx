@@ -185,12 +185,12 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                     }}
                   >
                     <NavLink to="/liquidity" style={{ color: "white", textDecoration: "none" }}>
-                      <Box paddingY={1} display="flex" justifyContent="space-between">
+                      <Box paddingY="6px" display="flex" justifyContent="space-between">
                         <img
-                          src={"/assets/images/exchange.png"}
-                          width="30px"
-                          height="30px"
-                          style={{ marginLeft: "25px" }}
+                          src={"/assets/images/liquidity1.png"}
+                          width="35px"
+                          height="35px"
+                          style={{ marginLeft: "20px" }}
                         />
                         <Typography
                           variant="h5"
@@ -199,6 +199,34 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                           className="cta-text"
                         >
                           Liquidity
+                        </Typography>
+                      </Box>
+                    </NavLink>
+                  </div>
+                  <div
+                    style={{
+                      backgroundColor: "black",
+                      marginLeft: "20px",
+                      marginRight: "20px",
+                      marginTop: "20px",
+                      borderRadius: "20px",
+                    }}
+                  >
+                    <NavLink to="/farms" style={{ color: "white", textDecoration: "none" }}>
+                      <Box paddingY="6px" display="flex" justifyContent="space-between">
+                        <img
+                          src={"/assets/images/farm.png"}
+                          width="35px"
+                          height="35px"
+                          style={{ marginLeft: "20px" }}
+                        />
+                        <Typography
+                          variant="h5"
+                          align="right"
+                          style={{ margin: "auto", marginRight: "20px" }}
+                          className="cta-text"
+                        >
+                          Farm
                         </Typography>
                       </Box>
                     </NavLink>

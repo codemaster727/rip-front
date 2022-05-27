@@ -4,12 +4,13 @@ import { t, Trans } from "@lingui/macro";
 import { Accordion, AccordionDetails, AccordionSummary, Box, Divider, Grid, Typography, Zoom } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 import { Skeleton } from "@material-ui/lab";
-import { DataRow, InputWrapper, Paper, PrimaryButton, Tab, Tabs } from "@olympusdao/component-library";
+import { DataRow, InputWrapper, Paper, Tab, Tabs } from "@olympusdao/component-library";
 import { ethers } from "ethers";
 import { ChangeEvent, ChangeEventHandler, memo, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import ConnectButton from "src/components/ConnectButton/ConnectButton";
+import StyledButton from "src/components/StyledButton";
 import { useAppSelector } from "src/hooks";
 import { usePathForNetwork } from "src/hooks/usePathForNetwork";
 import { useWeb3Context } from "src/hooks/web3Context";
@@ -110,8 +111,6 @@ const Stake: React.FC = () => {
   const gRipOnTokemakAsSrip = useAppSelector(state => {
     return state.account.balances && state.account.balances.gRipOnTokemakAsSrip;
   });
-
-  // const wsripAsSrip = calculateWrappedAsSrip(wsripBalance);
 
   const stakeAllowance = useAppSelector(state => {
     return (state.account.staking && state.account.staking.ripStake) || 0;
@@ -371,7 +370,7 @@ const Stake: React.FC = () => {
               {!address ? (
                 <div className="stake-wallet-notification">
                   <div className="wallet-menu" id="wallet-menu">
-                    <ConnectButton />
+                    <ConnectButton light="light" />
                   </div>
                   <Typography variant="h6">
                     <Trans>Connect your wallet to stake RIP</Trans>
@@ -430,14 +429,14 @@ const Stake: React.FC = () => {
                             </Grid>
                             <Grid item xs={12} sm={4} className="stake-grid-item">
                               <Box mt={1}>
-                                <PrimaryButton
-                                  fullWidth
+                                <StyledButton
+                                  light="light"
                                   className="stake-button"
                                   disabled={stakeDisabled}
                                   onClick={stakeOnClick}
                                 >
                                   {stakeButtonText}
-                                </PrimaryButton>
+                                </StyledButton>
                               </Box>
                             </Grid>
                           </>

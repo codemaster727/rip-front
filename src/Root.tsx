@@ -38,6 +38,7 @@ const updatedLight = {
     background: "linear-gradient(259.15deg, rgba(41, 255, 198, 0.2) 40.61%, rgba(255, 255, 255, 0) 166.25%), #000000",
     success: "#09FDB5",
     primary: "#00FCB0",
+    secondary: "#B3FFAB",
     blueish_gray: "#445FA7",
     text: "#ffffff",
     textSubtle: "#ffffff",

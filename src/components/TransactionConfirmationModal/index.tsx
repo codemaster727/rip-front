@@ -1,26 +1,15 @@
-import { ChainId, Currency /*, Token*/ } from "@pancakeswap/sdk";
-import {
-  ArrowUpIcon,
-  Box,
-  Button,
-  ErrorIcon,
-  Flex,
-  InjectedModalProps,
-  Link,
-  // Modal,
-  Spinner,
-  Text,
-} from "@pancakeswap/uikit";
+import { ChainId, Currency } from "@pancakeswap/sdk";
+import { ArrowUpIcon, Box, ErrorIcon, Flex, InjectedModalProps, Link, Text } from "@pancakeswap/uikit";
 import { Handler } from "puppeteer";
 import { useCallback } from "react";
 import styled from "styled-components";
 
 import { useTranslation } from "../../contexts/Localization";
-// import useActiveWeb3React from '../../hooks/useActiveWeb3React'
 import { useWeb3Context } from "../../hooks/web3Context";
 import { getBscScanLink } from "../../utils";
-// import { wrappedCurrency } from "../../utils/wrappedCurrency";
 import { AutoColumn, ColumnCenter } from "../Layout/Column";
+import Loading from "../Loading";
+import StyledButton from "../StyledButton";
 import StyledModal from "../StyledModal";
 
 const Wrapper = styled.div`
@@ -39,7 +28,8 @@ function ConfirmationPendingContent({ pendingText }: { pendingText: string }) {
   return (
     <Wrapper>
       <ConfirmedIcon>
-        <Spinner />
+        {/* <Spinner /> */}
+        <Loading />
       </ConfirmedIcon>
       <AutoColumn gap="12px" justify="center">
         <Text fontSize="20px" color="white">
@@ -69,11 +59,7 @@ export function TransactionSubmittedContent({
   chainId: ChainId;
   currencyToAdd?: Currency | undefined;
 }) {
-  // const { provider: library } = useWeb3Context();
-
   const { t } = useTranslation();
-
-  // const token: Token | undefined = wrappedCurrency(currencyToAdd, chainId);
 
   return (
     <Wrapper>
@@ -90,29 +76,9 @@ export function TransactionSubmittedContent({
               {t("View on BscScan")}
             </Link>
           )}
-          {/* {currencyToAdd && library?.provider?.isMetaMask && (
-            <Button
-              variant="tertiary"
-              mt="12px"
-              width="fit-content"
-              onClick={() =>
-                registerToken(
-                  token.address,
-                  token.symbol,
-                  token.decimals,
-                  token instanceof WrappedTokenInfo ? token.logoURI : undefined,
-                )
-              }
-            >
-              <RowFixed>
-                {t('Add %asset% to Metamask', { asset: currencyToAdd.symbol })}
-                <MetamaskIcon width="16px" ml="6px" />
-              </RowFixed>
-            </Button>
-          )} */}
-          <Button onClick={onDismiss} mt="20px">
+          <StyledButton onClick={onDismiss} mt="20px">
             {t("Close")}
-          </Button>
+          </StyledButton>
         </AutoColumn>
       </Section>
     </Wrapper>
@@ -146,7 +112,7 @@ export function TransactionErrorContent({ message, onDismiss }: { message: strin
       </AutoColumn>
 
       <Flex justifyContent="center" pt="24px">
-        <Button onClick={onDismiss}>{t("Dismiss")}</Button>
+        <StyledButton onClick={onDismiss}>{t("Dismiss")}</StyledButton>
       </Flex>
     </Wrapper>
   );

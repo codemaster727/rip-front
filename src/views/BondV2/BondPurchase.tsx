@@ -82,7 +82,6 @@ function BondPurchase({
   };
 
   const hasAllowance = useCallback(() => {
-    console.log("hasAllowance", balance);
     return balance?.allowance.gt(parseEther("1000000000000"));
   }, [balance]);
 

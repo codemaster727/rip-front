@@ -90,7 +90,7 @@ const useFormattedOrderData = (order: Order): FormattedOrderData => {
     outputToken,
     inputAmount: formatForDisplay(inputAmount as CurrencyAmount),
     outputAmount: formatForDisplay(outputAmount as CurrencyAmount),
-    executionPrice: formatForDisplay(executionPrice as CurrencyAmount),
+    executionPrice: formatForDisplay(executionPrice as Price),
     invertedExecutionPrice: formatForDisplay(executionPrice?.invert() as Price),
     isOpen: order.status === LimitOrderStatus.OPEN,
     isCancelled: order.status === LimitOrderStatus.CANCELLED,

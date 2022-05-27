@@ -11,7 +11,6 @@ import {
   Typography,
   useMediaQuery,
 } from "@material-ui/core";
-// import { useTheme } from "@material-ui/core/styles";
 import { Skeleton } from "@material-ui/lab";
 import { Icon } from "@olympusdao/component-library";
 import { BigNumber } from "bignumber.js";
@@ -83,24 +82,15 @@ export default function ProjectCard({ project, mode }: ProjectDetailsProps) {
 
   const [isGiveModalOpen, setIsGiveModalOpen] = useState(false);
 
-  // const donationInfo = useSelector((state: State) => {
-  //   return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
-  //     ? state.account.mockGiving && state.account.mockGiving.donationInfo
-  //     : state.account.giving && state.account.giving.donationInfo;
-  // });
-
   const userTotalDebt = useSelector((state: State) => {
     return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
       ? state.account.mockRedeeming && state.account.mockRedeeming.recipientInfo.totalDebt
       : state.account.redeeming && state.account.redeeming.recipientInfo.totalDebt;
   });
 
-  // const theme = useTheme();
   // We use useAppDispatch here so the result of the AsyncThunkAction is typed correctly
   // See: https://stackoverflow.com/a/66753532
   const dispatch = useAppDispatch();
-
-  // const svgFillColour: string = theme.palette.type === "light" ? "black" : "white";
 
   useEffect(() => {
     const items = document.getElementsByClassName("project-container");
@@ -122,7 +112,7 @@ export default function ProjectCard({ project, mode }: ProjectDetailsProps) {
       provider: provider,
       address: wallet,
     })
-      .then(resultAction => {
+      .then((resultAction: any) => {
         setTotalDebt(resultAction.redeeming.recipientInfo.totalDebt);
         setRecipientInfoIsLoading(false);
       })
@@ -308,7 +298,7 @@ export default function ProjectCard({ project, mode }: ProjectDetailsProps) {
   const handleGiveModalSubmit: SubmitCallback = async (
     walletAddress: string,
     depositAmount: BigNumber,
-    depositAmountDiff?: BigNumber,
+    // depositAmountDiff?: BigNumber,
   ) => {
     if (depositAmount.isEqualTo(new BigNumber(0))) {
       return dispatch(error(t`Please enter a value!`));

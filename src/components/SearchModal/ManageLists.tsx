@@ -29,8 +29,6 @@ const Wrapper = styled(Column)`
 
 const RowWrapper = styled(Row)<{ active: boolean }>`
   background-color: ${({ active, theme }) => (active ? `${theme.colors.success}19` : "transparent")};
-  // border: solid 1px;
-  // border-color: ${({ active, theme }) => (active ? theme.colors.success : theme.colors.tertiary)};
   transition: 200ms;
   align-items: center;
   padding: 1rem;
@@ -61,14 +59,6 @@ const ListRow = memo(function ListRow({ listUrl }: { listUrl: string }) {
       dispatch(removeList(listUrl));
     }
   }, [dispatch, listUrl]);
-
-  // const handleEnableList = useCallback(() => {
-  //   dispatch(enableList(listUrl));
-  // }, [dispatch, listUrl]);
-
-  // const handleDisableList = useCallback(() => {
-  //   dispatch(disableList(listUrl));
-  // }, [dispatch, listUrl]);
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     <div>
@@ -107,25 +97,7 @@ const ListRow = memo(function ListRow({ listUrl }: { listUrl: string }) {
             <CogIcon color="white" width="24px" />
           </span>
         </Row>
-        <RowFixed mt="4px">
-          {/* <Text color="gray" fontSize="12px" mr="6px" textTransform="lowercase">
-            {list.tokens.length} {t("Tokens")}
-          </Text> */}
-          {/* <span ref={targetRef}>
-            <CogIcon color="gray" width="12px" />
-          </span> */}
-        </RowFixed>
       </Column>
-      {/* <Toggle
-        checked={isActive}
-        onChange={() => {
-          if (isActive) {
-            handleDisableList();
-          } else {
-            handleEnableList();
-          }
-        }}
-      /> */}
     </RowWrapper>
   );
 });

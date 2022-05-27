@@ -1,8 +1,9 @@
 import { Paper } from "@olympusdao/component-library";
 import { Pair } from "@pancakeswap/sdk";
-import { AddIcon, Button, CardBody, CardFooter, Flex, Text } from "@pancakeswap/uikit";
+import { AddIcon, CardBody, CardFooter, Flex, Text } from "@pancakeswap/uikit";
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
+import StyledButton from "src/components/StyledButton";
 import { useWeb3Context } from "src/hooks";
 import styled from "styled-components";
 
@@ -20,7 +21,7 @@ const Body = styled(CardBody)`
 `;
 
 export default function Pool() {
-  const { address: account } = useWeb3Context();
+  const { account } = useWeb3Context();
   const { t } = useTranslation();
 
   // fetch the user's balances of all tracked V2 LP tokens
@@ -101,18 +102,18 @@ export default function Pool() {
                     {t("Don't see a pool you joined?")}
                   </Text>
                   <Link to="/find">
-                    <Button id="import-pool-link" variant="secondary" scale="sm" as="a">
+                    <StyledButton id="import-pool-link" variant="secondary" scale="sm">
                       {t("Find other LP tokens")}
-                    </Button>
+                    </StyledButton>
                   </Link>
                 </Flex>
               )}
             </Body>
             <CardFooter style={{ textAlign: "center", border: "none" }}>
               <Link to="/add">
-                <Button id="join-pool-button" width="100%" startIcon={<AddIcon color="white" />}>
+                <StyledButton id="join-pool-button" width="100%" startIcon={<AddIcon color="#B3FFAB" />}>
                   {t("Add Liquidity")}
-                </Button>
+                </StyledButton>
               </Link>
             </CardFooter>
           </AppBody>

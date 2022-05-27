@@ -61,7 +61,7 @@ export default function useGasOverhead(
   const realExecutionPrice = useMemo(() => {
     if (!inputAmount || (!gasCostInInputTokens && !inputIsBNB) || !realInputAmount || !outputAmount) return null;
 
-    if (inputIsBNB && requiredGasAsCurrencyAmount.greaterThan(inputAmount.asFraction)) return undefined;
+    if (inputIsBNB && requiredGasAsCurrencyAmount?.greaterThan(inputAmount.asFraction)) return undefined;
     if (gasCostInInputTokens && gasCostInInputTokens.outputAmount.greaterThan(inputAmount.asFraction)) return undefined;
     return getPriceForOneToken(realInputAmount, outputAmount);
   }, [realInputAmount, outputAmount, inputAmount, gasCostInInputTokens, inputIsBNB, requiredGasAsCurrencyAmount]);

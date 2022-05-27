@@ -10,7 +10,7 @@ type Props = {
   icon?: string;
 };
 
-const GlobalSettings = ({ color, mr = "8px", icon = "" }: Props) => {
+const GlobalSettings = ({ icon = "" }: Props) => {
   const [onPresentSettingsModal] = useModal(<SettingsModal />);
 
   return (

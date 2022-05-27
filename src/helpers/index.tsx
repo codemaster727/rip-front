@@ -23,7 +23,6 @@ import { NodeHelper } from "./NodeHelper";
  * @returns Number like 333.33
  */
 export async function getMarketPrice() {
-  // return 0;
   const mainnetProvider = NodeHelper.getMainnetStaticProvider();
   // v2 price
   const rip_dai_address = rip_dai.getAddressForReserve(NetworkId.MAINNET);
@@ -81,7 +80,7 @@ export async function getTokenPrice(tokenId = "olympus"): Promise<number> {
     };
     tokenPrice = cgResp.data[tokenId].usd;
   } finally {
-    // console.info(`Token price from coingecko: ${tokenPrice}`);
+    console.info(`Token price from coingecko: ${tokenPrice}`);
     return tokenPrice;
   }
 }
@@ -103,7 +102,7 @@ export async function getTokenByContract(contractAddress: string): Promise<numbe
     const tokenPrice: number = resp.data[downcasedAddress].usd;
     return tokenPrice;
   } catch (e) {
-    // console.log("coingecko api error: ", e);
+    console.log("coingecko api error: ", e);
     return 0;
   }
 }
@@ -115,7 +114,7 @@ export async function getTokenIdByContract(contractAddress: string): Promise<str
     };
     return resp.data.id;
   } catch (e) {
-    // console.log("coingecko api error: ", e);
+    console.log("coingecko api error: ", e);
     return "";
   }
 }

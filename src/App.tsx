@@ -35,7 +35,11 @@ import {
   Liquidity,
   AddLiquidity,
   PoolFinder,
+  Farms,
+  FarmsHistory,
 } from "./views";
+import FarmsView from "./views/FarmsView";
+// import FarmsHistory from "./views/FarmsView/history";
 import Sidebar from "./components/Sidebar/Sidebar";
 import TopBar from "./components/TopBar/TopBar";
 import CallToAction from "./components/CallToAction/CallToAction";
@@ -55,8 +59,8 @@ import { NetworkId } from "./constants";
 import MigrationModalSingle from "./components/Migration/MigrationModalSingle";
 import { trackGAEvent, trackSegmentEvent } from "./helpers/analytics";
 import Background from "./assets/images/background.svg";
-// import useSentryUser from "src/hooks/useSentryUser";
-// import useUserAgent from "src/hooks/useUserAgent";
+import useSentryUser from "src/hooks/useSentryUser";
+import useUserAgent from "src/hooks/useUserAgent";
 import { usePollBlockNumber } from "src/slices/block/hooks";
 import { usePollCoreFarmData } from "src/slices/farms/hooks";
 // import useEagerConnect from "src/hooks/useEagerConnect";
@@ -66,9 +70,9 @@ export function GlobalHooks() {
   usePollBlockNumber();
   // useEagerConnect();
   usePollCoreFarmData();
-  // useUserAgent();
+  useUserAgent();
   // useAccountEventListener();
-  // useSentryUser();
+  useSentryUser();
   return null;
 }
 
@@ -407,6 +411,18 @@ function App() {
 
               <Route exact path="/find">
                 <PoolFinder />
+              </Route>
+
+              <Route exact path="/farms">
+                <Farms>
+                  <FarmsView />
+                </Farms>
+              </Route>
+
+              <Route exact path="/farms/history">
+                <Farms>
+                  <FarmsHistory />
+                </Farms>
               </Route>
 
               <Route exact path="/give">

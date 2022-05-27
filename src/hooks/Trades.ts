@@ -2,7 +2,6 @@
 import { Currency, CurrencyAmount, Pair, Token, Trade } from "@pancakeswap/sdk";
 import flatMap from "lodash/flatMap";
 import { useMemo } from "react";
-// import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useWeb3Context } from "src/hooks/web3Context";
 
 import {
@@ -18,7 +17,6 @@ import { useUnsupportedTokens } from "./Tokens";
 import { PairState, usePairs } from "./usePairs";
 
 export function useAllCommonPairs(currencyA?: Currency, currencyB?: Currency): Pair[] {
-  // const { chainId } = useActiveWeb3React()
   const { networkId: chainId } = useWeb3Context();
 
   const [tokenA, tokenB] = chainId

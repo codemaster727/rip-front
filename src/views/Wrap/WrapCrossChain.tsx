@@ -68,8 +68,6 @@ function WrapCrossChain() {
     return wsRipAllowance > wsRipBalance;
   }, [wsRipBalance, wsRipAllowance]);
 
-  // const isDataLoading = useAppSelector(state => state.account.loading);
-
   const migrateToGrip = () =>
     dispatch(
       migrateCrossChainWSRIP({

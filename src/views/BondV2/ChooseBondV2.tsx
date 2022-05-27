@@ -3,11 +3,12 @@ import "./ChooseBond.scss";
 import { t } from "@lingui/macro";
 import { Box, Grid, Typography, Zoom } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { Input, Paper, PrimaryButton } from "@olympusdao/component-library";
+import { Input, Paper } from "@olympusdao/component-library";
 import isEmpty from "lodash/isEmpty";
 import { /*KeyboardEvent,*/ useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
+import StyledButton from "src/components/StyledButton";
 import { useAppSelector, useWeb3Context } from "src/hooks";
 import { usePathForNetwork } from "src/hooks/usePathForNetwork";
 import { IUserBondDetails } from "src/slices/AccountSlice";
@@ -192,9 +193,9 @@ function ChooseBondV2() {
                   onChange={handleChange}
                   labelWidth={0}
                 />
-                <PrimaryButton margin="auto" fullWidth className="stake-button" onClick={bondCreateOnClick}>
+                <StyledButton light="light" margin="auto" className="stake-button" onClick={bondCreateOnClick}>
                   create a new bond market
-                </PrimaryButton>
+                </StyledButton>
                 <Input
                   id="cream-input"
                   name="cream"
@@ -205,9 +206,9 @@ function ChooseBondV2() {
                   onChange={handleChangeForAllo}
                   labelWidth={0}
                 />
-                <PrimaryButton margin="auto" fullWidth className="stake-button" onClick={allocateCreamOnClick}>
+                <StyledButton light="light" margin="auto" className="stake-button" onClick={allocateCreamOnClick}>
                   allocate into cream
-                </PrimaryButton>
+                </StyledButton>
               </Box>
             )}
         </Paper>

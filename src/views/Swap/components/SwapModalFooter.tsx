@@ -1,6 +1,7 @@
 import { Trade, TradeType } from "@pancakeswap/sdk";
-import { AutoRenewIcon, Button, Text } from "@pancakeswap/uikit";
+import { AutoRenewIcon, Text } from "@pancakeswap/uikit";
 import { useMemo, useState } from "react";
+import StyledButton from "src/components/StyledButton";
 import styled from "styled-components";
 
 import { AutoColumn } from "../../../components/Layout/Column";
@@ -16,7 +17,6 @@ import {
 } from "../../../utils/prices";
 import FormattedPriceImpact from "./FormattedPriceImpact";
 import { StyledBalanceMaxMini, SwapCallbackError } from "./styleds";
-
 const SwapModalFooterContainer = styled(AutoColumn)`
   margin-top: 24px;
   padding: 16px;
@@ -67,7 +67,7 @@ export default function SwapModalFooter({
           >
             {formatExecutionPrice(trade, showInverted)}
             <StyledBalanceMaxMini onClick={() => setShowInverted(!showInverted)}>
-              <AutoRenewIcon width="14px" />
+              <AutoRenewIcon color="#000000c0" width="14px" />
             </StyledBalanceMaxMini>
           </Text>
         </RowBetween>
@@ -133,7 +133,7 @@ export default function SwapModalFooter({
       </SwapModalFooterContainer>
 
       <AutoRow>
-        <Button
+        <StyledButton
           variant={severity > 2 ? "danger" : "primary"}
           onClick={onConfirm}
           disabled={disabledConfirm}
@@ -143,7 +143,7 @@ export default function SwapModalFooter({
           style={{ borderRadius: "40px" }}
         >
           {severity > 2 ? t("Swap Anyway") : t("Confirm Swap")}
-        </Button>
+        </StyledButton>
 
         {swapErrorMessage ? <SwapCallbackError error={swapErrorMessage} /> : null}
       </AutoRow>

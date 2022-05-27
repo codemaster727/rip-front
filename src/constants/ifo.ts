@@ -4,7 +4,6 @@ import farms from "./farms";
 import tokens from "./tokens";
 import { Ifo } from "./types";
 
-console.log(farms);
 export const cakeBnbLpToken = new Token(ChainId.MAINNET, farms[1].lpAddresses[ChainId.MAINNET], 18, farms[1].lpSymbol);
 
 const ifos: Ifo[] = [

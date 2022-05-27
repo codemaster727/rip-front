@@ -153,14 +153,6 @@ export class EnvHelper {
   static getSelfHostedNode(networkId: NetworkId) {
     let URI_LIST: string[] = [];
     switch (networkId) {
-      // case NetworkId.MAINNET:
-      //   if (
-      //     EnvHelper.env.REACT_APP_ETHEREUM_SELF_HOSTED_NODE &&
-      //     EnvHelper.isNotEmpty(EnvHelper.env.REACT_APP_ETHEREUM_SELF_HOSTED_NODE)
-      //   ) {
-      //     URI_LIST = EnvHelper.env.REACT_APP_ETHEREUM_SELF_HOSTED_NODE.split(new RegExp(EnvHelper.whitespaceRegex));
-      //   }
-      //   break;
       case NetworkId.ARBITRUM:
         if (
           EnvHelper.env.REACT_APP_ARBITRUM_SELF_HOSTED_NODE &&
@@ -179,10 +171,10 @@ export class EnvHelper {
         break;
       case NetworkId.MAINNET:
         if (
-          EnvHelper.env.REACT_APP_BSC_TEST_SELF_HOSTED_NODE &&
-          EnvHelper.isNotEmpty(EnvHelper.env.REACT_APP_BSC_TEST_SELF_HOSTED_NODE)
+          EnvHelper.env.REACT_APP_BSC_SELF_HOSTED_NODE &&
+          EnvHelper.isNotEmpty(EnvHelper.env.REACT_APP_BSC_SELF_HOSTED_NODE)
         ) {
-          URI_LIST = EnvHelper.env.REACT_APP_BSC_TEST_SELF_HOSTED_NODE.split(new RegExp(EnvHelper.whitespaceRegex));
+          URI_LIST = EnvHelper.env.REACT_APP_BSC_SELF_HOSTED_NODE.split(new RegExp(EnvHelper.whitespaceRegex));
         }
         break;
       case NetworkId.AVALANCHE:

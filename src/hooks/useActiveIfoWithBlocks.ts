@@ -17,11 +17,11 @@ export const useActiveIfoWithBlocks = (): (Ifo & { startBlock: number; endBlock:
         abi,
         [
           {
-            address: activeIfo.address,
+            address: activeIfo?.address as string,
             name: "startBlock",
           },
           {
-            address: activeIfo.address,
+            address: activeIfo?.address as string,
             name: "endBlock",
           },
         ],

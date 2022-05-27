@@ -1,12 +1,4 @@
-import {
-  Heading,
-  IconButton,
-  InjectedModalProps,
-  // ModalBackButton,
-  ModalBody,
-  ModalContainer,
-  ModalTitle,
-} from "@pancakeswap/uikit";
+import { Heading, IconButton, InjectedModalProps, ModalBody, ModalContainer, ModalTitle } from "@pancakeswap/uikit";
 import { ReactNode } from "react";
 import BackIcon from "src/assets/icons/back.svg";
 import styled from "styled-components";

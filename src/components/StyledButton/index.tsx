@@ -1,14 +1,34 @@
-import { Button, ButtonProps } from "@pancakeswap/uikit";
+import { Button, ButtonProps, Flex } from "@pancakeswap/uikit";
 import React from "react";
 import styled from "styled-components";
 
 const StyledBtn = styled(Button)`
   border-radius: 40px;
-  background: linear-gradient(259.15deg, rgba(41, 255, 198, 0.2) 40.61%, rgba(255, 255, 255, 0) 166.25%);
+  background: transparent;
   border: 1px solid #b3ffab;
+  width: fit-content;
+  color: #b3ffab;
 `;
-const StyledButton: React.FC<ButtonProps> = ({ children, ...rest }) => {
-  return <StyledBtn {...rest}>{children}</StyledBtn>;
+const StyledLightBtn = styled(Button)`
+  border-radius: 40px;
+  background: ${({ theme }) => theme.colors.background};
+  border: 1px solid #b3ffab;
+  color: #b3ffab;
+  width: fit-content;
+`;
+interface StyledButtonProps extends ButtonProps {
+  light?: string;
+}
+const StyledButton: React.FC<StyledButtonProps> = ({ light = "dark", children, ...rest }) => {
+  return (
+    <Flex width="100%" justifyContent="center">
+      {light === "dark" ? (
+        <StyledBtn {...rest}>{children}</StyledBtn>
+      ) : (
+        <StyledLightBtn {...rest}>{children}</StyledLightBtn>
+      )}
+    </Flex>
+  );
 };
 
 export default StyledButton;
