@@ -2,7 +2,6 @@ import { Dispatch, SetStateAction, useEffect } from "react";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 import { useTranslation } from "../../../../contexts/Localization";
-// import useTheme from "../../../../hooks/useTheme";
 import { PairDataTimeWindowEnum } from "../../../../slices/swap/types";
 import { LineChartLoader } from "../../../Info/components/ChartLoaders";
 
@@ -75,7 +74,6 @@ const LineChart = ({ data, setHoverValue, setHoverDate, isChangePositive, timeWi
   const {
     currentLanguage: { locale },
   } = useTranslation();
-  // const [theme] = useTheme();
   const colors = getChartColors({ isChangePositive });
   const dateFormatting = dateFormattingByTimewindow[timeWindow];
 
@@ -105,6 +103,9 @@ const LineChart = ({ data, setHoverValue, setHoverDate, isChangePositive, timeWi
         </defs>
         <XAxis
           dataKey="time"
+          fillOpacity={1}
+          fill="#445FA7"
+          color="#445FA7"
           axisLine={false}
           tickLine={false}
           tickFormatter={time => time.toLocaleString(locale, dateFormatting)}

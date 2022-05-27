@@ -31,11 +31,6 @@ export function useMigrationData() {
   const sRipFullApproval = approvedSRipBalance >= +currentSRipBalance;
   const wsRipFullApproval = approvedWSRipBalance >= +currentWSRipBalance;
 
-  // const ripAsgRIP = +currentRipBalance / indexV1;
-  // const sRIPAsgRIP = +currentSRipBalance / indexV1;
-
-  // const ripInUSD = formatCurrency(gRIPPrice! * ripAsgRIP);
-  // const sRipInUSD = formatCurrency(gRIPPrice! * sRIPAsgRIP);
   const wsRipInUSD = formatCurrency(wsRipPrice * +currentWSRipBalance);
 
   const isGRIP = view === 1;
@@ -63,7 +58,6 @@ export function useMigrationData() {
     view,
     setView,
     changeView,
-    // indexV1,
     currentIndex,
     currentRipBalance,
     currentSRipBalance,
@@ -76,10 +70,6 @@ export function useMigrationData() {
     ripFullApproval,
     sRipFullApproval,
     wsRipFullApproval,
-    // ripAsgRIP,
-    // sRIPAsgRIP,
-    // ripInUSD,
-    // sRipInUSD,
     wsRipInUSD,
     isGRIP,
     targetAsset,

@@ -232,13 +232,10 @@ export default function AddLiquidity() {
     (currencyA_: Currency) => {
       const newCurrencyIdA = currencyId(currencyA_);
       if (newCurrencyIdA === currencyIdB) {
-        // router.replace(`/add/${currencyIdB}/${currencyIdA}`, undefined, { shallow: true });
         history.push(`/add/${currencyIdB}/${currencyIdA}`);
       } else if (currencyIdB) {
-        // router.replace(`/add/${newCurrencyIdA}/${currencyIdB}`, undefined, { shallow: true });
         history.push(`/add/${newCurrencyIdA}/${currencyIdB}`);
       } else {
-        // router.replace(`/add/${newCurrencyIdA}`, undefined, { shallow: true });
         history.push(`/add/${newCurrencyIdA}`);
       }
     },
@@ -249,14 +246,11 @@ export default function AddLiquidity() {
       const newCurrencyIdB = currencyId(currencyB_);
       if (currencyIdA === newCurrencyIdB) {
         if (currencyIdB) {
-          // router.replace(`/add/${currencyIdB}/${newCurrencyIdB}`, undefined, { shallow: true });
           history.push(`/add/${currencyIdB}/${newCurrencyIdB}`);
         } else {
-          // router.replace(`/add/${newCurrencyIdB}`, undefined, { shallow: true });
           history.push(`/add/${newCurrencyIdB}`);
         }
       } else {
-        // router.replace(`/add/${currencyIdA || "BNB"}/${newCurrencyIdB}`, undefined, { shallow: true });
         history.push(`/add/${currencyIdA || "BNB"}/${newCurrencyIdB}`);
       }
     },

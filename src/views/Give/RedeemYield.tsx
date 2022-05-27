@@ -37,12 +37,6 @@ export default function RedeemYield() {
   // TODO fix typing of state.app.loading
   const isAppLoading = useSelector((state: any) => state.app.loading);
 
-  // const donationInfo = useSelector((state: State) => {
-  //   return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
-  //     ? state.account.mockGiving && state.account.mockGiving.donationInfo
-  //     : state.account.giving && state.account.giving.donationInfo;
-  // });
-
   const redeemableBalance = useSelector((state: State) => {
     return networkId === NetworkId.TESTNET_RINKEBY && EnvHelper.isMockSripEnabled(location.search)
       ? state.account.mockRedeeming && state.account.mockRedeeming.sripRedeemable
@@ -54,10 +48,6 @@ export default function RedeemYield() {
       ? state.account.mockRedeeming && state.account.mockRedeeming.recipientInfo.totalDebt
       : state.account.redeeming && state.account.redeeming.recipientInfo.totalDebt;
   });
-
-  // const stakingAPY = useSelector((state: State) => {
-  //   return state.app.stakingAPY;
-  // });
 
   const recipientInfo = useSelector((state: State) => {
     return state.account.redeeming && state.account.redeeming.recipientInfo;

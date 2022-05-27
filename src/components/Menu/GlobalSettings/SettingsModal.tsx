@@ -5,7 +5,6 @@ import StyledModal from "src/components/StyledModal";
 import styled from "styled-components";
 
 import { useTranslation } from "../../../contexts/Localization";
-import useTheme from "../../../hooks/useTheme";
 import { useSwapActionHandlers } from "../../../slices/swap/hooks";
 import {
   useAudioModeManager,
@@ -36,7 +35,6 @@ const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
   const { onChangeRecipient } = useSwapActionHandlers();
 
   const { t } = useTranslation();
-  const [theme] = useTheme();
 
   if (showConfirmExpertModal) {
     return (
@@ -60,25 +58,13 @@ const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
     }
   };
 
-  // const isDark = () => theme === "dark";
-
   return (
     <StyledModal title={t("Settings")} onDismiss={onDismiss}>
       <ScrollableContainer>
         <Flex pb="24px" flexDirection="column">
-          {/* <Text bold textTransform="uppercase" fontSize="12px" color="white" mb="24px">
-            {t("Global")}
-          </Text> */}
-          {/* <Flex justifyContent="space-between">
-            <Text mb="24px">{t('Dark mode')}</Text>
-            <ThemeSwitcher toggleTheme={toggleTheme} />
-          </Flex> */}
           <GasSettings />
         </Flex>
         <Flex flexDirection="column">
-          {/* <Text color="white" bold textTransform="uppercase" fontSize="12px" mb="24px">
-            {t("Swaps & Liquidity")}
-          </Text> */}
           <TransactionSettings />
         </Flex>
         <Flex justifyContent="space-between" alignItems="center" mb="24px">

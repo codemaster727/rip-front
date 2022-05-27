@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-function MigrationModal({ open, handleClose }: { open: boolean; handleClose: any }) {
+function MigrationModal({ open, handleClose }: { open: boolean; handleClose: () => void }) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const isMobileScreen = useMediaQuery("(max-width: 513px)");
@@ -30,17 +30,10 @@ function MigrationModal({ open, handleClose }: { open: boolean; handleClose: any
 
   const {
     view,
-    setView,
     changeView,
-    currentIndex,
     currentRipBalance,
     currentSRipBalance,
     currentWSRipBalance,
-    wsRipPrice,
-    gRIPPrice,
-    approvedRipBalance,
-    approvedSRipBalance,
-    approvedWSRipBalance,
     ripFullApproval,
     sRipFullApproval,
     wsRipFullApproval,
@@ -87,17 +80,13 @@ function MigrationModal({ open, handleClose }: { open: boolean; handleClose: any
       initialAsset: "RIP",
       initialBalance: currentRipBalance,
       targetAsset: targetAsset,
-      // targetBalance: ripAsgRIP * targetMultiplier,
       fullApproval: ripFullApproval,
-      // usdBalance: ripInUSD,
     },
     {
       initialAsset: "sRIP",
       initialBalance: currentSRipBalance,
       targetAsset: targetAsset,
-      // targetBalance: sRIPAsgRIP * targetMultiplier,
       fullApproval: sRipFullApproval,
-      // usdBalance: sRipInUSD,
     },
     {
       initialAsset: "wsRIP",
@@ -108,8 +97,6 @@ function MigrationModal({ open, handleClose }: { open: boolean; handleClose: any
       usdBalance: wsRipInUSD,
     },
   ];
-
-  // console.info(`MigrationModal rows after: [${rows}]`);
 
   return (
     <div>

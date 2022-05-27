@@ -1,5 +1,6 @@
-import { Button, Checkbox, Flex, InjectedModalProps, Message, Text } from "@pancakeswap/uikit";
+import { Checkbox, Flex, InjectedModalProps, Message, Text } from "@pancakeswap/uikit";
 import { useState } from "react";
+import StyledButton from "src/components/StyledButton";
 import StyledModal from "src/components/StyledModal";
 
 import { useTranslation } from "../../../contexts/Localization";
@@ -43,7 +44,7 @@ const ExpertModal: React.FC<ExpertModalProps> = ({ setShowConfirmExpertModal, se
           {t("Don’t show this again")}
         </Text>
       </Flex>
-      <Button
+      <StyledButton
         mb="8px"
         id="confirm-expert-mode"
         onClick={() => {
@@ -58,15 +59,15 @@ const ExpertModal: React.FC<ExpertModalProps> = ({ setShowConfirmExpertModal, se
         }}
       >
         {t("Turn On Expert Mode")}
-      </Button>
-      <Button
+      </StyledButton>
+      <StyledButton
         variant="secondary"
         onClick={() => {
           setShowConfirmExpertModal(false);
         }}
       >
         {t("Cancel")}
-      </Button>
+      </StyledButton>
     </StyledModal>
   );
 };

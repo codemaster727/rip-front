@@ -1,6 +1,7 @@
 import { Currency } from "@pancakeswap/sdk";
 import { Box, ButtonMenu, ButtonMenuItem, Flex, Text } from "@pancakeswap/uikit";
-import { memo, useState } from "react";
+import { Dispatch, memo, SetStateAction, useState } from "react";
+import styled from "styled-components";
 
 import PairPriceDisplay from "../../../../components/PairPriceDisplay";
 import { useTranslation } from "../../../../contexts/Localization";
@@ -13,13 +14,23 @@ import NoChartAvailable from "./NoChartAvailable";
 // })
 import SwapLineChart from "./SwapLineChart";
 import { getTimeWindowChange } from "./utils";
-// @ts-ignore
+
+const StyledButtonMenu = styled(ButtonMenu)`
+  background-color: transparent;
+  border-color: black;
+  border-width: 2px;
+  border-radius: 40px;
+`;
+
+const StyledButtonMenuItem = styled(ButtonMenuItem)<{ active: boolean }>`
+  background-color: ${({ active }) => (active ? "rgba(0, 0, 0, 0.5)" : "transparent")};
+  color: ${({ active, theme }) => (active ? theme.colors.primary : "black")};
+`;
+
 const BasicChart = ({
   token0Address,
   token1Address,
   isChartExpanded,
-  // inputCurrency,
-  // outputCurrency,
   isMobile,
   currentSwapPrice,
   setHoverValue,
@@ -28,15 +39,11 @@ const BasicChart = ({
   token0Address: string;
   token1Address: string;
   isChartExpanded: boolean;
-  // inputCurrency: any;
-  // outputCurrency: any;
   isMobile: boolean;
   currentSwapPrice: any;
   setHoverValue: any;
   timeWindow: PairDataTimeWindowEnum;
 }) => {
-  // const [timeWindow, setTimeWindow] = useState<PairDataTimeWindowEnum>(0);
-
   const { pairPrices = [], pairId } = useFetchPairPrices({
     token0Address,
     token1Address,
@@ -44,7 +51,7 @@ const BasicChart = ({
     currentSwapPrice,
   });
   const [hoverDate, setHoverDate] = useState<string | undefined>();
-  const { changePercentage, changeValue } = getTimeWindowChange(pairPrices);
+  const { changeValue } = getTimeWindowChange(pairPrices);
   const isChangePositive = changeValue >= 0;
   const chartHeight = isChartExpanded ? "calc(100% - 120px)" : "378px";
   const {
@@ -108,7 +115,8 @@ export default memo(BasicChart, (prev, next) => {
       next.currentSwapPrice !== null &&
       prev.currentSwapPrice[prev.token0Address] === next.currentSwapPrice[next.token0Address] &&
       prev.currentSwapPrice[prev.token1Address] === next.currentSwapPrice[next.token1Address]) ||
-      (prev.currentSwapPrice === null && next.currentSwapPrice === null))
+      (prev.currentSwapPrice === null && next.currentSwapPrice === null)) &&
+    prev.timeWindow === next.timeWindow
   );
 });
 
@@ -129,9 +137,8 @@ export const SwapInfo = ({
   currentSwapPrice: any;
   hoverValue: any;
   timeWindow: PairDataTimeWindowEnum;
-  setTimeWindow: any;
+  setTimeWindow: Dispatch<SetStateAction<PairDataTimeWindowEnum>>;
 }) => {
-  // const [timeWindow, setTimeWindow] = useState<PairDataTimeWindowEnum>(0);
   const { pairPrices = [], pairId } = useFetchPairPrices({
     token0Address,
     token1Address,
@@ -177,12 +184,14 @@ export const SwapInfo = ({
             {`${changePercentage}%`}
           </Text>
           <Box ml="2rem">
-            <ButtonMenu activeIndex={timeWindow} onItemClick={setTimeWindow} scale="sm">
-              <ButtonMenuItem>{t("24H")}</ButtonMenuItem>
-              <ButtonMenuItem>{t("1W")}</ButtonMenuItem>
-              <ButtonMenuItem>{t("1M")}</ButtonMenuItem>
-              <ButtonMenuItem>{t("1Y")}</ButtonMenuItem>
-            </ButtonMenu>
+            <StyledButtonMenu activeIndex={timeWindow} onItemClick={setTimeWindow} scale="sm">
+              <StyledButtonMenuItem active={timeWindow === PairDataTimeWindowEnum.DAY}>{t("24H")}</StyledButtonMenuItem>
+              <StyledButtonMenuItem active={timeWindow === PairDataTimeWindowEnum.WEEK}>{t("1W")}</StyledButtonMenuItem>
+              <StyledButtonMenuItem active={timeWindow === PairDataTimeWindowEnum.MONTH}>
+                {t("1M")}
+              </StyledButtonMenuItem>
+              <StyledButtonMenuItem active={timeWindow === PairDataTimeWindowEnum.YEAR}>{t("1Y")}</StyledButtonMenuItem>
+            </StyledButtonMenu>
           </Box>
         </PairPriceDisplay>
       </Flex>

@@ -1,12 +1,12 @@
-import { Currency, Pair, Token } from "@pancakeswap/sdk";
+import { Currency, Pair } from "@pancakeswap/sdk";
 import { Box, Button, Flex, Text, useModal } from "@pancakeswap/uikit";
 // import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useWeb3Context } from "src/hooks";
 import styled from "styled-components";
 
-// import { useTranslation } from "../../contexts/Localization";
-// import { useCurrencyBalance } from "../../slices/wallet/hooks";
-import { isAddress } from "../../utils";
+import { useTranslation } from "../../contexts/Localization";
+import { useCurrencyBalance } from "../../slices/wallet/hooks";
+// import { isAddress } from "../../utils";
 // import { CopyButton } from "../CopyButton";
 import { CurrencyLogo, DoubleCurrencyLogo } from "../Logo";
 import CurrencySearchModal from "../SearchModal/CurrencySearchModal";
@@ -65,28 +65,28 @@ interface CurrencyInputPanelProps {
 export default function CurrencyInputPanel({
   value,
   onUserInput,
-  // onMax,
+  onMax,
   // showMaxButton,
   // label,
   onCurrencySelect,
   currency,
   disableCurrencySelect = false,
-  // hideBalance = false,
+  hideBalance = false,
   pair = null, // used for double token logo
   otherCurrency,
   id,
   showCommonBases,
   background = "background",
 }: CurrencyInputPanelProps) {
-  const { account, provider: library } = useWeb3Context();
-  // const selectedCurrencyBalance = useCurrencyBalance(account ?? undefined, currency ?? undefined);
-  // const {
-  //   t,
-  //   currentLanguage: { locale },
-  // } = useTranslation();
+  const { account } = useWeb3Context();
+  const selectedCurrencyBalance = useCurrencyBalance(account ?? undefined, currency ?? undefined);
+  const {
+    t,
+    // currentLanguage: { locale },
+  } = useTranslation();
 
-  const token = pair ? pair.liquidityToken : currency instanceof Token ? currency : null;
-  const tokenAddress = token ? isAddress(token.address) : null;
+  // const token = pair ? pair.liquidityToken : currency instanceof Token ? currency : null;
+  // const tokenAddress = token ? isAddress(token.address) : null;
 
   const [onPresentCurrencyModal] = useModal(
     <CurrencySearchModal
@@ -98,8 +98,8 @@ export default function CurrencyInputPanel({
   );
   return (
     <Box position="relative" id={id} width="100%">
-      {/* <Flex mb="6px" alignItems="center" justifyContent="space-between">
-        <Flex>
+      <Flex mb="6px" alignItems="center" justifyContent="center">
+        {/* <Flex>
           {token && tokenAddress ? (
             <Flex style={{ gap: "4px" }} alignItems="center">
               <CopyButton
@@ -127,15 +127,15 @@ export default function CurrencyInputPanel({
               )}
             </Flex>
           ) : null}
-        </Flex>
+        </Flex> */}
         {account && (
-          <Text onClick={onMax} color="textSubtle" fontSize="14px" style={{ display: "inline", cursor: "pointer" }}>
+          <Text onClick={onMax} color="blueish_gray" fontSize="14px" style={{ display: "inline", cursor: "pointer" }}>
             {!hideBalance && !!currency
               ? t("Balance: %balance%", { balance: selectedCurrencyBalance?.toSignificant(6) ?? t("Loading") })
               : " -"}
           </Text>
         )}
-      </Flex> */}
+      </Flex>
       <InputPanel>
         <Container background={background}>
           <LabelRow>

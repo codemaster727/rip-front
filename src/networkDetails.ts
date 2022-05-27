@@ -58,7 +58,7 @@ export const addresses: IAddresses = {
     BOND_DEPOSITORY: "0x9810C5c97C57Ef3F23d9ee06813eF7FD51E13042",
     DAO_TREASURY: "0xee1520f94f304e8d551cbf310fe214212e3ca34a",
   },
-  // [NetworkId.MAINNET]: {
+  // [NetworkId.MAINNET]: { // Olympus Dao contracts on ETH net
   //   DAI_ADDRESS: "0x6b175474e89094c44da98b954eedeac495271d0f", // duplicate
   //   RIP_ADDRESS: "0x383518188c0c6d7730d91b2c03a03c837814a899",
   //   STAKING_ADDRESS: "0xfd31c7d00ca47653c6ce64af53c1571f9c36566a", // The new staking contract

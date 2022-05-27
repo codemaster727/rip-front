@@ -59,8 +59,8 @@ import { NetworkId } from "./constants";
 import MigrationModalSingle from "./components/Migration/MigrationModalSingle";
 import { trackGAEvent, trackSegmentEvent } from "./helpers/analytics";
 import Background from "./assets/images/background.svg";
-// import useSentryUser from "src/hooks/useSentryUser";
-// import useUserAgent from "src/hooks/useUserAgent";
+import useSentryUser from "src/hooks/useSentryUser";
+import useUserAgent from "src/hooks/useUserAgent";
 import { usePollBlockNumber } from "src/slices/block/hooks";
 import { usePollCoreFarmData } from "src/slices/farms/hooks";
 // import useEagerConnect from "src/hooks/useEagerConnect";
@@ -70,9 +70,9 @@ export function GlobalHooks() {
   usePollBlockNumber();
   // useEagerConnect();
   usePollCoreFarmData();
-  // useUserAgent();
+  useUserAgent();
   // useAccountEventListener();
-  // useSentryUser();
+  useSentryUser();
   return null;
 }
 

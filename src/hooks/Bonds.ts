@@ -73,7 +73,6 @@ function useBonds(networkId: NetworkId) {
   }, [bondState, accountBondsState, bondLoading]);
 
   // Debug Log:
-  // console.log(bonds);
   return { bonds, loading: bondLoading, expiredBonds };
 }
 

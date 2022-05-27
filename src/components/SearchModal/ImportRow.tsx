@@ -95,6 +95,7 @@ export default function ImportRow({
         <Button
           scale={isMobile ? "sm" : "md"}
           width="fit-content"
+          padding={3}
           onClick={() => {
             if (setImportToken) {
               setImportToken(token);
@@ -102,7 +103,7 @@ export default function ImportRow({
             showImportView();
           }}
         >
-          {t("Import")}
+          <Text color="black">{t("Import")}</Text>
         </Button>
       ) : (
         <RowFixed style={{ minWidth: "fit-content" }}>

@@ -147,17 +147,8 @@ const SlippageTabs = () => {
                 }}
                 isWarning={!slippageInputIsValid}
                 isSuccess={![10, 50, 100].includes(userSlippageTolerance)}
-                // style={{
-                //   border: "1px solid #B3FFAB",
-                //   borderRadius: "20px",
-                //   background:
-                //     "linear-gradient(259.15deg, rgba(41, 255, 198, 0.2) 40.61%, rgba(255, 255, 255, 0) 166.25%)",
-                // }}
               />
             </Box>
-            {/* <Text color="primary" bold ml="2px">
-              %
-            </Text> */}
           </Flex>
         </Flex>
         {!!slippageError && (

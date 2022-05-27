@@ -1,6 +1,6 @@
 import { Paper } from "@olympusdao/component-library";
 import { Pair } from "@pancakeswap/sdk";
-import { AddIcon, Button, CardBody, CardFooter, Flex, Text } from "@pancakeswap/uikit";
+import { AddIcon, CardBody, CardFooter, Flex, Text } from "@pancakeswap/uikit";
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import StyledButton from "src/components/StyledButton";
@@ -102,9 +102,9 @@ export default function Pool() {
                     {t("Don't see a pool you joined?")}
                   </Text>
                   <Link to="/find">
-                    <Button id="import-pool-link" variant="secondary" scale="sm" as="a">
+                    <StyledButton id="import-pool-link" variant="secondary" scale="sm">
                       {t("Find other LP tokens")}
-                    </Button>
+                    </StyledButton>
                   </Link>
                 </Flex>
               )}

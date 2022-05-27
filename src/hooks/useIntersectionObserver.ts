@@ -8,7 +8,6 @@ const useIntersectionObserver = () => {
 
   useEffect(() => {
     const isSupported = typeof window === "object" && window.IntersectionObserver;
-    console.log(observerRef.current);
     if (isSupported) {
       if (!intersectionObserverRef.current && observerRefElement) {
         const checkObserverIsIntersecting = ([entry]: IntersectionObserverEntry[]) => {

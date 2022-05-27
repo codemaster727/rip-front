@@ -128,9 +128,9 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    fetchUserSuccess(state, action) {
+    fetchUserSuccess(state: any, action: any) {
       setAll(state, action.payload);
-      // state[action.payload.user] = action.payload;
+      state[action.payload.user] = action.payload;
     },
   },
 

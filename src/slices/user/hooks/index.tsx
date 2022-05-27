@@ -7,7 +7,6 @@ import { BASES_TO_TRACK_LIQUIDITY_FOR, PINNED_PAIRS } from "src/constants";
 import farms from "src/constants/farms";
 import { CHAIN_ID } from "src/constants/networks";
 import { useWeb3Context } from "src/hooks";
-// import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useOfficialsAndUserAddedTokens } from "src/hooks/Tokens";
 
 import { AppDispatch, AppState } from "../../../Root";
@@ -439,7 +438,6 @@ export function toV2LiquidityToken([tokenA, tokenB]: [Token, Token]): Token {
  * Returns all the pairs of tokens that are tracked by the user for the current chain ID.
  */
 export function useTrackedTokenPairs(): [Token, Token][] {
-  // const { chainId } = useActiveWeb3React()
   const { networkId: chainId } = useWeb3Context();
   const tokens = useOfficialsAndUserAddedTokens();
 

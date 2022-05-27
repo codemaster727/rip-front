@@ -70,14 +70,6 @@ export const getBalances = createAsyncThunk(
   async ({ address, networkID, provider }: IBaseAddressAsyncThunk): Promise<IUserBalances> => {
     let gRipBalance = BigNumber.from("0");
     let gRipBalAsSripBal = BigNumber.from("0");
-    // let gRipOnArbitrum = BigNumber.from("0");
-    // let gRipOnArbAsSrip = BigNumber.from("0");
-    // let gRipOnAvax = BigNumber.from("0");
-    // let gRipOnAvaxAsSrip = BigNumber.from("0");
-    // let gRipOnPolygon = BigNumber.from("0");
-    // let gRipOnPolygonAsSrip = BigNumber.from("0");
-    // let gRipOnFantom = BigNumber.from("0");
-    // let gRipOnFantomAsSrip = BigNumber.from("0");
     let gRipOnTokemak = BigNumber.from("0");
     let gRipOnTokemakAsSrip = BigNumber.from("0");
     let ripBalance = BigNumber.from("0");
@@ -96,38 +88,6 @@ export const getBalances = createAsyncThunk(
     try {
       gRipBalance = await gRipContract.balanceOf(address);
       gRipBalAsSripBal = await gRipContract.balanceFrom(gRipBalance.toString());
-    } catch (e) {
-      handleContractError(e);
-    }
-    try {
-      // const arbProvider = NodeHelper.getAnynetStaticProvider(NetworkId.ARBITRUM);
-      // const gRipArbContract = GRIP__factory.connect(addresses[NetworkId.ARBITRUM].GRIP_ADDRESS, arbProvider);
-      // gRipOnArbitrum = await gRipArbContract.balanceOf(address);
-      // gRipOnArbAsSrip = await gRipContract.balanceFrom(gRipOnArbitrum.toString());
-    } catch (e) {
-      handleContractError(e);
-    }
-    try {
-      // const avaxProvider = NodeHelper.getAnynetStaticProvider(NetworkId.AVALANCHE);
-      // const gRipAvaxContract = GRIP__factory.connect(addresses[NetworkId.AVALANCHE].GRIP_ADDRESS, avaxProvider);
-      // gRipOnAvax = await gRipAvaxContract.balanceOf(address);
-      // gRipOnAvaxAsSrip = await gRipContract.balanceFrom(gRipOnAvax.toString());
-    } catch (e) {
-      handleContractError(e);
-    }
-    try {
-      // const polygonProvider = NodeHelper.getAnynetStaticProvider(NetworkId.POLYGON);
-      // const gRipPolygonContract = GRIP__factory.connect(addresses[NetworkId.POLYGON].GRIP_ADDRESS, polygonProvider);
-      // gRipOnPolygon = await gRipPolygonContract.balanceOf(address);
-      // gRipOnPolygonAsSrip = await gRipContract.balanceFrom(gRipOnPolygon.toString());
-    } catch (e) {
-      handleContractError(e);
-    }
-    try {
-      // const fantomProvider = NodeHelper.getAnynetStaticProvider(NetworkId.FANTOM);
-      // const gRipFantomContract = GRIP__factory.connect(addresses[NetworkId.FANTOM].GRIP_ADDRESS, fantomProvider);
-      // gRipOnFantom = await gRipFantomContract.balanceOf(address);
-      // gRipOnFantomAsSrip = await gRipContract.balanceFrom(gRipOnFantom.toString());
     } catch (e) {
       handleContractError(e);
     }
@@ -181,13 +141,7 @@ export const getBalances = createAsyncThunk(
     }
 
     try {
-      // const poolTokenContract = new ethers.Contract(
-      //   addresses[networkID].PT_TOKEN_ADDRESS as string,
-      //   ierc20Abi,
-      //   provider,
-      // ) as IERC20;
-      // poolBalance = await poolTokenContract.balanceOf(address);
-      poolBalance = new BigNumber("0", "ETH");
+      poolBalance = BigNumber.from("0");
     } catch (e) {
       handleContractError(e);
     }

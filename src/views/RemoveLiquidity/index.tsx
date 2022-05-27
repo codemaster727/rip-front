@@ -5,7 +5,7 @@ import { TransactionResponse, Web3Provider } from "@ethersproject/providers";
 import { Currency, currencyEquals, ETHER, Percent, Token, WETH } from "@pancakeswap/sdk";
 import { AddIcon, ArrowDownIcon, Box, Button, CardBody, Flex, Slider, Text, useModal } from "@pancakeswap/uikit";
 import { useCallback, useMemo, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { CHAIN_ID } from "src/constants/networks";
 import { useTranslation } from "src/contexts/Localization";
 // import useActiveWeb3React from '../../hooks/useActiveWeb3React'
@@ -48,7 +48,7 @@ const BorderCard = styled.div`
 
 export default function RemoveLiquidity() {
   const router = useParams();
-  const location = useLocation();
+  const history = useHistory();
   const [currencyIdA, currencyIdB] = false || [];
   const [currencyA, currencyB] = [useCurrency(currencyIdA) ?? undefined, useCurrency(currencyIdB) ?? undefined];
   const { address: account, networkId: chainId, provider: library } = useWeb3Context();
@@ -371,8 +371,9 @@ export default function RemoveLiquidity() {
     (currency: Currency) => {
       if (currencyIdB && currencyId(currency) === currencyIdB) {
         // router?.replace(`/remove/${currencyId(currency)}/${currencyIdA}`, undefined, { shallow: true })
+        history.push(`/remove/${currencyId(currency)}/${currencyIdA}`);
       } else {
-        // router?.replace(`/remove/${currencyId(currency)}/${currencyIdB}`, undefined, { shallow: true })
+        history.push(`/remove/${currencyId(currency)}/${currencyIdB}`);
       }
     },
     [currencyIdA, currencyIdB, router],
@@ -380,9 +381,9 @@ export default function RemoveLiquidity() {
   const handleSelectCurrencyB = useCallback(
     (currency: Currency) => {
       if (currencyIdA && currencyId(currency) === currencyIdA) {
-        // router.replace(`/remove/${currencyIdB}/${currencyId(currency)}`, undefined, { shallow: true })
+        history.push(`/remove/${currencyIdB}/${currencyId(currency)}`);
       } else {
-        // router.replace(`/remove/${currencyIdA}/${currencyId(currency)}`, undefined, { shallow: true })
+        history.push(`/remove/${currencyIdA}/${currencyId(currency)}`);
       }
     },
     [currencyIdA, currencyIdB, router],

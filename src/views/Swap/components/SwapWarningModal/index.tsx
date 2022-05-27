@@ -5,7 +5,6 @@ import styled from "styled-components";
 
 import SwapWarningTokensConfig from "../../../../constants/swapWarningTokens";
 import { useTranslation } from "../../../../contexts/Localization";
-// import useTheme from "../../../../hooks/useTheme";
 import { WrappedTokenInfo } from "../../../../slices/types";
 import Acknowledgement from "./Acknowledgement";
 import BondlyWarning from "./BondlyWarning";
@@ -51,7 +50,6 @@ const usePreventModalOverlayClick = () => {
 
 const SwapWarningModal: React.FC<SwapWarningModalProps> = ({ swapCurrency, onDismiss }) => {
   const { t } = useTranslation();
-  // const [theme] = useTheme();
   usePreventModalOverlayClick();
 
   const TOKEN_WARNINGS = {

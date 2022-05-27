@@ -181,9 +181,6 @@ const RoiCalculatorModal: React.FC<RoiCalculatorModalProps> = ({
             {t("%asset% staked", { asset: stakingTokenSymbol })}
           </Text>
           <BalanceInput
-            // inputProps={{
-            //   scale: 'sm',
-            // }}
             currencyValue={`${conversionValue} ${conversionUnit}`}
             innerRef={balanceInputRef}
             placeholder="0.00"

@@ -14,7 +14,6 @@ const Logo: React.FC<LogoProps> = ({ srcs, alt, ...rest }) => {
   const [, refresh] = useState<number>(0);
 
   const src: string | undefined = srcs.find(s => !BAD_SRCS[s]);
-
   if (src) {
     return (
       <img
