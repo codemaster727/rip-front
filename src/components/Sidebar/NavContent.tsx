@@ -21,6 +21,7 @@ import StakeIcon from "../../assets/icons/stake.svg";
 import ConflictIcon from "../../assets/icons/conflict.svg";
 import BlanketIcon from "../../assets/icons/blanket.svg";
 import BridgeIcon from "../../assets/icons/bridge.svg";
+import VotingIcon from "../../assets/icons/voting.svg";
 import useBonds from "../../hooks/useBonds";
 import WalletAddressEns from "../TopBar/Wallet/WalletAddressEns";
 import Social from "./Social";
@@ -300,6 +301,33 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                           className="cta-text"
                         >
                           Bridge
+                        </Typography>
+                      </Box>
+                    </Link>
+                  </div>
+                  <div
+                    style={{
+                      backgroundColor: "black",
+                      marginLeft: "20px",
+                      marginRight: "20px",
+                      marginTop: "20px",
+                      borderRadius: "20px",
+                    }}
+                  >
+                    <Link 
+                      href="https://snapshot.org/#/rrip.eth"
+                      target="_blank"
+                      style={{ color: "white", textDecoration: "none" }}
+                    >
+                      <Box display="flex" justifyContent="space-between">
+                        <img src={VotingIcon} style={{ marginLeft: "25px", width: "33px", height: "45px" }} />
+                        <Typography
+                          variant="h5"
+                          align="right"
+                          style={{ margin: "auto", marginRight: "20px" }}
+                          className="cta-text"
+                        >
+                          Voting
                         </Typography>
                       </Box>
                     </Link>

@@ -15,8 +15,8 @@ Required:
 - [Git](https://git-scm.com/downloads)
 
 ```bash
-$ git clone https://github.com/R-ripDao/Frontend.git
-$ cd rip-frontend
+# $ git clone https://github.com/R-ripDao/Frontend.git
+# $ cd rip-frontend
 
 # set up your environment variables
 # read the comments in the .env files for what is required/optional
@@ -32,8 +32,6 @@ $ yarn prepare
 
 The site is now running at `http://localhost:3000`!
 Open the source code and start editing!
-
-If you would like to run the frontend in a Docker image (e.g. to isolate dependencies and the nodejs version), run `yarn docker-start`.
 
 ## Testing
 
