@@ -19,3 +19,4 @@ export { default as PoolFinder } from "./PoolFinder";
 export { FarmsPageLayout as Farms } from "./Farms";
 // export { default as Farms } from "./FarmsView";
 export { default as FarmsHistory } from "./FarmsView/history";
+export { default as Voting } from "./Voting";

@@ -37,6 +37,7 @@ import {
   PoolFinder,
   Farms,
   FarmsHistory,
+  Voting,
 } from "./views";
 import FarmsView from "./views/FarmsView";
 // import FarmsHistory from "./views/FarmsView/history";
@@ -63,6 +64,8 @@ import useSentryUser from "src/hooks/useSentryUser";
 import useUserAgent from "src/hooks/useUserAgent";
 import { usePollBlockNumber } from "src/slices/block/hooks";
 import { usePollCoreFarmData } from "src/slices/farms/hooks";
+import ProposalPage from "./views/Voting/ProposalPage";
+import CreateProposal from "./views/Voting/CreateProposal";
 // import useEagerConnect from "src/hooks/useEagerConnect";
 // import { useAccountEventListener } from "src/hooks/useAccountEventListener";
 
@@ -423,6 +426,18 @@ function App() {
                 <Farms>
                   <FarmsHistory />
                 </Farms>
+              </Route>
+
+              <Route exact path="/voting">
+                <Voting />
+              </Route>
+
+              <Route exact path="/voting/proposal/:id?">
+                <ProposalPage />
+              </Route>
+
+              <Route exact path="/voting/proposal/create">
+                <CreateProposal />
               </Route>
 
               <Route exact path="/give">

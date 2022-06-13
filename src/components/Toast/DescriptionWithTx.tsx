@@ -1,6 +1,6 @@
 import { Link, Text } from "@pancakeswap/uikit";
-// import { getBscScanLink } from 'utils'
-// import useActiveWeb3React from 'hooks/useActiveWeb3React'
+// import { getBscScanLink } from 'src/utils'
+// import useActiveWeb3React from 'src/hooks/useActiveWeb3React'
 import { useWeb3Context } from "src/hooks/web3Context";
 
 import { useTranslation } from "../../contexts/Localization";

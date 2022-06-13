@@ -1,7 +1,6 @@
-import { ButtonMenuItem, NotificationDot } from "@pancakeswap/uikit";
+import { ButtonMenuItem } from "@pancakeswap/uikit";
 import { Link, useLocation } from "react-router-dom";
 import { StyledButtonMenuBlack } from "src/components/SearchModal/Manage";
-// import { NextLinkFromReactRouter } from "src/components/NextLink";
 import { useTranslation } from "src/contexts/Localization";
 import styled from "styled-components";
 
@@ -31,12 +30,14 @@ const FarmTabButtons: React.FC<FarmTabButtonsProps> = ({ hasStakeInFinishedFarms
 
   return (
     <Wrapper style={{ padding: "0px" }}>
-      <StyledButtonMenuBlack activeIndex={activeIndex} scale="md" variant="subtle">
+      <StyledButtonMenuBlack activeIndex={activeIndex} scale="md">
         <ButtonMenuItem
           style={{
             backgroundColor: activeIndex === 0 ? "#00FCB0" : "transparent",
             color: activeIndex === 0 ? "black" : "#09FDB5",
             borderRadius: "40px",
+            marginLeft: "-1px",
+            marginTop: "-1px",
           }}
           as={Link}
           width="100px"
@@ -44,20 +45,20 @@ const FarmTabButtons: React.FC<FarmTabButtonsProps> = ({ hasStakeInFinishedFarms
         >
           {t("Live")}
         </ButtonMenuItem>
-        <NotificationDot show={hasStakeInFinishedFarms}>
-          <ButtonMenuItem
-            style={{
-              backgroundColor: activeIndex === 1 ? "#00FCB0" : "transparent",
-              color: activeIndex === 1 ? "black" : "#09FDB5",
-              borderRadius: "40px",
-            }}
-            as={Link}
-            to="/farms/history"
-            id="finished-farms-button"
-          >
-            {t("Finished")}
-          </ButtonMenuItem>
-        </NotificationDot>
+        <ButtonMenuItem
+          style={{
+            backgroundColor: activeIndex === 1 ? "#00FCB0" : "transparent",
+            color: activeIndex === 1 ? "black" : "#09FDB5",
+            borderRadius: "40px",
+            marginRight: "-1px",
+            marginTop: "-1px",
+          }}
+          as={Link}
+          to="/farms/history"
+          id="finished-farms-button"
+        >
+          {t("Finished")}
+        </ButtonMenuItem>
       </StyledButtonMenuBlack>
     </Wrapper>
   );

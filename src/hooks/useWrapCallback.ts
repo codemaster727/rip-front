@@ -7,7 +7,7 @@ import { useCurrencyBalance } from "../slices/wallet/hooks";
 import tryParseAmount from "../utils/tryParseAmount";
 import { useCallWithGasPrice } from "./useCallWithGasPrice";
 import { useWBNBContract } from "./useContract";
-// import useActiveWeb3React from 'hooks/useActiveWeb3React'
+// import useActiveWeb3React from 'src/hooks/useActiveWeb3React'
 import { useWeb3Context } from "./web3Context";
 
 export enum WrapType {

@@ -7,7 +7,7 @@ import StyledButton from "src/components/StyledButton";
 import { useWeb3Context } from "src/hooks";
 import styled from "styled-components";
 
-// import useActiveWeb3React from 'hooks/useActiveWeb3React'
+// import useActiveWeb3React from 'src/hooks/useActiveWeb3React'
 import { AppBody, AppHeader } from "../../components/App";
 import Dots from "../../components/Loader/Dots";
 import FullPositionCard from "../../components/PositionCard";

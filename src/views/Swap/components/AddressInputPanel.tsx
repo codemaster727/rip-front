@@ -48,9 +48,9 @@ const Input = styled.input<{ error?: boolean }>`
   text-overflow: ellipsis;
   font-weight: 500;
   width: 100%;
-  ::placeholder {
-    color: ${({ theme }) => theme.colors.textDisabled};
-  }
+  // ::placeholder {
+  //   color: ${({ theme }) => theme.colors.textDisabled};
+  // }
   padding: 0px;
   -webkit-appearance: textfield;
 
@@ -61,10 +61,6 @@ const Input = styled.input<{ error?: boolean }>`
   ::-webkit-outer-spin-button,
   ::-webkit-inner-spin-button {
     -webkit-appearance: none;
-  }
-
-  ::placeholder {
-    color: ${({ theme }) => theme.colors.textDisabled};
   }
 `;
 

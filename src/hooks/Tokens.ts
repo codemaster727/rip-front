@@ -5,7 +5,7 @@ import { Currency, currencyEquals, ETHER, Token } from "@pancakeswap/sdk";
 import { createSelector } from "@reduxjs/toolkit";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-// import useActiveWeb3React from 'hooks/useActiveWeb3React'
+// import useActiveWeb3React from 'src/hooks/useActiveWeb3React'
 import { useWeb3Context } from "src/hooks/web3Context";
 
 import { GELATO_NATIVE } from "../constants/index";

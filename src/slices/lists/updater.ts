@@ -1,6 +1,6 @@
 import { getVersionUpgrade, VersionUpgrade } from "@uniswap/token-lists";
 import { useCallback, useEffect } from "react";
-// import useWeb3Provider from 'hooks/useActiveWeb3React'
+// import useWeb3Provider from 'src/hooks/useActiveWeb3React'
 import { useDispatch } from "react-redux";
 import { useWeb3Context } from "src/hooks";
 import useFetchListCallback from "src/hooks/useFetchListCallback";

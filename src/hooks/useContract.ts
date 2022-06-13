@@ -75,7 +75,7 @@ export const useTokenContractForRip = (addressMap: AddressMap) => {
 
 //Pancake
 
-// import useActiveWeb3React from 'hooks/useActiveWeb3React'
+// import useActiveWeb3React from 'src/hooks/useActiveWeb3React'
 // Imports below migrated from Exchange useContract.ts
 import { WETH } from "@pancakeswap/sdk";
 

@@ -3,7 +3,7 @@ import JSBI from "jsbi";
 import { ParsedUrlQuery } from "querystring";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useLocation, useParams, useRouteMatch } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { useCurrency } from "../../hooks/Tokens";
 import { useTradeExactIn, useTradeExactOut } from "../../hooks/Trades";
@@ -529,10 +529,7 @@ export const useDefaultsFromURLSearch = ():
   | undefined => {
   const { networkId: chainId } = useWeb3Context();
   const dispatch = useDispatch<AppDispatch>();
-  const params = useParams();
   const location = useLocation();
-  const history = useHistory();
-  const match = useRouteMatch();
   const { query } = location;
   const [result, setResult] = useState<
     { inputCurrencyId: string | undefined; outputCurrencyId: string | undefined } | undefined

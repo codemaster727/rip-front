@@ -2,7 +2,7 @@ import { Contract } from "@ethersproject/contracts";
 import { useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-// import useActiveWeb3React from 'hooks/useActiveWeb3React'
+// import useActiveWeb3React from 'src/hooks/useActiveWeb3React'
 import { useWeb3Context } from "../../hooks";
 import { useMulticallContract } from "../../hooks/useContract";
 import useDebounce from "../../hooks/useDebounce";

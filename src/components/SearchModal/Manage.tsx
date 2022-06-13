@@ -9,20 +9,24 @@ import ManageLists from "./ManageLists";
 import ManageTokens from "./ManageTokens";
 import { CurrencyModalView } from "./types";
 
-export const StyledButtonMenu = styled(ButtonMenu)`
+export const StyledButtonMenu = styled(ButtonMenu)<{ scale: string }>`
   width: 100%;
+  height: ${({ scale }) => (scale === "sm" ? "100%" : "46px")};
   background: linear-gradient(259.15deg, rgba(41, 255, 198, 0.2) 40.61%, rgba(255, 255, 255, 0) 166.25%);
-  padding: 1px;
+  // padding: 1px;
   border-color: #09fdb5;
   border-radius: 40px;
+  border: none;
 `;
 
 export const StyledButtonMenuBlack = styled(ButtonMenu)`
   width: 100%;
+  height: ${({ scale }) => (scale === "sm" ? "100%" : "46px")};
   background: ${({ theme }) => theme.colors.background};
-  padding: 1px;
+  // padding: 1px;
   border-color: #09fdb5;
   border-radius: 40px;
+  border: none;
 `;
 
 export default function Manage({

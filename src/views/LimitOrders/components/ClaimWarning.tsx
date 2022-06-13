@@ -36,7 +36,7 @@ function ClaimWarning() {
     }
 
     return () => {
-      onDismiss();
+      onDismiss && onDismiss();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasAcceptedRisk]);

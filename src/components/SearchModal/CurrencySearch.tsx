@@ -23,17 +23,17 @@ import ImportRow from "./ImportRow";
 import useTokenComparator from "./sorting";
 import { getSwapSound } from "./swapSound";
 
-export const StyledInput = styled(Input)`
+export const StyledInput = styled(Input)<{ light?: string }>`
   background: #00fcb0;
-  color: black;
-  border-radius: 40px;
+  color: ${({ light }) => (light === "dark" ? "white" : "black")};
+  border-radius: 40px;AS 
   text-align: center;
   border: none;
   &:focus {
     box-shadow: none !important;
   }
   &::placeholder {
-    color: #00000099;
+    color: ${({ light }) => (light === "dark" ? "white" : "black")};
   }
 `;
 
@@ -189,6 +189,7 @@ function CurrencySearch({
               onChange={handleInput}
               onKeyDown={handleEnter}
               style={{ border: 0, outline: 0 }}
+              light="light"
             />
           </Row>
           {showCommonBases && (

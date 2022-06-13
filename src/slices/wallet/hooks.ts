@@ -1,7 +1,6 @@
 import { Currency, CurrencyAmount, ETHER, JSBI, Token, TokenAmount } from "@pancakeswap/sdk";
 import orderBy from "lodash/orderBy";
 import { useMemo } from "react";
-// import { useWeb3React } from '@web3-react/core'
 import { useWeb3Context } from "src/hooks";
 
 import ERC20_INTERFACE from "../../config/abi/erc20";

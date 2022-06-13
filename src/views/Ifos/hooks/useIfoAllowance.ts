@@ -2,7 +2,6 @@ import { Contract } from "@ethersproject/contracts";
 import BigNumber from "bignumber.js";
 import { useEffect, useState } from "react";
 
-// import { useWeb3React } from '@web3-react/core'
 import { useWeb3Context } from "../../../hooks";
 import { BIG_ZERO } from "../../../utils/bigNumber";
 

@@ -5,7 +5,6 @@ import { useTranslation } from "src/contexts/Localization";
 import useToast from "src/hooks/useToast";
 import { isUserRejected, logError } from "src/utils/sentry";
 
-// import { useWeb3React } from '@web3-react/core'
 import { useWeb3Context } from "./web3Context";
 
 export type TxResponse = TransactionResponse | null;
