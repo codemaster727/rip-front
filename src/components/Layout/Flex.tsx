@@ -1,12 +1,13 @@
 import { Flex, FlexProps } from "@pancakeswap/uikit";
 import styled from "styled-components";
 
-const FlexLayout = styled.div<{ cols?: boolean; light?: string }>`
+const FlexLayout: any = styled.div<{ cols?: boolean; light?: string }>`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  // min-height: 250px;
   max-height: 570px;
-  overflow-y: scroll;
+  overflow-y: auto;
   &::-webkit-scrollbar {
     display: block !important;
     width: 10px !important;

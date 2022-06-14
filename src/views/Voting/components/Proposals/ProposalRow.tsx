@@ -16,7 +16,7 @@ const StyledProposalRow = styled(NextLinkFromReactRouter)`
   align-items: center;
   display: flex;
   padding: 8px 12px;
-  width: 100%;
+  width: calc(100% - 0.5rem);
 
   &:hover {
     cursor: pointer;
@@ -35,14 +35,14 @@ const ProposalRow: React.FC<ProposalRowProps> = ({ proposal }) => {
 
   return (
     <StyledProposalRow to={votingLink}>
-      <Box as="span" style={{ flex: 1 }}>
+      <Box style={{ flex: 1 }}>
         <Text bold mb="8px">
           {proposal.title}
         </Text>
-        <Flex alignItems="left" flexDirection={isMobile ? "column" : "row"}>
+        <Flex alignItems="center" flexDirection={isMobile ? "row" : "column"}>
           <TimeFrame startDate={proposal.start} endDate={proposal.end} proposalState={proposal.state} />
           <Flex alignItems="left" ml="8px" mt={2}>
-            <ProposalStateTag proposalState={proposal.state} ml="8px" />
+            <ProposalStateTag proposalState={proposal.state} ml="8px" mr="8px" />
             <ProposalTypeTag isCoreProposal={isCoreProposal(proposal)} ml="8px" />
           </Flex>
         </Flex>

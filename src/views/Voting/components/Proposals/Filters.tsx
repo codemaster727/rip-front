@@ -12,10 +12,13 @@ interface FiltersProps {
 
 const StyledFilters = styled(Flex).attrs({ alignItems: "center" })`
   padding: 16px 24px;
+  padding-bottom: 0;
+  margin: auto;
+  margin-top: 1rem;
+  justify-content: center;
 `;
 
 const FilterLabel = styled.label`
-  align-items: center;
   cursor: pointer;
   display: flex;
   margin-right: 16px;
@@ -48,7 +51,9 @@ const Filters: React.FC<FiltersProps> = ({ filterState, onFilterChange, isLoadin
               onChange={handleChange}
               checked={filterState === value}
             />
-            <Text color="#445FA7">{value}</Text>
+            <Text color="#445FA7" marginLeft="0.5rem">
+              {value}
+            </Text>
           </FilterLabel>
         );
       })}

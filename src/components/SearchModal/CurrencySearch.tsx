@@ -26,14 +26,15 @@ import { getSwapSound } from "./swapSound";
 export const StyledInput = styled(Input)<{ light?: string }>`
   background: #00fcb0;
   color: ${({ light }) => (light === "dark" ? "white" : "black")};
-  border-radius: 40px;AS 
+  border-radius: 50px;
   text-align: center;
   border: none;
+  max-height: 40px;
   &:focus {
     box-shadow: none !important;
   }
   &::placeholder {
-    color: ${({ light }) => (light === "dark" ? "white" : "black")};
+    color: ${({ light }) => (light === "dark" ? "white" : "#000000aa")};
   }
 `;
 

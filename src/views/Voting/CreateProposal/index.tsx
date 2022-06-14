@@ -1,44 +1,47 @@
+import { Paper } from "@olympusdao/component-library";
 import {
   AutoRenewIcon,
   Box,
-  Breadcrumbs,
+  // Breadcrumbs,
   Button,
-  Card,
-  CardBody,
-  CardHeader,
+  // Card,
+  // CardBody,
+  // CardHeader,
   Flex,
   Heading,
-  Input,
-  LinkExternal,
+  // Input,
   Text,
+  useMatchBreakpoints,
   useModal,
 } from "@pancakeswap/uikit";
 import isEmpty from "lodash/isEmpty";
 import times from "lodash/times";
 import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import BackBlackIcon from "src/assets/icons/back-black.svg";
 import ConnectButton from "src/components/ConnectButton/ConnectButton";
 import EasyMde from "src/components/EasyMde";
 import Container from "src/components/Layout/Container";
 import { PageMeta } from "src/components/Layout/Page";
 import ReactMarkdown from "src/components/ReactMarkdown";
+import { StyledInput } from "src/components/SearchModal/CurrencySearch";
+import StyledButton from "src/components/StyledButton";
 import { useTranslation } from "src/contexts/Localization";
 import { useWeb3Context } from "src/hooks";
 import useToast from "src/hooks/useToast";
 import { useInitialBlock } from "src/slices/block/hooks";
 import { SnapshotCommand } from "src/slices/types";
 import { getBscScanLink } from "src/utils";
-import truncateHash from "src/utils/truncateHash";
 import { signMessage } from "src/utils/web3React";
 import { DatePicker, DatePickerPortal, TimePicker } from "src/views/Voting/components/DatePicker";
 
 import Layout from "../components/Layout";
 import VoteDetailsModal from "../components/VoteDetailsModal";
-import { ADMINS, VOTE_THRESHOLD } from "../config";
+import { ADMINS } from "../config";
 import { generateMetaData, generatePayloadData, Message, sendSnapshotData } from "../helpers";
 import Choices, { Choice, makeChoice, MINIMUM_CHOICES } from "./Choices";
 import { combineDateAndTime, getFormErrors } from "./helpers";
-import { FormErrors, Label, SecondaryLabel } from "./styles";
+import { FormErrors, Label } from "./styles";
 import { FormState } from "./types";
 
 const CreateProposal = () => {
@@ -66,6 +69,8 @@ const CreateProposal = () => {
   const [onPresentVoteDetailsModal] = useModal(<VoteDetailsModal block={state.snapshot} />);
   const { name, body, choices, startDate, startTime, endDate, endTime, snapshot } = state;
   const formErrors = getFormErrors(state, t);
+
+  const { isMobile } = useMatchBreakpoints();
 
   const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -152,6 +157,80 @@ const CreateProposal = () => {
     };
   }, [account]);
 
+  const CardAction = () => (
+    <div>
+      <Label color="black" style={{ textAlign: "center" }}>
+        {t("start")}
+      </Label>
+      <Box mb="24px">
+        <DatePicker
+          name="startDate"
+          onChange={handleDateChange("startDate")}
+          selected={startDate}
+          placeholderText="YYYY/MM/DD"
+        />
+        {formErrors.startDate && fieldsState.startDate && <FormErrors errors={formErrors.startDate} />}
+      </Box>
+      <Box mb="24px">
+        <TimePicker
+          name="startTime"
+          onChange={handleDateChange("startTime")}
+          selected={startTime}
+          placeholderText="00:00"
+        />
+        {formErrors.startTime && fieldsState.startTime && <FormErrors errors={formErrors.startTime} />}
+      </Box>
+      <Label color="black" style={{ textAlign: "center" }}>
+        {t("end")}
+      </Label>
+      <Box mb="24px">
+        <DatePicker
+          name="endDate"
+          onChange={handleDateChange("endDate")}
+          selected={endDate}
+          placeholderText="YYYY/MM/DD"
+        />
+        {formErrors.endDate && fieldsState.endDate && <FormErrors errors={formErrors.endDate} />}
+      </Box>
+      <Box mb="24px">
+        <TimePicker name="endTime" onChange={handleDateChange("endTime")} selected={endTime} placeholderText="00:00" />
+        {formErrors.endTime && fieldsState.endTime && <FormErrors errors={formErrors.endTime} />}
+      </Box>
+      <Flex alignItems="center" justifyContent="center" mb="16px">
+        <Text color="blueish_gray" mr="16px">
+          {t("Snapshot")}
+        </Text>
+        <Link to={getBscScanLink(snapshot, "block")}>
+          <Text color="blueish_gray">{snapshot}</Text>
+        </Link>
+      </Flex>
+      {account ? (
+        <>
+          <StyledButton
+            type="submit"
+            width="100%"
+            isLoading={isLoading}
+            endIcon={isLoading ? <AutoRenewIcon spin color="currentColor" /> : null}
+            disabled={!isEmpty(formErrors)}
+            mb="16px"
+          >
+            {t("Publish")}
+          </StyledButton>
+          {/* <Text color="failure" as="p" mb="4px">
+            {t("You need at least %count% voting power to publish a proposal.", {
+              count: VOTE_THRESHOLD,
+            })}{" "}
+          </Text> */}
+          {/* <Button scale="sm" type="button" variant="text" onClick={onPresentVoteDetailsModal} p={0}>
+            {t("Check voting power")}
+          </Button> */}
+        </>
+      ) : (
+        <ConnectButton />
+      )}
+    </div>
+  );
+
   useEffect(() => {
     if (initialBlock > 0) {
       setState(prevState => ({
@@ -162,146 +241,84 @@ const CreateProposal = () => {
   }, [initialBlock, setState]);
 
   return (
-    <Container py="40px">
-      <PageMeta />
-      <Box mb="48px">
-        <Breadcrumbs>
-          <Link to="/">{t("Home")}</Link>
-          <Link to="/voting">{t("Voting")}</Link>
-          <Text>{t("Make a Proposal")}</Text>
-        </Breadcrumbs>
-      </Box>
-      <form onSubmit={handleSubmit}>
-        <Layout>
-          <Box>
-            <Box mb="24px">
-              <Label htmlFor="name">{t("Title")}</Label>
-              <Input id="name" name="name" value={name} scale="lg" onChange={handleChange} required />
-              {formErrors.name && fieldsState.name && <FormErrors errors={formErrors.name} />}
-            </Box>
-            <Box mb="24px">
-              <Label htmlFor="body">{t("Content")}</Label>
-              <Text color="textSubtle" mb="8px">
-                {t("Tip: write in Markdown!")}
-              </Text>
-              <EasyMde
-                id="body"
-                name="body"
-                onTextChange={handleEasyMdeChange}
-                value={body}
-                options={options}
-                required
-              />
-              {formErrors.body && fieldsState.body && <FormErrors errors={formErrors.body} />}
-            </Box>
-            {body && (
-              <Box mb="24px">
-                <Card>
-                  <CardHeader>
-                    <Heading as="h3" scale="md">
-                      {t("Preview")}
-                    </Heading>
-                  </CardHeader>
-                  <CardBody p="0" px="24px">
-                    <ReactMarkdown>{body}</ReactMarkdown>
-                  </CardBody>
-                </Card>
-              </Box>
-            )}
-            <Choices choices={choices} onChange={handleChoiceChange} />
-            {formErrors.choices && fieldsState.choices && <FormErrors errors={formErrors.choices} />}
-          </Box>
-          <Box>
-            <Card>
-              <CardHeader>
-                <Heading as="h3" scale="md">
-                  {t("Actions")}
+    <div className="content-container">
+      <Paper className="blur7" style={{ maxWidth: "100%" }}>
+        <Flex flexDirection={"column"} width="100%" justifyContent="center" position="relative" pt="1rem">
+          <Container py="0px" maxWidth="100%" mx="0">
+            <PageMeta />
+            <Box mb="32px">
+              <Flex alignItems="center" mb="8px" justifyContent="center">
+                <Link to="/voting">
+                  <Button as="a" variant="text" px="0">
+                    <img src={BackBlackIcon} width={36} />
+                  </Button>
+                </Link>
+                <Heading
+                  as="h2"
+                  scale="md"
+                  id="voting-proposals"
+                  textAlign="center"
+                  mt="0"
+                  color="black"
+                  maxWidth="80%"
+                  marginBottom={0}
+                  marginLeft="8px"
+                >
+                  make a proposal
                 </Heading>
-              </CardHeader>
-              <CardBody>
-                <Box mb="24px">
-                  <SecondaryLabel>{t("Start Date")}</SecondaryLabel>
-                  <DatePicker
-                    name="startDate"
-                    onChange={handleDateChange("startDate")}
-                    selected={startDate}
-                    placeholderText="YYYY/MM/DD"
-                  />
-                  {formErrors.startDate && fieldsState.startDate && <FormErrors errors={formErrors.startDate} />}
-                </Box>
-                <Box mb="24px">
-                  <SecondaryLabel>{t("Start Time")}</SecondaryLabel>
-                  <TimePicker
-                    name="startTime"
-                    onChange={handleDateChange("startTime")}
-                    selected={startTime}
-                    placeholderText="00:00"
-                  />
-                  {formErrors.startTime && fieldsState.startTime && <FormErrors errors={formErrors.startTime} />}
-                </Box>
-                <Box mb="24px">
-                  <SecondaryLabel>{t("End Date")}</SecondaryLabel>
-                  <DatePicker
-                    name="endDate"
-                    onChange={handleDateChange("endDate")}
-                    selected={endDate}
-                    placeholderText="YYYY/MM/DD"
-                  />
-                  {formErrors.endDate && fieldsState.endDate && <FormErrors errors={formErrors.endDate} />}
-                </Box>
-                <Box mb="24px">
-                  <SecondaryLabel>{t("End Time")}</SecondaryLabel>
-                  <TimePicker
-                    name="endTime"
-                    onChange={handleDateChange("endTime")}
-                    selected={endTime}
-                    placeholderText="00:00"
-                  />
-                  {formErrors.endTime && fieldsState.endTime && <FormErrors errors={formErrors.endTime} />}
-                </Box>
-                {account && (
-                  <Flex alignItems="center" mb="8px">
-                    <Text color="textSubtle" mr="16px">
-                      {t("Creator")}
+              </Flex>
+            </Box>
+            <form onSubmit={handleSubmit}>
+              <Layout>
+                {CardAction()}
+                <Box>
+                  <Box mb="24px" width="70%">
+                    <Label>{t("title")}</Label>
+                    <StyledInput
+                      id="name"
+                      name="name"
+                      value={name}
+                      scale="lg"
+                      onChange={handleChange}
+                      required
+                      style={{ backgroundColor: "#00FCB0", border: "1px solid black", color: "black" }}
+                    />
+                    {formErrors.name && fieldsState.name && <FormErrors errors={formErrors.name} />}
+                  </Box>
+                  <Box mb="24px">
+                    <Label htmlFor="body">{t("content")}</Label>
+                    <Text color="blueish_gray" mb="8px">
+                      {t("tip: write in Markdown!")}
                     </Text>
-                    <LinkExternal href={getBscScanLink(account, "address")}>{truncateHash(account)}</LinkExternal>
-                  </Flex>
-                )}
-                <Flex alignItems="center" mb="16px">
-                  <Text color="textSubtle" mr="16px">
-                    {t("Snapshot")}
-                  </Text>
-                  <LinkExternal href={getBscScanLink(snapshot, "block")}>{snapshot}</LinkExternal>
-                </Flex>
-                {account ? (
-                  <>
-                    <Button
-                      type="submit"
-                      width="100%"
-                      isLoading={isLoading}
-                      endIcon={isLoading ? <AutoRenewIcon spin color="currentColor" /> : null}
-                      disabled={!isEmpty(formErrors)}
-                      mb="16px"
-                    >
-                      {t("Publish")}
-                    </Button>
-                    <Text color="failure" as="p" mb="4px">
-                      {t("You need at least %count% voting power to publish a proposal.", { count: VOTE_THRESHOLD })}{" "}
-                    </Text>
-                    <Button scale="sm" type="button" variant="text" onClick={onPresentVoteDetailsModal} p={0}>
-                      {t("Check voting power")}
-                    </Button>
-                  </>
-                ) : (
-                  <ConnectButton />
-                )}
-              </CardBody>
-            </Card>
-          </Box>
-        </Layout>
-      </form>
-      <DatePickerPortal />
-    </Container>
+                    <EasyMde
+                      id="body"
+                      name="body"
+                      onTextChange={handleEasyMdeChange}
+                      value={body}
+                      options={options}
+                      required
+                    />
+                    {formErrors.body && fieldsState.body && <FormErrors errors={formErrors.body} />}
+                  </Box>
+                  {body && (
+                    <Box mb="24px">
+                      <Heading as="h3" scale="md" color="black">
+                        {t("preview")}
+                      </Heading>
+                      <ReactMarkdown>{body}</ReactMarkdown>
+                    </Box>
+                  )}
+                  <Choices choices={choices} onChange={handleChoiceChange} />
+                  {formErrors.choices && fieldsState.choices && <FormErrors errors={formErrors.choices} />}
+                </Box>
+                {isMobile && <Box>{CardAction()}</Box>}
+              </Layout>
+            </form>
+            <DatePickerPortal />
+          </Container>
+        </Flex>
+      </Paper>
+    </div>
   );
 };
 

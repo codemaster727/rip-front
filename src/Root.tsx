@@ -44,6 +44,7 @@ const updatedLight = {
     blueish_gray: "#445FA7",
     text: "#ffffff",
     textSubtle: "#ffffff",
+    text_b: "black",
     dropdown: "linear-gradient(259.15deg, rgba(41, 255, 198, 0.2) 40.61%, rgba(255, 255, 255, 0) 166.25%), #222222",
     gradients: {
       ...colors.gradients,

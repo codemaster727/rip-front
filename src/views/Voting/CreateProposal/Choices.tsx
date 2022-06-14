@@ -1,5 +1,7 @@
-import { Button, Card, CardBody, CardHeader, Heading } from "@pancakeswap/uikit";
+import { Heading } from "@pancakeswap/uikit";
 import uniqueId from "lodash/uniqueId";
+import AddIcon from "src/assets/icons/add.svg";
+import StyledButton from "src/components/StyledButton";
 import { useTranslation } from "src/contexts/Localization";
 
 import Choice from "./Choice";
@@ -26,44 +28,45 @@ const Choices: React.FC<ChoicesProps> = ({ choices, onChange }) => {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <Heading as="h3" scale="md">
-          {t("Choices")}
-        </Heading>
-      </CardHeader>
-      <CardBody>
-        {choices.map(({ id, value }, index) => {
-          const handleTextInput = (newValue: string) => {
-            const newChoices = [...choices];
-            const choiceIndex = newChoices.findIndex(newChoice => newChoice.id === id);
+    <div>
+      <Heading as="h3" scale="md" color="black">
+        {t("choices")}
+      </Heading>
+      {choices.map(({ id, value }, index) => {
+        const handleTextInput = (newValue: string) => {
+          const newChoices = [...choices];
+          const choiceIndex = newChoices.findIndex(newChoice => newChoice.id === id);
 
-            newChoices[choiceIndex].value = newValue;
+          newChoices[choiceIndex].value = newValue;
 
-            onChange(newChoices);
-          };
+          onChange(newChoices);
+        };
 
-          const handleRemove = () => {
-            onChange(choices.filter(newPrevChoice => newPrevChoice.id !== id));
-          };
+        const handleRemove = () => {
+          onChange(choices.filter(newPrevChoice => newPrevChoice.id !== id));
+        };
 
-          return (
-            <Choice
-              key={id}
-              scale="lg"
-              onTextInput={handleTextInput}
-              placeholder={t("Input choice text")}
-              value={value}
-              onRemove={index > 1 ? handleRemove : undefined}
-            />
-          );
-        })}
+        return (
+          <Choice
+            key={id}
+            scale="lg"
+            onTextInput={handleTextInput}
+            placeholder={t("input choice text")}
+            value={value}
+            onRemove={index > 1 ? handleRemove : undefined}
+          />
+        );
+      })}
 
-        <Button type="button" onClick={addChoice} disabled={!hasMinimumChoices}>
-          {t("Add Choice")}
-        </Button>
-      </CardBody>
-    </Card>
+      <StyledButton
+        style={{ background: "transparent", border: "none", width: "45px" }}
+        type="button"
+        onClick={addChoice}
+        disabled={!hasMinimumChoices}
+      >
+        <img src={AddIcon} />
+      </StyledButton>
+    </div>
   );
 };
 

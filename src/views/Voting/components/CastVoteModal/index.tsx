@@ -1,5 +1,6 @@
-import { Box, Modal } from "@pancakeswap/uikit";
+import { Box } from "@pancakeswap/uikit";
 import { useState } from "react";
+import StyledModal from "src/components/StyledModal";
 import { useTranslation } from "src/contexts/Localization";
 import { useWeb3Context } from "src/hooks";
 // import useWeb3Provider from 'src/hooks/useActiveWeb3React'
@@ -78,13 +79,7 @@ const CastVoteModal: React.FC<CastVoteModalProps> = ({ onSuccess, proposalId, vo
   };
 
   return (
-    <Modal
-      title={title[view]}
-      onBack={handleBack}
-      onDismiss={onDismiss}
-      hideCloseButton={!isStartView}
-      headerBackground={"green"}
-    >
+    <StyledModal title={title[view]} onBack={handleBack} onDismiss={onDismiss}>
       <Box mb="24px" width="320px">
         {view === ConfirmVoteView.MAIN && (
           <MainView
@@ -111,7 +106,7 @@ const CastVoteModal: React.FC<CastVoteModalProps> = ({ onSuccess, proposalId, vo
           />
         )}
       </Box>
-    </Modal>
+    </StyledModal>
   );
 };
 

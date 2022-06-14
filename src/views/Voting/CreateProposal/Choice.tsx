@@ -1,5 +1,6 @@
-import { Box, CloseIcon, IconButton, Input, InputProps } from "@pancakeswap/uikit";
+import { Box, CloseIcon, IconButton, InputProps } from "@pancakeswap/uikit";
 import { ChangeEvent, InputHTMLAttributes, useState } from "react";
+import { StyledInput } from "src/components/SearchModal/CurrencySearch";
 
 interface ChoiceProps extends InputProps, InputHTMLAttributes<HTMLInputElement> {
   onTextInput: (value: string) => void;
@@ -20,7 +21,16 @@ const Choice: React.FC<ChoiceProps> = ({ onRemove, onTextInput, ...props }) => {
 
   return (
     <Box position="relative" mb="16px">
-      <Input {...props} onChange={handleChange} isWarning={isWarning} />
+      <StyledInput
+        id="name"
+        name="name"
+        scale="sm"
+        {...props}
+        onChange={handleChange}
+        isWarning={isWarning}
+        required
+        style={{ backgroundColor: "#00FCB0", border: "1px solid black", color: "black" }}
+      />
       {onRemove && (
         <Box position="absolute" right="8px" top="0px" zIndex={30}>
           <IconButton variant="text" onClick={onRemove}>

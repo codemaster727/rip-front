@@ -72,7 +72,7 @@ const Results: React.FC<ResultsProps> = ({ choices, votes, votesLoadingStatus, o
           );
         })}
 
-      <StyledButton onClick={onPresentViewVotesModal} light="light" marginTop="1rem">
+      <StyledButton onClick={onPresentViewVotesModal} light="light" marginTop="1rem" marginRight="auto">
         {t("view votes")}
       </StyledButton>
 

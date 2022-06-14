@@ -23,7 +23,7 @@ const Voting = () => {
               <Content>
                 <Proposals />
               </Content>
-              <Link to="/voting/proposal/create1" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
+              <Link to="/voting/proposal_create" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
                 <StyledButton light="light">make a proposal</StyledButton>
               </Link>
             </Flex>

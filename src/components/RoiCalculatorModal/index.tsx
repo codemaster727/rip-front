@@ -1,23 +1,24 @@
 import {
   BalanceInput,
-  Button,
+  // Button,
   ButtonMenu,
   ButtonMenuItem,
   Checkbox,
   Flex,
   HelpIcon,
-  Modal,
   Text,
   useTooltip,
 } from "@pancakeswap/uikit";
 import BigNumber from "bignumber.js";
 import { useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "src/contexts/Localization";
-// import useActiveWeb3React from 'src/hooks/useActiveWeb3React'
 import { useWeb3Context } from "src/hooks";
 import { getBalanceNumber } from "src/utils/formatBalance";
 import styled from "styled-components";
 
+import { StyledButtonMenu } from "../SearchModal/Manage";
+import StyledButton from "../StyledButton";
+import StyledModal from "../StyledModal";
 import AnimatedArrow from "./AnimatedArrow";
 import RoiCalculatorFooter from "./RoiCalculatorFooter";
 import RoiCard from "./RoiCard";
@@ -26,7 +27,6 @@ import useRoiCalculatorReducer, {
   DefaultCompoundStrategy,
   EditingCurrency,
 } from "./useRoiCalculatorReducer";
-
 export interface RoiCalculatorModalProps {
   onDismiss?: () => void;
   onBack?: () => void;
@@ -50,12 +50,12 @@ export interface RoiCalculatorModalProps {
   header?: React.ReactNode;
 }
 
-const StyledModal = styled(Modal)`
-  width: 380px;
-  & > :nth-child(2) {
-    padding: 0;
-  }
-`;
+// const StyledModal = styled(Modal)`
+//   width: 380px;
+//   & > :nth-child(2) {
+//     padding: 0;
+//   }
+// `;
 
 const ScrollableContainer = styled.div`
   padding: 24px;
@@ -74,6 +74,22 @@ const FullWidthButtonMenu = styled(ButtonMenu)<{ disabled?: boolean }>`
   }
 
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
+`;
+
+const StyledBalanceInput = styled(BalanceInput)`
+  background-color: transparent !important;
+  border: 1px solid ${({ theme }) => theme.colors.primary};
+  // & > div {
+  //   background-color: transparent !important;
+  // }
+  & > * > * > input,
+  & > * > * > * > input,
+  & > * > * > * > * > input {
+    background-color: transparent !important;
+    // &::placeholder {
+    //   color: black !important;
+    // }
+  }
 `;
 
 const RoiCalculatorModal: React.FC<RoiCalculatorModalProps> = ({
@@ -156,12 +172,7 @@ const RoiCalculatorModal: React.FC<RoiCalculatorModalProps> = ({
   const DURATION = useMemo(() => [t("1D"), t("7D"), t("30D"), t("1Y"), t("5Y")], [t]);
 
   return (
-    <StyledModal
-      title={t("ROI Calculator")}
-      onDismiss={onBack || onDismiss}
-      onBack={onBack ?? undefined}
-      headerBackground="gradients.cardHeader"
-    >
+    <StyledModal title={t("ROI Calculator")} onDismiss={onBack || onDismiss} onBack={onBack ?? undefined}>
       <ScrollableContainer>
         {strategy ? (
           strategy(state, dispatch)
@@ -180,7 +191,8 @@ const RoiCalculatorModal: React.FC<RoiCalculatorModalProps> = ({
           <Text color="secondary" bold fontSize="12px" textTransform="uppercase">
             {t("%asset% staked", { asset: stakingTokenSymbol })}
           </Text>
-          <BalanceInput
+          <StyledBalanceInput
+            className="balance-input"
             currencyValue={`${conversionValue} ${conversionUnit}`}
             innerRef={balanceInputRef}
             placeholder="0.00"
@@ -189,9 +201,11 @@ const RoiCalculatorModal: React.FC<RoiCalculatorModalProps> = ({
             onUserInput={onUserInput}
             switchEditingUnits={toggleEditingCurrency}
             onFocus={onBalanceFocus}
+            background="primary"
+            color="black"
           />
           <Flex justifyContent="space-between" mt="8px">
-            <Button
+            <StyledButton
               scale="xs"
               p="4px 16px"
               width="68px"
@@ -199,8 +213,8 @@ const RoiCalculatorModal: React.FC<RoiCalculatorModalProps> = ({
               onClick={() => setPrincipalFromUSDValue("100")}
             >
               $100
-            </Button>
-            <Button
+            </StyledButton>
+            <StyledButton
               scale="xs"
               p="4px 16px"
               width="68px"
@@ -208,8 +222,8 @@ const RoiCalculatorModal: React.FC<RoiCalculatorModalProps> = ({
               onClick={() => setPrincipalFromUSDValue("1000")}
             >
               $1000
-            </Button>
-            <Button
+            </StyledButton>
+            <StyledButton
               disabled={
                 !Number.isFinite(stakingTokenPrice) ||
                 !stakingTokenBalance.isFinite() ||
@@ -225,7 +239,7 @@ const RoiCalculatorModal: React.FC<RoiCalculatorModalProps> = ({
               }
             >
               {t("My Balance").toLocaleUpperCase()}
-            </Button>
+            </StyledButton>
             <span ref={targetRef}>
               <HelpIcon width="16px" height="16px" color="textSubtle" />
             </span>
@@ -236,13 +250,17 @@ const RoiCalculatorModal: React.FC<RoiCalculatorModalProps> = ({
               <Text mt="24px" color="secondary" bold fontSize="12px" textTransform="uppercase">
                 {t("Staked for")}
               </Text>
-              <FullWidthButtonMenu activeIndex={stakingDuration} onItemClick={setStakingDuration} scale="sm">
-                {DURATION.map(duration => (
-                  <ButtonMenuItem key={duration} variant="tertiary">
+              <StyledButtonMenu activeIndex={stakingDuration} onItemClick={setStakingDuration} scale="sm">
+                {DURATION.map((duration: any, index: number) => (
+                  <ButtonMenuItem
+                    key={duration}
+                    variant="tertiary"
+                    style={{ color: stakingDuration === index ? "black" : "#00FCB0" }}
+                  >
                     {duration}
                   </ButtonMenuItem>
                 ))}
-              </FullWidthButtonMenu>
+              </StyledButtonMenu>
             </>
           )}
           {autoCompoundFrequency === 0 && (
@@ -255,17 +273,25 @@ const RoiCalculatorModal: React.FC<RoiCalculatorModalProps> = ({
                   <Checkbox scale="sm" checked={compounding} onChange={toggleCompounding} />
                 </Flex>
                 <Flex flex="6">
-                  <FullWidthButtonMenu
+                  <StyledButtonMenu
                     disabled={!compounding}
                     activeIndex={activeCompoundingIndex}
                     onItemClick={setCompoundingFrequency}
                     scale="sm"
                   >
-                    <ButtonMenuItem>{t("1D")}</ButtonMenuItem>
-                    <ButtonMenuItem>{t("7D")}</ButtonMenuItem>
-                    <ButtonMenuItem>{t("14D")}</ButtonMenuItem>
-                    <ButtonMenuItem>{t("30D")}</ButtonMenuItem>
-                  </FullWidthButtonMenu>
+                    <ButtonMenuItem style={{ color: activeCompoundingIndex === 0 ? "black" : "#00FCB0" }}>
+                      {t("1D")}
+                    </ButtonMenuItem>
+                    <ButtonMenuItem style={{ color: activeCompoundingIndex === 1 ? "black" : "#00FCB0" }}>
+                      {t("7D")}
+                    </ButtonMenuItem>
+                    <ButtonMenuItem style={{ color: activeCompoundingIndex === 2 ? "black" : "#00FCB0" }}>
+                      {t("14D")}
+                    </ButtonMenuItem>
+                    <ButtonMenuItem style={{ color: activeCompoundingIndex === 3 ? "black" : "#00FCB0" }}>
+                      {t("30D")}
+                    </ButtonMenuItem>
+                  </StyledButtonMenu>
                 </Flex>
               </Flex>
             </>

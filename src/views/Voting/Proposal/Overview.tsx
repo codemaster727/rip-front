@@ -101,16 +101,18 @@ const Overview = () => {
                   <ProposalStateTag proposalState={proposal.state} />
                   <ProposalTypeTag isCoreProposal={isCoreProposal(proposal)} marginLeft={2} />
                 </Box>
-                {!isPageLoading && !hasAccountVoted && proposal.state === ProposalState.ACTIVE && (
-                  <Vote proposal={proposal} onSuccess={refetch} mb="1rem" />
-                )}
-                <Results
-                  choices={proposal.choices}
-                  votes={votes as VoteProp[]}
-                  votesLoadingStatus={votesLoadingStatus}
-                  onPresentViewVotesModal={onPresentViewVotesModal}
-                />
-                <Details proposal={proposal} />
+                <Flex alignItems="baseline" flexDirection={isMobile ? "column" : "row"} style={{ gap: "0.3rem" }}>
+                  {!isPageLoading && !hasAccountVoted && proposal.state === ProposalState.ACTIVE && (
+                    <Vote proposal={proposal} onSuccess={refetch} mb="2rem" />
+                  )}
+                  <Results
+                    choices={proposal.choices}
+                    votes={votes as VoteProp[]}
+                    votesLoadingStatus={votesLoadingStatus}
+                    onPresentViewVotesModal={onPresentViewVotesModal}
+                  />
+                  <Details proposal={proposal} />
+                </Flex>
               </Flex>
             </Box>
           </Container>

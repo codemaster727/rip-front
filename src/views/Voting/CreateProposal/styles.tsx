@@ -10,6 +10,7 @@ const BaseLabel = styled.label`
 
 export const Label = styled(BaseLabel)`
   font-size: 20px;
+  color: black;
 `;
 
 export const SecondaryLabel = styled(BaseLabel)`

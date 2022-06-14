@@ -1,4 +1,5 @@
-import { AutoRenewIcon, Button, ChevronRightIcon, IconButton, Message, Skeleton, Text } from "@pancakeswap/uikit";
+import { AutoRenewIcon, ChevronRightIcon, IconButton, Message, Skeleton, Text } from "@pancakeswap/uikit";
+import StyledButton from "src/components/StyledButton";
 import { useTranslation } from "src/contexts/Localization";
 import { formatNumber } from "src/utils/formatBalance";
 
@@ -77,7 +78,7 @@ const MainView: React.FC<MainViewProps> = ({
           </>
         )}
       </ModalInner>
-      <Button
+      <StyledButton
         isLoading={isPending}
         endIcon={isPending ? <AutoRenewIcon spin color="currentColor" /> : null}
         disabled={disabled || isLoading || total === 0}
@@ -86,10 +87,10 @@ const MainView: React.FC<MainViewProps> = ({
         onClick={onConfirm}
       >
         {t("Confirm Vote")}
-      </Button>
-      <Button variant="secondary" width="100%" onClick={onDismiss}>
+      </StyledButton>
+      <StyledButton width="100%" onClick={onDismiss}>
         {t("Cancel")}
-      </Button>
+      </StyledButton>
     </>
   );
 };

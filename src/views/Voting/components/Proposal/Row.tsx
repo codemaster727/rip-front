@@ -16,7 +16,7 @@ export const VotingPowerColumn = styled(Box)`
 `;
 
 const Row = styled(Grid)`
-  border-bottom: 1px solid ${({ theme }) => theme.colors.cardBorder};
+  // border-bottom: 1px solid ${({ theme }) => theme.colors.cardBorder};
   grid-gap: 0.5rem;
   grid-template-areas:
     "choice choice"

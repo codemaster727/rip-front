@@ -74,7 +74,7 @@ const Vote: React.FC<VoteProps> = ({ proposal, onSuccess, ...props }) => {
 
         return (
           <Choice key={choice} isChecked={isChecked} isDisabled={!account}>
-            <Flex key={index} flexDirection="row" alignItems="center" style={{ gap: "1rem" }}>
+            <Flex key={index} flexDirection="row" alignItems="center" style={{ gap: "0.5rem" }}>
               <Radio
                 className="styled-radio"
                 scale="sm"
@@ -90,11 +90,11 @@ const Vote: React.FC<VoteProps> = ({ proposal, onSuccess, ...props }) => {
         );
       })}
       {account ? (
-        <StyledButton onClick={presentCastVoteModal} disabled={vote === null} light="light">
+        <StyledButton onClick={presentCastVoteModal} disabled={vote === null} marginRight="auto" light="light">
           {t("vote now")}
         </StyledButton>
       ) : (
-        <ConnectButton />
+        <ConnectButton light="light" />
       )}
     </div>
   );

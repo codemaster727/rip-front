@@ -392,14 +392,6 @@ function App() {
                 )}
               </Route>
 
-              <Route path="/v1-stake">
-                <V1Stake
-                  hasActiveV1Bonds={hasActiveV1Bonds}
-                  oldAssetsDetected={oldAssetsDetected}
-                  setMigrationModalOpen={setMigrationModalOpen}
-                />
-              </Route>
-
               <Route exact path="/swap">
                 <Swap></Swap>
               </Route>
@@ -432,12 +424,12 @@ function App() {
                 <Voting />
               </Route>
 
-              <Route exact path="/voting/proposal/:id?">
-                <ProposalPage />
+              <Route exact path="/voting/proposal_create">
+                <CreateProposal />
               </Route>
 
-              <Route exact path="/voting/proposal/create">
-                <CreateProposal />
+              <Route exact path="/voting/proposal/:id?">
+                <ProposalPage />
               </Route>
 
               <Route exact path="/give">

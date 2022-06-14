@@ -1,6 +1,5 @@
 import {
   AutoRenewIcon,
-  CommunityIcon,
   RefreshIcon,
   Tag,
   TagProps,
@@ -13,16 +12,12 @@ import {
 } from "@pancakeswap/uikit";
 import { memo } from "react";
 import ClosedIcon from "src/assets/icons/closed-icon.svg";
+import CommunityIcon from "src/assets/icons/community.svg";
 import { useTranslation } from "src/contexts/Localization";
 
 const CoreTag: React.FC<TagProps> = props => {
   const { t } = useTranslation();
-  return (
-    <Tag variant="primary" outline {...props}>
-      {/* {t("Core")} */}
-      <VerifiedIcon width="18px" color="secondary" />
-    </Tag>
-  );
+  return <VerifiedIcon width="18px" color="secondary" />;
 };
 
 const FarmAuctionTagToolTipContent = memo(() => {
@@ -37,7 +32,8 @@ const FarmAuctionTag: React.FC<TagProps> = props => {
     <>
       {tooltipVisible && tooltip}
       <TooltipText ref={targetRef} style={{ textDecoration: "none" }}>
-        <Tag variant="failure" outline startIcon={<CommunityIcon width="18px" color="failure" mr="4px" />} {...props}>
+        <Tag variant="failure" outline {...props}>
+          <img width="18px" color="failure" src={CommunityIcon} />
           {t("Farm Auction")}
         </Tag>
       </TooltipText>
@@ -47,12 +43,7 @@ const FarmAuctionTag: React.FC<TagProps> = props => {
 
 const CommunityTag: React.FC<TagProps> = props => {
   const { t } = useTranslation();
-  return (
-    <Tag variant="failure" outline {...props}>
-      {/* {t("Community")} */}
-      <CommunityIcon width="18px" color="failure" margin={0} />
-    </Tag>
-  );
+  return <img width="18px" color="failure" src={CommunityIcon} />;
 };
 
 const DualTag: React.FC<TagProps> = props => {
@@ -104,7 +95,7 @@ const ClosedTag: React.FC<TagProps> = props => {
   const { t } = useTranslation();
   return (
     // <Tag {...props}>
-    <img src={ClosedIcon} width={24} />
+    <img src={ClosedIcon} width={18} style={{ marginRight: "0.5rem" }} />
     // </Tag>
   );
 };

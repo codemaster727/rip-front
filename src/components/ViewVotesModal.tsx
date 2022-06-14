@@ -25,7 +25,7 @@ interface ExtendedInjectedModalProps extends InjectedModalProps {
 const ViewVotesModal: React.FC<ExtendedInjectedModalProps> = ({ onDismiss, proposal, votes, votesLoadingStatus }) => {
   return (
     <StyledModal width={0} onDismiss={onDismiss} padding="0" closebtn={false}>
-      <RoundedBox>
+      <RoundedBox light="none">
         <FlexLayout light="dark" cols={false} style={{ backgroundColor: "transparent" }}>
           <Votes
             votes={votes as VoteProp[]}

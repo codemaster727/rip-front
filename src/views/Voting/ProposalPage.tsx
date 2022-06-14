@@ -8,7 +8,7 @@ import { SWRConfig, unstable_serialize } from "swr";
 
 const ProposalPage: React.FC = () => {
   const [fallback, setFallback] = useState({});
-  const { history } = useHistory();
+  const history = useHistory();
   const params: any = useParams();
   const { id } = params || {};
 

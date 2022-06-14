@@ -11,33 +11,46 @@ interface SimpleMdeProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement
 }
 
 const Wrapper = styled.div`
-  .EasyMDEContainer .CodeMirror {
-    background: ${({ theme }) => theme.colors.input};
-    border-color: ${({ theme }) => theme.colors.cardBorder};
-    border-bottom-left-radius: 16px;
-    border-bottom-right-radius: 16px;
+  border: 1px solid ${({ theme }) => "black"};
+  border-radius: 16px;
+  .EasyMDEContainer {
+    background: ${({ theme }) => theme.colors.primary};
+    border-radius: 16px;
     box-shadow: ${({ theme }) => theme.shadows.inset};
     padding: 16px;
   }
 
+  .EasyMDEContainer .CodeMirror {
+    background: ${({ theme }) => theme.colors.primary};
+    paddingy: 16px;
+    border: none;
+  }
+
   .CodeMirror-code {
-    color: ${({ theme }) => theme.colors.text};
+    color: ${({ theme }) => theme.colors.text_b};
   }
 
   .CodeMirror-cursor {
-    border-left: ${({ theme }) => `1px solid ${theme.colors.text}`};
+    border-left: ${({ theme }) => `1px solid ${theme.colors.text_b}`};
+  }
+
+  .CodeMirror-scroll {
+    min-height: 150px !important;
   }
 
   .editor-toolbar {
-    background: ${({ theme }) => theme.card.background};
-    border-color: ${({ theme }) => theme.colors.cardBorder};
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    color: ${({ theme }) => theme.colors.text};
+    background: ${({ theme }) => theme.colors.background};
+    border-radius: 40px;
+    color: ${({ theme }) => theme.colors.primary};
+    border: none;
+
+    .separator {
+      border: 1px solid ${({ theme }) => theme.colors.primary};
+    }
 
     a,
     button {
-      color: ${({ theme }) => theme.colors.text};
+      color: ${({ theme }) => theme.colors.primary};
 
       &:hover,
       &.active {
