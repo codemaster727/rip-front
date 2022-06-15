@@ -20,7 +20,7 @@ const RoiCardInner = styled(Box)`
   padding: 24px;
   border: 1px solid ${({ theme }) => theme.colors.primary};
   border-radius: ${({ theme }) => theme.radii.default};
-  background: "transparent;
+  background: transparent;
 `;
 
 const RoiInputContainer = styled(Box)`

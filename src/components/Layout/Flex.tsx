@@ -3,10 +3,11 @@ import styled from "styled-components";
 
 const FlexLayout: any = styled.div<{ cols?: boolean; light?: string }>`
   display: flex;
+  flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
   // min-height: 250px;
-  max-height: 570px;
+  max-height: 580px;
   overflow-y: auto;
   &::-webkit-scrollbar {
     display: block !important;

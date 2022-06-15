@@ -72,21 +72,21 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, displayApr, removed, cakePric
           <Flex justifyContent="space-between" alignItems="center">
             <Text>{t("apr")}:</Text>
             <Text bold style={{ display: "flex", alignItems: "center" }}>
-              {farm.apr ? (
-                <ApyButton
-                  variant="text-and-button"
-                  pid={farm.pid}
-                  lpSymbol={farm.lpSymbol}
-                  multiplier={farm.multiplier as string}
-                  lpLabel={lpLabel}
-                  addLiquidityUrl={addLiquidityUrl}
-                  cakePrice={cakePrice}
-                  apr={farm.apr}
-                  displayApr={displayApr}
-                />
-              ) : (
+              {/* {farm.apr ? ( */}
+              <ApyButton
+                variant="text-and-button"
+                pid={farm.pid}
+                lpSymbol={farm.lpSymbol}
+                multiplier={farm.multiplier as string}
+                lpLabel={lpLabel}
+                addLiquidityUrl={addLiquidityUrl}
+                cakePrice={cakePrice}
+                apr={farm.apr}
+                displayApr={displayApr}
+              />
+              {/* ) : (
                 <Skeleton height={24} width={80} />
-              )}
+              )} */}
             </Text>
           </Flex>
         )}

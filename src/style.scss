@@ -32,8 +32,14 @@ body,
     border-radius: 20px;
   }
 
-  input.balance-input {
-    background-color: red !important;
+  .balance-input {
+    background: none;
+    background-color: transparent !important;
+    border: 1px solid #00FCB0;
+    & > div > div > div > input {
+      background: none;
+      background: transparent !important;
+    }
   }
 
   .react-datepicker__input-container input {
