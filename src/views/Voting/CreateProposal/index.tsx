@@ -200,7 +200,7 @@ const CreateProposal = () => {
         <Text color="blueish_gray" mr="16px">
           {t("Snapshot")}
         </Text>
-        <Link to={getBscScanLink(snapshot, "block")}>
+        <Link to={getBscScanLink(snapshot, "block")} target="_blank">
           <Text color="blueish_gray">{snapshot}</Text>
         </Link>
       </Flex>

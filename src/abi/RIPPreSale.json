@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-artifact-1",
   "contractName": "RIPPreSale",
-  "sourceName": "contracts/sale/olympus/presale/RIPPresale.sol",
+  "sourceName": "contracts/sale/rip/presale/RIPPresale.sol",
   "abi": [
     {
       "inputs": [

@@ -26,7 +26,7 @@ exports[`<Sidebar/> should render component 1`] = `
               >
                 <a
                   class="MuiTypography-root MuiLink-root MuiLink-underlineNone MuiTypography-colorPrimary"
-                  href="https://olympusdao.finance"
+                  href="https://r.rip.finance"
                   target="_blank"
                 >
                   <svg
@@ -36,7 +36,7 @@ exports[`<Sidebar/> should render component 1`] = `
                     style="min-width: 151px; min-height: 98px; width: 151px;"
                     viewBox="0 0 151 100"
                   >
-                    olympus-nav-header.svg
+                    rip-nav-header.svg
                   </svg>
                 </a>
               </div>
@@ -359,7 +359,7 @@ exports[`<Sidebar/> should render component 1`] = `
                   >
                     <a
                       class="MuiTypography-root MuiLink-root MuiLink-underlineNone external-site-link  MuiTypography-colorPrimary"
-                      href="https://pro.olympusdao.finance/"
+                      href="https://pro.r.rip.finance/"
                       target="_blank"
                     >
                       <h6
@@ -407,7 +407,7 @@ exports[`<Sidebar/> should render component 1`] = `
                   >
                     <a
                       class="MuiTypography-root MuiLink-root MuiLink-underlineNone external-site-link  MuiTypography-colorPrimary"
-                      href="https://forum.olympusdao.finance/"
+                      href="https://forum.r.rip.finance/"
                       target="_blank"
                     >
                       <h6
@@ -448,7 +448,7 @@ exports[`<Sidebar/> should render component 1`] = `
                   >
                     <a
                       class="MuiTypography-root MuiLink-root MuiLink-underlineNone external-site-link  MuiTypography-colorPrimary"
-                      href="https://vote.olympusdao.finance/"
+                      href="https://vote.r.rip.finance/"
                       target="_blank"
                     >
                       <h6
@@ -489,7 +489,7 @@ exports[`<Sidebar/> should render component 1`] = `
                   >
                     <a
                       class="MuiTypography-root MuiLink-root MuiLink-underlineNone external-site-link  MuiTypography-colorPrimary"
-                      href="https://docs.olympusdao.finance/"
+                      href="https://docs.r.rip.finance/"
                       target="_blank"
                     >
                       <h6
@@ -530,7 +530,7 @@ exports[`<Sidebar/> should render component 1`] = `
                   >
                     <a
                       class="MuiTypography-root MuiLink-root MuiLink-underlineNone external-site-link  MuiTypography-colorPrimary"
-                      href="https://immunefi.com/bounty/olympus/"
+                      href="https://immunefi.com/bounty/rip/"
                       target="_blank"
                     >
                       <h6
@@ -593,7 +593,7 @@ exports[`<Sidebar/> should render component 1`] = `
                 </a>
                 <a
                   class="MuiTypography-root MuiLink-root MuiLink-underlineNone MuiTypography-colorPrimary"
-                  href="https://olympusdao.medium.com/"
+                  href="https://r.rip.medium.com/"
                   target="_blank"
                 >
                   <svg
