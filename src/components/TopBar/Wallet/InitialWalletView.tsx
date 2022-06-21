@@ -12,11 +12,12 @@ import {
   withStyles,
 } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
-import { Icon, OHMTokenStackProps, TokenStack } from "@olympusdao/component-library";
+import { Icon, OHMTokenStackProps } from "@olympusdao/component-library";
 import type { TokenName } from "@olympusdao/component-library/lib/components/Token/Token";
 import { ReactElement, useState } from "react";
 import { ReactComponent as ArrowUpIcon } from "src/assets/icons/arrow-up.svg";
 import RipIcon from "src/assets/icons/RipIcon.svg";
+import { CurrencyLogo } from "src/components/Logo";
 // import { CurrencyLogo } from "src/components/Logo";
 import { addresses } from "src/constants";
 import { formatCurrency } from "src/helpers";
@@ -42,7 +43,7 @@ const Borrow = ({
   href: string;
 }) => {
   const theme = useTheme();
-  const Icon1_currency = useCurrency(Icon1);
+  const BNB_currency = useCurrency("BNB");
   return (
     <ExternalLink href={href}>
       <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -54,7 +55,8 @@ const Borrow = ({
             name="arrow-down"
             style={{ fontSize: 15, transform: "rotate(270deg)", marginLeft: 5, marginRight: 5 }}
           />
-          <TokenStack style={{ fontSize: 26 }} tokens={borrowableTokensIcons} />
+          {/* <TokenStack style={{ fontSize: 26 }} tokens={borrowableTokensIcons} /> */}
+          <CurrencyLogo currency={BNB_currency} size="24" style={{ marginRight: "8px", width: "24px" }} />
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", marginTop: theme.spacing(1) }}>
           <Box sx={{ display: "flex", flexDirection: "column", textAlign: "right", marginRight: theme.spacing(0.5) }}>
