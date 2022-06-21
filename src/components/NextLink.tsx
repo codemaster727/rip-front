@@ -1,5 +1,5 @@
-import { Link } from "@pancakeswap/uikit";
 import { forwardRef } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 // react-router-dom LinkProps types
@@ -10,13 +10,15 @@ interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   prefetch?: boolean;
 }
 
-const A = styled.a``;
+const A = styled.a`
+  margin: 0;
+`;
 
 /**
  * temporary solution for migrating React Router to Next.js Link
  */
 export const NextLinkFromReactRouter = forwardRef<any, LinkProps>(({ to, children, ...props }, ref) => (
-  <Link href={to as string}>
+  <Link to={to as string} style={{ marginBottom: "0" }}>
     <A ref={ref} {...props}>
       {children}
     </A>

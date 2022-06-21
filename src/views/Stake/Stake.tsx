@@ -22,7 +22,7 @@ import { error } from "../../slices/MessagesSlice";
 import { changeApproval, changeStake } from "../../slices/StakeThunk";
 import { changeApproval as changeGripApproval } from "../../slices/WrapThunk";
 import { ConfirmDialog } from "./ConfirmDialog";
-import ExternalStakePool from "./ExternalStakePool";
+// import ExternalStakePool from "./ExternalStakePool";
 
 const Stake: React.FC = () => {
   const dispatch = useDispatch();
@@ -601,7 +601,7 @@ const Stake: React.FC = () => {
         </Paper>
       </Zoom>
       {/* NOTE (appleseed-olyzaps) olyzaps disabled until v2 contracts */}
-      <ExternalStakePool />
+      {/* <ExternalStakePool /> */}
     </div>
   );
 };

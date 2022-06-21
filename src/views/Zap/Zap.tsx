@@ -36,7 +36,7 @@ const Zap: React.FC = () => {
             {!address ? (
               <div className="stake-wallet-notification">
                 <div className="wallet-menu" id="wallet-menu">
-                  <ConnectButton />
+                  <ConnectButton light="light" />
                 </div>
                 <Typography variant="h6">
                   <Trans>Connect your wallet to use Zap</Trans>

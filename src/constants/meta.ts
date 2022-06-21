@@ -2,10 +2,10 @@ import { ContextApi } from "../contexts/Localization/types";
 import { PageMeta } from "./types";
 
 export const DEFAULT_META: PageMeta = {
-  title: "PancakeSwap",
+  title: "rip dao",
   description:
-    "The most popular AMM on BSC by user count! Earn CAKE through yield farming or win it in the Lottery, then stake it in Syrup Pools to earn more tokens! Initial Farm Offerings (new token launch model pioneered by PancakeSwap), NFTs, and more, on a platform you can trust.",
-  image: "https://pancakeswap.finance/images/hero.png",
+    "The most popular AMM on BSC by user count! Earn R.rip through yield farming or win it in the Lottery, then stake it in Syrup Pools to earn more tokens! Initial Farm Offerings (new token launch model pioneered by RipSwap), NFTs, and more, on a platform you can trust.",
+  image: "https://R.rip/logo192.png",
 };
 
 export const getCustomMeta = (path: string, t: ContextApi["t"]): PageMeta => {
@@ -33,110 +33,110 @@ export const getCustomMeta = (path: string, t: ContextApi["t"]): PageMeta => {
   switch (basePath) {
     case "/":
       return {
-        title: `${t("Home")} | ${t("PancakeSwap")}`,
+        title: `${t("Home")} | ${t("RipSwap")}`,
       };
     case "/swap":
       return {
-        title: `${t("Exchange")} | ${t("PancakeSwap")}`,
+        title: `${t("Exchange")} | ${t("RipSwap")}`,
       };
     case "/add":
       return {
-        title: `${t("Add Liquidity")} | ${t("PancakeSwap")}`,
+        title: `${t("Add Liquidity")} | ${t("RipSwap")}`,
       };
     case "/remove":
       return {
-        title: `${t("Remove Liquidity")} | ${t("PancakeSwap")}`,
+        title: `${t("Remove Liquidity")} | ${t("RipSwap")}`,
       };
     case "/liquidity":
       return {
-        title: `${t("Liquidity")} | ${t("PancakeSwap")}`,
+        title: `${t("Liquidity")} | ${t("RipSwap")}`,
       };
     case "/find":
       return {
-        title: `${t("Import Pool")} | ${t("PancakeSwap")}`,
+        title: `${t("Import Pool")} | ${t("RipSwap")}`,
       };
     case "/competition":
       return {
-        title: `${t("Trading Battle")} | ${t("PancakeSwap")}`,
+        title: `${t("Trading Battle")} | ${t("RipSwap")}`,
       };
     case "/prediction":
       return {
-        title: `${t("Prediction")} | ${t("PancakeSwap")}`,
+        title: `${t("Prediction")} | ${t("RipSwap")}`,
       };
     case "/prediction/leaderboard":
       return {
-        title: `${t("Leaderboard")} | ${t("PancakeSwap")}`,
+        title: `${t("Leaderboard")} | ${t("RipSwap")}`,
       };
     case "/farms":
       return {
-        title: `${t("Farms")} | ${t("PancakeSwap")}`,
+        title: `${t("Farms")} | ${t("RipSwap")}`,
       };
     case "/farms/auction":
       return {
-        title: `${t("Farm Auctions")} | ${t("PancakeSwap")}`,
+        title: `${t("Farm Auctions")} | ${t("RipSwap")}`,
       };
     case "/pools":
       return {
-        title: `${t("Pools")} | ${t("PancakeSwap")}`,
+        title: `${t("Pools")} | ${t("RipSwap")}`,
       };
     case "/lottery":
       return {
-        title: `${t("Lottery")} | ${t("PancakeSwap")}`,
+        title: `${t("Lottery")} | ${t("RipSwap")}`,
       };
     case "/ifo":
       return {
-        title: `${t("Initial Farm Offering")} | ${t("PancakeSwap")}`,
+        title: `${t("Initial Farm Offering")} | ${t("RipSwap")}`,
       };
     case "/teams":
       return {
-        title: `${t("Leaderboard")} | ${t("PancakeSwap")}`,
+        title: `${t("Leaderboard")} | ${t("RipSwap")}`,
       };
     case "/voting":
       return {
-        title: `${t("Voting")} | ${t("PancakeSwap")}`,
+        title: `${t("Voting")} | ${t("RipSwap")}`,
       };
     case "/voting/proposal":
       return {
-        title: `${t("Proposals")} | ${t("PancakeSwap")}`,
+        title: `${t("Proposals")} | ${t("RipSwap")}`,
       };
     case "/voting/proposal/create":
       return {
-        title: `${t("Make a Proposal")} | ${t("PancakeSwap")}`,
+        title: `${t("Make a Proposal")} | ${t("RipSwap")}`,
       };
     case "/info":
       return {
-        title: `${t("Overview")} | ${t("PancakeSwap Info & Analytics")}`,
-        description: "View statistics for Pancakeswap exchanges.",
+        title: `${t("Overview")} | ${t("RipSwap Info & Analytics")}`,
+        description: "View statistics for Ripswap exchanges.",
       };
     case "/info/pools":
       return {
-        title: `${t("Pools")} | ${t("PancakeSwap Info & Analytics")}`,
-        description: "View statistics for Pancakeswap exchanges.",
+        title: `${t("Pools")} | ${t("RipSwap Info & Analytics")}`,
+        description: "View statistics for Ripswap exchanges.",
       };
     case "/info/tokens":
       return {
-        title: `${t("Tokens")} | ${t("PancakeSwap Info & Analytics")}`,
-        description: "View statistics for Pancakeswap exchanges.",
+        title: `${t("Tokens")} | ${t("RipSwap Info & Analytics")}`,
+        description: "View statistics for Ripswap exchanges.",
       };
     case "/nfts":
       return {
-        title: `${t("Overview")} | ${t("PancakeSwap")}`,
+        title: `${t("Overview")} | ${t("RipSwap")}`,
       };
     case "/nfts/collections":
       return {
-        title: `${t("Collections")} | ${t("PancakeSwap")}`,
+        title: `${t("Collections")} | ${t("RipSwap")}`,
       };
     case "/nfts/activity":
       return {
-        title: `${t("Activity")} | ${t("PancakeSwap")}`,
+        title: `${t("Activity")} | ${t("RipSwap")}`,
       };
     case "/nfts/profile":
       return {
-        title: `${t("Profile")} | ${t("PancakeSwap")}`,
+        title: `${t("Profile")} | ${t("RipSwap")}`,
       };
     case "/pancake-squad":
       return {
-        title: `${t("Pancake Squad")} | ${t("PancakeSwap")}`,
+        title: `${t("Rip Squad")} | ${t("RipSwap")}`,
       };
     default:
       return {

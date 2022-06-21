@@ -37,6 +37,7 @@ import {
   PoolFinder,
   Farms,
   FarmsHistory,
+  Voting,
 } from "./views";
 import FarmsView from "./views/FarmsView";
 // import FarmsHistory from "./views/FarmsView/history";
@@ -63,6 +64,8 @@ import useSentryUser from "src/hooks/useSentryUser";
 import useUserAgent from "src/hooks/useUserAgent";
 import { usePollBlockNumber } from "src/slices/block/hooks";
 import { usePollCoreFarmData } from "src/slices/farms/hooks";
+import ProposalPage from "./views/Voting/ProposalPage";
+import CreateProposal from "./views/Voting/CreateProposal";
 // import useEagerConnect from "src/hooks/useEagerConnect";
 // import { useAccountEventListener } from "src/hooks/useAccountEventListener";
 
@@ -289,7 +292,7 @@ function App() {
       setWalletChecked(true);
     }
     if (shouldTriggerSafetyCheck()) {
-      dispatch(info("Safety Check: Always verify you're on app.olympusdao.finance!"));
+      dispatch(info("Safety Check: Always verify you're on r.rip!"));
     }
   }, []);
 
@@ -389,14 +392,6 @@ function App() {
                 )}
               </Route>
 
-              <Route path="/v1-stake">
-                <V1Stake
-                  hasActiveV1Bonds={hasActiveV1Bonds}
-                  oldAssetsDetected={oldAssetsDetected}
-                  setMigrationModalOpen={setMigrationModalOpen}
-                />
-              </Route>
-
               <Route exact path="/swap">
                 <Swap></Swap>
               </Route>
@@ -423,6 +418,18 @@ function App() {
                 <Farms>
                   <FarmsHistory />
                 </Farms>
+              </Route>
+
+              <Route exact path="/voting">
+                <Voting />
+              </Route>
+
+              <Route exact path="/voting/proposal_create">
+                <CreateProposal />
+              </Route>
+
+              <Route exact path="/voting/proposal/:id?">
+                <ProposalPage />
               </Route>
 
               <Route exact path="/give">

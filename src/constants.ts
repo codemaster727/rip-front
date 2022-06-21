@@ -19,7 +19,7 @@ export const POOL_GRAPH_URLS: IPoolGraphURLS = {
 export * from "./networkDetails";
 export * from "./helpers/v2BondDetails";
 
-//pancake
+//rip
 
 import { BigNumber } from "@ethersproject/bignumber";
 import { ChainId, JSBI, Percent, Token } from "@pancakeswap/sdk";

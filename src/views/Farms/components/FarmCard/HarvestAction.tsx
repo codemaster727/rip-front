@@ -4,7 +4,6 @@ import Balance from "src/components/Balance";
 import StyledButton from "src/components/StyledButton";
 import { ToastDescriptionWithTx } from "src/components/Toast";
 import { useTranslation } from "src/contexts/Localization";
-// import { useWeb3React } from '@web3-react/core'
 import { useWeb3Context } from "src/hooks";
 import { useAppDispatch } from "src/hooks";
 import useCatchTxError from "src/hooks/useCatchTxError";

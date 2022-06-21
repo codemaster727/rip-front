@@ -1,7 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { batch, useSelector } from "react-redux";
 import farmsConfig from "src/constants/farms";
-// import { useWeb3React } from '@web3-react/core'
 import { useWeb3Context } from "src/hooks";
 import { useAppDispatch } from "src/hooks";
 import { useFastRefreshEffect, useSlowRefreshEffect } from "src/hooks/useRefreshEffect";

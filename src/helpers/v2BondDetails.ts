@@ -103,7 +103,7 @@ const RipDaiDetails: V2BondDetails = {
   name: "RIP-DAI LP",
   bondIconSvg: ["OHM", "DAI"],
   async pricingFunction(provider, quoteToken) {
-    return pricingFunctionHelper(provider, quoteToken, "olympus", "dai");
+    return pricingFunctionHelper(provider, quoteToken, "rip", "dai");
   },
   isLP: true,
   lpUrl: {
@@ -118,7 +118,7 @@ const RipEthDetails: V2BondDetails = {
   name: "RIP-ETH LP",
   bondIconSvg: ["OHM", "wETH"],
   async pricingFunction(provider, quoteToken) {
-    return pricingFunctionHelper(provider, quoteToken, "olympus", "ethereum");
+    return pricingFunctionHelper(provider, quoteToken, "rip", "ethereum");
   },
   isLP: true,
   lpUrl: {

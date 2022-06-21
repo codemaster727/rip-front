@@ -1,5 +1,5 @@
 import { CheckmarkIcon, CloseIcon, LinkExternal } from "@pancakeswap/uikit";
-// import useActiveWeb3React from 'hooks/useActiveWeb3React'\
+// import useActiveWeb3React from 'src/hooks/useActiveWeb3React'\
 import { useWeb3Context } from "src/hooks";
 import styled from "styled-components";
 

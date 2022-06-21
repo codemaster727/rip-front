@@ -1,5 +1,4 @@
 import { ChainId } from "@pancakeswap/sdk";
-// import { useWeb3React } from '@web3-react/core'
 import BigNumber from "bignumber.js";
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";

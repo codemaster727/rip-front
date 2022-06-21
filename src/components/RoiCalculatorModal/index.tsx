@@ -1,23 +1,24 @@
 import {
   BalanceInput,
-  Button,
+  // Button,
   ButtonMenu,
   ButtonMenuItem,
   Checkbox,
   Flex,
   HelpIcon,
-  Modal,
   Text,
   useTooltip,
 } from "@pancakeswap/uikit";
 import BigNumber from "bignumber.js";
 import { useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "src/contexts/Localization";
-// import useActiveWeb3React from 'src/hooks/useActiveWeb3React'
 import { useWeb3Context } from "src/hooks";
 import { getBalanceNumber } from "src/utils/formatBalance";
 import styled from "styled-components";
 
+import { StyledButtonMenu } from "../SearchModal/Manage";
+import StyledButton from "../StyledButton";
+import StyledModal from "../StyledModal";
 import AnimatedArrow from "./AnimatedArrow";
 import RoiCalculatorFooter from "./RoiCalculatorFooter";
 import RoiCard from "./RoiCard";
@@ -26,7 +27,6 @@ import useRoiCalculatorReducer, {
   DefaultCompoundStrategy,
   EditingCurrency,
 } from "./useRoiCalculatorReducer";
-
 export interface RoiCalculatorModalProps {
   onDismiss?: () => void;
   onBack?: () => void;
@@ -50,12 +50,12 @@ export interface RoiCalculatorModalProps {
   header?: React.ReactNode;
 }
 
-const StyledModal = styled(Modal)`
-  width: 380px;
-  & > :nth-child(2) {
-    padding: 0;
-  }
-`;
+// const StyledModal = styled(Modal)`
+//   width: 380px;
+//   & > :nth-child(2) {
+//     padding: 0;
+//   }
+// `;
 
 const ScrollableContainer = styled.div`
   padding: 24px;
@@ -74,6 +74,15 @@ const FullWidthButtonMenu = styled(ButtonMenu)<{ disabled?: boolean }>`
   }
 
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
+`;
+
+const StyledBalanceInput = styled(BalanceInput)`
+  background: none;
+  background-color: transparent !important;
+  border: 1px solid ${({ theme }) => theme.colors.primary};
+  // & > div {
+  //   background-color: transparent !important;
+  // }
 `;
 
 const RoiCalculatorModal: React.FC<RoiCalculatorModalProps> = ({
@@ -156,131 +165,137 @@ const RoiCalculatorModal: React.FC<RoiCalculatorModalProps> = ({
   const DURATION = useMemo(() => [t("1D"), t("7D"), t("30D"), t("1Y"), t("5Y")], [t]);
 
   return (
-    <StyledModal
-      title={t("ROI Calculator")}
-      onDismiss={onBack || onDismiss}
-      onBack={onBack ?? undefined}
-      headerBackground="gradients.cardHeader"
-    >
-      <ScrollableContainer>
-        {strategy ? (
-          strategy(state, dispatch)
-        ) : (
-          <DefaultCompoundStrategy
-            apr={apy ?? apr}
-            dispatch={dispatch}
-            state={state}
-            earningTokenPrice={earningTokenPrice}
-            performanceFee={performanceFee}
-            stakingTokenPrice={stakingTokenPrice}
-          />
+    <StyledModal title={t("ROI Calculator")} onDismiss={onBack || onDismiss} onBack={onBack ?? undefined}>
+      {strategy ? (
+        strategy(state, dispatch)
+      ) : (
+        <DefaultCompoundStrategy
+          apr={apy ?? apr}
+          dispatch={dispatch}
+          state={state}
+          earningTokenPrice={earningTokenPrice}
+          performanceFee={performanceFee}
+          stakingTokenPrice={stakingTokenPrice}
+        />
+      )}
+      {header}
+      <Flex flexDirection="column" mb="8px">
+        <Text color="secondary" bold fontSize="12px" textTransform="uppercase">
+          {t("%asset% staked", { asset: stakingTokenSymbol })}
+        </Text>
+        <StyledBalanceInput
+          className="balance-input"
+          currencyValue={`${conversionValue} ${conversionUnit}`}
+          innerRef={balanceInputRef}
+          placeholder="0.00"
+          value={editingValue}
+          unit={editingUnit}
+          onUserInput={onUserInput}
+          switchEditingUnits={toggleEditingCurrency}
+          onFocus={onBalanceFocus}
+        />
+        <Flex justifyContent="space-between" mt="8px">
+          <StyledButton
+            scale="xs"
+            p="4px 16px"
+            width="68px"
+            variant="tertiary"
+            onClick={() => setPrincipalFromUSDValue("100")}
+          >
+            $100
+          </StyledButton>
+          <StyledButton
+            scale="xs"
+            p="4px 16px"
+            width="68px"
+            variant="tertiary"
+            onClick={() => setPrincipalFromUSDValue("1000")}
+          >
+            $1000
+          </StyledButton>
+          <StyledButton
+            disabled={
+              !Number.isFinite(stakingTokenPrice) ||
+              !stakingTokenBalance.isFinite() ||
+              stakingTokenBalance.lte(0) ||
+              !account
+            }
+            scale="xs"
+            p="4px 16px"
+            width="128px"
+            variant="tertiary"
+            onClick={() =>
+              setPrincipalFromUSDValue(getBalanceNumber(stakingTokenBalance.times(stakingTokenPrice)).toString())
+            }
+          >
+            {t("My Balance").toLocaleUpperCase()}
+          </StyledButton>
+          <span ref={targetRef}>
+            <HelpIcon width="16px" height="16px" color="textSubtle" />
+          </span>
+          {tooltipVisible && tooltip}
+        </Flex>
+        {children || (
+          <>
+            <Text mt="24px" color="secondary" bold fontSize="12px" textTransform="uppercase">
+              {t("Staked for")}
+            </Text>
+            <StyledButtonMenu activeIndex={stakingDuration} onItemClick={setStakingDuration} scale="sm">
+              {DURATION.map((duration: any, index: number) => (
+                <ButtonMenuItem
+                  key={duration}
+                  variant="tertiary"
+                  style={{ color: stakingDuration === index ? "black" : "#00FCB0" }}
+                >
+                  {duration}
+                </ButtonMenuItem>
+              ))}
+            </StyledButtonMenu>
+          </>
         )}
-        {header}
-        <Flex flexDirection="column" mb="8px">
-          <Text color="secondary" bold fontSize="12px" textTransform="uppercase">
-            {t("%asset% staked", { asset: stakingTokenSymbol })}
-          </Text>
-          <BalanceInput
-            currencyValue={`${conversionValue} ${conversionUnit}`}
-            innerRef={balanceInputRef}
-            placeholder="0.00"
-            value={editingValue}
-            unit={editingUnit}
-            onUserInput={onUserInput}
-            switchEditingUnits={toggleEditingCurrency}
-            onFocus={onBalanceFocus}
-          />
-          <Flex justifyContent="space-between" mt="8px">
-            <Button
-              scale="xs"
-              p="4px 16px"
-              width="68px"
-              variant="tertiary"
-              onClick={() => setPrincipalFromUSDValue("100")}
-            >
-              $100
-            </Button>
-            <Button
-              scale="xs"
-              p="4px 16px"
-              width="68px"
-              variant="tertiary"
-              onClick={() => setPrincipalFromUSDValue("1000")}
-            >
-              $1000
-            </Button>
-            <Button
-              disabled={
-                !Number.isFinite(stakingTokenPrice) ||
-                !stakingTokenBalance.isFinite() ||
-                stakingTokenBalance.lte(0) ||
-                !account
-              }
-              scale="xs"
-              p="4px 16px"
-              width="128px"
-              variant="tertiary"
-              onClick={() =>
-                setPrincipalFromUSDValue(getBalanceNumber(stakingTokenBalance.times(stakingTokenPrice)).toString())
-              }
-            >
-              {t("My Balance").toLocaleUpperCase()}
-            </Button>
-            <span ref={targetRef}>
-              <HelpIcon width="16px" height="16px" color="textSubtle" />
-            </span>
-            {tooltipVisible && tooltip}
-          </Flex>
-          {children || (
-            <>
-              <Text mt="24px" color="secondary" bold fontSize="12px" textTransform="uppercase">
-                {t("Staked for")}
-              </Text>
-              <FullWidthButtonMenu activeIndex={stakingDuration} onItemClick={setStakingDuration} scale="sm">
-                {DURATION.map(duration => (
-                  <ButtonMenuItem key={duration} variant="tertiary">
-                    {duration}
-                  </ButtonMenuItem>
-                ))}
-              </FullWidthButtonMenu>
-            </>
-          )}
-          {autoCompoundFrequency === 0 && (
-            <>
-              <Text mt="24px" color="secondary" bold fontSize="12px" textTransform="uppercase">
-                {t("Compounding every")}
-              </Text>
-              <Flex alignItems="center">
-                <Flex flex="1">
-                  <Checkbox scale="sm" checked={compounding} onChange={toggleCompounding} />
-                </Flex>
-                <Flex flex="6">
-                  <FullWidthButtonMenu
-                    disabled={!compounding}
-                    activeIndex={activeCompoundingIndex}
-                    onItemClick={setCompoundingFrequency}
-                    scale="sm"
-                  >
-                    <ButtonMenuItem>{t("1D")}</ButtonMenuItem>
-                    <ButtonMenuItem>{t("7D")}</ButtonMenuItem>
-                    <ButtonMenuItem>{t("14D")}</ButtonMenuItem>
-                    <ButtonMenuItem>{t("30D")}</ButtonMenuItem>
-                  </FullWidthButtonMenu>
-                </Flex>
+        {autoCompoundFrequency === 0 && (
+          <>
+            <Text mt="24px" color="secondary" bold fontSize="12px" textTransform="uppercase">
+              {t("Compounding every")}
+            </Text>
+            <Flex alignItems="center">
+              <Flex flex="1">
+                <Checkbox scale="sm" checked={compounding} onChange={toggleCompounding} />
               </Flex>
-            </>
-          )}
-        </Flex>
-        <AnimatedArrow calculatorState={state} />
-        <Flex>
-          <RoiCard
-            earningTokenSymbol={earningTokenSymbol}
-            calculatorState={state}
-            setTargetRoi={setTargetRoi}
-            setCalculatorMode={setCalculatorMode}
-          />
-        </Flex>
-      </ScrollableContainer>
+              <Flex flex="6">
+                <StyledButtonMenu
+                  disabled={!compounding}
+                  activeIndex={activeCompoundingIndex}
+                  onItemClick={setCompoundingFrequency}
+                  scale="sm"
+                >
+                  <ButtonMenuItem style={{ color: activeCompoundingIndex === 0 ? "black" : "#00FCB0" }}>
+                    {t("1D")}
+                  </ButtonMenuItem>
+                  <ButtonMenuItem style={{ color: activeCompoundingIndex === 1 ? "black" : "#00FCB0" }}>
+                    {t("7D")}
+                  </ButtonMenuItem>
+                  <ButtonMenuItem style={{ color: activeCompoundingIndex === 2 ? "black" : "#00FCB0" }}>
+                    {t("14D")}
+                  </ButtonMenuItem>
+                  <ButtonMenuItem style={{ color: activeCompoundingIndex === 3 ? "black" : "#00FCB0" }}>
+                    {t("30D")}
+                  </ButtonMenuItem>
+                </StyledButtonMenu>
+              </Flex>
+            </Flex>
+          </>
+        )}
+      </Flex>
+      <AnimatedArrow calculatorState={state} />
+      <Flex>
+        <RoiCard
+          earningTokenSymbol={earningTokenSymbol}
+          calculatorState={state}
+          setTargetRoi={setTargetRoi}
+          setCalculatorMode={setCalculatorMode}
+        />
+      </Flex>
       <RoiCalculatorFooter
         isFarm={isFarm}
         apr={apr}

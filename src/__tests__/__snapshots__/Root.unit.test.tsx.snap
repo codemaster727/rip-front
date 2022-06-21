@@ -24,7 +24,7 @@ exports[`<Root/> should render component 1`] = `
               >
                 Information
               </div>
-              Safety Check: Always verify you're on app.olympusdao.finance!
+              Safety Check: Always verify you're on app.r.ripdao.finance!
               <div
                 class="makeStyles-root-306"
               >
@@ -227,7 +227,7 @@ exports[`<Root/> should render component 1`] = `
                   >
                     <a
                       class="MuiTypography-root-276 MuiLink-root-421 MuiLink-underlineNone-422 MuiTypography-colorPrimary-299"
-                      href="https://olympusdao.finance"
+                      href="https://r.rip"
                       target="_blank"
                     >
                       <svg
@@ -237,7 +237,7 @@ exports[`<Root/> should render component 1`] = `
                         style="min-width: 151px; min-height: 98px; width: 151px;"
                         viewBox="0 0 151 100"
                       >
-                        olympus-nav-header.svg
+                        rip-nav-header.svg
                       </svg>
                     </a>
                   </div>
@@ -561,7 +561,7 @@ exports[`<Root/> should render component 1`] = `
                       >
                         <a
                           class="MuiTypography-root-276 MuiLink-root-421 MuiLink-underlineNone-422 external-site-link  MuiTypography-colorPrimary-299"
-                          href="https://pro.olympusdao.finance/"
+                          href="https://pro.r.rip.finance/"
                           target="_blank"
                         >
                           <h6
@@ -609,7 +609,7 @@ exports[`<Root/> should render component 1`] = `
                       >
                         <a
                           class="MuiTypography-root-276 MuiLink-root-421 MuiLink-underlineNone-422 external-site-link  MuiTypography-colorPrimary-299"
-                          href="https://forum.olympusdao.finance/"
+                          href="https://forum.r.rip.finance/"
                           target="_blank"
                         >
                           <h6
@@ -650,7 +650,7 @@ exports[`<Root/> should render component 1`] = `
                       >
                         <a
                           class="MuiTypography-root-276 MuiLink-root-421 MuiLink-underlineNone-422 external-site-link  MuiTypography-colorPrimary-299"
-                          href="https://vote.olympusdao.finance/"
+                          href="https://vote.r.rip.finance/"
                           target="_blank"
                         >
                           <h6
@@ -691,7 +691,7 @@ exports[`<Root/> should render component 1`] = `
                       >
                         <a
                           class="MuiTypography-root-276 MuiLink-root-421 MuiLink-underlineNone-422 external-site-link  MuiTypography-colorPrimary-299"
-                          href="https://docs.olympusdao.finance/"
+                          href="https://docs.r.ripdao.finance/"
                           target="_blank"
                         >
                           <h6
@@ -732,7 +732,7 @@ exports[`<Root/> should render component 1`] = `
                       >
                         <a
                           class="MuiTypography-root-276 MuiLink-root-421 MuiLink-underlineNone-422 external-site-link  MuiTypography-colorPrimary-299"
-                          href="https://immunefi.com/bounty/olympus/"
+                          href="https://immunefi.com/bounty/r.rip/"
                           target="_blank"
                         >
                           <h6
@@ -795,7 +795,7 @@ exports[`<Root/> should render component 1`] = `
                     </a>
                     <a
                       class="MuiTypography-root-276 MuiLink-root-421 MuiLink-underlineNone-422 MuiTypography-colorPrimary-299"
-                      href="https://olympusdao.medium.com/"
+                      href="https://r.ripdao.medium.com/"
                       target="_blank"
                     >
                       <svg

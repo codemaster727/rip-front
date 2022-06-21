@@ -8,7 +8,9 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { LanguageProvider } from "src/contexts/Localization";
 import { ToastsProvider } from "src/contexts/ToastsContext";
+import { fetchStatusMiddleware } from "src/hooks/useSWRContract";
 import { ThemeProvider } from "styled-components";
+import { SWRConfig } from "swr";
 
 import App, { GlobalHooks } from "./App";
 import useTheme from "./hooks/useTheme";
@@ -38,10 +40,12 @@ const updatedLight = {
     background: "linear-gradient(259.15deg, rgba(41, 255, 198, 0.2) 40.61%, rgba(255, 255, 255, 0) 166.25%), #000000",
     success: "#09FDB5",
     primary: "#00FCB0",
-    secondary: "#B3FFAB",
+    secondary: "#00FCB0",
     blueish_gray: "#445FA7",
     text: "#ffffff",
     textSubtle: "#ffffff",
+    text_b: "black",
+    dropdown: "linear-gradient(259.15deg, rgba(41, 255, 198, 0.2) 40.61%, rgba(255, 255, 255, 0) 166.25%), #222222",
     gradients: {
       ...colors.gradients,
       background: "linear-gradient(259.15deg, rgba(41, 255, 198, 0.2) 40.61%, rgba(255, 255, 255, 0) 166.25%), #000000",
@@ -66,17 +70,23 @@ const Root: FC = () => {
         <Provider store={store}>
           <ToastsProvider>
             <StyledThemeProvider>
-              <LanguageProvider>
-                <Updaters />
-                <GlobalHooks />
-                <I18nProvider i18n={i18n}>
-                  <BrowserRouter basename={"/#"}>
-                    <ModalProvider>
-                      <App />
-                    </ModalProvider>
-                  </BrowserRouter>
-                </I18nProvider>
-              </LanguageProvider>
+              <SWRConfig
+                value={{
+                  use: [fetchStatusMiddleware],
+                }}
+              >
+                <LanguageProvider>
+                  <Updaters />
+                  <GlobalHooks />
+                  <I18nProvider i18n={i18n}>
+                    <BrowserRouter basename={"/#"}>
+                      <ModalProvider>
+                        <App />
+                      </ModalProvider>
+                    </BrowserRouter>
+                  </I18nProvider>
+                </LanguageProvider>
+              </SWRConfig>
             </StyledThemeProvider>
           </ToastsProvider>
         </Provider>

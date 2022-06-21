@@ -9,6 +9,9 @@
 }
 .blur7 {
   backdrop-filter: blur(15px) !important;
+  @media (max-width: 500px) {
+    padding: 0.5rem !important;
+  }
 }
 .sidebar .MuiPaper-root {
   backdrop-filter: blur(0px) !important;

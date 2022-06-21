@@ -1,7 +1,5 @@
 import {
   AutoRenewIcon,
-  BlockIcon,
-  CommunityIcon,
   RefreshIcon,
   Tag,
   TagProps,
@@ -13,15 +11,13 @@ import {
   VoteIcon,
 } from "@pancakeswap/uikit";
 import { memo } from "react";
+import ClosedIcon from "src/assets/icons/closed-icon.svg";
+import CommunityIcon from "src/assets/icons/community.svg";
 import { useTranslation } from "src/contexts/Localization";
 
 const CoreTag: React.FC<TagProps> = props => {
   const { t } = useTranslation();
-  return (
-    <Tag variant="secondary" outline startIcon={<VerifiedIcon width="18px" color="secondary" mr="4px" />} {...props}>
-      {t("Core")}
-    </Tag>
-  );
+  return <VerifiedIcon width="18px" color="secondary" />;
 };
 
 const FarmAuctionTagToolTipContent = memo(() => {
@@ -36,7 +32,8 @@ const FarmAuctionTag: React.FC<TagProps> = props => {
     <>
       {tooltipVisible && tooltip}
       <TooltipText ref={targetRef} style={{ textDecoration: "none" }}>
-        <Tag variant="failure" outline startIcon={<CommunityIcon width="18px" color="failure" mr="4px" />} {...props}>
+        <Tag variant="failure" outline {...props}>
+          <img width="18px" color="failure" src={CommunityIcon} />
           {t("Farm Auction")}
         </Tag>
       </TooltipText>
@@ -46,11 +43,7 @@ const FarmAuctionTag: React.FC<TagProps> = props => {
 
 const CommunityTag: React.FC<TagProps> = props => {
   const { t } = useTranslation();
-  return (
-    <Tag variant="failure" outline startIcon={<CommunityIcon width="18px" color="failure" mr="4px" />} {...props}>
-      {t("Community")}
-    </Tag>
-  );
+  return <img width="18px" color="failure" src={CommunityIcon} />;
 };
 
 const DualTag: React.FC<TagProps> = props => {
@@ -101,9 +94,9 @@ const SoonTag: React.FC<TagProps> = props => {
 const ClosedTag: React.FC<TagProps> = props => {
   const { t } = useTranslation();
   return (
-    <Tag variant="textDisabled" startIcon={<BlockIcon width="18px" color="textDisabled" mr="4px" />} {...props}>
-      {t("Closed")}
-    </Tag>
+    // <Tag {...props}>
+    <img src={ClosedIcon} width={18} style={{ marginRight: "0.5rem" }} />
+    // </Tag>
   );
 };
 

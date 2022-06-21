@@ -10,22 +10,22 @@ export interface ExternalUrl {
 const externalUrls: ExternalUrl[] = [
   {
     title: <Trans>Forum</Trans>,
-    url: "https://forum.olympusdao.finance/",
+    url: "https://forum.r.rip.finance/",
     icon: "forum",
   },
   {
     title: <Trans>Governance</Trans>,
-    url: "https://vote.olympusdao.finance/",
+    url: "https://vote.r.rip.finance/",
     icon: "governance",
   },
   {
     title: <Trans>Docs</Trans>,
-    url: "https://docs.olympusdao.finance/",
+    url: "https://docs.r.rip.finance/",
     icon: "docs",
   },
   {
     title: <Trans>Bug Bounty</Trans>,
-    url: "https://immunefi.com/bounty/olympus/",
+    url: "https://immunefi.com/bounty/rip/",
     icon: "bug-report",
   },
 ];

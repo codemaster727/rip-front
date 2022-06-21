@@ -6,7 +6,7 @@ import { useMemo } from "react";
 import { BIPS_BASE, INITIAL_ALLOWED_SLIPPAGE } from "../constants";
 import { getRouterContract } from "../utils";
 import useTransactionDeadline from "./useTransactionDeadline";
-// import useActiveWeb3React from 'hooks/useActiveWeb3React'
+// import useActiveWeb3React from 'src/hooks/useActiveWeb3React'
 import { useWeb3Context } from "./web3Context";
 
 interface SwapCall {

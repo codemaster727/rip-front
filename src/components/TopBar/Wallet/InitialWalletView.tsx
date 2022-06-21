@@ -12,39 +12,51 @@ import {
   withStyles,
 } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
-import { Icon, OHMTokenProps, OHMTokenStackProps, Token, TokenStack } from "@olympusdao/component-library";
+import { Icon, OHMTokenStackProps } from "@olympusdao/component-library";
+import type { TokenName } from "@olympusdao/component-library/lib/components/Token/Token";
 import { ReactElement, useState } from "react";
 import { ReactComponent as ArrowUpIcon } from "src/assets/icons/arrow-up.svg";
+import RipIcon from "src/assets/icons/RipIcon.svg";
+import { CurrencyLogo } from "src/components/Logo";
+// import { CurrencyLogo } from "src/components/Logo";
 import { addresses } from "src/constants";
 import { formatCurrency } from "src/helpers";
 import { dai, frax } from "src/helpers/AllBonds";
 import { useAppSelector, useWeb3Context } from "src/hooks";
+import { useCurrency } from "src/hooks/Tokens";
 import useCurrentTheme from "src/hooks/useTheme";
 
 import { Tokens, useWallet } from "./Token";
 import WalletAddressEns from "./WalletAddressEns";
+
+type RIPTokenPropsName = TokenName | "wsRIP";
+
 const Borrow = ({
   Icon1,
   borrowableTokensIcons,
   borrowOn,
   href,
 }: {
-  Icon1: OHMTokenProps["name"];
+  Icon1: RIPTokenPropsName;
   borrowableTokensIcons: OHMTokenStackProps["tokens"];
   borrowOn: string;
   href: string;
 }) => {
   const theme = useTheme();
+  const BNB_currency = useCurrency("BNB");
   return (
     <ExternalLink href={href}>
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Box sx={{ display: "flex", alignItems: "center", flexDirection: "row", justifyContent: "flex-start" }}>
-          <Token name={Icon1} style={{ fontSize: 26 }} />
+          {/* <Token name={Icon1} style={{ fontSize: 26 }} /> */}
+          {/* <CurrencyLogo currency={Icon1_currency} size="48" style={{ marginRight: "8px", width: "48px" }} /> */}
+          <img src={RipIcon} width="48px" />
           <Icon
             name="arrow-down"
             style={{ fontSize: 15, transform: "rotate(270deg)", marginLeft: 5, marginRight: 5 }}
           />
-          <TokenStack style={{ fontSize: 26 }} tokens={borrowableTokensIcons} />
+          {/* <TokenStack style={{ fontSize: 26 }} tokens={borrowableTokensIcons} /> */}
+          <CurrencyLogo currency={BNB_currency} size="24" style={{ marginRight: "8px", width: "24px" }} />
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", marginTop: theme.spacing(1) }}>
           <Box sx={{ display: "flex", flexDirection: "column", textAlign: "right", marginRight: theme.spacing(0.5) }}>
@@ -193,10 +205,10 @@ function InitialWalletView({ onClose }: { onClose: () => void }) {
             <Typography>Get on Uniswap</Typography>
           </ExternalLink>
           <Borrow
-            href={`https://app.rari.capital/fuse/pool/18`}
-            borrowOn="Rari Capital"
-            borrowableTokensIcons={["wETH", "DAI", "FRAX"]}
-            Icon1="wsOHM"
+            href={`https://app.cream.finance/`}
+            borrowOn="Cream finance"
+            borrowableTokensIcons={["wETH", "DAI"]}
+            Icon1="wsRIP"
           />
           <Box sx={{ display: "flex", flexDirection: "column" }} style={{ gap: theme.spacing(1.5) }}>
             <ExternalLink href={`https://dune.xyz/fluidsonic/RIPProtocol-DAO`}>

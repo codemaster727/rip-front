@@ -107,6 +107,7 @@ export default function ManageTokens({
               ref={inputRef as RefObject<HTMLInputElement>}
               onChange={handleInput}
               isWarning={!isAddressValid}
+              light="dark"
             />
           </Row>
           {!isAddressValid && <Text color="failure">{t("Enter valid token address")}</Text>}

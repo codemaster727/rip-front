@@ -13,7 +13,6 @@ import SearchInput from "src/components/SearchInput";
 import Select, { OptionProps } from "src/components/Select/Select";
 // import ToggleView from "src/components/ToggleView/ToggleView";
 import { useTranslation } from "src/contexts/Localization";
-// import { useWeb3React } from '@web3-react/core'
 import { useWeb3Context } from "src/hooks";
 import useIntersectionObserver from "src/hooks/useIntersectionObserver";
 import { useFarms, usePollFarmsWithUserData, usePriceCakeBusd } from "src/slices/farms/hooks";
@@ -392,13 +391,14 @@ const Farms: React.FC = ({ children }) => {
                     onChange={() => setStakedOnly(!stakedOnly)}
                     scale="sm"
                   />
-                  <Text> {t("Staked only")}</Text>
+                  <Text>{t("Staked only")}</Text>
                 </ToggleWrapper> */}
                 <FarmTabButtons hasStakeInFinishedFarms={stakedInactiveFarms.length > 0} />
               </ViewControls>
               <FilterContainer>
                 {isMobile && (
                   <Select
+                    width="70%"
                     options={[
                       {
                         label: t("Hot"),
@@ -455,7 +455,7 @@ const Farms: React.FC = ({ children }) => {
                   ))}
               </Flex>
               <div>
-                {isInactive && (
+                {/* {isInactive && (
                   <FinishedTextContainer>
                     <Text fontSize="16px" color="failure" pr="4px">
                       {t("Don't see the farm you are staking?")}
@@ -477,7 +477,7 @@ const Farms: React.FC = ({ children }) => {
                       </FinishedTextLink>
                     </Flex>
                   </FinishedTextContainer>
-                )}
+                )} */}
                 {renderContent()}
                 {account && !userDataLoaded && stakedOnly && (
                   <Flex justifyContent="center">

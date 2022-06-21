@@ -1,8 +1,8 @@
 {
-  "short_name": "OlympusDAO",
+  "short_name": "RIPDAO",
   "start_url": ".",
   "homepage": "./",
-  "name": "OlympusDAO",
+  "name": "ripdao",
   "launch_path": "/public/index.html",
   "icons": [
     {

@@ -1,8 +1,8 @@
 /* eslint-disable */
 import "./Sidebar.scss";
 
-import { t, Trans } from "@lingui/macro";
-import { Box, Divider, Link, Paper, SvgIcon, Typography } from "@material-ui/core";
+import { t } from "@lingui/macro";
+import { Box, Link, Paper, SvgIcon, Typography } from "@material-ui/core";
 import { NavItem } from "@olympusdao/component-library";
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
@@ -12,15 +12,16 @@ import { useAppSelector } from "src/hooks";
 import { useWeb3Context } from "src/hooks/web3Context";
 import { Bond } from "src/lib/Bond";
 import { IBondDetails } from "src/slices/BondSlice";
-import { getAllBonds, getUserNotes } from "src/slices/BondSliceV2";
+// import { getAllBonds, getUserNotes } from "src/slices/BondSliceV2";
 
-import { ReactComponent as RIPProtocolIcon } from "../../assets/icons/RipIcon.svg";
+import RipIcon, { ReactComponent as RIPProtocolIcon } from "../../assets/icons/RipIcon.svg";
 import SpeedOmeterIcon from "../../assets/icons/speedometer.svg";
 import GearIcon from "../../assets/icons/gear.svg";
 import StakeIcon from "../../assets/icons/stake.svg";
 import ConflictIcon from "../../assets/icons/conflict.svg";
 import BlanketIcon from "../../assets/icons/blanket.svg";
 import BridgeIcon from "../../assets/icons/bridge.svg";
+import VotingIcon from "../../assets/icons/voting.svg";
 import useBonds from "../../hooks/useBonds";
 import WalletAddressEns from "../TopBar/Wallet/WalletAddressEns";
 import Social from "./Social";
@@ -63,13 +64,8 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
       <Box className="dapp-sidebar-inner" display="flex" justifyContent="space-between" flexDirection="column">
         <div className="dapp-menu-top">
           <Box className="branding-header">
-            <Link href="https://olympusdao.finance" target="_blank">
-              <SvgIcon
-                color="primary"
-                component={RIPProtocolIcon}
-                viewBox="0 0 350 100"
-                style={{ minWidth: "280px", minHeight: "98px", width: "280px" }}
-              />
+            <Link href="https://r-rip.webflow.io/" target="_blank">
+              <img src={RipIcon} />
             </Link>
             <WalletAddressEns />
           </Box>
@@ -273,6 +269,33 @@ const NavContent: React.FC<NavContentProps> = ({ handleDrawerToggle }) => {
                           className="cta-text"
                         >
                           Wrap
+                        </Typography>
+                      </Box>
+                    </NavLink>
+                  </div>
+                  <div
+                    style={{
+                      backgroundColor: "black",
+                      marginLeft: "20px",
+                      marginRight: "20px",
+                      marginTop: "20px",
+                      borderRadius: "20px",
+                    }}
+                  >
+                    <NavLink
+                      to="/voting"
+                      // target="_blank"
+                      style={{ color: "white", textDecoration: "none" }}
+                    >
+                      <Box display="flex" justifyContent="space-between">
+                        <img src={VotingIcon} style={{ marginLeft: "25px", width: "33px", height: "45px" }} />
+                        <Typography
+                          variant="h5"
+                          align="right"
+                          style={{ margin: "auto", marginRight: "20px" }}
+                          className="cta-text"
+                        >
+                          Voting
                         </Typography>
                       </Box>
                     </NavLink>

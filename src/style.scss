@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css?family=Fredoka+One");
+@import url("https://fonts.googleapis.com/css?family=Lato");
+
 * {
   outline: none;
   -ms-overflow-style: none !important; /* IE and Edge */
@@ -21,12 +24,32 @@ body,
   h5 {
     font-family: "Fredoka One";
   }
+
   input:not(.token-amount-input, #token-search-input) {
     box-shadow: none;
     background: linear-gradient(259.15deg, rgba(41, 255, 198, 0.2) 40.61%, rgba(255, 255, 255, 0) 166.25%);
-    border: 1px solid #b3ffab;
+    // border: 1px solid #b3ffab;
     border-radius: 20px;
   }
+
+  .balance-input {
+    background: none;
+    background-color: transparent !important;
+    border: 1px solid #00FCB0;
+    & > div > div > div > input {
+      background: none;
+      background: transparent !important;
+    }
+  }
+
+  .react-datepicker__input-container input {
+    background: #00fcb0 !important;
+    border: 1px solid black;
+    &::placeholder {
+      color: #000000aa;
+    }
+  }
+
   input.styled-input {
     border: 1px solid black !important;
     color: black !important;
@@ -133,9 +156,15 @@ a {
 }
 
 .styled-radio {
+  width: 24px !important;
+  flex-shrink: 0;
+  display: block;
+  position: relative;
+  align-items: flex-start;
+  // margin-right: 0.5rem;
   &::after {
-    top: 5px !important;
-    left: 5px !important;
+    // top: 5px !important;
+    // left: 5px !important;
   }
   background-color: #09fdb5 !important;
   &::after {
@@ -149,12 +178,12 @@ a {
   }
 }
 
-.styled-card>div {
+.styled-card > div {
   background: linear-gradient(259.15deg, rgba(41, 255, 198, 0.2) 40.61%, rgba(255, 255, 255, 0) 166.25%), #000000;
 }
 
 .farm-card-title {
-  font-family: 'Fredoka One';
+  font-family: "Fredoka One";
   font-style: normal;
   font-weight: 400;
   font-size: 17px;
@@ -164,6 +193,15 @@ a {
 }
 
 .recharts-text.recharts-cartesian-axis-tick-value {
-  color: #445FA7 !important;
-  fill: #445FA7;
+  color: #445fa7 !important;
+  fill: #445fa7;
+}
+
+.progress_div > div {
+  background-color: rgba(0, 0, 0, 0.9);
+  outline: 1px solid #09fdb5;
+  & > div {
+    margin-left: -3px !important;
+    margin-bottom: -3px !important;
+  }
 }

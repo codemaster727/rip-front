@@ -6,7 +6,6 @@ import ConnectButton from "src/components/ConnectButton/ConnectButton";
 import { ToastDescriptionWithTx } from "src/components/Toast";
 import { BASE_ADD_LIQUIDITY_URL } from "src/constants";
 import { useTranslation } from "src/contexts/Localization";
-// import { useWeb3React } from '@web3-react/core'
 import { useWeb3Context } from "src/hooks";
 import { useAppDispatch } from "src/hooks";
 import useCatchTxError from "src/hooks/useCatchTxError";
