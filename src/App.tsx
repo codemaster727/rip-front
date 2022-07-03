@@ -26,9 +26,9 @@ import {
   Zap,
   Wrap,
   V1Stake,
-  CausesDashboard,
-  DepositYield,
-  RedeemYield,
+  // CausesDashboard,
+  // DepositYield,
+  // RedeemYield,
   BondV2,
   ChooseBondV2,
   Swap,
@@ -52,7 +52,7 @@ import { dark as darkTheme } from "./themes/dark.js";
 import { light as lightTheme } from "./themes/light.js";
 import { girth as gTheme } from "./themes/girth.js";
 import { useGoogleAnalytics } from "./hooks/useGoogleAnalytics";
-import ProjectInfo from "./views/Give/ProjectInfo";
+// import ProjectInfo from "./views/Give/ProjectInfo";
 import projectData from "src/views/Give/projects.json";
 import { Updaters } from "./Root";
 import { getAllBonds, getUserNotes } from "./slices/BondSliceV2";
@@ -432,7 +432,7 @@ function App() {
                 <ProposalPage />
               </Route>
 
-              <Route exact path="/give">
+              {/* <Route exact path="/give">
                 <CausesDashboard />
               </Route>
               <Redirect from="/olympusgive" to="/give" />
@@ -457,7 +457,7 @@ function App() {
 
               <Route exact path="/give/redeem">
                 <RedeemYield />
-              </Route>
+              </Route> */}
 
               <Route path="/wrap">
                 <Route exact path={`/wrap`}>
@@ -471,7 +471,7 @@ function App() {
                 </Route>
               </Route>
 
-              <Redirect from="/bonds-v1" to="/bonds" />
+              {/* <Redirect from="/bonds-v1" to="/bonds" /> */}
 
               <Route path="/bonds">
                 {bondIndexes.map(index => {
