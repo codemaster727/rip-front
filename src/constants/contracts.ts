@@ -1,3 +1,8 @@
+import { Contract } from "src/helpers/contracts/Contract";
+import { RIPProtocolGiving__factory } from "src/typechain/factories/RIPProtocolGiving__factory";
+
+import { GIVE_ADDRESSES } from "./addresses";
+
 export default {
   masterChef: {
     97: "",
@@ -108,3 +113,9 @@ export default {
     97: "0xfC0c3F11fDA72Cb9A56F28Ec8D44C0ae4B3ABF86",
   },
 };
+
+export const GIVE_CONTRACT = new Contract({
+  factory: RIPProtocolGiving__factory,
+  name: "RipProtocol Give Contract",
+  addresses: GIVE_ADDRESSES,
+});

@@ -12,6 +12,7 @@ import {
   WSRIP_ADDRESSES,
 } from "src/constants/addresses";
 import { assert, queryAssertion } from "src/helpers";
+import { nonNullable } from "src/helpers/types/nonNullable";
 import { covalent } from "src/lib/covalent";
 import { CovalentTokenBalance } from "src/lib/covalent.types";
 
@@ -22,6 +23,9 @@ const unstable_Object = Object as unstable_ObjectConstructor;
 type Balances = Record<keyof typeof covalent.SUPPORTED_NETWORKS, CovalentTokenBalance[]>;
 
 export const balancesQueryKey = (address?: string) => ["useBalances", address];
+
+export const balanceQueryKey = (address?: string, tokenAddressMap?: AddressMap, networkId?: NetworkId) =>
+  ["useBalance", address, tokenAddressMap, networkId].filter(nonNullable);
 
 export const useBalances = <TSelectData = unknown>(select: (data: Balances) => TSelectData) => {
   const { address } = useWeb3Context();

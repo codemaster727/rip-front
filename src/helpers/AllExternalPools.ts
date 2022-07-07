@@ -1,5 +1,5 @@
 import { BigNumber, ethers } from "ethers";
-import { abi as PairContractABI } from "src/abi/PairContract.json";
+import PairContractABI from "src/abi/PairContract.json";
 import { formatCurrency, getTokenPrice } from "src/helpers";
 import { ExternalPool } from "src/lib/ExternalPool";
 import { addresses, NetworkId } from "src/networkDetails";
@@ -74,7 +74,7 @@ export const fetchPoolData = async (address: string, gRipPrice: number) => {
     // iterate the pools
     const results = allPools.map(async pool => {
       const provider = NodeHelper.getAnynetStaticProvider(pool.networkID);
-      const poolContract = new ethers.Contract(pool.address as string, PairContractABI, provider) as PairContract;
+      const poolContract = new ethers.Contract(pool.address as string, PairContractABI.abi, provider) as PairContract;
       let userBalance = BigNumber.from("0");
       if (address) {
         userBalance = await poolContract.balanceOf(address);

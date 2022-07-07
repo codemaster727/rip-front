@@ -2,7 +2,7 @@ import { t } from "@lingui/macro";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ethers } from "ethers";
 
-import { abi as RIPProtocolGiving } from "../abi/RIPProtocolGiving.json";
+import RIPProtocolGiving from "../abi/RIPProtocolGiving.json";
 import { addresses } from "../constants";
 import { trackGAEvent, trackSegmentEvent } from "../helpers/analytics";
 import { getBalances, getMockRedemptionBalances, getRedemptionBalances } from "./AccountSlice";
@@ -27,7 +27,7 @@ export const redeemBalance = createAsyncThunk(
     }
 
     const signer = provider.getSigner();
-    const giving = new ethers.Contract(addresses[networkID].GIVING_ADDRESS as string, RIPProtocolGiving, signer);
+    const giving = new ethers.Contract(addresses[networkID].GIVING_ADDRESS as string, RIPProtocolGiving.abi, signer);
     const redeemableBalance = await giving.redeemableBalance(address);
     let redeemTx;
 
@@ -85,7 +85,11 @@ export const redeemMockBalance = createAsyncThunk(
     }
 
     const signer = provider.getSigner();
-    const giving = new ethers.Contract(addresses[networkID].MOCK_GIVING_ADDRESS as string, RIPProtocolGiving, signer);
+    const giving = new ethers.Contract(
+      addresses[networkID].MOCK_GIVING_ADDRESS as string,
+      RIPProtocolGiving.abi,
+      signer,
+    );
     const redeemableBalance = await giving.redeemableBalance(address);
     let redeemTx;
 

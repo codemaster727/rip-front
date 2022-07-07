@@ -17,7 +17,6 @@ import { shouldTriggerSafetyCheck } from "./helpers";
 import { calcBondDetails } from "./slices/BondSlice";
 import { loadAppDetails } from "./slices/AppSlice";
 import { loadAccountDetails, calculateUserBondDetails } from "./slices/AccountSlice";
-import { getZapTokenBalances } from "./slices/ZapSlice";
 import { info } from "./slices/MessagesSlice";
 
 import {
@@ -79,12 +78,12 @@ export function GlobalHooks() {
   return null;
 }
 
-// ðŸ˜¬ Sorry for all the console logging
+// ?˜¬ Sorry for all the console logging
 const DEBUG = false;
 
-// ðŸ›° providers
-if (DEBUG) console.log("ðŸ“¡ Connecting to Mainnet Ethereum");
-// ðŸ”­ block explorer URL
+// ?›° providers
+if (DEBUG) console.log("?“¡ Connecting to Mainnet Ethereum");
+// ?”­ block explorer URL
 // const blockExplorer = targetNetwork.blockExplorer;
 
 const drawerWidth = 280;
@@ -204,7 +203,6 @@ function App() {
           dispatch(calculateUserBondDetails({ address, bond, provider: loadProvider, networkID: networkId }));
         }
       });
-      dispatch(getZapTokenBalances({ address, networkID: networkId, provider: loadProvider }));
       expiredBonds.map(bond => {
         if (bond.getClaimability(networkId)) {
           dispatch(calculateUserBondDetails({ address, bond, provider: loadProvider, networkID: networkId }));

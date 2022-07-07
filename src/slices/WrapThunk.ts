@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ethers } from "ethers";
 import { IERC20, RIPProtocolStakingv2__factory } from "src/typechain";
 
-import { abi as ierc20ABI } from "../abi/IERC20.json";
+import ierc20ABI from "../abi/IERC20.json";
 import { addresses } from "../constants";
 import { trackGAEvent, trackSegmentEvent } from "../helpers/analytics";
 import { fetchAccountSuccess, getBalances } from "./AccountSlice";
@@ -27,8 +27,12 @@ export const changeApproval = createAsyncThunk(
     }
 
     const signer = provider.getSigner();
-    const sripContract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, ierc20ABI, signer) as IERC20;
-    const gripContract = new ethers.Contract(addresses[networkID].GRIP_ADDRESS as string, ierc20ABI, signer) as IERC20;
+    const sripContract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, ierc20ABI.abi, signer) as IERC20;
+    const gripContract = new ethers.Contract(
+      addresses[networkID].GRIP_ADDRESS as string,
+      ierc20ABI.abi,
+      signer,
+    ) as IERC20;
     let approveTx;
     let wrapAllowance = await sripContract.allowance(address, addresses[networkID].STAKING_V2);
     let unwrapAllowance = await gripContract.allowance(address, addresses[networkID].STAKING_V2);
