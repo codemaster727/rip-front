@@ -153,7 +153,6 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
     setProviderInitialized(networkHash.initialized);
     // Keep this at the bottom of the method, to ensure any repaints have the data we need
     setConnected(true);
-    console.log("here1: ", connectedProvider.connection);
     return connectedProvider;
   }, [provider, web3Modal, connected]);
 

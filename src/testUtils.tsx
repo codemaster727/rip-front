@@ -58,3 +58,8 @@ export * from "@testing-library/react";
 
 // override render method
 export { customRender as render, renderRoute };
+
+// export const createReduxWrapper =
+//   (initState = undefined) =>
+//   ({ children }: any) =>
+//     <Provider store={createStore(initState)}>{children}</Provider>

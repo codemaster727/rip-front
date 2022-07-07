@@ -17,7 +17,6 @@ import { shouldTriggerSafetyCheck } from "./helpers";
 import { calcBondDetails } from "./slices/BondSlice";
 import { loadAppDetails } from "./slices/AppSlice";
 import { loadAccountDetails, calculateUserBondDetails } from "./slices/AccountSlice";
-import { getZapTokenBalances } from "./slices/ZapSlice";
 import { info } from "./slices/MessagesSlice";
 
 import {
@@ -26,9 +25,9 @@ import {
   Zap,
   Wrap,
   V1Stake,
-  CausesDashboard,
-  DepositYield,
-  RedeemYield,
+  // CausesDashboard,
+  // DepositYield,
+  // RedeemYield,
   BondV2,
   ChooseBondV2,
   Swap,
@@ -52,7 +51,7 @@ import { dark as darkTheme } from "./themes/dark.js";
 import { light as lightTheme } from "./themes/light.js";
 import { girth as gTheme } from "./themes/girth.js";
 import { useGoogleAnalytics } from "./hooks/useGoogleAnalytics";
-import ProjectInfo from "./views/Give/ProjectInfo";
+// import ProjectInfo from "./views/Give/ProjectInfo";
 import projectData from "src/views/Give/projects.json";
 import { Updaters } from "./Root";
 import { getAllBonds, getUserNotes } from "./slices/BondSliceV2";
@@ -79,12 +78,12 @@ export function GlobalHooks() {
   return null;
 }
 
-// ðŸ˜¬ Sorry for all the console logging
+// ?˜¬ Sorry for all the console logging
 const DEBUG = false;
 
-// ðŸ›° providers
-if (DEBUG) console.log("ðŸ“¡ Connecting to Mainnet Ethereum");
-// ðŸ”­ block explorer URL
+// ?›° providers
+if (DEBUG) console.log("?“¡ Connecting to Mainnet Ethereum");
+// ?”­ block explorer URL
 // const blockExplorer = targetNetwork.blockExplorer;
 
 const drawerWidth = 280;
@@ -204,7 +203,6 @@ function App() {
           dispatch(calculateUserBondDetails({ address, bond, provider: loadProvider, networkID: networkId }));
         }
       });
-      dispatch(getZapTokenBalances({ address, networkID: networkId, provider: loadProvider }));
       expiredBonds.map(bond => {
         if (bond.getClaimability(networkId)) {
           dispatch(calculateUserBondDetails({ address, bond, provider: loadProvider, networkID: networkId }));
@@ -432,7 +430,7 @@ function App() {
                 <ProposalPage />
               </Route>
 
-              <Route exact path="/give">
+              {/* <Route exact path="/give">
                 <CausesDashboard />
               </Route>
               <Redirect from="/olympusgive" to="/give" />
@@ -457,7 +455,7 @@ function App() {
 
               <Route exact path="/give/redeem">
                 <RedeemYield />
-              </Route>
+              </Route> */}
 
               <Route path="/wrap">
                 <Route exact path={`/wrap`}>
@@ -471,7 +469,7 @@ function App() {
                 </Route>
               </Route>
 
-              <Redirect from="/bonds-v1" to="/bonds" />
+              {/* <Redirect from="/bonds-v1" to="/bonds" /> */}
 
               <Route path="/bonds">
                 {bondIndexes.map(index => {

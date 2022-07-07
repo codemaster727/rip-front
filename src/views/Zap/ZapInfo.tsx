@@ -8,6 +8,7 @@ import { Token, TokenStack } from "@olympusdao/component-library";
 import React from "react";
 
 import { ReactComponent as ArrowUp } from "../../assets/icons/arrow-up.svg";
+import RipIcon from "../../assets/icons/RipIcon.svg";
 import { trackGAEvent, trackSegmentEvent } from "../../helpers/analytics";
 
 const useStyles = makeStyles(theme => ({
@@ -175,7 +176,13 @@ const ZapInfo: React.FC<ZapInfoProps> = ({ address }) => {
             className={`${classes.infoHeader} oly-info-header-box`}
           >
             {/* @ts-ignore - (keith) add style prop & types to Token Component */}
-            <TokenStack tokens={["sOHM", "wsOHM"]} style={{ marginBottom: "16px" }} />
+            {/* <TokenStack tokens={["sOHM", "wsOHM"]} style={{ marginBottom: "16px" }} /> */}
+            <img
+              src={RipIcon}
+              width={84}
+              color="white"
+              style={{ marginBottom: "16px", background: "white", borderRadius: "8px", border: "3px solid white" }}
+            />
             <Typography color="textSecondary" align="left" style={{ color: "white" }} variant="h4">
               <Trans>You Choose</Trans>
             </Typography>

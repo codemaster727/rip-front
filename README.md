@@ -187,7 +187,7 @@ Auto deployed on [Fleek.co](http://fleek.co/) fronted by [Cloudflare](https://ww
 
 _**TODO**: TheGraph implementation/how/why we use it._
 
-### Continuous deployment
+<!-- ### Continuous deployment
 
 Commits to the follow branches are automatically deployed to their respective URLs.
 | Branch | URL |
@@ -200,7 +200,7 @@ Each PR into master will get its own custom URL that is visible on the PR page. 
 
 ### Feature Flags
 
-- Give: by default it is enabled. It can be disabled by setting the `REACT_APP_GIVE_ENABLED` environment variable to "false".
+- Give: by default it is enabled. It can be disabled by setting the `REACT_APP_GIVE_ENABLED` environment variable to "false". -->
 
 ## 🗣 Community
 

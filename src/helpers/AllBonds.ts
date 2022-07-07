@@ -1,18 +1,18 @@
 import { BigNumberish } from "ethers";
-import { abi as CvxBondContract } from "src/abi/bonds/CvxContract.json";
-import { abi as DaiBondContract } from "src/abi/bonds/DaiContract.json";
-import { abi as EthBondContract } from "src/abi/bonds/EthContract.json";
-import { abi as FraxBondContract } from "src/abi/bonds/FraxContract.json";
-import { abi as LusdBondContract } from "src/abi/bonds/LusdContract.json";
-import { abi as BondRipDaiContract } from "src/abi/bonds/RipDaiContract.json";
-import { abi as BondRipEthContract } from "src/abi/bonds/RipEthContract.json";
-import { abi as FraxRipBondContract } from "src/abi/bonds/RipFraxContract.json";
-import { abi as BondRipLusdContract } from "src/abi/bonds/RipLusdContract.json";
-import { abi as ierc20Abi } from "src/abi/IERC20.json";
-import { abi as ReserveRipDaiContract } from "src/abi/reserves/RipDai.json";
-import { abi as ReserveRipEthContract } from "src/abi/reserves/RipEth.json";
-import { abi as ReserveRipFraxContract } from "src/abi/reserves/RipFrax.json";
-import { abi as ReserveRipLusdContract } from "src/abi/reserves/RipLusd.json";
+import CvxBondContract from "src/abi/bonds/CvxContract.json";
+import DaiBondContract from "src/abi/bonds/DaiContract.json";
+import EthBondContract from "src/abi/bonds/EthContract.json";
+import FraxBondContract from "src/abi/bonds/FraxContract.json";
+import LusdBondContract from "src/abi/bonds/LusdContract.json";
+import BondRipDaiContract from "src/abi/bonds/RipDaiContract.json";
+import BondRipEthContract from "src/abi/bonds/RipEthContract.json";
+import FraxRipBondContract from "src/abi/bonds/RipFraxContract.json";
+import BondRipLusdContract from "src/abi/bonds/RipLusdContract.json";
+import ierc20Abi from "src/abi/IERC20.json";
+import ReserveRipDaiContract from "src/abi/reserves/RipDai.json";
+import ReserveRipEthContract from "src/abi/reserves/RipEth.json";
+import ReserveRipFraxContract from "src/abi/reserves/RipFrax.json";
+import ReserveRipLusdContract from "src/abi/reserves/RipLusd.json";
 import { addresses, NetworkId } from "src/constants";
 import { getTokenPrice } from "src/helpers";
 import { getBondCalculator } from "src/helpers/BondCalculator";
@@ -27,7 +27,7 @@ export const dai = new StableBond({
   payoutToken: "RIP",
   v2Bond: true,
   bondIconSvg: ["DAI"],
-  bondContractABI: DaiBondContract,
+  bondContractABI: DaiBondContract.abi,
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -84,7 +84,7 @@ export const fraxOld = new StableBond({
   payoutToken: "RIP",
   v2Bond: false,
   bondIconSvg: ["FRAX"],
-  bondContractABI: FraxBondContract,
+  bondContractABI: FraxBondContract.abi,
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -137,7 +137,7 @@ export const frax = new StableBond({
   payoutToken: "RIP",
   v2Bond: true,
   bondIconSvg: ["FRAX"],
-  bondContractABI: FraxBondContract,
+  bondContractABI: FraxBondContract.abi,
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -194,7 +194,7 @@ export const lusd = new StableBond({
   payoutToken: "RIP",
   v2Bond: false,
   bondIconSvg: ["LUSD"],
-  bondContractABI: LusdBondContract,
+  bondContractABI: LusdBondContract.abi,
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -254,8 +254,8 @@ export const eth = new CustomBond({
   payoutToken: "RIP",
   v2Bond: false,
   bondIconSvg: ["wETH"],
-  bondContractABI: EthBondContract,
-  reserveContract: ierc20Abi, // The Standard ierc20Abi since they're normal tokens
+  bondContractABI: EthBondContract.abi,
+  reserveContract: ierc20Abi.abi, // The Standard ierc20Abi since they're normal tokens
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -325,8 +325,8 @@ export const cvx = new CustomBond({
   payoutToken: "RIP",
   v2Bond: false,
   bondIconSvg: ["CVX"],
-  bondContractABI: CvxBondContract,
-  reserveContract: ierc20Abi, // The Standard ierc20Abi since they're normal tokens
+  bondContractABI: CvxBondContract.abi,
+  reserveContract: ierc20Abi.abi, // The Standard ierc20Abi since they're normal tokens
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -389,8 +389,8 @@ export const cvx_expired = new CustomBond({
   payoutToken: "RIP",
   v2Bond: false,
   bondIconSvg: ["CVX"],
-  bondContractABI: CvxBondContract,
-  reserveContract: ierc20Abi, // The Standard ierc20Abi since they're normal tokens
+  bondContractABI: CvxBondContract.abi,
+  reserveContract: ierc20Abi.abi, // The Standard ierc20Abi since they're normal tokens
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -456,8 +456,8 @@ export const rip_dai = new LPBond({
   payoutToken: "RIP",
   v2Bond: true,
   bondIconSvg: ["OHM", "DAI"],
-  bondContractABI: BondRipDaiContract,
-  reserveContract: ReserveRipDaiContract,
+  bondContractABI: BondRipDaiContract.abi,
+  reserveContract: ReserveRipDaiContract.abi,
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -513,8 +513,8 @@ export const rip_daiOld = new LPBond({
   payoutToken: "RIP",
   v2Bond: false,
   bondIconSvg: ["OHM", "DAI"],
-  bondContractABI: BondRipDaiContract,
-  reserveContract: ReserveRipDaiContract,
+  bondContractABI: BondRipDaiContract.abi,
+  reserveContract: ReserveRipDaiContract.abi,
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -574,8 +574,8 @@ export const rip_frax = new LPBond({
   payoutToken: "RIP",
   v2Bond: true,
   bondIconSvg: ["OHM", "FRAX"],
-  bondContractABI: FraxRipBondContract,
-  reserveContract: ReserveRipFraxContract,
+  bondContractABI: FraxRipBondContract.abi,
+  reserveContract: ReserveRipFraxContract.abi,
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -630,8 +630,8 @@ export const rip_fraxOld = new LPBond({
   payoutToken: "RIP",
   v2Bond: false,
   bondIconSvg: ["OHM", "FRAX"],
-  bondContractABI: FraxRipBondContract,
-  reserveContract: ReserveRipFraxContract,
+  bondContractABI: FraxRipBondContract.abi,
+  reserveContract: ReserveRipFraxContract.abi,
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -691,8 +691,8 @@ export const rip_lusd = new LPBond({
   payoutToken: "RIP",
   v2Bond: false,
   bondIconSvg: ["OHM", "LUSD"],
-  bondContractABI: BondRipLusdContract,
-  reserveContract: ReserveRipLusdContract,
+  bondContractABI: BondRipLusdContract.abi,
+  reserveContract: ReserveRipLusdContract.abi,
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -753,8 +753,8 @@ export const rip_weth = new CustomBond({
   payoutToken: "RIP",
   v2Bond: true,
   bondIconSvg: ["OHM", "wETH"],
-  bondContractABI: BondRipEthContract,
-  reserveContract: ReserveRipEthContract,
+  bondContractABI: BondRipEthContract.abi,
+  reserveContract: ReserveRipEthContract.abi,
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
@@ -840,8 +840,8 @@ export const rip_wethOld = new CustomBond({
   payoutToken: "RIP",
   v2Bond: false,
   bondIconSvg: ["OHM", "wETH"],
-  bondContractABI: BondRipEthContract,
-  reserveContract: ReserveRipEthContract,
+  bondContractABI: BondRipEthContract.abi,
+  reserveContract: ReserveRipEthContract.abi,
   isBondable: {
     [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,

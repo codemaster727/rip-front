@@ -7,12 +7,12 @@ import { RootState } from "src/store";
 import { FiatDAOContract, FuseProxy, IERC20, IERC20__factory } from "src/typechain";
 import { GRIP__factory } from "src/typechain/factories/GRIP__factory";
 
-import { abi as fiatDAO } from "../abi/FiatDAOContract.json";
-import { abi as fuseProxy } from "../abi/FuseProxy.json";
-import { abi as ierc20Abi } from "../abi/IERC20.json";
-import { abi as MockSrip } from "../abi/MockSrip.json";
-import { abi as RIPProtocolGiving } from "../abi/RIPProtocolGiving.json";
-import { abi as RIPProtocolMockGiving } from "../abi/RIPProtocolMockGiving.json";
+import fiatDAO from "../abi/FiatDAOContract.json";
+import fuseProxy from "../abi/FuseProxy.json";
+import ierc20Abi from "../abi/IERC20.json";
+import MockSrip from "../abi/MockSrip.json";
+import RIPProtocolGiving from "../abi/RIPProtocolGiving.json";
+import RIPProtocolMockGiving from "../abi/RIPProtocolMockGiving.json";
 import { addresses, NetworkId } from "../constants";
 import { handleContractError, setAll } from "../helpers";
 import { getMockRedemptionBalancesAsync, getRedemptionBalancesAsync } from "../helpers/GiveRedemptionBalanceHelper";
@@ -110,7 +110,7 @@ export const getBalances = createAsyncThunk(
     try {
       const ripContract = new ethers.Contract(
         addresses[networkID].RIP_ADDRESS as string,
-        ierc20Abi,
+        ierc20Abi.abi,
         provider,
       ) as IERC20;
       ripBalance = await ripContract.balanceOf(address);
@@ -120,7 +120,7 @@ export const getBalances = createAsyncThunk(
     try {
       const sripContract = new ethers.Contract(
         addresses[networkID].SRIP_ADDRESS as string,
-        ierc20Abi,
+        ierc20Abi.abi,
         provider,
       ) as IERC20;
       sripBalance = await sripContract.balanceOf(address);
@@ -128,13 +128,21 @@ export const getBalances = createAsyncThunk(
       handleContractError(e);
     }
     try {
-      const ripV2Contract = new ethers.Contract(addresses[networkID].RIP_V2 as string, ierc20Abi, provider) as IERC20;
+      const ripV2Contract = new ethers.Contract(
+        addresses[networkID].RIP_V2 as string,
+        ierc20Abi.abi,
+        provider,
+      ) as IERC20;
       ripV2Balance = await ripV2Contract.balanceOf(address);
     } catch (e) {
       handleContractError(e);
     }
     try {
-      const sripV2Contract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, ierc20Abi, provider) as IERC20;
+      const sripV2Contract = new ethers.Contract(
+        addresses[networkID].SRIP_V2 as string,
+        ierc20Abi.abi,
+        provider,
+      ) as IERC20;
       sripV2Balance = await sripV2Contract.balanceOf(address);
     } catch (e) {
       handleContractError(e);
@@ -150,7 +158,7 @@ export const getBalances = createAsyncThunk(
         if (addresses[networkID][fuseAddressKey]) {
           const fsripContract = new ethers.Contract(
             addresses[networkID][fuseAddressKey] as string,
-            fuseProxy,
+            fuseProxy.abi,
             provider.getSigner(),
           ) as FuseProxy;
           const balanceOfUnderlying = await fsripContract.callStatic.balanceOfUnderlying(address);
@@ -171,7 +179,7 @@ export const getBalances = createAsyncThunk(
       if (addresses[networkID].FIATDAO_WSRIP_ADDRESS) {
         const fiatDaoContract = new ethers.Contract(
           addresses[networkID].FIATDAO_WSRIP_ADDRESS as string,
-          fiatDAO,
+          fiatDAO.abi,
           provider,
         ) as FiatDAOContract;
         fiatDaowsripBalance = await fiatDaoContract.balanceOf(address, addresses[networkID].WSRIP_ADDRESS as string);
@@ -186,7 +194,7 @@ export const getBalances = createAsyncThunk(
     if (addresses[networkID] && addresses[networkID].MOCK_SRIP) {
       const mockSripContract = new ethers.Contract(
         addresses[networkID].MOCK_SRIP as string,
-        MockSrip,
+        MockSrip.abi,
         provider,
       ) as IERC20;
       mockSripBalance = await mockSripContract.balanceOf(address);
@@ -234,11 +242,11 @@ export const getDonationBalances = createAsyncThunk(
     const donationInfo: IUserDonationInfo = {};
 
     if (addresses[networkID] && addresses[networkID].GIVING_ADDRESS) {
-      const sripContract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, ierc20Abi, provider);
+      const sripContract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, ierc20Abi.abi, provider);
       giveAllowance = await sripContract.allowance(address, addresses[networkID].GIVING_ADDRESS);
       const givingContract = new ethers.Contract(
         addresses[networkID].GIVING_ADDRESS as string,
-        RIPProtocolGiving,
+        RIPProtocolGiving.abi,
         provider,
       );
       try {
@@ -283,11 +291,11 @@ export const getMockDonationBalances = createAsyncThunk(
     const donationInfo: IUserDonationInfo = {};
 
     if (addresses[networkID] && addresses[networkID].MOCK_SRIP) {
-      const mockSripContract = new ethers.Contract(addresses[networkID].MOCK_SRIP as string, MockSrip, provider);
+      const mockSripContract = new ethers.Contract(addresses[networkID].MOCK_SRIP as string, MockSrip.abi, provider);
       giveAllowance = await mockSripContract._allowedValue(address, addresses[networkID].MOCK_GIVING_ADDRESS);
       const givingContract = new ethers.Contract(
         addresses[networkID].MOCK_GIVING_ADDRESS as string,
-        RIPProtocolMockGiving,
+        RIPProtocolMockGiving.abi,
         provider,
       );
 

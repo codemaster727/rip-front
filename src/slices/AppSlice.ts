@@ -3,11 +3,11 @@ import { ethers } from "ethers";
 import { NodeHelper } from "src/helpers/NodeHelper";
 import { RootState } from "src/store";
 
-import { abi as sRIPv2 } from "../abi/sRipv2.json";
+import sRIP from "../abi/sRIP.json";
 import { addresses, NetworkId } from "../constants";
 import { getMarketPrice, getTokenPrice, setAll } from "../helpers";
 import apollo from "../lib/apolloClient";
-import { RIPProtocolStakingv2__factory, SRipv2 } from "../typechain";
+import { RIPProtocolStakingv2__factory, SRIP } from "../typechain";
 import { IBaseAsyncThunk } from "./interfaces";
 
 interface IProtocolMetrics {
@@ -92,7 +92,7 @@ export const loadAppDetails = createAsyncThunk(
     }
     const currentBlock = await provider.getBlockNumber();
     const stakingContract = RIPProtocolStakingv2__factory.connect(addresses[networkID].STAKING_V2, provider);
-    const sripMainContract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, sRIPv2, provider) as SRipv2;
+    const sripMainContract = new ethers.Contract(addresses[networkID].SRIP as string, sRIP.abi, provider) as SRIP;
     // Calculating staking
     const epoch = await stakingContract.epoch();
     let secondsToEpoch;
@@ -212,7 +212,7 @@ const appSlice = createSlice({
   name: "app",
   initialState,
   reducers: {
-    fetchAppSuccess(state, action) {
+    fetchAppSuccess(state: any, action: any) {
       setAll(state, action.payload);
     },
   },

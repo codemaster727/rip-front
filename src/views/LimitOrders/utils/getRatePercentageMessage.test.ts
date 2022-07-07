@@ -1,4 +1,4 @@
-import { JSBI, Price, Token } from "@pancakeswap/sdk";
+import { JSBI, Percent, Price, Token } from "@pancakeswap/sdk";
 
 import getRatePercentageDifference from "./getRatePercentageDifference";
 import { getRatePercentageMessage, PercentageDirection } from "./getRatePercentageMessage";
@@ -20,7 +20,7 @@ const ELEVEN_BUSD_PER_CAKE = new Price(CAKE, BUSD, EIGHTEEN_DECIMALS, ELEVEN);
 const SEVEN_HUNDRED_BUSD_PER_CAKE = new Price(CAKE, BUSD, EIGHTEEN_DECIMALS, SEVEN_HUNDRED);
 
 const mockT = (key: string, data?: { percentage?: string }) => {
-  return key.includes("%percentage%") ? key.replace("%percentage%", data.percentage) : key;
+  return key.includes("%percentage%") ? key.replace("%percentage%", data?.percentage as string) : key;
 };
 
 describe("limitOrders/utils/getRatePercentageMessage", () => {
@@ -46,8 +46,8 @@ describe("limitOrders/utils/getRatePercentageMessage", () => {
       ["at market price", PercentageDirection.MARKET],
     ],
   ])("returns correct message and direction", (percent, expected) => {
-    it(`for ${percent.toSignificant(6)} Percent`, () => {
-      const [message, direction] = getRatePercentageMessage(percent, mockT);
+    it(`for ${percent?.toSignificant(6)} Percent`, () => {
+      const [message, direction] = getRatePercentageMessage(percent as Percent, mockT);
       expect(message).toBe(expected[0]);
       expect(direction).toBe(expected[1]);
     });

@@ -8,8 +8,8 @@ import { IBondV2 } from "src/slices/BondSliceV2";
 import { IBaseAsyncThunk } from "src/slices/interfaces";
 import { GRIP__factory } from "src/typechain/factories/GRIP__factory";
 
-import { abi as PairContractABI } from "../abi/PairContract.json";
-import { abi as RedeemHelperABI } from "../abi/RedeemHelper.json";
+import PairContractABI from "../abi/PairContract.json";
+import RedeemHelperABI from "../abi/RedeemHelper.json";
 import { ReactComponent as RipImg } from "../assets/tokens/token_RIP.svg";
 import { ReactComponent as SRipImg } from "../assets/tokens/token_sRIP.svg";
 import { addresses, BLOCK_RATE_SECONDS, EPOCH_INTERVAL, NetworkId } from "../constants";
@@ -26,7 +26,7 @@ export async function getMarketPrice() {
   const mainnetProvider = NodeHelper.getMainnetStaticProvider();
   // v2 price
   const rip_dai_address = rip_dai.getAddressForReserve(NetworkId.MAINNET);
-  const pairContract = new ethers.Contract(rip_dai_address || "", PairContractABI, mainnetProvider) as PairContract;
+  const pairContract = new ethers.Contract(rip_dai_address || "", PairContractABI.abi, mainnetProvider) as PairContract;
   const reserves = await pairContract.getReserves();
   return Number(reserves[1].toString()) / Number(reserves[0].toString()) / 10 ** 9;
 }
@@ -240,7 +240,7 @@ export function contractForRedeemHelper({
 }) {
   return new ethers.Contract(
     addresses[networkID].REDEEM_HELPER_ADDRESS as string,
-    RedeemHelperABI,
+    RedeemHelperABI.abi,
     provider,
   ) as RedeemHelper;
 }

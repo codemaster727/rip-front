@@ -23,7 +23,7 @@ const ZapStakeHeader: React.FC<ZapStakeHeaderProps> = ({ images }) => {
       width="100%"
     >
       <Grid container direction="row">
-        <Grid item xs={6} sm={4}>
+        <Grid item xs={6} sm={6}>
           <Box alignItems="center" display="flex" flexDirection="column">
             <TokenStack images={images} tokens={["more"]} style={{ marginBottom: "16px" }} />
             <Typography color="textSecondary">{isVerySmallScreen ? t`Any asset` : t`Select any asset`}</Typography>
@@ -31,7 +31,7 @@ const ZapStakeHeader: React.FC<ZapStakeHeaderProps> = ({ images }) => {
         </Grid>
 
         {isSmallScreen ? (
-          <Grid item xs={6} sm={4}>
+          <Grid item xs={6} sm={6}>
             <Box alignItems="center" display="flex" flexDirection="column">
               <TokenStack tokens={["sOHM", "zap"]} />
               <Typography color="textSecondary">
@@ -41,7 +41,7 @@ const ZapStakeHeader: React.FC<ZapStakeHeaderProps> = ({ images }) => {
           </Grid>
         ) : (
           <>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={6}>
               <Box alignItems="center" display="flex" flexDirection="column" marginX={1}>
                 <Token name="zap" style={{ marginBottom: "16px" }} />
                 <Typography color="textSecondary">
@@ -49,14 +49,14 @@ const ZapStakeHeader: React.FC<ZapStakeHeaderProps> = ({ images }) => {
                 </Typography>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={4}>
+            {/* <Grid item xs={12} sm={4}>
               <Box alignItems="center" display="flex" flexDirection="column" marginX={1}>
                 <TokenStack tokens={["sOHM", "wsOHM"]} style={{ marginBottom: "16px" }} />
                 <Typography color="textSecondary">
                   <Trans>Auto staked</Trans>
                 </Typography>
               </Box>
-            </Grid>
+            </Grid> */}
           </>
         )}
       </Grid>

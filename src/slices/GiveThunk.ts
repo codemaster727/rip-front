@@ -2,10 +2,10 @@ import { t } from "@lingui/macro";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ethers } from "ethers";
 
-import { abi as ierc20Abi } from "../abi/IERC20.json";
-import { abi as MockSrip } from "../abi/MockSrip.json";
-import { abi as RIPProtocolGiving } from "../abi/RIPProtocolGiving.json";
-import { abi as RIPProtocolMockGiving } from "../abi/RIPProtocolMockGiving.json";
+import ierc20Abi from "../abi/IERC20.json";
+import MockSrip from "../abi/MockSrip.json";
+import RIPProtocolGiving from "../abi/RIPProtocolGiving.json";
+import RIPProtocolMockGiving from "../abi/RIPProtocolMockGiving.json";
 import { addresses, NetworkId } from "../constants";
 import { trackGAEvent, trackSegmentEvent } from "../helpers/analytics";
 import { fetchAccountSuccess, getBalances, getDonationBalances, getMockDonationBalances } from "./AccountSlice";
@@ -61,7 +61,7 @@ export const changeApproval = createAsyncThunk(
     }
 
     const signer = provider.getSigner();
-    const sripContract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, ierc20Abi, signer);
+    const sripContract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, ierc20Abi.abi, signer);
     let approveTx;
     try {
       approveTx = await sripContract.approve(
@@ -108,7 +108,7 @@ export const changeMockApproval = createAsyncThunk(
       this is the best way to avoid manually switching out code every deployment
     */
     const signer = provider.getSigner();
-    const sripContract = new ethers.Contract(addresses[networkID].MOCK_SRIP as string, MockSrip, signer);
+    const sripContract = new ethers.Contract(addresses[networkID].MOCK_SRIP as string, MockSrip.abi, signer);
     let approveTx;
     try {
       approveTx = await sripContract.approve(
@@ -153,7 +153,7 @@ export const changeGive = createAsyncThunk(
     }
 
     const signer = provider.getSigner();
-    const giving = new ethers.Contract(addresses[networkID].GIVING_ADDRESS as string, RIPProtocolGiving, signer);
+    const giving = new ethers.Contract(addresses[networkID].GIVING_ADDRESS as string, RIPProtocolGiving.abi, signer);
     let giveTx;
 
     const uaData: IUAData = {
@@ -230,7 +230,7 @@ export const changeMockGive = createAsyncThunk(
     const signer = provider.getSigner();
     const giving = new ethers.Contract(
       addresses[networkID].MOCK_GIVING_ADDRESS as string,
-      RIPProtocolMockGiving,
+      RIPProtocolMockGiving.abi,
       signer,
     );
     let giveTx;
@@ -308,7 +308,7 @@ export const getTestTokens = createAsyncThunk(
     }
 
     const signer = provider.getSigner();
-    const mockSripContract = new ethers.Contract(addresses[networkID].MOCK_SRIP as string, MockSrip, signer);
+    const mockSripContract = new ethers.Contract(addresses[networkID].MOCK_SRIP as string, MockSrip.abi, signer);
     const pendingTxnType = "drip";
     let getTx;
     try {

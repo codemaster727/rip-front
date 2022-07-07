@@ -1,6 +1,6 @@
 import { BigNumber, ethers } from "ethers";
 
-import { abi as RIPProtocolGiving } from "../abi/RIPProtocolGiving.json";
+import RIPProtocolGiving from "../abi/RIPProtocolGiving.json";
 import { addresses } from "../constants";
 import { IBaseAddressAsyncThunk } from "../slices/interfaces";
 
@@ -27,7 +27,7 @@ export const getRedemptionBalancesAsync = async ({ address, networkID, provider 
   if (addresses[networkID] && addresses[networkID].GIVING_ADDRESS) {
     const givingContract = new ethers.Contract(
       addresses[networkID].GIVING_ADDRESS as string,
-      RIPProtocolGiving,
+      RIPProtocolGiving.abi,
       provider,
     );
     try {
@@ -67,7 +67,7 @@ export const getMockRedemptionBalancesAsync = async ({ address, networkID, provi
   if (addresses[networkID] && addresses[networkID].MOCK_GIVING_ADDRESS) {
     const givingContract = new ethers.Contract(
       addresses[networkID].MOCK_GIVING_ADDRESS as string,
-      RIPProtocolGiving,
+      RIPProtocolGiving.abi,
       provider,
     );
     redeemableBalance = await givingContract.redeemableBalance(address);
@@ -105,7 +105,7 @@ export const getDonorNumbers = async ({ address, networkID, provider }: IBaseAdd
 
   const givingContract = new ethers.Contract(
     addresses[networkID].GIVING_ADDRESS as string,
-    RIPProtocolGiving,
+    RIPProtocolGiving.abi,
     provider,
   );
 

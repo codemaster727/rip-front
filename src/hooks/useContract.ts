@@ -1,8 +1,8 @@
 import { Contract, ContractInterface } from "@ethersproject/contracts";
 import { StaticJsonRpcProvider, Web3Provider } from "@ethersproject/providers";
 import { useMemo } from "react";
-import { abi as IERC20_ABI } from "src/abi/IERC20.json";
-import { abi as PAIR_CONTRACT_ABI } from "src/abi/PairContract.json";
+import IERC20_ABI from "src/abi/IERC20.json";
+import PAIR_CONTRACT_ABI from "src/abi/PairContract.json";
 import STAKING_ABI from "src/abi/RIPProtocolStakingv2.json";
 import { NetworkId } from "src/constants";
 import { AddressMap, STAKING_ADDRESSES } from "src/constants/addresses";
@@ -53,7 +53,7 @@ export function useContract<TContract extends Contract = Contract>(
 }
 
 const usePairContractForRip = (address: string) => {
-  return useContract<PairContract>(address, PAIR_CONTRACT_ABI);
+  return useContract<PairContract>(address, PAIR_CONTRACT_ABI.abi);
 };
 
 export const useStakingContract = () => {
@@ -70,7 +70,7 @@ export const useRipDaiReserveContract = () => {
 };
 
 export const useTokenContractForRip = (addressMap: AddressMap) => {
-  return useContract<IERC20>(addressMap, IERC20_ABI);
+  return useContract<IERC20>(addressMap, IERC20_ABI.abi);
 };
 
 //Pancake
@@ -424,3 +424,32 @@ export function usePairContract(pairAddress: string | undefined, withSignerIfPos
 export function useMulticallContract() {
   return useContract<Multicall>(getMulticallAddress(), multiCallAbi, undefined);
 }
+
+/**
+ * @deprecated Please see note at the top of this file
+ *
+ * Helper function to create a dynamic contract hook.
+ * Dynamic contracts use the provider/signer injected by the users wallet.
+ * Since a wallet can be connected to any network, a dynamic contract hook
+ * can possibly return null if there is no contract address specified for
+ * the currently active network.
+ */
+const createDynamicContract = <TContract extends Contract = Contract>(ABI: ContractInterface) => {
+  return (addressMap: AddressMap, asSigner = false) => {
+    const { provider, networkId: chainId } = useWeb3Context();
+    const signer = provider.getSigner();
+
+    return useMemo(() => {
+      const address = addressMap[chainId as keyof typeof addressMap];
+
+      if (!address) return null;
+
+      const providerOrSigner = asSigner && signer ? signer : provider;
+
+      return new Contract(address, ABI, providerOrSigner) as TContract;
+    }, [addressMap, chainId, asSigner, signer, provider]);
+  };
+};
+
+// Dynamic contracts
+export const useDynamicTokenContract = createDynamicContract<IERC20>(IERC20_ABI.abi);

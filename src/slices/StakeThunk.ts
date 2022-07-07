@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { BigNumber, ethers } from "ethers";
 import { IERC20, RIPProtocolStakingv2__factory } from "src/typechain";
 
-import { abi as ierc20ABI } from "../abi/IERC20.json";
+import ierc20ABI from "../abi/IERC20.json";
 import { addresses } from "../constants";
 import { trackGAEvent, trackSegmentEvent } from "../helpers/analytics";
 import { fetchAccountSuccess, getBalances } from "./AccountSlice";
@@ -52,8 +52,8 @@ export const changeApproval = createAsyncThunk(
       return;
     }
     const signer = provider.getSigner();
-    const ripV2Contract = new ethers.Contract(addresses[networkID].RIP_V2 as string, ierc20ABI, signer) as IERC20;
-    const sripV2Contract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, ierc20ABI, signer) as IERC20;
+    const ripV2Contract = new ethers.Contract(addresses[networkID].RIP_V2 as string, ierc20ABI.abi, signer) as IERC20;
+    const sripV2Contract = new ethers.Contract(addresses[networkID].SRIP_V2 as string, ierc20ABI.abi, signer) as IERC20;
     let approveTx;
     let stakeAllowanceV2 = await ripV2Contract.allowance(address, addresses[networkID].STAKING_V2);
     let unstakeAllowanceV2 = await sripV2Contract.allowance(address, addresses[networkID].STAKING_V2);

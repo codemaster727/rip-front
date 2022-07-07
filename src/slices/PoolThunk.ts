@@ -3,9 +3,9 @@ import { BigNumber, ethers } from "ethers";
 import { RootState } from "src/store";
 import { AwardAbi2, PrizePoolAbi, PrizePoolAbi2, SRIP } from "src/typechain";
 
-import { abi as AwardPool } from "../abi/33-together/AwardAbi2.json";
-import { abi as PrizePool } from "../abi/33-together/PrizePoolAbi2.json";
-import { abi as ierc20Abi } from "../abi/IERC20.json";
+import AwardPool from "../abi/33-together/AwardAbi2.json";
+import PrizePool from "../abi/33-together/PrizePoolAbi2.json";
+import ierc20Abi from "../abi/IERC20.json";
 import { addresses } from "../constants";
 import { setAll } from "../helpers";
 import { getCreditMaturationDaysAndLimitPercentage } from "../helpers/33Together";
@@ -28,7 +28,7 @@ export const getPoolValues = createAsyncThunk(
     // calculate 33-together
     const poolReader = new ethers.Contract(
       addresses[networkID].PT_PRIZE_POOL_ADDRESS,
-      PrizePool,
+      PrizePool.abi,
       provider,
     ) as PrizePoolAbi;
     const poolAwardBalance = await poolReader.callStatic.captureAwardBalance();
@@ -40,7 +40,7 @@ export const getPoolValues = createAsyncThunk(
 
     const awardReader = new ethers.Contract(
       addresses[networkID].PT_PRIZE_STRATEGY_ADDRESS,
-      AwardPool,
+      AwardPool.abi,
       provider,
     ) as AwardAbi2;
     const poolAwardPeriodRemainingSeconds = await awardReader.prizePeriodRemainingSeconds();
@@ -57,7 +57,7 @@ export const getPoolValues = createAsyncThunk(
 export const getRNGStatus = createAsyncThunk("pool/getRNGStatus", async ({ networkID, provider }: IBaseAsyncThunk) => {
   const awardReader = new ethers.Contract(
     addresses[networkID].PT_PRIZE_STRATEGY_ADDRESS,
-    AwardPool,
+    AwardPool.abi,
     provider,
   ) as AwardAbi2;
   const isRngRequested = await awardReader.isRngRequested();
@@ -80,7 +80,7 @@ export const changeApproval = createAsyncThunk(
     }
 
     const signer = provider.getSigner();
-    const sripContract = new ethers.Contract(addresses[networkID].SRIP_ADDRESS, ierc20Abi, signer) as SRIP;
+    const sripContract = new ethers.Contract(addresses[networkID].SRIP_ADDRESS, ierc20Abi.abi, signer) as SRIP;
 
     let approveTx;
     let depositAllowance = await sripContract.allowance(address, addresses[networkID].PT_PRIZE_POOL_ADDRESS);
@@ -142,7 +142,7 @@ export const poolDeposit = createAsyncThunk(
     const signer = provider.getSigner();
     const poolContract = new ethers.Contract(
       addresses[networkID].PT_PRIZE_POOL_ADDRESS,
-      PrizePool,
+      PrizePool.abi,
       signer,
     ) as PrizePoolAbi;
     let poolTx;
@@ -212,7 +212,7 @@ export const getEarlyExitFee = createAsyncThunk(
   async ({ value, provider, address, networkID }: IValueAsyncThunk) => {
     const poolReader = new ethers.Contract(
       addresses[networkID].PT_PRIZE_POOL_ADDRESS,
-      PrizePool,
+      PrizePool.abi,
       provider,
     ) as PrizePoolAbi;
     // NOTE (appleseed): we chain callStatic in the below function to force the transaction through w/o a gas fee
@@ -254,7 +254,7 @@ export const poolWithdraw = createAsyncThunk(
     const signer = provider.getSigner();
     const poolContract = new ethers.Contract(
       addresses[networkID].PT_PRIZE_POOL_ADDRESS,
-      PrizePool,
+      PrizePool.abi,
       signer,
     ) as PrizePoolAbi2;
 
@@ -323,7 +323,7 @@ export const awardProcess = createAsyncThunk(
     const signer = provider.getSigner();
     const poolContract = new ethers.Contract(
       addresses[networkID].PT_PRIZE_STRATEGY_ADDRESS,
-      AwardPool,
+      AwardPool.abi,
       signer,
     ) as AwardAbi2;
 

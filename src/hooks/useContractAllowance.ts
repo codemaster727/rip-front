@@ -9,24 +9,27 @@ import {
   WSRIP_ADDRESSES,
 } from "src/constants/addresses";
 import { queryAssertion } from "src/helpers";
+import { nonNullable } from "src/helpers/types/nonNullable";
 
 import { useWeb3Context } from ".";
 import { useTokenContractForRip } from "./useContract";
 
-export const contractAllowanceQueryKey = (networkId?: NetworkId, address?: string) => [
-  "useContractAllowances",
-  networkId,
-  address,
-];
+export const contractAllowanceQueryKey = (
+  address?: string,
+  networkId?: NetworkId,
+  tokenMap?: AddressMap,
+  contractMap?: AddressMap,
+) => ["useContractAllowances", address, networkId, tokenMap, contractMap].filter(nonNullable);
 
 export const useContractAllowance = (tokenMap: AddressMap, contractMap: AddressMap) => {
   const { address, networkId } = useWeb3Context();
   const token = useTokenContractForRip(tokenMap);
 
+  const key = contractAllowanceQueryKey(address, networkId, tokenMap, contractMap);
   return useQuery<BigNumber, Error>(
-    contractAllowanceQueryKey(networkId, address),
+    key,
     async () => {
-      queryAssertion(address && networkId, contractAllowanceQueryKey(networkId, address));
+      queryAssertion(address && networkId, key);
 
       const contractAddress = contractMap[networkId as NetworkId];
 
